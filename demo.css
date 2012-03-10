@@ -1,0 +1,81 @@
+/* Move the sidebar into the header. */
+#sidebar {
+    /* Creates a nice space between lines. */
+    line-height: 3ex;
+    float: none;
+    width: 100%;
+    margin: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+#sidebar, #header, #header a {
+    /* background: #000000; */
+    /* color: #EEEEEE !important; */
+}
+
+#header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#menubar {
+    width: 100%;
+}
+
+#external-links {
+    float: right;
+}
+
+#internal-links a {
+    padding-right: 1em;
+}
+
+#internal-links {
+    /* font-size: 2em; */
+}
+
+.centered {
+    text-align: center;
+}
+
+#footer {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+body {
+    margin: 0px;
+}
+
+#title {
+    margin-bottom: 1em;
+}
+
+#title-name {
+    font-size: 2.5em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#internal-links a {
+    color: DarkGrey;
+    text-decoration: none;
+}
+
+/* Centre the page contents. */
+#whole-page {
+    margin-right: auto;
+    margin-left: auto;
+    /* XXX Why does the page not narrow when there's no content? */
+    max-width: 90ex;
+    width: 90ex;
+}
+
+/* Put the last modified date on the right, in a smaller, lighter font. */
+#copyright {
+    text-align: right;
+    font-size: smaller;
+    font-weight: lighter;
+}
