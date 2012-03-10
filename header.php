@@ -47,13 +47,13 @@
 	<meta name="google-site-verification" content="">
 	<!-- Speaking of Google, don't forget to set your site up: http://google.com/webmasters -->
 
-	<meta name="author" content="Your Name Here">
-	<meta name="Copyright" content="Copyright Your Name Here 2011. All Rights Reserved.">
+	<meta name="author" content="John Tobin">
+	<meta name="Copyright" content="Copyright Ariane Tobin Jewellery 2012. All Rights Reserved.">
 
 	<!-- Dublin Core Metadata : http://dublincore.org/ -->
-	<meta name="DC.title" content="Project Name">
-	<meta name="DC.subject" content="What you're about.">
-	<meta name="DC.creator" content="Who made this site.">
+	<meta name="DC.title" content="Ariane Tobin Jewellery">
+	<meta name="DC.subject" content="Ariane Tobin Jewellery">
+	<meta name="DC.creator" content="John Tobin">
 
 	<!--  Mobile Viewport meta tag
 	j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
@@ -64,12 +64,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	-->
 
+    <!-- XXX FAVICON. -->
 	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/_/img/favicon.ico">
 	<!-- This is the traditional favicon.
 		 - size: 16x16 or 32x32
 		 - transparency is OK
 		 - see wikipedia for info on browser support: http://mky.be/favicon/ -->
 
+    <!-- XXX FAVICON. -->
 	<link rel="apple-touch-icon" href="<?php bloginfo('template_directory'); ?>/_/img/apple-touch-icon.png">
 	<!-- The is the icon for iOS's Web Clip.
 		 - size: 57x57 for older iPhones, 72x72 for iPads, 114x114 for iPhone4's retina display (IMHO, just go ahead and use the biggest one)
@@ -83,6 +85,10 @@
 	<script src="<?php bloginfo('template_directory'); ?>/_/js/modernizr-1.7.min.js"></script>
 
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php bloginfo('rss2_url'); ?>" />
+    <link rel="alternate" type="text/xml" title="RSS .92" href="<?php bloginfo('rss_url'); ?>" />
+    <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
 
 	<?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
 
@@ -118,8 +124,7 @@
                     <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img src="images/Google_plus_16.png" alt="Google Plus icon" /></a>
                     <a href="http://pinterest.com/arianetobin/"><img src="http://passets-cdn.pinterest.com/images/small-p-button.png" alt="Pinterest icon" /></a>
                     <!-- <a href="ETSY"><img src="XXX" /></a> -->
-                    <!-- TODO: Make the rss feed link work. -->
-                    <a href="RSS FEED"><img src="images/rss_16.jpg" alt="RSS feed icon" /></a>
+                    <a href="<?php bloginfo('rss2_url'); ?>"><img src="images/rss_16.jpg" alt="RSS feed icon" /></a>
                 </span>
             </div>
 		</header>
