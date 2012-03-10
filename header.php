@@ -95,7 +95,32 @@
 	<div id="page-wrap"><!-- not needed? up to you: http://camendesign.com/code/developpeurs_sans_frontieres -->
 
 		<header id="header">
-			<h1><a href="<?php echo get_option('home'); ?>/"><?php bloginfo('name'); ?></a></h1>
+            <span id="logo">
+                <img src="<?php bloginfo('template_directory'); ?>/images/logo.png" alt="<?php bloginfo('name'); ?> logo" />
+            </span>
+			<h1><a href="<?php echo get_option('home'); ?>/"><?php strtolower(bloginfo('name')); ?></a></h1>
 			<div class="description"><?php bloginfo('description'); ?></div>
+
+            <div id="menubar">
+                <span id="internal-links">
+                    <a href="/">Home</a>
+                    <a href="/jewellery/">Jewellery</a>
+                    <a href="/buy-online/">Buy Online</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                    <a href="/contact/">Contact</a>
+                </span>
+
+                <span id="external-links">
+                    <!-- TODO: make the images greyed out until hovered over.  Notes: jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to do and undo it on hover?  -->
+                    <a href="http://www.facebook.com/ArianeTobinJewellery"><img src="images/fbook.png" alt="Facebook icon" /></a>
+                    <a href="https://twitter.com/#!/ArianeTobin"><img src="images/twitter.png" alt="Twitter icon" /></a>
+                    <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img src="images/Google_plus_16.png" alt="Google Plus icon" /></a>
+                    <a href="http://pinterest.com/arianetobin/"><img src="http://passets-cdn.pinterest.com/images/small-p-button.png" alt="Pinterest icon" /></a>
+                    <!-- <a href="ETSY"><img src="XXX" /></a> -->
+                    <!-- TODO: Make the rss feed link work. -->
+                    <a href="RSS FEED"><img src="images/rss_16.jpg" alt="RSS feed icon" /></a>
+                </span>
+            </div>
 		</header>
 
