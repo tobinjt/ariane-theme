@@ -250,3 +250,24 @@ ol.commentlist li.thread-odd {}
 @media all and (orientation: landscape) {
 
 }
+
+
+/* Additions for Ariane's theme. */
+/* XXX spacing around header? /*
+/* The menubar. */
+#menubar {
+    width: 100%;
+}
+
+#external-links {
+    float: right;
+}
+
+#internal-links a {
+    padding-right: 1em;
+}
+
+/* Move copyright to the right. */
+#copyright {
+    text-align: right;
+}
