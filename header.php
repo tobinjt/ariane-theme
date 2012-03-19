@@ -86,10 +86,6 @@
 
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php bloginfo('rss2_url'); ?>" />
-    <link rel="alternate" type="text/xml" title="RSS .92" href="<?php bloginfo('rss_url'); ?>" />
-    <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
-
 	<?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
 
 	<?php wp_head(); ?>
@@ -119,12 +115,12 @@
 
                 <span id="external-links">
                     <!-- TODO: make the images greyed out until hovered over.  Notes: jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to do and undo it on hover?  -->
-                    <a href="http://www.facebook.com/ArianeTobinJewellery"><img src="images/fbook.png" alt="Facebook icon" /></a>
-                    <a href="https://twitter.com/#!/ArianeTobin"><img src="images/twitter.png" alt="Twitter icon" /></a>
-                    <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img src="images/Google_plus_16.png" alt="Google Plus icon" /></a>
+                    <a href="http://www.facebook.com/ArianeTobinJewellery"><img src="<?php bloginfo('template_directory'); ?>/images/fbook.png" alt="Facebook icon" /></a>
+                    <a href="https://twitter.com/#!/ArianeTobin"><img src="<?php bloginfo('template_directory'); ?>/images/twitter.png" alt="Twitter icon" /></a>
+                    <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img src="<?php bloginfo('template_directory'); ?>/images/Google_plus_16.png" alt="Google Plus icon" /></a>
                     <a href="http://pinterest.com/arianetobin/"><img src="http://passets-cdn.pinterest.com/images/small-p-button.png" alt="Pinterest icon" /></a>
                     <!-- <a href="ETSY"><img src="XXX" /></a> -->
-                    <a href="<?php bloginfo('rss2_url'); ?>"><img src="images/rss_16.jpg" alt="RSS feed icon" /></a>
+                    <a href="<?php bloginfo('rss2_url'); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/rss_16.jpg" alt="RSS feed icon" /></a>
                 </span>
             </div>
 		</header>
