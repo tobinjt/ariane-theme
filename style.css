@@ -252,12 +252,17 @@ ol.commentlist li.thread-odd {}
 }
 
 
-/* Additions for Ariane's theme. */
+/**
+ * Additions for Ariane's theme.
+ **/
 #page-wrap {
     max-width: 90ex;
     margin: 20px auto;
 }
 
+/**
+ * Header.
+ **/
 #header {
     padding-top: 1em;
     padding-bottom: 1em;
@@ -296,6 +301,7 @@ ol.commentlist li.thread-odd {}
 #menubar {
     width: 100%;
     clear: both;
+    margin-bottom: 0.5em;
 }
 
 #external-links {
@@ -309,13 +315,26 @@ ol.commentlist li.thread-odd {}
     padding-right: 0.5em;
 }
 
-/* Move copyright to the right. */
+/**
+ * Footer.
+ **/
 .copyright {
     margin-top: 1ex;
     text-align: right;
+    clear: both;
+}
+
+/**
+ * Pages.
+ **/
+.single-page h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1em;
 }
 
 /* Stop displaying the sidebar, for now. */
 #sidebar {
-    display: none;
+    /* display: none; */
+    float: right;
 }
