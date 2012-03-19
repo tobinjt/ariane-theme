@@ -98,7 +98,7 @@
 
 		<header id="header">
             <span id="logo">
-                <img src="<?php bloginfo('template_directory'); ?>/images/logo.png" alt="<?php bloginfo('name'); ?> logo" />
+                <a href="/"><img src="<?php bloginfo('template_directory'); ?>/images/logo.png" alt="<?php bloginfo('name'); ?> logo" /></a>
             </span>
 			<h1><a href="<?php echo get_option('home'); ?>/"><?php strtolower(bloginfo('name')); ?></a></h1>
 			<div class="description"><?php bloginfo('description'); ?></div>
