@@ -26,7 +26,7 @@
       echo ' - page '. $paged; }
 } ?>
 
-<head id="www-sitename-com" data-template-set="html5-reset-wordpress-theme" profile="http://gmpg.org/xfn/11">
+<head id="www-sitename-com" data-template-set="html5-reset-wordpress-theme">
 
 	<meta charset="<?php bloginfo('charset'); ?>">
 
@@ -51,9 +51,9 @@
 	<meta name="Copyright" content="Copyright Ariane Tobin Jewellery 2012. All Rights Reserved.">
 
 	<!-- Dublin Core Metadata : http://dublincore.org/ -->
-	<meta name="DC.title" content="Ariane Tobin Jewellery">
-	<meta name="DC.subject" content="Ariane Tobin Jewellery">
-	<meta name="DC.creator" content="John Tobin">
+	<meta name="dcterms.title" content="Ariane Tobin Jewellery">
+	<meta name="dcterms.subject" content="Ariane Tobin Jewellery">
+	<meta name="dcterms.creator" content="John Tobin">
 
 	<!--  Mobile Viewport meta tag
 	j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
