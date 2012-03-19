@@ -82,6 +82,7 @@
 	<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
 
 	<!-- all our JS is at the bottom of the page, except for Modernizr. -->
+    <!-- XXX UPGRADE Modernizr. -->
 	<script src="<?php bloginfo('template_directory'); ?>/_/js/modernizr-1.7.min.js"></script>
 
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
@@ -97,11 +98,19 @@
 	<div id="page-wrap"><!-- not needed? up to you: http://camendesign.com/code/developpeurs_sans_frontieres -->
 
 		<header id="header">
-            <span id="logo">
-                <a href="/"><img src="<?php bloginfo('template_directory'); ?>/images/logo.png" alt="<?php bloginfo('name'); ?> logo" /></a>
-            </span>
-			<h1><a href="<?php echo get_option('home'); ?>/"><?php strtolower(bloginfo('name')); ?></a></h1>
-			<div class="description"><?php bloginfo('description'); ?></div>
+            <div id="title">
+                <span id="title-logo">
+                    <a href="<?php echo get_option('home'); ?>/"><img src="<?php bloginfo('template_directory'); ?>/images/logo.png" alt="<?php bloginfo('name'); ?> logo" /></a>
+                </span>
+                <span id="title-text">
+                    <span id="title-name">
+                        <a href="<?php echo get_option('home'); ?>/"><?php echo strtolower(get_bloginfo('name')); ?></a> <br />
+                    </span>
+                    <span id="title-description">
+                        <?php echo strtolower(get_bloginfo('description')); ?>
+                    </span>
+                </span>
+            </div>
 
             <div id="menubar">
                 <span id="internal-links">

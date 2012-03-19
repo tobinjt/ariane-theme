@@ -162,7 +162,7 @@ mark {background-color: #fcd700; color: #000; font-style: italic; font-weight: b
 /* And here begins the Wordpress fun.
 -------------------------------------------------------------------------------*/
 
-#page-wrap {width: 960px; margin: 20px auto;}
+/* #page-wrap {width: 960px; margin: 20px auto;} */
 
 .post {}
 
@@ -253,10 +253,49 @@ ol.commentlist li.thread-odd {}
 
 
 /* Additions for Ariane's theme. */
-/* XXX spacing around header? /*
+#page-wrap {
+    max-width: 90ex;
+    margin: 20px auto;
+}
+
+#header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#title {
+    margin-bottom: 1em;
+}
+
+#title-logo {
+    float: left;
+    margin: 0.5ex;
+    vertical-align: bottom;
+}
+
+#title-text {
+    vertical-align: bottom;
+}
+
+#title-name {
+    font-size: 2.5em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#title-name a {
+    text-decoration: none;
+    color: black;
+}
+
+#title-description {
+    font-size: 2.5em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
 /* The menubar. */
 #menubar {
     width: 100%;
+    clear: both;
 }
 
 #external-links {
@@ -264,10 +303,19 @@ ol.commentlist li.thread-odd {}
 }
 
 #internal-links a {
-    padding-right: 1em;
+    color: DarkGrey;
+    font-size: 1.5em;
+    text-decoration: none;
+    padding-right: 0.5em;
 }
 
 /* Move copyright to the right. */
-#copyright {
+.copyright {
+    margin-top: 1ex;
     text-align: right;
+}
+
+/* Stop displaying the sidebar, for now. */
+#sidebar {
+    display: none;
 }
