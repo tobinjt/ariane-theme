@@ -1,24 +1,28 @@
 <?php get_header(); ?>
 
-	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <div id="main-content">
 
-		<article class="single-page" id="post-<?php the_ID(); ?>">
+        <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-			<h2><?php the_title(); ?></h2>
+            <article class="single-page" id="post-<?php the_ID(); ?>">
 
-			<div class="entry">
+                <h2><?php the_title(); ?></h2>
 
-				<?php the_content(); ?>
+                <div class="entry">
 
-				<?php wp_link_pages(array('before' => 'Pages: ', 'next_or_number' => 'number')); ?>
+                    <?php the_content(); ?>
 
-			</div>
+                    <?php wp_link_pages(array('before' => 'Pages: ', 'next_or_number' => 'number')); ?>
 
-			<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
+                </div>
 
-		</article>
+                <?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
 
-		<?php endwhile; endif; ?>
+            </article>
+
+        <?php endwhile; endif; ?>
+
+    </div>
 
 <?php get_sidebar(); ?>
 

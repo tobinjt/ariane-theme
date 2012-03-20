@@ -333,8 +333,25 @@ ol.commentlist li.thread-odd {}
     margin-bottom: 1em;
 }
 
-/* Stop displaying the sidebar, for now. */
+/**
+ * Sidebar.
+ **/
 #sidebar {
-    /* display: none; */
     float: right;
+    /* Note that the other page contents need to be narrow enough for the
+     * siebar to fit, otherwise it will be pushed down the page.
+     */
+    width: 20%;
+}
+
+/**
+ * The main content of the page: a single page, a list of blog posts, etc.
+ **/
+#main-content {
+    width: 78%;
+    /* Negative margin and floating seems to be the magic that makes the
+     * sidebar work.
+     **/
+    margin-right: -22%;
+    float: left;
 }

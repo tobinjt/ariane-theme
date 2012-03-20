@@ -1,36 +1,40 @@
 <?php get_header(); ?>
 
-	<?php if (have_posts()) : ?>
+    <div id="main-content">
 
-		<h2>Search Results</h2>
+        <?php if (have_posts()) : ?>
 
-		<?php include (TEMPLATEPATH . '/_/inc/nav.php' ); ?>
+            <h2>Search Results</h2>
 
-		<?php while (have_posts()) : the_post(); ?>
+            <?php include (TEMPLATEPATH . '/_/inc/nav.php' ); ?>
 
-			<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
+            <?php while (have_posts()) : the_post(); ?>
 
-				<h2><?php the_title(); ?></h2>
+                <article <?php post_class() ?> id="post-<?php the_ID(); ?>">
 
-				<?php include (TEMPLATEPATH . '/_/inc/meta.php' ); ?>
+                    <h2><?php the_title(); ?></h2>
 
-				<div class="entry">
+                    <?php include (TEMPLATEPATH . '/_/inc/meta.php' ); ?>
 
-					<?php the_excerpt(); ?>
+                    <div class="entry">
 
-				</div>
+                        <?php the_excerpt(); ?>
 
-			</article>
+                    </div>
 
-		<?php endwhile; ?>
+                </article>
 
-		<?php include (TEMPLATEPATH . '/_/inc/nav.php' ); ?>
+            <?php endwhile; ?>
 
-	<?php else : ?>
+            <?php include (TEMPLATEPATH . '/_/inc/nav.php' ); ?>
 
-		<h2>No posts found.</h2>
+        <?php else : ?>
 
-	<?php endif; ?>
+            <h2>No posts found.</h2>
+
+        <?php endif; ?>
+
+    </div>
 
 <?php get_sidebar(); ?>
 
