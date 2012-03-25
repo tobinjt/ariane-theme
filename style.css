@@ -320,7 +320,8 @@ ol.commentlist li.thread-odd {}
  **/
 .copyright {
     padding-top: 1em;
-    text-align: right;
+    text-align: center;
+    width: 100%;
     clear: both;
 }
 
