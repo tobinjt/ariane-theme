@@ -359,21 +359,9 @@ ol.commentlist li.thread-odd {}
 }
 
 /**
- * A single page.
+ * Wrap a div of this type around any content that has a sidebar to its right.
  **/
-#main-content-page {
-    /* width: 78%; */
-    /* Negative margin and floating seems to be the magic that makes the
-     * sidebar work.
-     **/
-    /* margin-right: -22%; */
-    /* float: left; */
-}
-
-/**
- * A blog page.
- **/
-#main-content-blog {
+#make-space-for-sidebar {
     width: 76%;
     /* Negative margin and floating seems to be the magic that makes the
      * sidebar work.
@@ -382,6 +370,15 @@ ol.commentlist li.thread-odd {}
     float: left;
 }
 
+/**
+ * A single page.
+ **/
+#main-content-page {
+}
+
+/**
+ * The list of blog posts.
+ **/
 #main-content-blog h2 {
     font-size: 150%;
     margin-bottom: 0.5em;
@@ -398,4 +395,39 @@ ol.commentlist li.thread-odd {}
 #main-content-blog footer.postmetadata  {
     margin-top: 1em;
     margin-bottom: 2em;
+}
+
+/**
+ * A single blog post.
+ **/
+#main-content-post article {
+    margin-bottom: 3em;
+}
+
+#main-content-post h1 {
+    font-size: 150%;
+    margin-bottom: 0.5em;
+}
+
+#main-content-post a {
+    text-decoration: none;
+}
+
+#main-content-post footer.meta  {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#main-content-post footer.postmetadata  {
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+#main-content-post #respond {
+    margin-top: 3em;
+}
+
+#main-content-post ol.commentlist li.comment p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
