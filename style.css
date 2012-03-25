@@ -345,9 +345,21 @@ ol.commentlist li.thread-odd {}
 }
 
 /**
- * The main content of the page: a single page, a list of blog posts, etc.
+ * A single page.
  **/
-#main-content {
+#main-content-page {
+    /* width: 78%; */
+    /* Negative margin and floating seems to be the magic that makes the
+     * sidebar work.
+     **/
+    /* margin-right: -22%; */
+    /* float: left; */
+}
+
+/**
+ * A blog page.
+ **/
+#main-content-blog {
     width: 78%;
     /* Negative margin and floating seems to be the magic that makes the
      * sidebar work.
