@@ -428,7 +428,28 @@ ol.commentlist li.thread-odd {}
     margin-top: 3em;
 }
 
+#main-content-post #respond h2 {
+    margin-bottom: 0.5em;
+}
+
 #main-content-post ol.commentlist li.comment p {
+    margin-bottom: 0.5em;
+}
+
+#commentform p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+}
+
+/**
+ * The comment form and the button to cancel the comment will be hidden at
+ * first; clicking on "Leave a reply" will hide "LEave a reply" and show the
+ * other two; subsequently clicking on "Hide comment form" will reverse.
+ **/
+#comment-form-container {
+    display: none;
+}
+
+#cancel-comment-form {
+    display: none;
 }
