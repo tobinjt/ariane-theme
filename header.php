@@ -98,16 +98,22 @@
 	<div id="page-wrap"><!-- not needed? up to you: http://camendesign.com/code/developpeurs_sans_frontieres -->
 
 		<header id="header">
-            <div id="title">
-                <span id="title-logo">
-                    <a href="<?php echo get_option('home'); ?>/"><img src="<?php bloginfo('template_directory'); ?>/images/logo-grey-smaller.jpg" alt="<?php bloginfo('name'); ?> logo" /></a>
-                </span>
-                <span id="title-text">
-                    <span id="title-name">
-                        <a href="<?php echo get_option('home'); ?>/"><?php echo strtolower(get_bloginfo('name')); ?></a> <br />
-                    </span>
-                </span>
-            </div>
+            <table id="title">
+                <tr>
+                    <td>
+                        <a href="<?php echo get_option('home'); ?>/">
+                            <img src="<?php bloginfo('template_directory'); ?>/images/logo-grey-smaller.jpg" alt="<?php bloginfo('name'); ?> logo" />
+                        </a>
+                    </td>
+                    <td id="title-text">
+                        <span>
+                            <a href="<?php echo get_option('home'); ?>/">
+                                <?php echo strtolower(get_bloginfo('name')); ?>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            </table>
 
             <div id="menubar">
                 <span id="internal-links">
