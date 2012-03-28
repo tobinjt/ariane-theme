@@ -106,9 +106,6 @@
                     <span id="title-name">
                         <a href="<?php echo get_option('home'); ?>/"><?php echo strtolower(get_bloginfo('name')); ?></a> <br />
                     </span>
-                    <span id="title-description">
-                        <?php echo strtolower(get_bloginfo('description')); ?>
-                    </span>
                 </span>
             </div>
 

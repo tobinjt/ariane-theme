@@ -289,7 +289,7 @@ ol.commentlist li.thread-odd {}
 
 #title-name a {
     text-decoration: none;
-    color: black;
+    color: #D60093;
 }
 
 #title-description {
@@ -309,7 +309,7 @@ ol.commentlist li.thread-odd {}
 }
 
 #internal-links a {
-    color: DarkGrey;
+    color: #787878;
     font-size: 1.5em;
     text-decoration: none;
     padding-right: 0.5em;
