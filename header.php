@@ -100,7 +100,7 @@
 		<header id="header">
             <div id="title">
                 <span id="title-logo">
-                    <a href="<?php echo get_option('home'); ?>/"><img src="<?php bloginfo('template_directory'); ?>/images/logo-grey.jpg" alt="<?php bloginfo('name'); ?> logo" /></a>
+                    <a href="<?php echo get_option('home'); ?>/"><img src="<?php bloginfo('template_directory'); ?>/images/logo-grey-small.jpg" alt="<?php bloginfo('name'); ?> logo" /></a>
                 </span>
                 <span id="title-text">
                     <span id="title-name">
