@@ -6,7 +6,7 @@
 
             <article class="single-page" id="post-<?php the_ID(); ?>">
 
-                <h2><?php the_title(); ?></h2>
+                <!-- <h2><?php the_title(); ?></h2> -->
 
                 <div class="entry">
 

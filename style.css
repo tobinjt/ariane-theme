@@ -258,6 +258,7 @@ ol.commentlist li.thread-odd {}
 #page-wrap {
     max-width: 70em;
     margin: 20px auto;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 /**
@@ -311,7 +312,18 @@ ol.commentlist li.thread-odd {}
     color: #787878;
     font-size: 2.0em;
     text-decoration: none;
-    padding-right: 1.0em;
+    margin-right: 1.0em;
+}
+
+#internal-links a.current-url {
+    background-color: #787878;
+    color: white;
+    font-size: 2.0em;
+    text-decoration: none;
+    margin-right: 1.0em;
+    border-radius: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 /**
@@ -386,6 +398,7 @@ ol.commentlist li.thread-odd {}
 
 #main-content-blog a {
     text-decoration: none;
+    color: #787878;
 }
 
 #main-content-blog footer.meta  {

@@ -123,12 +123,37 @@
 
             <div id="menubar">
                 <span id="internal-links">
-                    <a href="/">Home</a>
-                    <a href="/jewellery/">Jewellery</a>
-                    <a href="/buy-online/">Buy Online</a>
-                    <a href="/blog/">Blog</a>
-                    <a href="/about/">About</a>
-                    <a href="/contact/">Contact</a>
+<?php
+    $links = array(
+        array('/',            'Home'),
+        array('/jewellery/',  'Jewellery'),
+        array('/buy-online/', 'Buy Online'),
+        array('/blog/',       'Blog'),
+        array('/about/',      'About'),
+        array('/contact/',    'Contact'),
+    );
+    $current_url = $_SERVER['REQUEST_URI'];
+    if (! is_page()) {
+        # At the moment anything that isn't a page is part of the blog.
+        # Maybe take the first part of the URL instead?  I dunno.
+        $current_url = '/blog/';
+    }
+    if (is_404()) {
+        # Don't highlight any link for error pages
+        $current_url = '/qwertyasdf';
+    }
+    # Padding to make the HTML indent properly.
+    $padding = '                    ';
+    foreach ($links as $unused_index => $pair) {
+        $url = $pair[0];
+        $text = $pair[1];
+        if ($url == $current_url) {
+            echo $padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
+        } else {
+            echo $padding, '<a href="', $url, '">', $text, '</a>', "\n";
+        }
+    }
+?>
                 </span>
 
                 <span id="external-links">
