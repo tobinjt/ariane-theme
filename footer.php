@@ -6,31 +6,21 @@
 
 	<?php wp_footer(); ?>
 
+<script type="text/javascript">
 
-<!-- here comes the javascript -->
-
-<!-- jQuery is called via the Wordpress-friendly way via functions.php -->
-
-<!-- this is where we put our custom functions -->
-<script src="<?php bloginfo('template_directory'); ?>/_/js/functions.js"></script>
-
-<!-- Asynchronous google analytics; this is the official snippet.
-	 Replace UA-XXXXXX-XX with your site's ID and uncomment to enable.
-
-<script>
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-XXXXXX-XX']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+/* trigger when page is ready */
+jQuery(document).ready(function (){
+    // Toggle the comment box to leave a reply.
+    var toggle_comment_box = function () {
+        jQuery("#comment-form-container").toggle();
+        jQuery("#cancel-comment-form").toggle();
+        jQuery("#click-to-respond").toggle();
+    }
+    jQuery("#click-to-respond").click(toggle_comment_box);
+    jQuery("#cancel-comment-form").click(toggle_comment_box);
+});
 
 </script>
--->
 
 </body>
 
