@@ -126,7 +126,7 @@
 <?php
     $links = array(
         array('/',            'Home'),
-        array('/jewellery/',  'Jewellery'),
+        // array('/jewellery/',  'Jewellery'),
         array('/buy-online/', 'Buy Online'),
         array('/blog/',       'Blog'),
         array('/about/',      'About'),
