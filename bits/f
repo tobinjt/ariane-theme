@@ -1,0 +1,37 @@
+
+<!-- Instructions from http://designmodo.com/image-slider-jquery-css3/ -->
+<script>
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+            directionNavHide: false,
+            captionOpacity: 1,
+            prevText: '<',
+            nextText: '>'
+        });
+    });
+</script>
+
+
+<?php
+    wp_register_script(
+        'nivo_slider',
+        (get_bloginfo('template_directory') . '/_/js/jquery.nivo.slider.pack.js'),
+        false);
+    wp_enqueue_script('nivo_slider');
+?>
+
+                    <div class="slider-wrapper futurico-theme">
+                        <div id="slider" class="nivoSlider">
+<?php
+$slider_base_url = get_bloginfo('template_directory') . '/slider/';
+$slider_path = get_theme_root() . '/' . get_template() . '/slider';
+$slider = dir($slider_path);
+while (false !== ($filename = $slider->read())) {
+    if (preg_match('/.+\..+/', $filename)) {
+        echo '                            ' .
+            '<img src="' . $slider_base_url . $filename . '" alt="">' . "\n";
+    }
+}
+?>
+                        </div>
+                    </div>
