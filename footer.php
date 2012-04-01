@@ -35,7 +35,7 @@ function loggg(message) {
 
 // div_height will be set during image preloading.
 var div_height = 0;
-var image_index = 0;
+var image_index = Math.floor(Math.random() * 3);
 function change_image() {
     loggg('change_image called');
     image_index++;
