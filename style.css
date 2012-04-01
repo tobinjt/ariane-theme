@@ -465,3 +465,11 @@ ol.commentlist li.thread-odd {}
 #cancel-comment-form {
     display: none;
 }
+
+/**
+ * The slider.
+ **/
+#slider-div {
+    margin-left: auto;
+    margin-right: auto;
+}
