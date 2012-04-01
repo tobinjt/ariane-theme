@@ -30,7 +30,7 @@ var images = [
     ];
 
 function loggg(message) {
-    console.log(new Date().toString() + message);
+    // console.log(new Date().toString() + message);
 }
 
 // div_height will be set during image preloading.
