@@ -54,13 +54,14 @@ function change_image() {
 function fade_image_callback() {
     loggg('fade_image_callback called');
     change_image();
-    jQuery('#slider-image').fadeToggle(1000, 'linear');
+    jQuery('#slider-image').stop(true, true).fadeIn(1000, 'linear');
     loggg('fade_image_callback finished');
 }
 
 function fade_image() {
     loggg('fade_image called');
-    jQuery('#slider-image').fadeToggle(1000, 'linear', fade_image_callback);
+    jQuery('#slider-image').stop(true, true).fadeOut(
+        1000, 'linear', fade_image_callback);
     loggg('fade_image finished');
 }
 
