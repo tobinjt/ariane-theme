@@ -20,6 +20,23 @@ jQuery(document).ready(function (){
     jQuery("#cancel-comment-form").click(toggle_comment_box);
 });
 
+// Copied from http://sedition.com/perl/javascript-fy.html
+function fisherYates ( myArray ) {
+  var i = myArray.length;
+  if ( i == 0 ) return false;
+  while ( --i ) {
+     var j = Math.floor( Math.random() * ( i + 1 ) );
+     var tempi = myArray[i];
+     var tempj = myArray[j];
+     myArray[i] = tempj;
+     myArray[j] = tempi;
+   }
+}
+
+function loggg(message) {
+    console.log(new Date().toString() + message);
+}
+
 var image_dir = <?php echo "'" . get_bloginfo('template_directory') . '/slider/' . "'"; ?>;
 var images = [
     // filename, width, height.  Improve this - it's terrible.
@@ -28,21 +45,16 @@ var images = [
     ['gold-ring.jpg',        '399', '468'],
     ['pod-piece-1.jpg',      '800', '534'],
     ];
+fisherYates(images);
 
-function loggg(message) {
-    // console.log(new Date().toString() + message);
-}
-
-// div_height will be set during image preloading.
-var div_height = 0;
-var image_index = Math.floor(Math.random() * 3);
+var image_index = 0;
 function change_image() {
     loggg('change_image called');
-    image_index++;
-    if (image_index >= images.length) {
-        image_index = 0;
-    }
-    var margin_top = (div_height - images[image_index][2]) / 2;
+    image_index = (image_index + 1) % images.length;
+    loggg('height in change_image: ' + jQuery('#slider-div').css('height'));
+    var margin_top = (parseInt(jQuery('#slider-div').css('height'))
+                        - images[image_index][2]) / 2;
+    loggg('margin_top in change_image: ' + margin_top);
     jQuery('#slider-image').attr('src', image_dir + images[image_index][0]);
     jQuery('#slider-image').attr('width', images[image_index][1]);
     jQuery('#slider-image').attr('height', images[image_index][2]);
@@ -69,17 +81,17 @@ jQuery(document).ready(function() {
     loggg('slider setup started');
     if (jQuery('.single-page').has('#slider-image')) {
         loggg('We have a slider image!');
-        // Hide copyright.
-        // jQuery('#footer').toggle();
+        var max_image_height = 0;
         // Preload images and set div height.
         jQuery(images).each(function() {
             var image = jQuery('<img />').attr('src', image_dir + this[0]);
-            if (this[2] > div_height) {
-                div_height = this[2];
+            if (this[2] > max_image_height) {
+                max_image_height = this[2];
             }
         });
         loggg('images have been preloaded');
-        jQuery('#slider-div').css('height', div_height);
+        loggg('max_image_height = ' + max_image_height);
+        jQuery('#slider-div').css('height', max_image_height);
         change_image();
         // Update the image periodically.
         setInterval(fade_image, 5000);
