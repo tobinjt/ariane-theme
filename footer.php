@@ -46,27 +46,44 @@ var images = [
     ['pod-piece-1.jpg',      '800', '534'],
     ];
 fisherYates(images);
+images_to_preload = images.slice(1, images.length);
+images_to_preload.push(images[0]);
 
 var image_index = 0;
 function change_image() {
     loggg('change_image called');
-    image_index = (image_index + 1) % images.length;
     loggg('height in change_image: ' + jQuery('#slider-div').css('height'));
     var margin_top = (parseInt(jQuery('#slider-div').css('height'))
                         - images[image_index][2]) / 2;
     loggg('margin_top in change_image: ' + margin_top);
-    jQuery('#slider-image').attr('src', image_dir + images[image_index][0]);
+    var image_url = image_dir + images[image_index][0];
+    loggg('Displaying ' + image_url);
+    jQuery('#slider-image').attr('src', image_url);
     jQuery('#slider-image').attr('width', images[image_index][1]);
     jQuery('#slider-image').attr('height', images[image_index][2]);
     jQuery('#slider-image').css('margin-top', margin_top);
     jQuery('#slider-div').css('width', images[image_index][1]);
+    image_index = (image_index + 1) % images.length;
     loggg('change_image finished');
+}
+
+function preload_next_image() {
+    loggg('preload_next_image called');
+    if (images_to_preload.length) {
+        var image_url = image_dir + images_to_preload.shift()[0];
+        loggg('Preloading ' + image_url);
+        var image = jQuery('<img />').attr('src', image_url);
+    } else {
+        loggg('Images are already preloaded.');
+    }
+    loggg('preload_next_image finished');
 }
 
 function fade_image_callback() {
     loggg('fade_image_callback called');
     change_image();
-    jQuery('#slider-image').stop(true, true).fadeIn(1000, 'linear');
+    jQuery('#slider-image').stop(true, true).fadeIn(
+        1000, 'linear', preload_next_image);
     loggg('fade_image_callback finished');
 }
 
@@ -82,17 +99,16 @@ jQuery(document).ready(function() {
     if (jQuery('.single-page').has('#slider-image')) {
         loggg('We have a slider image!');
         var max_image_height = 0;
-        // Preload images and set div height.
+        // set div height.
         jQuery(images).each(function() {
-            var image = jQuery('<img />').attr('src', image_dir + this[0]);
             if (this[2] > max_image_height) {
                 max_image_height = this[2];
             }
         });
-        loggg('images have been preloaded');
         loggg('max_image_height = ' + max_image_height);
         jQuery('#slider-div').css('height', max_image_height);
         change_image();
+        preload_next_image();
         // Update the image periodically.
         setInterval(fade_image, 5000);
         loggg('setInterval has been called');
