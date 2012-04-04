@@ -108,7 +108,7 @@
                 <tr>
                     <td>
                         <a href="<?php echo get_option('home'); ?>/">
-                            <img src="<?php bloginfo('template_directory'); ?>/images/logo.jpg" alt="<?php bloginfo('name'); ?> logo" />
+                            <img width="123" height=150" src="<?php bloginfo('template_directory'); ?>/images/logo.jpg" alt="<?php bloginfo('name'); ?> logo" />
                         </a>
                     </td>
                     <td id="title-text">
@@ -158,12 +158,12 @@
 
                 <span id="external-links">
                     <!-- TODO: make the images greyed out until hovered over.  Notes: jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to do and undo it on hover?  -->
-                    <a href="http://www.facebook.com/ArianeTobinJewellery"><img src="<?php bloginfo('template_directory'); ?>/images/facebook-icon.png" alt="Facebook icon" /></a>
-                    <a href="https://twitter.com/#!/ArianeTobin"><img src="<?php bloginfo('template_directory'); ?>/images/twitter-icon.png" alt="Twitter icon" /></a>
-                    <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img src="<?php bloginfo('template_directory'); ?>/images/google-plus-icon.png" alt="Google Plus icon" /></a>
-                    <a href="http://pinterest.com/arianetobin/"><img src="<?php bloginfo('template_directory'); ?>/images/pinterest-icon.png" alt="Pinterest icon" /></a>
-                    <!-- <a href="ETSY"><img src="XXX" /></a> -->
-                    <a href="<?php bloginfo('rss2_url'); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/rss-icon.jpg" alt="RSS feed icon" /></a>
+                    <a href="http://www.facebook.com/ArianeTobinJewellery"><img width="16" height="18" src="<?php bloginfo('template_directory'); ?>/images/facebook-icon.png" alt="Facebook icon" /></a>
+                    <a href="https://twitter.com/#!/ArianeTobin"><img width="16" height="18" src="<?php bloginfo('template_directory'); ?>/images/twitter-icon.png" alt="Twitter icon" /></a>
+                    <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/google-plus-icon.png" alt="Google Plus icon" /></a>
+                    <a href="http://pinterest.com/arianetobin/"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/pinterest-icon.png" alt="Pinterest icon" /></a>
+                    <!-- <a href="ETSY"><img width="16" height="16" src="XXX" /></a> -->
+                    <a href="<?php bloginfo('rss2_url'); ?>"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/rss-icon.jpg" alt="RSS feed icon" /></a>
                 </span>
             </div>
 		</header>
