@@ -52,7 +52,7 @@ if ($LOAD_SLIDER) {
 ?>
 
 <?php
-// Only include the Javascript if we're actually displying the slider.
+// Only include the Javascript if we're actually displaying the slider.
 if ($LOAD_SLIDER) {
 ?>
 // Copied from http://sedition.com/perl/javascript-fy.html
@@ -89,9 +89,7 @@ images_to_preload = images.slice(1, images.length);
 images_to_preload.push(images[0]);
 function preload_next_image() {
     if (images_to_preload.length) {
-        var image_url = images_to_preload.shift()[0];
-        var image = jQuery('<img />').attr('src', image_url);
-    } else {
+        var image = jQuery('<img />').attr('src', images_to_preload.shift()[0]);
     }
 }
 
@@ -107,20 +105,23 @@ function fade_image() {
 }
 
 jQuery(document).ready(function() {
-    if (jQuery('.single-page').has('#slider-image')) {
-        var max_image_height = 0;
-        // set div height.
-        jQuery(images).each(function() {
-            if (this[2] > max_image_height) {
-                max_image_height = this[2];
-            }
-        });
-        jQuery('#slider-div').css('height', max_image_height);
-        change_image();
-        preload_next_image();
-        // Update the image periodically.
-        setInterval(fade_image, 5000);
-    }
+    var max_image_height = 0;
+    // set div height.
+    jQuery(images).each(function() {
+        if (this[2] > max_image_height) {
+            max_image_height = this[2];
+        }
+    });
+    jQuery('#slider-div').css('height', max_image_height);
+    change_image();
+    preload_next_image();
+    // Update the image periodically.
+    // console.log(new Date().toString() + ' calling setTimeout');
+    setTimeout(
+        function() {
+            fade_image();
+            setInterval(fade_image, 5000);
+        }, 3000);
 });
 
 <?php
