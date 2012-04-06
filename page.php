@@ -8,7 +8,11 @@
 
                 <div class="entry">
 
-                    <?php the_content(); ?>
+<?php
+// Save the page content so we can check for slider presence in the footer.
+$PAGE_CONTENT = get_the_content();
+echo $PAGE_CONTENT;
+?>
 
                 </div>
 

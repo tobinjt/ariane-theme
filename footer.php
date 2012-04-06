@@ -20,6 +20,44 @@ jQuery(document).ready(function (){
     jQuery("#cancel-comment-form").click(toggle_comment_box);
 });
 
+<?php
+$LOAD_SLIDER = preg_match('/slider-image/', $PAGE_CONTENT);
+?>
+<?php
+if ($LOAD_SLIDER) {
+    // Dynamically build the Javascript array of images when displaying the
+    // slider.
+    $media_query = new WP_Query(
+        array(
+            'post_type'      => 'attachment',
+            'post_status'    => 'any',
+            'posts_per_page' => -1,
+        )
+    );
+    echo "// URL, width, height\n";
+    echo "var images = [\n";
+    foreach ($media_query->posts as $post) {
+        if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
+            $image_stats = wp_get_attachment_metadata($post->ID);
+            echo "    ['"
+                . wp_get_attachment_url($post->ID) . "', "
+                . $image_stats['width'] . ', '
+                . $image_stats['height']
+                . "],\n";
+        }
+    }
+    echo "];\n";
+}
+?>
+
+<?php
+// Only include the Javascript if we're actually displying the slider.
+if ($LOAD_SLIDER) {
+?>
+function loggg(message) {
+    console.log(new Date().toString() + message);
+}
+
 // Copied from http://sedition.com/perl/javascript-fy.html
 function fisherYates ( myArray ) {
   var i = myArray.length;
@@ -33,18 +71,6 @@ function fisherYates ( myArray ) {
    }
 }
 
-function loggg(message) {
-    console.log(new Date().toString() + message);
-}
-
-var image_dir = <?php echo "'" . get_bloginfo('template_directory') . '/slider/' . "'"; ?>;
-var images = [
-    // filename, width, height.  Improve this - it's terrible.
-    ['fine-brooch.jpg',      '264', '648'],
-    ['geometric-brooch.jpg', '404', '393'],
-    ['gold-ring.jpg',        '399', '468'],
-    ['pod-piece-1.jpg',      '800', '534'],
-    ];
 fisherYates(images);
 images_to_preload = images.slice(1, images.length);
 images_to_preload.push(images[0]);
@@ -56,7 +82,7 @@ function change_image() {
     var margin_top = (parseInt(jQuery('#slider-div').css('height'))
                         - images[image_index][2]) / 2;
     loggg('margin_top in change_image: ' + margin_top);
-    var image_url = image_dir + images[image_index][0];
+    var image_url = images[image_index][0];
     loggg('Displaying ' + image_url);
     jQuery('#slider-image').attr('src', image_url);
     jQuery('#slider-image').attr('width', images[image_index][1]);
@@ -70,7 +96,7 @@ function change_image() {
 function preload_next_image() {
     loggg('preload_next_image called');
     if (images_to_preload.length) {
-        var image_url = image_dir + images_to_preload.shift()[0];
+        var image_url = images_to_preload.shift()[0];
         loggg('Preloading ' + image_url);
         var image = jQuery('<img />').attr('src', image_url);
     } else {
@@ -114,6 +140,10 @@ jQuery(document).ready(function() {
         loggg('setInterval has been called');
     }
 });
+
+<?php
+}
+?>
 
 </script>
 
