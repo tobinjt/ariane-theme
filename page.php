@@ -10,6 +10,7 @@
 
 <?php
 // Save the page content so we can check for slider presence in the footer.
+global $PAGE_CONTENT;
 $PAGE_CONTENT = get_the_content();
 echo $PAGE_CONTENT;
 ?>

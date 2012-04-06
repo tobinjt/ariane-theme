@@ -21,6 +21,7 @@ jQuery(document).ready(function (){
 });
 
 <?php
+global $PAGE_CONTENT;
 $LOAD_SLIDER = preg_match('/slider-image/', $PAGE_CONTENT);
 ?>
 <?php
@@ -54,16 +55,14 @@ if ($LOAD_SLIDER) {
 // Only include the Javascript if we're actually displying the slider.
 if ($LOAD_SLIDER) {
 ?>
-function loggg(message) {
-    console.log(new Date().toString() + message);
-}
-
 // Copied from http://sedition.com/perl/javascript-fy.html
-function fisherYates ( myArray ) {
+function fisherYates (myArray) {
   var i = myArray.length;
-  if ( i == 0 ) return false;
-  while ( --i ) {
-     var j = Math.floor( Math.random() * ( i + 1 ) );
+  if (i == 0) {
+      return false;
+  }
+  while (--i) {
+     var j = Math.floor(Math.random() * (i + 1));
      var tempi = myArray[i];
      var tempj = myArray[j];
      myArray[i] = tempj;
@@ -72,58 +71,43 @@ function fisherYates ( myArray ) {
 }
 
 fisherYates(images);
-images_to_preload = images.slice(1, images.length);
-images_to_preload.push(images[0]);
-
 var image_index = 0;
 function change_image() {
-    loggg('change_image called');
-    loggg('height in change_image: ' + jQuery('#slider-div').css('height'));
     var margin_top = (parseInt(jQuery('#slider-div').css('height'))
                         - images[image_index][2]) / 2;
-    loggg('margin_top in change_image: ' + margin_top);
     var image_url = images[image_index][0];
-    loggg('Displaying ' + image_url);
-    jQuery('#slider-image').attr('src', image_url);
-    jQuery('#slider-image').attr('width', images[image_index][1]);
-    jQuery('#slider-image').attr('height', images[image_index][2]);
-    jQuery('#slider-image').css('margin-top', margin_top);
+    jQuery('#slider-image'
+        ).attr('src', image_url
+        ).attr('width', images[image_index][1]
+        ).attr('height', images[image_index][2]
+        ).css('margin-top', margin_top);
     jQuery('#slider-div').css('width', images[image_index][1]);
     image_index = (image_index + 1) % images.length;
-    loggg('change_image finished');
 }
 
+images_to_preload = images.slice(1, images.length);
+images_to_preload.push(images[0]);
 function preload_next_image() {
-    loggg('preload_next_image called');
     if (images_to_preload.length) {
         var image_url = images_to_preload.shift()[0];
-        loggg('Preloading ' + image_url);
         var image = jQuery('<img />').attr('src', image_url);
     } else {
-        loggg('Images are already preloaded.');
     }
-    loggg('preload_next_image finished');
 }
 
 function fade_image_callback() {
-    loggg('fade_image_callback called');
     change_image();
     jQuery('#slider-image').stop(true, true).fadeIn(
         1000, 'linear', preload_next_image);
-    loggg('fade_image_callback finished');
 }
 
 function fade_image() {
-    loggg('fade_image called');
     jQuery('#slider-image').stop(true, true).fadeOut(
         1000, 'linear', fade_image_callback);
-    loggg('fade_image finished');
 }
 
 jQuery(document).ready(function() {
-    loggg('slider setup started');
     if (jQuery('.single-page').has('#slider-image')) {
-        loggg('We have a slider image!');
         var max_image_height = 0;
         // set div height.
         jQuery(images).each(function() {
@@ -131,13 +115,11 @@ jQuery(document).ready(function() {
                 max_image_height = this[2];
             }
         });
-        loggg('max_image_height = ' + max_image_height);
         jQuery('#slider-div').css('height', max_image_height);
         change_image();
         preload_next_image();
         // Update the image periodically.
         setInterval(fade_image, 5000);
-        loggg('setInterval has been called');
     }
 });
 

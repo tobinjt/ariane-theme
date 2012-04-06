@@ -1,7 +1,7 @@
 <?php
 // Create a dummy page contents so we can check for slider presence in the
 // footer; we know it'll never happen outside a page.
-$PAGE_CONTENT = '';
+global $PAGE_CONTENT = '';
 ?>
 
 <?php get_header(); ?>
