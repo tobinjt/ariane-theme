@@ -40,7 +40,7 @@ function loggg(message) {
 var image_dir = <?php echo "'" . get_bloginfo('template_directory') . '/slider/' . "'"; ?>;
 var images = [
     // filename, width, height.  Improve this - it's terrible.
-    ['fine-brooch.jpg',      '648', '266'],
+    ['fine-brooch.jpg',      '264', '648'],
     ['geometric-brooch.jpg', '404', '393'],
     ['gold-ring.jpg',        '399', '468'],
     ['pod-piece-1.jpg',      '800', '534'],
