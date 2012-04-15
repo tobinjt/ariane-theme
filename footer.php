@@ -40,11 +40,16 @@ if ($LOAD_SLIDER) {
     foreach ($media_query->posts as $post) {
         if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
             $image_stats = wp_get_attachment_metadata($post->ID);
-            echo "    ['"
-                . wp_get_attachment_url($post->ID) . "', "
-                . $image_stats['width'] . ', '
-                . $image_stats['height']
-                . "],\n";
+            // Escaping?
+            $url = wp_get_attachment_url($post->ID);
+            if ($url && $image_stats
+                    && $image_stats['width'] && $image_stats['height']) {
+                echo "    ['"
+                    . $url . "', "
+                    . $image_stats['width'] . ', '
+                    . $image_stats['height']
+                    . "],\n";
+            }
         }
     }
     echo "];\n";
