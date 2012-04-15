@@ -80,12 +80,14 @@ var image_index = 0;
 function change_image() {
     var margin_top = (parseInt(jQuery('#slider-div').css('height'))
                         - images[image_index][2]) / 2;
+    // Limit the margin so that smaller images aren't pushed below the fold.
+    var bounded_margin_top = Math.min(margin_top, 100);
     var image_url = images[image_index][0];
     jQuery('#slider-image'
         ).attr('src', image_url
         ).attr('width', images[image_index][1]
         ).attr('height', images[image_index][2]
-        ).css('margin-top', margin_top);
+        ).css('margin-top', bounded_margin_top);
     jQuery('#slider-div').css('width', images[image_index][1]);
     image_index = (image_index + 1) % images.length;
 }
