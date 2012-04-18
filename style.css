@@ -275,6 +275,7 @@ ol.commentlist li.thread-odd {}
 
 #title img {
     margin: 0.5ex;
+    max-width: none;
 }
 
 #title-text {
