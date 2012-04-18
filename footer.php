@@ -60,6 +60,14 @@ if ($LOAD_SLIDER) {
 // Only include the Javascript if we're actually displaying the slider.
 if ($LOAD_SLIDER) {
 ?>
+
+// The images array ends with a comma, and IE 8 adds a null or undefined
+// element, so we remove it.
+if (images[images.length - 1] === null
+        || images[images.length - 1] === undefined) {
+    images.pop();
+}
+
 // Copied from http://sedition.com/perl/javascript-fy.html
 function fisherYates (myArray) {
   var i = myArray.length;
