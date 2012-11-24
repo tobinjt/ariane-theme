@@ -167,6 +167,15 @@
     # Padding to make the HTML indent properly.
     $padding = '                    ';
     make_link_bar($main_links, $padding, '/blog/');
+
+    $main_jewellery_page = get_page_by_path('/jewellery/');
+    echo "<p> " . $main_jewellery_page->post_title . "</p>\n";
+    $jewellery_pages = get_pages(array('child_of' => $main_jewellery_page->ID));
+    echo "<!--\n";
+    foreach ($jewellery_pages as $page) {
+        echo "page: " . $page->post_title . " contains " . $page->post_content . "\n";
+    }
+    echo "-->\n";
 ?>
                 </span>
 
