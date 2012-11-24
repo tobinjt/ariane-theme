@@ -149,12 +149,12 @@
     }
 
     $main_links = array(
-        '/',               = > 'Home',
-        '/jewellery/',     = > 'Jewellery',
-        // '/buy-online/', = > 'Buy Online',
-        '/blog/',          = > 'Blog',
-        '/about/',         = > 'About',
-        '/contact/',       = > 'Contact',
+        '/'               => 'Home',
+        '/jewellery/'     => 'Jewellery',
+        // '/buy-online/' => 'Buy Online',
+        '/blog/'          => 'Blog',
+        '/about/'         => 'About',
+        '/contact/'       => 'Contact',
     );
     # Padding to make the HTML indent properly.
     $padding = '                    ';
