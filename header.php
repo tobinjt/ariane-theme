@@ -167,15 +167,6 @@
     # Padding to make the HTML indent properly.
     $padding = '                    ';
     make_link_bar($main_links, $padding, '/blog/');
-
-    $main_jewellery_page = get_page_by_path('/jewellery/');
-    echo "<p> " . $main_jewellery_page->post_title . "</p>\n";
-    $jewellery_pages = get_pages(array('child_of' => $main_jewellery_page->ID));
-    echo "<!--\n";
-    foreach ($jewellery_pages as $page) {
-        echo "page: " . $page->post_title . " contains " . $page->post_content . "\n";
-    }
-    echo "-->\n";
 ?>
                 </span>
 
@@ -189,5 +180,27 @@
                     <a href="<?php bloginfo('rss2_url'); ?>"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/rss-icon.jpg" alt="RSS feed icon" /></a>
                 </span>
             </div>
+<?php
+    if (strpos($_SERVER['REQUEST_URI'], '/jewellery') === 0) {
+?>
+            <div id="jewellery-menu">
+<?php
+        $main_jewellery_page = get_page_by_path('/jewellery/');
+        $jewellery_pages = get_pages(
+            array('child_of'    => $main_jewellery_page->ID,
+                  'post_status' => 'publish',
+                  'post_type'   => 'page'
+        ));
+        $jewellery_links = array();
+        foreach ($jewellery_pages as $page) {
+            $url = '/' . get_page_uri($page->ID) . '/';
+            $jewellery_links[$url] = $page->post_title;
+        }
+        make_link_bar($jewellery_links, $padding, '/blog/');
+?>
+            </div>
+<?php
+    }
+?>
 		</header>
 
