@@ -132,15 +132,22 @@
      */
     function make_link_bar($links, $padding, $default_url) {
         $current_url = $_SERVER['REQUEST_URI'];
-        if (! isset($links[$current_url])) {
-            $current_url = $default_url;
+        $url_to_highlight = $default_url;
+        foreach ($links as $url => $text) {
+            $pattern = rtrim($url, '/');
+            # This assumes that if the URLs overlap the most specific will be last.
+            # We look for matches at the start of the string.
+            if (($pattern != '' and strpos($current_url, $pattern) === 0)
+                    or $url == $current_url) {
+                $url_to_highlight = $url;
+            }
         }
         if (is_404()) {
             # Don't highlight any link for error pages
-            $current_url = '/qwertyasdf';
+            $url_to_highlight = '/qwertyasdf';
         }
         foreach ($links as $url => $text) {
-            if ($url == $current_url) {
+            if ($url == $url_to_highlight) {
                 echo $padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
             } else {
                 echo $padding, '<a href="', $url, '">', $text, '</a>', "\n";
@@ -148,6 +155,7 @@
         }
     }
 
+    # This assumes that arrays are ordered, which appears to be true.
     $main_links = array(
         '/'               => 'Home',
         '/jewellery/'     => 'Jewellery',
