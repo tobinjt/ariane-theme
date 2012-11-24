@@ -13,7 +13,7 @@
   } elseif (is_archive()) {
       wp_title(''); echo ' Archive - ';
   } elseif (is_search()) {
-      echo 'Search for &quot;'.wp_specialchars($s).'&quot; - ';
+      echo 'Search for &quot;' . wp_specialchars($s) . '&quot; - ';
   } elseif (!(is_404()) && (is_single()) || (is_page())) {
       $title = wp_title('', False);
       if ($title != '') {
@@ -27,8 +27,8 @@
   } else {
       bloginfo('name');
   }
-  if ($paged>1) {
-      echo ' - page '. $paged;
+  if ($paged > 1) {
+      echo ' - page ' . $paged;
   }
 } ?>
 
@@ -124,35 +124,41 @@
             <div id="menubar">
                 <span id="internal-links">
 <?php
-    $links = array(
-        array('/',            'Home'),
-        // array('/jewellery/',  'Jewellery'),
-        array('/buy-online/', 'Buy Online'),
-        array('/blog/',       'Blog'),
-        array('/about/',      'About'),
-        array('/contact/',    'Contact'),
-    );
-    $current_url = $_SERVER['REQUEST_URI'];
-    if (! is_page()) {
-        # At the moment anything that isn't a page is part of the blog.
-        # Maybe take the first part of the URL instead?  I dunno.
-        $current_url = '/blog/';
-    }
-    if (is_404()) {
-        # Don't highlight any link for error pages
-        $current_url = '/qwertyasdf';
-    }
-    # Padding to make the HTML indent properly.
-    $padding = '                    ';
-    foreach ($links as $unused_index => $pair) {
-        $url = $pair[0];
-        $text = $pair[1];
-        if ($url == $current_url) {
-            echo $padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
-        } else {
-            echo $padding, '<a href="', $url, '">', $text, '</a>', "\n";
+    /* make_link_bar: outputs a bar of links into the page.
+     * Args:
+     *   $links: an array of url -> link text.
+     *   $padding: padding at the start of each line.
+     *   $default_url: the URL to use if the current URL is not in $links.
+     */
+    function make_link_bar($links, $padding, $default_url) {
+        $current_url = $_SERVER['REQUEST_URI'];
+        if (! isset($links[$current_url])) {
+            $current_url = $default_url;
+        }
+        if (is_404()) {
+            # Don't highlight any link for error pages
+            $current_url = '/qwertyasdf';
+        }
+        foreach ($links as $url => $text) {
+            if ($url == $current_url) {
+                echo $padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
+            } else {
+                echo $padding, '<a href="', $url, '">', $text, '</a>', "\n";
+            }
         }
     }
+
+    $main_links = array(
+        '/',               = > 'Home',
+        '/jewellery/',     = > 'Jewellery',
+        // '/buy-online/', = > 'Buy Online',
+        '/blog/',          = > 'Blog',
+        '/about/',         = > 'About',
+        '/contact/',       = > 'Contact',
+    );
+    # Padding to make the HTML indent properly.
+    $padding = '                    ';
+    make_link_bar($main_links, $padding, '/blog/');
 ?>
                 </span>
 
