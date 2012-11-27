@@ -39,9 +39,9 @@
 	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<?php if (is_search()) { ?>
+<?php if (is_search()) { ?>
 	<meta name="robots" content="noindex, nofollow" />
-	<?php } ?>
+<?php } ?>
 
 	<title>
 		   <?php echo_title(); ?>
@@ -93,7 +93,9 @@
 
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
-	<?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
+    <?php if (is_singular()) {
+        wp_enqueue_script('comment-reply');
+    } ?>
 
 	<?php wp_head(); ?>
 
