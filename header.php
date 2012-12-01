@@ -126,16 +126,14 @@
 <?php
     /* make_link_bar: outputs a bar of links into the page.
      * Args:
-     *   $left_links: an array of url -> link text.  Will be on the left.
-     *   $right_links: an array of url -> link text.  Will be on the right.
-     *   $padding: padding at the start of each line.
+     *   $groups: an array(css-class -> array(url -> link-text)).
      *   $default_url: the URL to use if the current URL is not in $links.
      */
-    function make_link_bar($left_links, $right_links, $padding, $default_url) {
+    function make_link_bar($groups, $default_url) {
         // Find the URL to highlight.
         $current_url = $_SERVER['REQUEST_URI'];
         $url_to_highlight = $default_url;
-        foreach (array($left_links, $right_links) as $links) {
+        foreach ($groups as $links) {
             foreach ($links as $url => $text) {
                 $pattern = rtrim($url, '/');
                 # This assumes that if the URLs overlap the most specific will be last.
@@ -151,11 +149,14 @@
             $url_to_highlight = '/qwertyasdf';
         }
 
-        $link_padding = $padding . '        ';
+        # Padding to make the HTML indent properly.
+        $padding = str_repeat(' ', 12);
+        $span_padding = $padding . str_repeat(' ', 4);
+        $link_padding = $span_padding . str_repeat(' ', 4);
         echo $padding, '<div class="menubar">', "\n";
-        foreach (array('left-links' => $left_links,
-                       'right-links' => $right_links) as $class => $links) {
-            echo $padding, '    <span class="', $class, '">', "\n";
+        // Create the menubar.
+        foreach ($groups as $class => $links) {
+            echo $span_padding, '<span class="', $class, '">', "\n";
             foreach ($links as $url => $text) {
                 if ($url == $url_to_highlight) {
                     echo $link_padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
@@ -163,7 +164,7 @@
                     echo $link_padding, '<a href="', $url, '">', $text, '</a>', "\n";
                 }
             }
-            echo $padding, '    </span>', "\n";
+            echo $span_padding, '</span>', "\n";
         }
         echo $padding, '</div>', "\n";
     }
@@ -194,11 +195,17 @@
         'http://pinterest.com/arianetobin/'                       => make_icon_link('pinterest-icon.png',   'Pinterest icon',   16, 16),
         get_bloginfo('rss2_url')                                  => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
     );
-    # Padding to make the HTML indent properly.
-    $padding = '            ';
-    make_link_bar($main_links, $icon_links, $padding, '/news/');
+    make_link_bar(array('page-links left-page-links' => $main_links,
+                        'right-links' => $icon_links),
+                  '/news/');
 
     if (strpos($_SERVER['REQUEST_URI'], '/jewellery') === 0) {
+        // These will be displayed on the right, and filtered out of the left
+        // links.
+        $special_jewellery_links = array(
+            '/jewellery/solo'        => 'Solo',
+            '/jewellery/commissions' => 'Commissions',
+        );
         $main_jewellery_page = get_page_by_path('/jewellery/');
         $jewellery_query =
             array('child_of'    => $main_jewellery_page->ID,
@@ -214,9 +221,13 @@
         $jewellery_links = array();
         foreach ($jewellery_pages as $page) {
             $url = '/' . get_page_uri($page->ID) . '/';
-            $jewellery_links[$url] = $page->post_title;
+            if (! array_key_exists($url, $special_jewellery_links)) {
+                $jewellery_links[$url] = $page->post_title;
+            }
         }
-        make_link_bar($jewellery_links, array(), $padding, '/news/');
+        make_link_bar(array('page-links left-page-links' => $jewellery_links,
+                            'right-links page-links right-page-links' => $special_jewellery_links),
+                      '/news/');
     }
 ?>
 		</header>

@@ -309,11 +309,16 @@ ol.commentlist li.thread-odd {}
     float: right;
 }
 
-.left-links > a {
+.page-links > a {
     color: #787878;
     font-size: 2.0em;
     text-decoration: none;
+}
+.left-page-links > a {
     margin-right: 1.0em;
+}
+.right-page-links > a {
+    margin-left: 1.0em;
 }
 
 #header a.current-url {
