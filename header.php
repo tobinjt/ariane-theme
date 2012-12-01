@@ -188,11 +188,17 @@
             <div id="jewellery-menu">
 <?php
         $main_jewellery_page = get_page_by_path('/jewellery/');
-        $jewellery_pages = get_pages(
+        $jewellery_query =
             array('child_of'    => $main_jewellery_page->ID,
-                  'post_status' => 'publish',
-                  'post_type'   => 'page'
-        ));
+                  'post_type'   => 'page',
+            );
+        // Admin users can see every page, others can only see published pages.
+        if (current_user_can('edit_pages')) {
+            $jewellery_query['post_status'] = 'publish,draft,private';
+        } else {
+            $jewellery_query['post_status'] = 'publish';
+        }
+        $jewellery_pages = get_pages($jewellery_query);
         $jewellery_links = array();
         foreach ($jewellery_pages as $page) {
             $url = '/' . get_page_uri($page->ID) . '/';
