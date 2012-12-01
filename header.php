@@ -162,7 +162,7 @@
         '/'               => 'Home',
         '/jewellery/'     => 'Jewellery',
         // '/buy-online/' => 'Buy Online',
-        '/blog/'          => 'Blog',
+        '/news/'          => 'News',
         '/about/'         => 'About',
         '/contact/'       => 'Contact',
     );
