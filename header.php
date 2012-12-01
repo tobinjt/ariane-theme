@@ -165,7 +165,6 @@
         // '/buy-online/' => 'Buy Online',
         '/news/'          => 'News',
         '/about/'         => 'About',
-        '/contact/'       => 'Contact',
     );
     # Padding to make the HTML indent properly.
     $padding = '                    ';
