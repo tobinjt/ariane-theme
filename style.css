@@ -299,18 +299,17 @@ ol.commentlist li.thread-odd {}
 }
 
 /* The menubar. */
-#menubar {
+.menubar {
     width: 100%;
     clear: both;
     margin-bottom: 0.5em;
 }
 
-#external-links {
+.right-links {
     float: right;
 }
 
-/* '#jewellery-menu a' is a copy of this. */
-#internal-links a {
+.left-links > a {
     color: #787878;
     font-size: 2.0em;
     text-decoration: none;
@@ -326,14 +325,6 @@ ol.commentlist li.thread-odd {}
     border-radius: 0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;
-}
-
-/* This is a copy of '#internal-links a'. */
-#jewellery-menu a {
-    color: #787878;
-    font-size: 2.0em;
-    text-decoration: none;
-    margin-right: 1.0em;
 }
 
 /**

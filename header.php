@@ -123,38 +123,55 @@
                 </tr>
             </table>
 
-            <div id="menubar">
-                <span id="internal-links">
 <?php
     /* make_link_bar: outputs a bar of links into the page.
      * Args:
-     *   $links: an array of url -> link text.
+     *   $left_links: an array of url -> link text.  Will be on the left.
+     *   $right_links: an array of url -> link text.  Will be on the right.
      *   $padding: padding at the start of each line.
      *   $default_url: the URL to use if the current URL is not in $links.
      */
-    function make_link_bar($links, $padding, $default_url) {
+    function make_link_bar($left_links, $right_links, $padding, $default_url) {
+        // Find the URL to highlight.
         $current_url = $_SERVER['REQUEST_URI'];
         $url_to_highlight = $default_url;
-        foreach ($links as $url => $text) {
-            $pattern = rtrim($url, '/');
-            # This assumes that if the URLs overlap the most specific will be last.
-            # We look for matches at the start of the string.
-            if (($pattern != '' and strpos($current_url, $pattern) === 0)
-                    or $url == $current_url) {
-                $url_to_highlight = $url;
+        foreach (array($left_links, $right_links) as $links) {
+            foreach ($links as $url => $text) {
+                $pattern = rtrim($url, '/');
+                # This assumes that if the URLs overlap the most specific will be last.
+                # We look for matches at the start of the string.
+                if (($pattern != '' and strpos($current_url, $pattern) === 0)
+                        or $url == $current_url) {
+                    $url_to_highlight = $url;
+                }
             }
         }
         if (is_404()) {
             # Don't highlight any link for error pages
             $url_to_highlight = '/qwertyasdf';
         }
-        foreach ($links as $url => $text) {
-            if ($url == $url_to_highlight) {
-                echo $padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
-            } else {
-                echo $padding, '<a href="', $url, '">', $text, '</a>', "\n";
+
+        $link_padding = $padding . '        ';
+        echo $padding, '<div class="menubar">', "\n";
+        foreach (array('left-links' => $left_links,
+                       'right-links' => $right_links) as $class => $links) {
+            echo $padding, '    <span class="', $class, '">', "\n";
+            foreach ($links as $url => $text) {
+                if ($url == $url_to_highlight) {
+                    echo $link_padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
+                } else {
+                    echo $link_padding, '<a href="', $url, '">', $text, '</a>', "\n";
+                }
             }
+            echo $padding, '    </span>', "\n";
         }
+        echo $padding, '</div>', "\n";
+    }
+
+    function make_icon_link($file, $alt, $width, $height) {
+        return '<img width="' . $width . '" height="' . $height .
+            '" src="' .  get_bloginfo('template_directory') . '/images/' .  $file .
+            '" alt="' . $alt . '" />';
     }
 
     # TODO: get this list automatically like we do for jewellery.
@@ -166,27 +183,22 @@
         '/news/'          => 'News',
         '/about/'         => 'About',
     );
+    // TODO: make the images greyed out until hovered over.  Notes:
+    // jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to
+    // do and undo it on hover?
+    // "ETSY"><img width="16" height="16" src="XXX" /></a>
+    $icon_links = array(
+        'http://www.facebook.com/ArianeTobinJewellery'            => make_icon_link('facebook-icon.png',    'Facebook icon',    16, 16),
+        'https://twitter.com/#!/ArianeTobin'                      => make_icon_link('twitter-icon.png',     'Twitter icon',     16, 16),
+        'https://plus.google.com/u/0/106979221491924017894/posts' => make_icon_link('google-plus-icon.png', 'Google Plus icon', 16, 16),
+        'http://pinterest.com/arianetobin/'                       => make_icon_link('pinterest-icon.png',   'Pinterest icon',   16, 16),
+        get_bloginfo('rss2_url')                                  => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
+    );
     # Padding to make the HTML indent properly.
-    $padding = '                    ';
-    make_link_bar($main_links, $padding, '/news/');
-?>
-                </span>
+    $padding = '            ';
+    make_link_bar($main_links, $icon_links, $padding, '/news/');
 
-                <span id="external-links">
-                    <!-- TODO: make the images greyed out until hovered over.  Notes: jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to do and undo it on hover?  -->
-                    <a href="http://www.facebook.com/ArianeTobinJewellery"><img width="16" height="18" src="<?php bloginfo('template_directory'); ?>/images/facebook-icon.png" alt="Facebook icon" /></a>
-                    <a href="https://twitter.com/#!/ArianeTobin"><img width="16" height="18" src="<?php bloginfo('template_directory'); ?>/images/twitter-icon.png" alt="Twitter icon" /></a>
-                    <a href="https://plus.google.com/u/0/106979221491924017894/posts"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/google-plus-icon.png" alt="Google Plus icon" /></a>
-                    <a href="http://pinterest.com/arianetobin/"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/pinterest-icon.png" alt="Pinterest icon" /></a>
-                    <!-- <a href="ETSY"><img width="16" height="16" src="XXX" /></a> -->
-                    <a href="<?php bloginfo('rss2_url'); ?>"><img width="16" height="16" src="<?php bloginfo('template_directory'); ?>/images/rss-icon.jpg" alt="RSS feed icon" /></a>
-                </span>
-            </div>
-<?php
     if (strpos($_SERVER['REQUEST_URI'], '/jewellery') === 0) {
-?>
-            <div id="jewellery-menu">
-<?php
         $main_jewellery_page = get_page_by_path('/jewellery/');
         $jewellery_query =
             array('child_of'    => $main_jewellery_page->ID,
@@ -204,10 +216,7 @@
             $url = '/' . get_page_uri($page->ID) . '/';
             $jewellery_links[$url] = $page->post_title;
         }
-        make_link_bar($jewellery_links, $padding, '/news/');
-?>
-            </div>
-<?php
+        make_link_bar($jewellery_links, array(), $padding, '/news/');
     }
 ?>
 		</header>
