@@ -157,6 +157,7 @@
         }
     }
 
+    # TODO: get this list automatically like we do for jewellery.
     # This assumes that arrays are ordered, which appears to be true.
     $main_links = array(
         '/'               => 'Home',
@@ -168,7 +169,7 @@
     );
     # Padding to make the HTML indent properly.
     $padding = '                    ';
-    make_link_bar($main_links, $padding, '/blog/');
+    make_link_bar($main_links, $padding, '/news/');
 ?>
                 </span>
 
@@ -198,7 +199,7 @@
             $url = '/' . get_page_uri($page->ID) . '/';
             $jewellery_links[$url] = $page->post_title;
         }
-        make_link_bar($jewellery_links, $padding, '/blog/');
+        make_link_bar($jewellery_links, $padding, '/news/');
 ?>
             </div>
 <?php
