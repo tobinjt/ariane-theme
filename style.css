@@ -266,7 +266,7 @@ ol.commentlist li.thread-odd {}
  **/
 #header {
     padding-top: 1em;
-    padding-bottom: 1em;
+    padding-bottom: 2em;
 }
 
 #title {
@@ -344,15 +344,6 @@ ol.commentlist li.thread-odd {}
     text-align: center;
     width: 100%;
     clear: both;
-}
-
-/**
- * Pages.
- **/
-.single-page h2 {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 1em;
 }
 
 /**
@@ -482,4 +473,17 @@ ol.commentlist li.thread-odd {}
 #slider-div {
     margin-left: auto;
     margin-right: auto;
+}
+
+/**
+ * The about page.
+ **/
+#about-page {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#about-page p {
+    margin-bottom: 2.0em;
 }
