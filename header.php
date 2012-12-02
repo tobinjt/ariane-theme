@@ -203,12 +203,12 @@
     // TODO: make the images greyed out until hovered over.  Notes:
     // jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to
     // do and undo it on hover?
-    // "ETSY"><img width="16" height="16" src="XXX" /></a>
     $icon_links = array(
         'http://www.facebook.com/ArianeTobinJewellery'            => make_icon_link('facebook-icon.png',    'Facebook icon',    16, 16),
         'https://twitter.com/#!/ArianeTobin'                      => make_icon_link('twitter-icon.png',     'Twitter icon',     16, 16),
-        'https://plus.google.com/u/0/106979221491924017894/posts' => make_icon_link('google-plus-icon.png', 'Google Plus icon', 16, 16),
+        // 'https://plus.google.com/u/0/106979221491924017894/posts' => make_icon_link('google-plus-icon.png', 'Google Plus icon', 16, 16),
         'http://pinterest.com/arianetobin/'                       => make_icon_link('pinterest-icon.png',   'Pinterest icon',   16, 16),
+        // "ETSY"><img width="16" height="16" src="XXX" /></a>
         get_bloginfo('rss2_url')                                  => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
     );
     make_link_bar(array('page-links left-page-links' => $main_links,
