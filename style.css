@@ -324,10 +324,10 @@ ol.commentlist li.thread-odd {}
     text-decoration: none;
 }
 .left-page-links > a {
-    margin-right: 1.0em;
+    margin-right: 0.8em;
 }
 .right-page-links > a {
-    margin-left: 1.0em;
+    margin-left: 0.8em;
 }
 
 #header a.current-url {
