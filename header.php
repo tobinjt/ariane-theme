@@ -235,14 +235,18 @@
         }
         $jewellery_pages = get_pages($jewellery_query);
         $jewellery_links = array();
+        $special_jewellery_links_that_exist = array();
         foreach ($jewellery_pages as $page) {
             $url = '/' . get_page_uri($page->ID) . '/';
-            if (! array_key_exists($url, $special_jewellery_links)) {
+            if (array_key_exists($url, $special_jewellery_links)) {
+                $special_jewellery_links_that_exist[$url] =
+                    $special_jewellery_links[$url];
+            } else {
                 $jewellery_links[$url] = $page->post_title;
             }
         }
         make_link_bar(array('page-links left-page-links' => $jewellery_links,
-                            'right-links page-links right-page-links' => $special_jewellery_links),
+                            'right-links page-links right-page-links' => $special_jewellery_links_that_exist),
                       '/news/');
     }
 ?>
