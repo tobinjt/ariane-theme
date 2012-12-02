@@ -136,7 +136,8 @@
         foreach ($initial_groups as $class => $links) {
             $new_links = array();
             foreach ($links as $url => $text) {
-                if (strpos($url, '/') === 0 and is_null(get_page_by_path($url))) {
+                if (strpos($url, '/') === 0 and $url != '/'
+                    and is_null(get_page_by_path($url))) {
                     // Local page that doesn't exist.  Skip it.
                 } else {
                     $new_links[$url] = $text;
@@ -218,8 +219,8 @@
         // These will be displayed on the right, and filtered out of the left
         // links.
         $special_jewellery_links = array(
-            '/jewellery/solo'        => 'Solo',
-            '/jewellery/commissions' => 'Commissions',
+            '/jewellery/solo/'        => 'Solo',
+            '/jewellery/commissions/' => 'Commissions',
         );
         $main_jewellery_page = get_page_by_path('/jewellery/');
         $jewellery_query =
