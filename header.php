@@ -126,10 +126,25 @@
 <?php
     /* make_link_bar: outputs a bar of links into the page.
      * Args:
-     *   $groups: an array(css-class -> array(url -> link-text)).
-     *   $default_url: the URL to use if the current URL is not in $links.
+     *   $initial_groups: an array(css-class -> array(url -> link-text)).
+     *   $default_url: the URL to use if the current URL is not in $initial_groups.
+     *                 Useful to make the blog link be highlighted for blog posts.
      */
-    function make_link_bar($groups, $default_url) {
+    function make_link_bar($initial_groups, $default_url) {
+        // Filter out invalid URLs.
+        $groups = array();
+        foreach ($initial_groups as $class => $links) {
+            $new_links = array();
+            foreach ($links as $url => $text) {
+                if (strpos($url, '/') === 0 and is_null(get_page_by_path($url))) {
+                    // Local page that doesn't exist.  Skip it.
+                } else {
+                    $new_links[$url] = $text;
+                }
+            }
+            $groups[$class] = $new_links;
+        }
+
         // Find the URL to highlight.
         $current_url = $_SERVER['REQUEST_URI'];
         $url_to_highlight = $default_url;
