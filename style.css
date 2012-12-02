@@ -266,6 +266,10 @@ ol.commentlist li.thread-odd {}
     margin-top: 1em;
     margin-bottom: 1em;
 }
+/* Links should be grey. */
+#page-wrap a {
+    color: #787878;
+}
 
 /**
  * Header.
@@ -316,7 +320,6 @@ ol.commentlist li.thread-odd {}
 }
 
 .page-links > a {
-    color: #787878;
     font-size: 2.0em;
     text-decoration: none;
 }
@@ -400,7 +403,6 @@ ol.commentlist li.thread-odd {}
 
 #main-content-blog a {
     text-decoration: none;
-    color: #787878;
 }
 
 #main-content-blog footer.meta  {
