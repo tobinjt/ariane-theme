@@ -106,22 +106,12 @@
 	<div id="page-wrap"><!-- not needed? up to you: http://camendesign.com/code/developpeurs_sans_frontieres -->
 
 		<header id="header">
-            <table id="title">
-                <tr>
-                    <td>
-                        <a href="<?php echo get_option('home'); ?>/">
-                            <img width="123" height=150" src="<?php bloginfo('template_directory'); ?>/images/logo.jpg" alt="<?php bloginfo('name'); ?> logo" />
-                        </a>
-                    </td>
-                    <td id="title-text">
-                        <span>
-                            <a href="<?php echo get_option('home'); ?>/">
-                                <?php echo strtolower(get_bloginfo('name')); ?>
-                            </a>
-                        </span>
-                    </td>
-                </tr>
-            </table>
+            <div id="title">
+                <div id="title-text">
+                    <a href="/" id="title-pink">ariane tobin</a> <br/>
+                    <a href="/" id="title-grey">jewellery</a>
+                </div>
+            </div>
 
 <?php
     /* get_current_url: returns the URL. */
