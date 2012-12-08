@@ -324,10 +324,10 @@ ol.commentlist li.thread-odd {}
     text-decoration: none;
 }
 .left-page-links > a {
-    margin-right: 0.8em;
+    margin-right: 0.6em;
 }
 .right-page-links > a {
-    margin-left: 0.8em;
+    margin-left: 0.6em;
 }
 
 #header a.current-url {
@@ -392,6 +392,24 @@ ol.commentlist li.thread-odd {}
  **/
 #main-content-page {
 }
+
+
+/**
+ * A jewellery page; everything in single page applies here unless overridden.
+ */
+#jewellery-page ul > li {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+#jewellery-page img {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 
 /**
  * The list of blog posts.

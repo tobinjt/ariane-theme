@@ -1,6 +1,11 @@
 <?php get_header(); ?>
 
     <div id="main-content-page">
+<?php
+    if (is_jewellery_page()) {
+        echo '    <div id="jewellery-page">', "\n";
+    }
+?>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -23,6 +28,11 @@ echo $PAGE_CONTENT;
 
         <?php endwhile; endif; ?>
 
+<?php
+    if (is_jewellery_page()) {
+        echo '    </div>', "\n";
+    }
+?>
     </div>
 
 <?php get_footer(); ?>

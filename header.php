@@ -124,6 +124,15 @@
             </table>
 
 <?php
+    /* get_current_url: returns the URL. */
+    function get_current_url() {
+        return $_SERVER['REQUEST_URI'];
+    }
+    /* is_jewellery_page: is the current page a jewellery page?  */
+    function is_jewellery_page() {
+        return (strpos(get_current_url(), '/jewellery') === 0);
+    }
+
     /* make_link_bar: outputs a bar of links into the page.
      * Args:
      *   $initial_groups: an array(css-class -> array(url -> link-text)).
@@ -147,7 +156,7 @@
         }
 
         // Find the URL to highlight.
-        $current_url = $_SERVER['REQUEST_URI'];
+        $current_url = get_current_url();
         $url_to_highlight = $default_url;
         foreach ($groups as $links) {
             foreach ($links as $url => $text) {
@@ -215,7 +224,7 @@
                         'right-links' => $icon_links),
                   '/news/');
 
-    if (strpos($_SERVER['REQUEST_URI'], '/jewellery') === 0) {
+    if (is_jewellery_page()) {
         // These will be displayed on the right, and filtered out of the left
         // links.
         $special_jewellery_links = array(
