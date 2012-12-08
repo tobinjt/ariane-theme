@@ -287,7 +287,6 @@ ol.commentlist li.thread-odd {}
 
 #title-text {
     font-family: Helvetica, Arial, sans-serif;
-    vertical-align: middle;
     text-align: center;
 }
 
@@ -385,19 +384,15 @@ ol.commentlist li.thread-odd {}
 /**
  * A jewellery page; everything in single page applies here unless overridden.
  */
-#jewellery-page ul > li {
-    list-style-type: disc;
-    list-style-position: inside;
+#jewellery-page table {
+    border-collapse: separate;
+    /* border-spacing: 0px 1em; */
+    border-spacing: 1em;
 }
 
-#jewellery-page img {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+#jewellery-page td {
+    vertical-align: middle;
 }
-
 
 /**
  * The list of blog posts.
