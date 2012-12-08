@@ -292,7 +292,7 @@ ol.commentlist li.thread-odd {}
 
 #title-pink {
     /* Without !important, this will be overridden by '#page-wrap a'. */
-    color: #D60093 !important;
+    color: #B92166 !important;
     font-size: 5.0em;
 }
 
