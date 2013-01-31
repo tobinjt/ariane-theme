@@ -174,9 +174,9 @@
             echo $span_padding, '<span class="', $class, '">', "\n";
             foreach ($links as $url => $text) {
                 if ($url == $url_to_highlight) {
-                    echo $link_padding, '<a href="', $url, '" class="current-url">', $text, '</a>', "\n";
+                    echo $link_padding, '<a href="', $url, '" class="current-url">', strtolower($text), '</a>', "\n";
                 } else {
-                    echo $link_padding, '<a href="', $url, '">', $text, '</a>', "\n";
+                    echo $link_padding, '<a href="', $url, '">', strtolower($text), '</a>', "\n";
                 }
             }
             echo $span_padding, '</span>', "\n";
@@ -194,11 +194,11 @@
     # TODO: get this list automatically like we do for jewellery.
     # This assumes that arrays are ordered, which appears to be true.
     $main_links = array(
-        '/'               => 'Home',
-        '/jewellery/'     => 'Jewellery',
+        '/'               => 'home',
+        '/jewellery/'     => 'jewellery',
         // '/buy-online/' => 'Buy Online',
-        '/news/'          => 'News',
-        '/about/'         => 'About',
+        '/news/'          => 'news',
+        '/about/'         => 'about',
     );
     // TODO: make the images greyed out until hovered over.  Notes:
     // jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to

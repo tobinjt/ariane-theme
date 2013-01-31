@@ -348,12 +348,11 @@ img:hover {
  * Footer.
  **/
 .copyright {
-    padding-top: 4em;
+    padding-top: 3em;
     text-align: center;
     width: 100%;
     clear: both;
     color: #B92166;
-    font-size: 75%;
 }
 
 .copyright span {
