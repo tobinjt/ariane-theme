@@ -1,7 +1,7 @@
 		<footer id="footer" class="source-org vcard copyright">
-			<small>&copy;2011-<?php echo date("Y"); echo " "; bloginfo('name'); ?></small>
-			<small>Phone: 00353 86 834 6825</small>
-			<small>Email: ariane at arianetobin.ie</small>
+			<span>&copy;2011-<?php echo date("Y"); echo " ", strtolower(get_bloginfo('name')); ?></span>
+			<span>phone: 00353 86 834 6825</span>
+			<span>email: ariane at arianetobin.ie</span>
 		</footer>
 
 	</div>

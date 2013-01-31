@@ -185,9 +185,10 @@
     }
 
     function make_icon_link($file, $alt, $width, $height) {
-        return '<img width="' . $width . '" height="' . $height .
-            '" src="' .  get_bloginfo('template_directory') . '/images/' .  $file .
-            '" alt="' . $alt . '" />';
+        return '<img class="greyscale"' .
+            ' width="' . $width * 1.414 . '" height="' . $height * 1.414 . '"' .
+            ' src="' .  get_bloginfo('template_directory') . '/images/' .  $file . '"' .
+            ' alt="' . $alt . '" />';
     }
 
     # TODO: get this list automatically like we do for jewellery.
