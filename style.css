@@ -37,8 +37,8 @@ html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquot
 article, aside, figure, footer, header, hgroup, nav, section {display: block;}
 
 /* Responsive images and other embedded objects
-   Note: keeping IMG here will cause problems if you're using foreground images as sprites, like, say for Google Maps custom placemarkers.
-   There has been a report of problems with standard Google maps as well, but we haven't been able to duplicate or diagnose the issue. */
+  Note: keeping IMG here will cause problems if you're using foreground images as sprites, like, say for Google Maps custom placemarkers.
+  There has been a report of problems with standard Google maps as well, but we haven't been able to duplicate or diagnose the issue. */
 img,
 object,
 embed {max-width: 100%;}
@@ -256,141 +256,141 @@ ol.commentlist li.thread-odd {}
  * Additions for Ariane's theme.
  **/
 #page-wrap {
-    max-width: 70em;
-    margin: 20px auto;
-    font-family: Helvetica, Arial, sans-serif;
+  max-width: 70em;
+  margin: 20px auto;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 /* Add space back around paragraphs. */
 #page-wrap p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 /* Links should be grey and not underlined. */
 #page-wrap a {
-    color: #808080;
-    text-decoration: none;
+  color: #808080;
+  text-decoration: none;
 }
 
 /**
  * Header.
  **/
 #header {
-    padding-top: 1em;
-    padding-bottom: 2em;
+  padding-top: 1em;
+  padding-bottom: 2em;
 }
 
 #title {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 
 #title-text {
-    font-family: Helvetica, Arial, sans-serif;
-    text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 
 #title-pink {
-    /* Without !important, this will be overridden by '#page-wrap a'. */
-    color: #B92166 !important;
-    font-size: 5.0em;
+  /* Without !important, this will be overridden by '#page-wrap a'. */
+  color: #B92166 !important;
+  font-size: 5.0em;
 }
 
 #title-grey {
-    color: #808080;
-    font-size: 3.5em;
+  color: #808080;
+  font-size: 3.5em;
 }
 
 /* The menubar. */
 .menubar {
-    width: 100%;
-    clear: both;
-    margin-bottom: 0.5em;
+  width: 100%;
+  clear: both;
+  margin-bottom: 0.5em;
 }
 
 .right-links {
-    float: right;
+  float: right;
 }
 
 .page-links > a {
-    font-size: 2.0em;
+  font-size: 2.0em;
 }
 .left-page-links > a {
-    margin-right: 0.6em;
+  margin-right: 0.6em;
 }
 .right-page-links > a {
-    margin-left: 0.6em;
+  margin-left: 0.6em;
 }
 
 #header a.current-url {
-    color: #B92166;
-    font-size: 2.0em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+  color: #B92166;
+  font-size: 2.0em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
 /* Make the icons grey until hovered over. */
 /* http://www.karlhorky.com/2012/06/cross-browser-image-grayscale-with-css.html
  */
 img.greyscale {
-    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
-    filter: gray; /* IE6-9 */
-    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
 /* http://stackoverflow.com/questions/609273/convert-an-image-to-grayscale-in-html-css
  */
 img:hover {
-    filter: none;
-    -webkit-filter: grayscale(0);
+  filter: none;
+  -webkit-filter: grayscale(0);
 }
 
 /**
  * Footer.
  **/
 .copyright {
-    padding-top: 3em;
-    text-align: center;
-    width: 100%;
-    clear: both;
-    color: #B92166;
+  padding-top: 3em;
+  text-align: center;
+  width: 100%;
+  clear: both;
+  color: #B92166;
 }
 
 .copyright span {
-    padding-left: 4em;
-    padding-right: 4em;
+  padding-left: 4em;
+  padding-right: 4em;
 }
 
 /**
  * Sidebar.
  **/
 #sidebar {
-    float: right;
-    /* Note that the other page contents need to be narrow enough for the
-     * siebar to fit, otherwise it will be pushed down the page.
-     */
-    width: 20%;
+  float: right;
+  /* Note that the other page contents need to be narrow enough for the
+   * siebar to fit, otherwise it will be pushed down the page.
+   */
+  width: 20%;
 }
 
 #sidebar h2 {
-    text-transform: uppercase;
-    padding-top: 2em;
-    padding-bottom: 0.5em;
+  text-transform: uppercase;
+  padding-top: 2em;
+  padding-bottom: 0.5em;
 }
 
 #sidebar li {
-    list-style: square;
+  list-style: square;
 }
 
 /**
  * Wrap a div of this type around any content that has a sidebar to its right.
  **/
 #make-space-for-sidebar {
-    width: 76%;
-    /* Negative margin and floating seems to be the magic that makes the
-     * sidebar work.
-     **/
-    margin-right: -22%;
-    float: left;
+  width: 76%;
+  /* Negative margin and floating seems to be the magic that makes the
+   * sidebar work.
+   **/
+  margin-right: -22%;
+  float: left;
 }
 
 /**
@@ -404,69 +404,69 @@ img:hover {
  * A jewellery page; everything in single page applies here unless overridden.
  */
 #jewellery-page table {
-    border-collapse: separate;
-    /* border-spacing: 0px 1em; */
-    border-spacing: 1em;
+  border-collapse: separate;
+  /* border-spacing: 0px 1em; */
+  border-spacing: 1em;
 }
 
 #jewellery-page td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 /**
  * The list of blog posts.
  **/
 #main-content-blog h2 {
-    font-size: 150%;
-    margin-bottom: 0.5em;
+  font-size: 150%;
+  margin-bottom: 0.5em;
 }
 
 #main-content-blog footer.meta  {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #main-content-blog footer.postmetadata  {
-    margin-top: 1em;
-    margin-bottom: 2em;
+  margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 /**
  * A single blog post.
  **/
 #main-content-post article {
-    margin-bottom: 3.0em;
+  margin-bottom: 3.0em;
 }
 
 #main-content-post h1 {
-    font-size: 150%;
-    margin-bottom: 0.5em;
+  font-size: 150%;
+  margin-bottom: 0.5em;
 }
 
 #main-content-post footer.meta  {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 #main-content-post footer.postmetadata  {
-    margin-top: 1em;
-    margin-bottom: 2em;
+  margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 #main-content-post #respond {
-    margin-top: 3.0em;
+  margin-top: 3.0em;
 }
 
 #main-content-post #respond h2 {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #main-content-post ol.commentlist li.comment p {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #commentform p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 /**
@@ -475,30 +475,30 @@ img:hover {
  * other two; subsequently clicking on "Hide comment form" will reverse.
  **/
 #comment-form-container {
-    display: none;
+  display: none;
 }
 
 #cancel-comment-form {
-    display: none;
+  display: none;
 }
 
 /**
  * The slider.
  **/
 #slider-div {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /**
  * The about page.
  **/
 #about-page {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #about-page p {
-    margin-bottom: 2.0em;
+  margin-bottom: 2.0em;
 }
