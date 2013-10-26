@@ -85,7 +85,7 @@ input[type="checkbox"] {vertical-align: bottom; *vertical-align: baseline;}
 
 select, input, textarea {font: 99% sans-serif;}
 
-table {font-size: inherit; font: 100%;}
+table {font-size: inherit;}
 
 /* Accessible focus treatment
 	people.opera.com/patrickl/experiments/keyboard/test */

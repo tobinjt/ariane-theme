@@ -142,7 +142,9 @@
                     $new_links[$url] = $text;
                 }
             }
-            $groups[$class] = $new_links;
+            if (count($new_links) > 0) {
+                $groups[$class] = $new_links;
+            }
         }
 
         // Find the URL to highlight.
@@ -186,7 +188,8 @@
 
     function make_icon_link($file, $alt, $width, $height) {
         return '<img class="greyscale"' .
-            ' width="' . $width * 1.414 . '" height="' . $height * 1.414 . '"' .
+            ' width="' . round($width * 1.414) . '"' .
+            ' height="' . round($height * 1.414) . '"' .
             ' src="' .  get_bloginfo('template_directory') . '/images/' .  $file . '"' .
             ' alt="' . $alt . '" />';
     }
