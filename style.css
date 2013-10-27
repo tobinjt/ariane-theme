@@ -502,3 +502,22 @@ img:hover {
 #about-page p {
   margin-bottom: 2.0em;
 }
+
+/**
+ * The Jewellery grid.
+ **/
+#jewellery-grid img {
+  max-width: 300px;
+}
+#jewellery-grid table {
+  border: 1px solid black;
+  width: 100%;
+}
+#jewellery-grid td {
+  vertical-align: bottom;
+  border: 1px solid black;
+  /* padding-left */
+}
+.jewellery-grid-name {
+  text-align: center;
+}
