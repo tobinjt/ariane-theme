@@ -5,6 +5,13 @@
 		</footer>
 
 	</div>
+<?php
+if (current_user_can('edit_pages')) {
+  echo <<<VALIDATOR
+  <div><a href="http://validator.w3.org/check?uri=referer">Validate</a></div>
+VALIDATOR;
+}
+?>
 
 	<?php wp_footer(); ?>
 
