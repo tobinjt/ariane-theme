@@ -3,8 +3,11 @@
     <div id="jewellery-page">
       <article class="single-page" id="post-<?php the_ID(); ?>">
         <div class="entry">
-          <table id="jewellery-grid">
+          <div id="jewellery-grid">
+            <table>
 <?php
+  # TODO(johntobin): the image URIs will need to change; ideally they should be
+  # the same on both sites.
   $ranges = array(
     'confluence' => array(
       'alt'   => 'consluence pendant',
@@ -52,7 +55,8 @@ END_OF_TD;
   }
   echo implode("\n", $table);
 ?>
-          </table>
+            </table>
+          </div>
         </div>
       </article>
     </div>
