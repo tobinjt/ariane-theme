@@ -60,8 +60,8 @@
   <meta name="dcterms.creator" content="John Tobin">
   <meta name="dcterms.rightsHolder" content="Ariane Tobin Jewellery">
   <meta name="dcterms.rights"
-    content="Copyright Ariane Tobin Jewellery 2012-2014. All Rights Reserved.">
-  <meta name="dcterms.dateCopyrighted" content="2012-2014">
+    content="Copyright Ariane Tobin Jewellery 2011-2014. All Rights Reserved.">
+  <meta name="dcterms.dateCopyrighted" content="2011-2014">
 
   <!--  Mobile Viewport meta tag
   j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
