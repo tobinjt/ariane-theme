@@ -37,7 +37,7 @@
   <meta charset="<?php bloginfo('charset'); ?>">
 
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
 
 <?php if (is_search()) { ?>
   <meta name="robots" content="noindex, nofollow" />
@@ -47,19 +47,21 @@
        <?php echo_title(); ?>
   </title>
 
-  <meta name="title" content="<?php echo_title(); ?>">
   <meta name="description" content="<?php bloginfo('description'); ?>">
 
   <meta name="google-site-verification" content="">
   <!-- Speaking of Google, don't forget to set your site up: http://google.com/webmasters -->
 
   <meta name="author" content="John Tobin">
-  <meta name="Copyright" content="Copyright Ariane Tobin Jewellery 2012. All Rights Reserved.">
 
   <!-- Dublin Core Metadata : http://dublincore.org/ -->
   <meta name="dcterms.title" content="Ariane Tobin Jewellery">
   <meta name="dcterms.subject" content="Ariane Tobin Jewellery">
   <meta name="dcterms.creator" content="John Tobin">
+  <meta name="dcterms.rightsHolder" content="Ariane Tobin Jewellery">
+  <meta name="dcterms.rights"
+    content="Copyright Ariane Tobin Jewellery 2012-2014. All Rights Reserved.">
+  <meta name="dcterms.dateCopyrighted" content="2012-2014">
 
   <!--  Mobile Viewport meta tag
   j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
