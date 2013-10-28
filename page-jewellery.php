@@ -2,6 +2,8 @@
   function MakeJewelleryGrid($page_contents) {
     # Turn the CSV from page contents into a data structure.
     $lines = str_getcsv($page_contents, "\n");
+    # Discard !!JEWELLERY GRID!!
+    array_shift($lines);
     # Discard the header.
     array_shift($lines);
     $ranges = array();
@@ -63,7 +65,12 @@ END_OF_TABLE_END;
 <?php
   while (have_posts()) {
     the_post();
-    echo MakeJewelleryGrid(get_the_content());
+    $contents = get_the_content();
+    if (preg_match('/^!!JEWELLERY GRID!!/', $contents)) {
+      echo MakeJewelleryGrid($contents);
+    } else {
+      the_content();
+    }
   }
 ?>
         </div>
