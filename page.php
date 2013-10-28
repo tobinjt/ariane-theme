@@ -4,8 +4,6 @@
   if (is_jewellery_page()) {
     echo '    <div id="jewellery-page">', "\n";
   }
-?>
-<?php
   while (have_posts()) {
     the_post();
 ?>
@@ -26,8 +24,6 @@ the_content();
       </article>
 <?php
   }
-?>
-<?php
   if (is_jewellery_page()) {
     echo '    </div>', "\n";
   }
