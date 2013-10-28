@@ -6,29 +6,24 @@
           <div id="jewellery-grid">
             <table>
 <?php
-  # TODO(johntobin): the image URIs will need to change; ideally they should be
-  # the same on both sites.
-  $ranges = array(
-    'confluence' => array(
-      'alt'   => 'consluence pendant',
-      'image' => '2012/12/IMG_5878.jpg',
-      'link'  => '/jewellery/confluence/',
-    ),
-    'halo' => array(
-      'alt'   => 'halo pendants',
-      'image' => '2012/12/IMG_5939.jpg',
-      'link'  => '/jewellery/halo/',
-    ),
-    'sentinel' => array(
-      'alt'   => 'sentinel pendant',
-      'image' => '2012/12/IMG_5911.jpg',
-      'link'  => '/jewellery/sentinel/',
-    ),
-  );
+  while (have_posts()) {
+    the_post();
+    $lines = str_getcsv(get_the_content(), "\n");
+    # Discard the header.
+    array_shift($lines);
+    $ranges = array();
+    foreach ($lines as $line) {
+      $data = str_getcsv($line, '|');
+      $ranges[$data[0]] = array(
+        'alt'   => $data[1],
+        'image' => $data[2],
+        'link'  => $data[3],
+      );
+    }
 
-  $tds = array();
-  foreach ($ranges as $range => $data) {
-    $tds[] = <<<END_OF_TD
+    $tds = array();
+    foreach ($ranges as $range => $data) {
+      $tds[] = <<<END_OF_TD
   <td>
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}" />
@@ -38,22 +33,23 @@
     </div>
   </td>
 END_OF_TD;
-  }
+    }
 
-  if (count($tds) % 2 == 1) {
-    $tds[] = '<td></td>';
-  }
-  $table = array();
-  for ($i = 0; $i < count($tds); $i++) {
-    if ($i % 2 == 0) {
-      $table[] = '<tr>';
+    if (count($tds) % 2 == 1) {
+      $tds[] = '<td></td>';
     }
-    $table[] = $tds[$i];
-    if ($i % 2 == 1) {
-      $table[] = '</tr>';
+    $table = array();
+    for ($i = 0; $i < count($tds); $i++) {
+      if ($i % 2 == 0) {
+        $table[] = '<tr>';
+      }
+      $table[] = $tds[$i];
+      if ($i % 2 == 1) {
+        $table[] = '</tr>';
+      }
     }
+    echo implode("\n", $table);
   }
-  echo implode("\n", $table);
 ?>
             </table>
           </div>
