@@ -1,14 +1,7 @@
-<?php get_header(); ?>
-  <div id="main-content-page">
-    <div id="jewellery-page">
-      <article class="single-page" id="post-<?php the_ID(); ?>">
-        <div class="entry">
-          <div id="jewellery-grid">
-            <table>
 <?php
-  while (have_posts()) {
-    the_post();
-    $lines = str_getcsv(get_the_content(), "\n");
+  function MakeJewelleryGrid($page_contents) {
+    # Turn the CSV from page contents into a data structure.
+    $lines = str_getcsv($page_contents, "\n");
     # Discard the header.
     array_shift($lines);
     $ranges = array();
@@ -21,6 +14,7 @@
       );
     }
 
+    # Turn the data structure into <tr>s.
     $tds = array();
     foreach ($ranges as $range => $data) {
       $tds[] = <<<END_OF_TD
@@ -35,10 +29,15 @@
 END_OF_TD;
     }
 
+    # Turn the <tr>s into a table with two columns.
     if (count($tds) % 2 == 1) {
       $tds[] = '<td></td>';
     }
     $table = array();
+    $table[] = <<<END_OF_TABLE_START
+          <div id="jewellery-grid">
+            <table>
+END_OF_TABLE_START;
     for ($i = 0; $i < count($tds); $i++) {
       if ($i % 2 == 0) {
         $table[] = '<tr>';
@@ -48,11 +47,25 @@ END_OF_TD;
         $table[] = '</tr>';
       }
     }
-    echo implode("\n", $table);
-  }
-?>
+    $table[] = <<<END_OF_TABLE_END
             </table>
           </div>
+END_OF_TABLE_END;
+    return implode("\n", $table);
+  }
+?>
+
+<?php get_header(); ?>
+  <div id="main-content-page">
+    <div id="jewellery-page">
+      <article class="single-page">
+        <div class="entry">
+<?php
+  while (have_posts()) {
+    the_post();
+    echo MakeJewelleryGrid(get_the_content());
+  }
+?>
         </div>
       </article>
     </div>
