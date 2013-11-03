@@ -251,6 +251,21 @@ ol.commentlist li.thread-odd {}
 
 }
 
+/**
+ * Classes automatically used by Wordpress.
+ **/
+/* Centered stuff. */
+.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Captions under photos. */
+.wp-caption-text {
+  margin-top: 0.5em;
+  text-align: center;
+  padding-right: 10px;
+}
 
 /**
  * Additions for Ariane's theme.
@@ -262,7 +277,7 @@ ol.commentlist li.thread-odd {}
 }
 
 /* Add space back around paragraphs. */
-#page-wrap p {
+p {
   margin-top: 1em;
   margin-bottom: 1em;
 }
