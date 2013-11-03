@@ -136,13 +136,19 @@
     $groups = array();
     foreach ($initial_groups as $class => $links) {
       $new_links = array();
+      $skipped_links = array();
       foreach ($links as $url => $text) {
         if (strpos($url, '/') === 0 and $url != '/'
           and is_null(get_page_by_path($url))) {
           // Local page that doesn't exist.  Skip it.
+          $skipped_links[$url] = $text;
         } else {
           $new_links[$url] = $text;
         }
+      }
+      if (count($skipped_links) > 0) {
+        error_log('Skipped some non-existent links: '
+          . print_r($skipped_links, true));
       }
       if (count($new_links) > 0) {
         $groups[$class] = $new_links;
@@ -196,63 +202,44 @@
       ' alt="' . $alt . '" />';
   }
 
-  # TODO: get this list automatically like we do for jewellery.
   # This assumes that arrays are ordered, which appears to be true.
   $main_links = array(
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
-    // '/buy-online/' => 'Buy Online',
     '/news/'          => 'news',
     '/about/'         => 'about',
   );
-  // TODO: make the images greyed out until hovered over.  Notes:
-  // jQuery(selector).fadeTo(speed, opacity);  maybe a javascript trigger to
-  // do and undo it on hover?
   $icon_links = array(
-    'http://www.facebook.com/ArianeTobinJewellery'            => make_icon_link('facebook-icon.png',    'Facebook icon',    16, 16),
-    'https://twitter.com/#!/ArianeTobin'                      => make_icon_link('twitter-icon.png',     'Twitter icon',     16, 16),
-    // 'https://plus.google.com/u/0/106979221491924017894/posts' => make_icon_link('google-plus-icon.png', 'Google Plus icon', 16, 16),
-    'http://pinterest.com/arianetobin/'                       => make_icon_link('pinterest-icon.png',   'Pinterest icon',   16, 16),
-    // "ETSY"><img width="16" height="16" src="XXX" /></a>
-    get_bloginfo('rss2_url')                                  => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
+    'http://www.facebook.com/ArianeTobinJewellery'            
+      => make_icon_link('facebook-icon.png',    'Facebook icon',    16, 16),
+    'https://twitter.com/#!/ArianeTobin'                      
+      => make_icon_link('twitter-icon.png',     'Twitter icon',     16, 16),
+    // 'https://plus.google.com/u/0/106979221491924017894/posts'
+      // => make_icon_link('google-plus-icon.png', 'Google Plus icon', 16, 16),
+    'http://pinterest.com/arianetobin/'                       
+      => make_icon_link('pinterest-icon.png',   'Pinterest icon',   16, 16),
+    get_bloginfo('rss2_url')                                  
+      => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
   );
-  make_link_bar(array('page-links left-page-links' => $main_links,
-            'right-links' => $icon_links),
-         '/news/');
+  make_link_bar(
+    array('page-links left-page-links' => $main_links,
+          'right-links' => $icon_links),
+    '/news/');
 
   if (is_jewellery_page()) {
-    // These will be displayed on the right, and filtered out of the left
-    // links.
-    $special_jewellery_links = array(
-      '/jewellery/solo/'        => 'Solo',
-      '/jewellery/commissions/' => 'Commissions',
-    );
-    $main_jewellery_page = get_page_by_path('/jewellery/');
-    $jewellery_query =
-      array('child_of'    => $main_jewellery_page->ID,
-         'post_type'   => 'page',
-      );
-    // Admin users can see every page, others can only see published pages.
+    // TODO(johntobin): remove when jewellery is ready.
     if (current_user_can('edit_pages')) {
-      $jewellery_query['post_status'] = 'publish,draft,private';
-    } else {
-      $jewellery_query['post_status'] = 'publish';
+      $jewellery_links = array(
+        '/jewellery/bangles'    => 'bangles',
+        '/jewellery/brooches'   => 'brooches',
+        '/jewellery/earrings'   => 'earrings',
+        '/jewellery/neckpieces' => 'neckpieces',
+        '/jewellery/rings'      => 'rings',
+      );
+      make_link_bar(
+        array('page-links left-page-links' => $jewellery_links),
+        '/news/');
     }
-    $jewellery_pages = get_pages($jewellery_query);
-    $jewellery_links = array();
-    $special_jewellery_links_that_exist = array();
-    foreach ($jewellery_pages as $page) {
-      $url = '/' . get_page_uri($page->ID) . '/';
-      if (array_key_exists($url, $special_jewellery_links)) {
-        $special_jewellery_links_that_exist[$url] =
-          $special_jewellery_links[$url];
-      } else {
-        $jewellery_links[$url] = $page->post_title;
-      }
-    }
-    make_link_bar(array('page-links left-page-links' => $jewellery_links,
-                        'right-links page-links right-page-links' => $special_jewellery_links_that_exist),
-                  '/news/');
   }
 ?>
     </header>
