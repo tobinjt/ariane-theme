@@ -12,10 +12,10 @@
 
   // Load Javascript libraries.
   wp_enqueue_script('jquery');
-  // wp_register_script('jquery_migrate',
-  //    ('http://dev.arianetobin.ie/jquery-migrate-1.2.1.js'),
-  //    false);
-  // wp_enqueue_script('jquery_migrate');
+  wp_register_script('modernizr',
+     ('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js'),
+     false);
+  wp_enqueue_script('modernizr');
 
   // Clean up the <head>
   function removeHeadLinks() {
