@@ -90,8 +90,7 @@
   <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
 
   <!-- all our JS is at the bottom of the page, except for Modernizr. -->
-    <!-- XXX UPGRADE Modernizr. -->
-  <script src="<?php bloginfo('template_directory'); ?>/_/js/modernizr-1.7.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
