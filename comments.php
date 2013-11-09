@@ -1,38 +1,38 @@
 <?php
 
-	if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
-		die ('Please do not load this page directly. Thanks!');
+  if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
+    die ('Please do not load this page directly. Thanks!');
 
-	if ( post_password_required() ) { ?>
-		This post is password protected. Enter the password to view comments.
-	<?php
-		return;
-	}
+  if ( post_password_required() ) { ?>
+    This post is password protected. Enter the password to view comments.
+  <?php
+    return;
+  }
 ?>
 
 <?php if (have_comments()) { ?>
 
-	<h2 id="comments"><?php comments_number('No Responses', 'One Response', '% Responses' );?></h2>
+  <h2 id="comments"><?php comments_number('No Responses', 'One Response', '% Responses' );?></h2>
 
-	<div class="navigation">
-		<div class="next-posts"><?php previous_comments_link() ?></div>
-		<div class="prev-posts"><?php next_comments_link() ?></div>
-	</div>
+  <div class="navigation">
+    <div class="next-posts"><?php previous_comments_link() ?></div>
+    <div class="prev-posts"><?php next_comments_link() ?></div>
+  </div>
 
-	<ol class="commentlist">
-		<?php wp_list_comments(); ?>
-	</ol>
+  <ol class="commentlist">
+    <?php wp_list_comments(); ?>
+  </ol>
 
-	<div class="navigation">
-		<div class="next-posts"><?php previous_comments_link() ?></div>
-		<div class="prev-posts"><?php next_comments_link() ?></div>
-	</div>
+  <div class="navigation">
+    <div class="next-posts"><?php previous_comments_link() ?></div>
+    <div class="prev-posts"><?php next_comments_link() ?></div>
+  </div>
 
  <?php } else { // this is displayed if there are no comments so far ?>
 
-	<?php if (!comments_open()) { // comments are closed ?>
-		<p>Comments are closed.</p>
-	<?php } ?>
+  <?php if (!comments_open()) { // comments are closed ?>
+    <p>Comments are closed.</p>
+  <?php } ?>
 
 <?php } ?>
 
@@ -98,7 +98,7 @@
     </form>
   </div>
 
-	<?php } // If registration required and not logged in ?>
+  <?php } // If registration required and not logged in ?>
 
 </div>
 

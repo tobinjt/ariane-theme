@@ -1,10 +1,10 @@
-		<footer id="footer" class="source-org vcard copyright">
-			<span>&copy;2011-<?php echo date("Y"); echo " ", strtolower(get_bloginfo('name')); ?></span>
-			<span>phone: 00353 86 834 6825</span>
-			<span>email: ariane at arianetobin.ie</span>
-		</footer>
+    <footer id="footer" class="source-org vcard copyright">
+      <span>&copy;2011-<?php echo date("Y"); echo " ", strtolower(get_bloginfo('name')); ?></span>
+      <span>phone: 00353 86 834 6825</span>
+      <span>email: ariane at arianetobin.ie</span>
+    </footer>
 
-	</div>
+  </div>
 <?php
 if (current_user_can('edit_pages')) {
   echo <<<VALIDATOR
@@ -13,7 +13,7 @@ VALIDATOR;
 }
 ?>
 
-	<?php wp_footer(); ?>
+  <?php wp_footer(); ?>
 
 <script type="text/javascript">
 
