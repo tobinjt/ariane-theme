@@ -70,13 +70,13 @@
           <div>
             <input type="text" name="author" id="author" size="22" tabindex="1"
               value="<?php echo esc_attr($comment_author); ?>" />
-            <label for="author">Name </label>
+            <label for="author">Name (required)</label>
           </div>
 
           <div>
-            <input type="text" name="email" id="email"  size="22" "tabindex="2"
-              value="<?php echo esc_attr($comment_author_email); ?> />
-            <label for="email">EMail (will not be published) </label>
+            <input type="text" name="email" id="email"  size="22" tabindex="2"
+              value="<?php echo esc_attr($comment_author_email); ?>" />
+            <label for="email">Email address (required; will not be published)</label>
           </div>
 
           <div>
