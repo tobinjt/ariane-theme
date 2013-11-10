@@ -32,11 +32,12 @@ $PAGE_CONTENT = '';
       </article>
 <?php
   }
+  include (TEMPLATEPATH . '/_/inc/nav.php' );
 ?>
-
-      <?php include (TEMPLATEPATH . '/_/inc/nav.php' ); ?>
     </div>
   </div>
 
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php
+  get_sidebar();
+  get_footer();
+?>

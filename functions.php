@@ -13,7 +13,7 @@
   // Load Javascript libraries.
   wp_enqueue_script('jquery');
   wp_register_script('modernizr',
-     ('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js'),
+     '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js',
      false);
   wp_enqueue_script('modernizr');
 
@@ -37,7 +37,10 @@
     ));
   }
 
-  add_theme_support( 'post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'audio', 'chat', 'video')); // Add 3.1 post format theme support.
+  // Add 3.1 post format theme support.
+  add_theme_support('post-formats',
+    array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'audio',
+          'chat', 'video'));
 
   // Remove the version strings from CSS and Javascript.  Found by searching
   // for "wordpress remove query strings from static resources".

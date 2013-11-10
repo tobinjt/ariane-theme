@@ -15,7 +15,7 @@
     include (TEMPLATEPATH . '/_/inc/meta.php' );
 ?>
           </div>
-          <?php edit_post_link('Edit this entry','','.'); ?>
+          <?php edit_post_link('Edit this entry', '', '.'); ?>
         </article>
 <?php
     comments_template();
@@ -23,5 +23,7 @@
 ?>
     </div>
   </div>
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php
+  get_sidebar();
+  get_footer();
+?>
