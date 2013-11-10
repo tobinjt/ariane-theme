@@ -335,7 +335,7 @@ END_OF_JAVASCRIPT;
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
     add_action('wp_footer', 'SliderSetupInFooter');
-    return '<div id="slider-div"><img id="slider-image" alt="Slider placeholder" src="#non-existent"></div>';
+    return '<div id="slider-div"></div>';
   }
 
 

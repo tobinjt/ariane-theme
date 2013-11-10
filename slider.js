@@ -92,6 +92,8 @@ Slider.initialise = function(images) {
     }
   });
   jQuery('#slider-div').css('height', max_image_height);
+  jQuery('#slider-div').append(
+      '<img id="slider-image" alt="Slider placeholder">');
   Slider.change_image();
   Slider.preload_next_image();
   // Start the slider in 3 seconds, because the images are only fully displayed
