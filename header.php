@@ -30,7 +30,7 @@
     content="Copyright Ariane Tobin Jewellery 2011-<?php echo date("Y");?>. All Rights Reserved.">
   <meta name="dcterms.dateCopyrighted" content="2011-<?php echo date("Y");?>">
 
-    <!-- XXX FAVICON. -->
+  <!-- TODO(johntobin): FAVICON. -->
   <link rel="shortcut icon"
     href="<?php bloginfo('template_directory'); ?>/_/img/favicon.ico">
   <!-- This is the traditional favicon.
@@ -38,7 +38,7 @@
      - transparency is OK
      - see wikipedia for info on browser support: http://mky.be/favicon/ -->
 
-    <!-- XXX FAVICON. -->
+  <!-- TODO(johntobin): FAVICON. -->
   <link rel="apple-touch-icon"
     href="<?php bloginfo('template_directory'); ?>/_/img/apple-touch-icon.png">
   <!-- The is the icon for iOS's Web Clip.
@@ -59,9 +59,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-
-  <div id="page-wrap"><!-- not needed? up to you: http://camendesign.com/code/developpeurs_sans_frontieres -->
-
+  <div id="page-wrap">
     <header id="header">
       <div id="title">
         <div id="title-text">

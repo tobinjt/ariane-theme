@@ -5,6 +5,7 @@
   </div>
 
 <?php
+  // TODO(johntobin): Should the sidebar be displayed here?
   get_sidebar();
   get_footer();
 ?>
