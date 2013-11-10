@@ -340,8 +340,6 @@ p {
 #header a.current-url {
   color: #B92166;
   font-size: 2.0em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
 }
 
 /* Make the icons grey until hovered over. */
