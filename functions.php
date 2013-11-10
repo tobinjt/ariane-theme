@@ -1,41 +1,6 @@
 <?php
-  // Add RSS links to <head> section.
-  add_theme_support('automatic-feed-links');
-
-  // Clean up the <head>
-  function removeHeadLinks() {
-    remove_action('wp_head', 'rsd_link');
-    remove_action('wp_head', 'wlwmanifest_link');
-  }
-  add_action('init', 'removeHeadLinks');
-  remove_action('wp_head', 'wp_generator');
-  // Remove the version strings from CSS and Javascript.  Found by searching
-  // for "wordpress remove query strings from static resources".
-  function _remove_script_version($src){
-    $parts = explode('?', $src);
-    return $parts[0];
-  }
-  add_filter('script_loader_src', '_remove_script_version', 15, 1);
-  add_filter('style_loader_src', '_remove_script_version', 15, 1);
-
-  // Load Javascript libraries.
-  wp_enqueue_script('jquery');
-  wp_register_script('modernizr',
-     '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js',
-     false);
-  wp_enqueue_script('modernizr');
-
-  // Set up the sidebar.
-  register_sidebar(array(
-    'name' => __('Sidebar Widgets','html5reset' ),
-    'id'   => 'sidebar-widgets',
-    'description'   => __( 'These are widgets for the sidebar.','html5reset' ),
-    'before_widget' => '<div id="%1$s" class="widget %2$s">',
-    'after_widget'  => '</div>',
-    'before_title'  => '<h2>',
-    'after_title'   => '</h2>'
-  ));
-
+  // Define most of our functions first; some small functions will be defined 
+  // inline when configuring Wordpress.
   /* echo_title(): outputs the appropriate title.  */
   function echo_title() {
     if (is_tag()) {
@@ -245,4 +210,44 @@ END_OF_TABLE_START;
 END_OF_TABLE_END;
     return implode("\n", $table);
   }
+
+
+  // Configure Wordpress.
+  // Add RSS links to <head> section.
+  add_theme_support('automatic-feed-links');
+
+  // Clean up the <head>
+  function removeHeadLinks() {
+    remove_action('wp_head', 'rsd_link');
+    remove_action('wp_head', 'wlwmanifest_link');
+  }
+  add_action('init', 'removeHeadLinks');
+  remove_action('wp_head', 'wp_generator');
+  // Remove the version strings from CSS and Javascript.  Found by searching
+  // for "wordpress remove query strings from static resources".
+  function _remove_script_version($src){
+    $parts = explode('?', $src);
+    return $parts[0];
+  }
+  add_filter('script_loader_src', '_remove_script_version', 15, 1);
+  add_filter('style_loader_src', '_remove_script_version', 15, 1);
+
+  // Load Javascript libraries.
+  wp_enqueue_script('jquery');
+  wp_register_script('modernizr',
+     '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js',
+     false);
+  wp_enqueue_script('modernizr');
+
+  // Set up the sidebar.
+  register_sidebar(array(
+    'name' => __('Sidebar Widgets','html5reset' ),
+    'id'   => 'sidebar-widgets',
+    'description'   => __( 'These are widgets for the sidebar.','html5reset' ),
+    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h2>',
+    'after_title'   => '</h2>'
+  ));
+
 ?>
