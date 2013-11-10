@@ -241,6 +241,59 @@ END_OF_TABLE_END;
   }
 
 
+  /* SliderSetup: return the Javascript needed to set up the slider, including
+   * the images.
+   * Returns:
+   *  string, HTML that should be output.
+   */
+  function SliderSetup() {
+    $output = array();
+    $output[] = <<<END_OF_JAVASCRIPT
+<script type="text/javascript">
+// URL, width, height.
+var images = [
+END_OF_JAVASCRIPT;
+
+    // Dynamically build the Javascript array of images when displaying the
+    // slider.
+    $media_query = new WP_Query(
+      array(
+        'post_type'      => 'attachment',
+        'post_status'    => 'any',
+        'posts_per_page' => -1,
+      )
+    );
+    foreach ($media_query->posts as $post) {
+      if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
+        $image_stats = wp_get_attachment_metadata($post->ID);
+        $url = wp_get_attachment_url($post->ID);
+        if ($url && $image_stats
+            && $image_stats['width'] && $image_stats['height']) {
+            $output[] = <<<END_OF_ROW
+['{$url}', {$image_stats['width']}, {$image_stats['height']}],
+END_OF_ROW;
+        }
+      }
+    }
+
+    $template_directory = get_bloginfo('template_directory');
+    $output[] = <<<END_OF_JAVASCRIPT
+];
+// The images array ends with a comma, and IE 8 adds a null or undefined
+// element after the comma, so we remove that element.
+if (images[images.length - 1] === null
+      || images[images.length - 1] === undefined) {
+  images.pop();
+}
+</script>
+// Include the rest of the Javascript.
+<script type="text/javascript" src="{$template_directory}/slider.js"></script>
+END_OF_JAVASCRIPT;
+
+    return implode("\n", $output);
+  }
+
+
   // Configure Wordpress.
   // Add RSS links to <head> section.
   add_theme_support('automatic-feed-links');

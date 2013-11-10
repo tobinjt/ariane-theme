@@ -29,52 +29,11 @@ jQuery(document).ready(function (){
 </script>
 
 <?php
-global $PAGE_CONTENT;
-$LOAD_SLIDER = preg_match('/slider-image/', $PAGE_CONTENT);
-if ($LOAD_SLIDER) {
-  // Only include the Javascript if we're actually displaying the slider.
-  echo "<script type='text/javascript' src='",
-    get_bloginfo('template_directory'), "/slider.js",
-    "'></script>", "\n";
-  // Dynamically build the Javascript array of images when displaying the
-  // slider.
-  $media_query = new WP_Query(
-    array(
-      'post_type'      => 'attachment',
-      'post_status'    => 'any',
-      'posts_per_page' => -1,
-    )
-  );
-  echo '<script type="text/javascript">', "\n";
-  echo "// URL, width, height\n";
-  echo "var images = [\n";
-  foreach ($media_query->posts as $post) {
-    if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
-      $image_stats = wp_get_attachment_metadata($post->ID);
-      // Escaping?
-      $url = wp_get_attachment_url($post->ID);
-      if ($url && $image_stats
-          && $image_stats['width'] && $image_stats['height']) {
-        echo "    ['"
-          . $url . "', "
-          . $image_stats['width'] . ', '
-          . $image_stats['height']
-          . "],\n";
-      }
-    }
+  global $PAGE_CONTENT;
+  if (preg_match('/slider-image/', $PAGE_CONTENT)) {
+    // Only include the Javascript if we're actually displaying the slider.
+    echo SliderSetup();
   }
-  echo "];\n";
 ?>
-
-// The images array ends with a comma, and IE 8 adds a null or undefined
-// element after the comma, so we remove that element.
-if (images[images.length - 1] === null
-      || images[images.length - 1] === undefined) {
-  images.pop();
-}
-<?php
-}
-?>
-</script>
   </body>
 </html>
