@@ -88,11 +88,55 @@
     return (strpos(get_current_url(), '/jewellery') === 0);
   }
 
-  /* make_link_bar: outputs a bar of links into the page.
+  /* links_to_html: converts an array of links into HTML with a tags.
+   * Args:
+   *  $links: array(url => text).
+   *  $url_to_highlight: the url to highlight as the current URL.  Adds
+   *    'class="current-url"' to the link.
+   * Returns:
+   *  string.
+   */
+  function links_to_html($links, $url_to_highlight) {
+    $output = array();
+    foreach ($links as $url => $text) {
+      if ($url == $url_to_highlight) {
+        $extra_class = ' class="current-url"';
+      } else {
+        $extra_class = '';
+      }
+      $output[] = <<<END_OF_LINK
+          <a href="{$url}"{$extra_class}>{$text}</a>
+END_OF_LINK;
+    }
+    return implode("\n", $output);
+  }
+
+  /* wrap_with_tag: wrap a tag around some html.
+   * Note that the indentation of the HTML will not be correct, particularly if 
+   * you wrap more than once.
+   * Args:
+   *  $tag: the tag to wrap around the HTML.
+   *  $class: the CSS class for the tag.
+   *  $html: the HTML to wrap the tag around.
+   * Returns:
+   *  string.
+   */
+  function wrap_with_tag($tag, $class, $html) {
+    $html = ltrim($html);
+    return <<<END_OF_TAG
+      <{$tag} class="{$class}">
+        {$html}
+      </{$tag}>
+END_OF_TAG;
+  }
+
+  /* make_link_bar: returns a bar of links.
    * Args:
    *   $initial_groups: an array(css-class -> array(url -> link-text)).
    *   $default_url: the URL to use if the current URL is not in $initial_groups.
    *                 Useful to make the blog link be highlighted for blog posts.
+   * Returns:
+   *  string.
    */
   function make_link_bar($initial_groups, $default_url) {
     // Filter out invalid URLs.
@@ -106,7 +150,7 @@
           // Local page that doesn't exist.  Skip it.
           $skipped_links[$url] = $text;
         } else {
-          $new_links[$url] = $text;
+          $new_links[$url] = strtolower($text);
         }
       }
       if (count($skipped_links) > 0) {
@@ -137,26 +181,13 @@
       $url_to_highlight = '/qwertyasdf';
     }
 
-    # Padding to make the HTML indent properly.
-    $padding = str_repeat(' ', 6);
-    $span_padding = $padding . str_repeat(' ', 2);
-    $link_padding = $span_padding . str_repeat(' ', 2);
-    echo $padding, '<div class="menubar">', "\n";
-    // Create the menubar.
+    $output = array();
     foreach ($groups as $class => $links) {
-      echo $span_padding, '<span class="', $class, '">', "\n";
-      foreach ($links as $url => $text) {
-        if ($url == $url_to_highlight) {
-          echo $link_padding, '<a href="', $url, '" class="current-url">',
-            strtolower($text), '</a>', "\n";
-        } else {
-          echo $link_padding, '<a href="', $url, '">',
-            strtolower($text), '</a>', "\n";
-        }
-      }
-      echo $span_padding, '</span>', "\n";
+      $html_links = links_to_html($links, $url_to_highlight);
+      $output[] = wrap_with_tag('div', 'menubar',
+        wrap_with_tag('span', $class, $html_links));
     }
-    echo $padding, '</div>', "\n";
+    return implode("\n", $output);
   }
 
   function make_icon_link($file, $alt, $width, $height) {

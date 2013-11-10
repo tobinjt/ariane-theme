@@ -88,7 +88,7 @@
     get_bloginfo('rss2_url')
       => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
   );
-  make_link_bar(
+  echo make_link_bar(
     array('page-links left-page-links' => $main_links,
           'right-links' => $icon_links),
     '/news/');
@@ -103,7 +103,7 @@
         '/jewellery/neckpieces' => 'neckpieces',
         '/jewellery/rings'      => 'rings',
       );
-      make_link_bar(
+      echo make_link_bar(
         array('page-links left-page-links' => $jewellery_links),
         '/news/');
     }
