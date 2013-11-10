@@ -1,5 +1,5 @@
 <?php
-  // Define most of our functions first; some small functions will be defined 
+  // Define most of our functions first; some small functions will be defined
   // inline when configuring Wordpress.
   /* echo_title(): outputs the appropriate title.  */
   function echo_title() {
@@ -62,7 +62,7 @@ END_OF_LINK;
   }
 
   /* wrap_with_tag: wrap a tag around some html.
-   * Note that the indentation of the HTML will not be correct, particularly if 
+   * Note that the indentation of the HTML will not be correct, particularly if
    * you wrap more than once.
    * Args:
    *  $tag: the tag to wrap around the HTML.
@@ -149,21 +149,31 @@ END_OF_TAG;
 
   /* MakeJewelleryGrid: create a table from CSV content.
    * Args:
-   *  $page_contents: string, the contents of the page.  First two lines 
-   *    (JEWELLERY GRID marker and CSV header) will be removed.
+   *  $page_contents: string, the contents of the page.  First line (CSV header)
+   *    will be removed.  Blank lines will be skipped.  <br /> will be stripped
+   *    from the end of each line.
    * Returns:
    *  string, HTML to insert in the page.
    */
   function MakeJewelleryGrid($page_contents) {
-    # Turn the CSV from page contents into a data structure.
+    // Turn the CSV from page contents into a data structure.
     $lines = str_getcsv($page_contents, "\n");
-    # Discard !!JEWELLERY GRID!!
-    array_shift($lines);
-    # Discard the header.
-    array_shift($lines);
     $ranges = array();
+    $seen_header = false;
     foreach ($lines as $line) {
+      // Wordpress puts <br /> at the end of each line.
+      $line = str_replace('<br />', '', $line);
       $data = str_getcsv($line, '|');
+      // Skip blank lines.  The CSV parser will return an array with a single
+      // element when given a blank line.
+      if (count($data) == 1) {
+        continue;
+      }
+      if (!$seen_header) {
+        // Discard the header.
+        $seen_header = true;
+        continue;
+      }
       $ranges[$data[0]] = array(
         'alt'   => $data[1],
         'image' => $data[2],
@@ -211,6 +221,25 @@ END_OF_TABLE_END;
     return implode("\n", $table);
   }
 
+  /* JewelleryGridShortcode: wrap MakeJewelleryGrid to provide a shortcode.
+   * This *must* be used in the enclosing form.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function JewelleryGridShortcode($atts, $content=null, $tag) {
+    if (is_null($content)) {
+      return '<h1>jewellery_grid: no content to display!</h1>' . "\n";
+    }
+    return MakeJewelleryGrid($content);
+  }
+
 
   // Configure Wordpress.
   // Add RSS links to <head> section.
@@ -250,4 +279,6 @@ END_OF_TABLE_END;
     'after_title'   => '</h2>'
   ));
 
+  // Add shortcodes.
+  add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
 ?>
