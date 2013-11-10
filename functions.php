@@ -241,21 +241,13 @@ END_OF_TABLE_END;
   }
 
 
-  /* SliderSetup: return the Javascript needed to set up the slider, including
-   * the images.
+  /* SliderImages: Dynamically build the Javascript array of images when
+   * displaying the slider.
    * Returns:
-   *  string, HTML that should be output.
+   *  string, the Javascript contents of the array, *without* 'var foo = []'
+   *  around it.
    */
-  function SliderSetup() {
-    $output = array();
-    $output[] = <<<END_OF_JAVASCRIPT
-<script type="text/javascript">
-// URL, width, height.
-var images = [
-END_OF_JAVASCRIPT;
-
-    // Dynamically build the Javascript array of images when displaying the
-    // slider.
+  function SliderImages() {
     $media_query = new WP_Query(
       array(
         'post_type'      => 'attachment',
@@ -263,6 +255,7 @@ END_OF_JAVASCRIPT;
         'posts_per_page' => -1,
       )
     );
+    $output = array();
     foreach ($media_query->posts as $post) {
       if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
         $image_stats = wp_get_attachment_metadata($post->ID);
@@ -270,27 +263,43 @@ END_OF_JAVASCRIPT;
         if ($url && $image_stats
             && $image_stats['width'] && $image_stats['height']) {
             $output[] = <<<END_OF_ROW
-  ['{$url}', {$image_stats['width']}, {$image_stats['height']}],
+    ['{$url}', {$image_stats['width']}, {$image_stats['height']}],
 END_OF_ROW;
         }
       }
     }
+    return implode("\n", $output);
+  }
 
+  /* SliderSetup: return the Javascript needed to set up the slider, including
+   * the images.
+   * Returns:
+   *  string, HTML that should be output.
+   */
+  function SliderSetup() {
     $template_directory = get_bloginfo('template_directory');
-    $output[] = <<<END_OF_JAVASCRIPT
-];
-// The images array ends with a comma, and IE 8 adds a null or undefined
-// element after the comma, so we remove that element.
-if (images[images.length - 1] === null
-      || images[images.length - 1] === undefined) {
-  images.pop();
-}
+    $images = trim(SliderImages());
+    $output = <<<END_OF_JAVASCRIPT
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  var images = [
+    // URL, width, height.
+    {$images}
+  ];
+  // The images array ends with a comma, and IE 8 adds a null or undefined
+  // element after the comma, so we remove that element.
+  if (images[images.length - 1] === null
+        || images[images.length - 1] === undefined) {
+    images.pop();
+  }
+  Slider.initialise(images);
+});
 </script>
-// Include the rest of the Javascript.
+<!-- Include the rest of the Javascript. -->
 <script type="text/javascript" src="{$template_directory}/slider.js"></script>
 END_OF_JAVASCRIPT;
 
-    return implode("\n", $output);
+    return $output;
   }
 
 

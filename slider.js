@@ -46,17 +46,17 @@ Slider.fisherYates = function(myArray) {
 
 Slider.change_image = function() {
   var margin_top = (parseInt(jQuery('#slider-div').css('height'))
-                      - images[Slider.image_index][2]) / 2;
+                      - Slider.images[Slider.image_index][2]) / 2;
   // Limit the margin so that smaller images aren't pushed below the fold.
   var bounded_margin_top = Math.min(margin_top, 100);
-  var image_url = images[Slider.image_index][0];
+  var image_url = Slider.images[Slider.image_index][0];
   jQuery('#slider-image'
     ).attr('src', image_url
-    ).attr('width', images[Slider.image_index][1]
-    ).attr('height', images[Slider.image_index][2]
+    ).attr('width', Slider.images[Slider.image_index][1]
+    ).attr('height', Slider.images[Slider.image_index][2]
     ).css('margin-top', bounded_margin_top);
-  jQuery('#slider-div').css('width', images[Slider.image_index][1]);
-  Slider.image_index = (Slider.image_index + 1) % images.length;
+  jQuery('#slider-div').css('width', Slider.images[Slider.image_index][1]);
+  Slider.image_index = (Slider.image_index + 1) % Slider.images.length;
 };
 
 Slider.preload_next_image = function() {
@@ -77,15 +77,16 @@ Slider.fade_image = function() {
     Slider.fade_duration, 'linear', Slider.fade_image_callback);
 };
 
-Slider.initialise = function() {
-  Slider.fisherYates(images);
+Slider.initialise = function(images) {
+  Slider.images = images;
+  Slider.fisherYates(Slider.images);
   Slider.image_index = 0;
   // Slider.change_image will load the 0th image, so we need to preload the 1th
   // image.
-  Slider.images_to_preload = images.slice(1, images.length);
+  Slider.images_to_preload = Slider.images.slice(1, Slider.images.length);
   var max_image_height = 0;
   // Set div height.
-  jQuery(images).each(function() {
+  jQuery(Slider.images).each(function() {
     if (this[2] > max_image_height) {
       max_image_height = this[2];
     }
@@ -102,5 +103,3 @@ Slider.initialise = function() {
       setInterval(Slider.fade_image, Slider.rotation_duration);
     }, Slider.display_duration);
 };
-
-jQuery(document).ready(Slider.initialise);
