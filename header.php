@@ -35,7 +35,7 @@
   </title>
 
 <?php
-  if (is_singular()) {
+  if (is_single()) {
     wp_enqueue_script('comment-reply');
   }
   wp_head();
