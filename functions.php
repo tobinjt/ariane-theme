@@ -4,8 +4,9 @@
 
   $locale = get_locale();
   $locale_file = TEMPLATEPATH . "/languages/$locale.php";
-  if ( is_readable($locale_file) )
-   require_once($locale_file);
+  if (is_readable($locale_file)) {
+    require_once($locale_file);
+  }
 
   // Add RSS links to <head> section
   add_theme_support( 'automatic-feed-links' );
@@ -187,7 +188,7 @@ END_OF_TAG;
       $output[] = wrap_with_tag('div', 'menubar',
         wrap_with_tag('span', $class, $html_links));
     }
-    return implode("\n", $output);
+    return implode("\n", $output) . "\n";
   }
 
   function make_icon_link($file, $alt, $width, $height) {
