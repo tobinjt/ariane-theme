@@ -28,12 +28,5 @@ jQuery(document).ready(function (){
 });
 </script>
 
-<?php
-  global $PAGE_CONTENT;
-  if (preg_match('/slider-image/', $PAGE_CONTENT)) {
-    // Only include the Javascript if we're actually displaying the slider.
-    echo SliderSetup();
-  }
-?>
   </body>
 </html>

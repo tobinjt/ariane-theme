@@ -237,6 +237,9 @@ END_OF_TABLE_END;
     if (is_null($content)) {
       return '<h1>jewellery_grid: no content to display!</h1>' . "\n";
     }
+    if (!is_string($atts)) {
+      return '<h1>jewellery_grid: no attributes accepted!</h1>' . "\n";
+    }
     return MakeJewelleryGrid($content);
   }
 
@@ -280,6 +283,7 @@ END_OF_ROW;
     $template_directory = get_bloginfo('template_directory');
     $images = trim(SliderImages());
     $output = <<<END_OF_JAVASCRIPT
+<!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
   var images = [
@@ -297,9 +301,41 @@ jQuery(document).ready(function() {
 </script>
 <!-- Include the rest of the Javascript. -->
 <script type="text/javascript" src="{$template_directory}/slider.js"></script>
-END_OF_JAVASCRIPT;
+<!-- End of SliderSetup. -->
 
+END_OF_JAVASCRIPT;
     return $output;
+  }
+
+  /* SliderSetupInFooter: Run SliderSetup and output the result.  This should be
+   * used when registering SliderSetup to run in wp_footer().
+   */
+  function SliderSetupInFooter() {
+    echo SliderSetup();
+  }
+
+  /* SliderSetupShortcode: wrap SliderSetup to provide a shortcode.
+   * This *must not* be used in the enclosing form.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function SliderSetupShortcode($atts, $content=null, $tag) {
+    if (!is_null($content) and $content != '') {
+      return '<h1>slider: no content accepted!  Given: '
+        . htmlspecialchars($content) . '</h1>' . "\n";
+    }
+    if (!is_string($atts)) {
+      return '<h1>slider: no attributes accepted!</h1>' . "\n";
+    }
+    add_action('wp_footer', 'SliderSetupInFooter');
+    return '<div id="slider-div"><img id="slider-image" alt="Slider placeholder" src="#non-existent"></div>';
   }
 
 
@@ -343,4 +379,5 @@ END_OF_JAVASCRIPT;
 
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
+  add_shortcode('slider', 'SliderSetupShortcode');
 ?>

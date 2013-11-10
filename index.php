@@ -1,19 +1,10 @@
-<?php
-// Create a dummy page contents so we can check for slider presence in the
-// footer; we know it'll never happen outside a page.
-global $PAGE_CONTENT;
-$PAGE_CONTENT = '';
-?>
-
 <?php get_header(); ?>
 
   <div id="make-space-for-sidebar">
     <div id="main-content-blog">
 <?php
   if (!have_posts()) {
-?>
-      <h2>Not Found</h2>
-<?php
+    echo '      <h2>Not Found</h2>', "\n";
   }
   while (have_posts()) {
     the_post();
