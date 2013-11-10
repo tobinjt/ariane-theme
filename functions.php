@@ -270,7 +270,7 @@ END_OF_JAVASCRIPT;
         if ($url && $image_stats
             && $image_stats['width'] && $image_stats['height']) {
             $output[] = <<<END_OF_ROW
-['{$url}', {$image_stats['width']}, {$image_stats['height']}],
+  ['{$url}', {$image_stats['width']}, {$image_stats['height']}],
 END_OF_ROW;
         }
       }
