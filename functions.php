@@ -51,4 +51,30 @@
   add_filter('script_loader_src', '_remove_script_version', 15, 1);
   add_filter('style_loader_src', '_remove_script_version', 15, 1);
 
+  /* echo_title(): outputs the appropriate title.  */
+  function echo_title() {
+    if (is_tag()) {
+      single_tag_title("Tag Archive for &quot;"); echo '&quot; - ';
+    } elseif (is_archive()) {
+      wp_title(''); echo ' Archive - ';
+    } elseif (is_search()) {
+      echo 'Search for &quot;' . get_search_query() . '&quot; - ';
+    } elseif (is_404()) {
+      echo 'Not Found - ';
+    } elseif (is_single() || is_page()) {
+     $title = wp_title('', False);
+     if ($title != '') {
+       echo $title, ' - ';
+     }
+    }
+    if (is_home()) {
+      bloginfo('name'); echo ' - '; bloginfo('description');
+    } else {
+      bloginfo('name');
+    }
+    $paged = get_query_var('paged');
+    if ($paged > 1) {
+      echo ' - page ' . $paged;
+    }
+  }
 ?>

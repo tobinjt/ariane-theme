@@ -7,33 +7,6 @@
 <!--[if gt IE 9]><!--><html class="no-js" <?php language_attributes(); ?>><!--<![endif]-->
 <!-- the "no-js" class is for Modernizr. -->
 
-<?php
-  function echo_title() {
-    if (function_exists('is_tag') && is_tag()) {
-      single_tag_title("Tag Archive for &quot;"); echo '&quot; - ';
-    } elseif (is_archive()) {
-      wp_title(''); echo ' Archive - ';
-    } elseif (is_search()) {
-      echo 'Search for &quot;' . wp_specialchars($s) . '&quot; - ';
-    } elseif (!(is_404()) && (is_single()) || (is_page())) {
-     $title = wp_title('', False);
-     if ($title != '') {
-       echo $title, ' - ';
-     }
-    } elseif (is_404()) {
-      echo 'Not Found - ';
-    }
-    if (is_home()) {
-      bloginfo('name'); echo ' - '; bloginfo('description');
-    } else {
-      bloginfo('name');
-    }
-    if ($paged > 1) {
-      echo ' - page ' . $paged;
-    }
-  }
-?>
-
 <head id="www-sitename-com" data-template-set="html5-reset-wordpress-theme">
   <meta charset="<?php bloginfo('charset'); ?>">
 <?php
