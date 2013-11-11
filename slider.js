@@ -43,22 +43,22 @@ Slider.fisherYates = function(myArray) {
 
 Slider.change_image = function() {
   var margin_top = (parseInt(jQuery('#slider-div').css('height'))
-                      - Slider.images[Slider.image_index][2]) / 2;
+                      - Slider.images[Slider.image_index]['height']) / 2;
   // Limit the margin so that smaller images aren't pushed below the fold.
   var bounded_margin_top = Math.min(margin_top, 100);
-  var image_url = Slider.images[Slider.image_index][0];
+  var image_url = Slider.images[Slider.image_index]['url'];
   jQuery('#slider-image'
     ).attr('src', image_url
-    ).attr('width', Slider.images[Slider.image_index][1]
-    ).attr('height', Slider.images[Slider.image_index][2]
+    ).attr('width', Slider.images[Slider.image_index]['width']
+    ).attr('height', Slider.images[Slider.image_index]['height']
     ).css('margin-top', bounded_margin_top);
-  jQuery('#slider-div').css('width', Slider.images[Slider.image_index][1]);
+  jQuery('#slider-div').css('width', Slider.images[Slider.image_index]['width']);
   Slider.image_index = (Slider.image_index + 1) % Slider.images.length;
 };
 
 Slider.preload_next_image = function() {
   if (Slider.images_to_preload.length) {
-    var url = Slider.images_to_preload.shift()[0];
+    var url = Slider.images_to_preload.shift()['url'];
     var image = jQuery('<img />').attr('src', url);
   }
 };
@@ -74,8 +74,8 @@ Slider.fade_image = function() {
     Slider.fade_duration, 'linear', Slider.fade_image_callback);
 };
 
-// Each element in the array must be an array with 3 elements:
-// URL, width, height
+// Each element in the array must be a dictionary with elements:
+// url, width, height.
 Slider.initialise = function(images) {
   Slider.images = images;
   Slider.fisherYates(Slider.images);
@@ -86,8 +86,8 @@ Slider.initialise = function(images) {
   var max_image_height = 0;
   // Set div height.
   jQuery(Slider.images).each(function() {
-    if (this[2] > max_image_height) {
-      max_image_height = this[2];
+    if (this['height'] > max_image_height) {
+      max_image_height = this['height'];
     }
   });
   jQuery('#slider-div').css('height', max_image_height);

@@ -266,7 +266,7 @@ END_OF_TABLE_END;
         if ($url && $image_stats
             && $image_stats['width'] && $image_stats['height']) {
             $output[] = <<<END_OF_ROW
-    ['{$url}', {$image_stats['width']}, {$image_stats['height']}],
+    {'url': '{$url}', 'width': {$image_stats['width']}, 'height': {$image_stats['height']}},
 END_OF_ROW;
         }
       }
@@ -287,7 +287,6 @@ END_OF_ROW;
 <script type="text/javascript">
 jQuery(document).ready(function() {
   var images = [
-    // URL, width, height.
     {$images}
   ];
   // The images array ends with a comma, and IE 8 adds a null or undefined
