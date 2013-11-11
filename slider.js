@@ -1,7 +1,4 @@
 // Javascript implementing the slider functionality.
-// Relies on a global array named "images" being populated beforehand.
-// Each element in the array must be an array with 3 elements:
-// URL, width, height
 // Flow of control:
 // 1) Slider.initialise() is called, which sets up everything except the image
 //    array.
@@ -77,6 +74,8 @@ Slider.fade_image = function() {
     Slider.fade_duration, 'linear', Slider.fade_image_callback);
 };
 
+// Each element in the array must be an array with 3 elements:
+// URL, width, height
 Slider.initialise = function(images) {
   Slider.images = images;
   Slider.fisherYates(Slider.images);
