@@ -59,6 +59,7 @@
     '/jewellery/'     => 'jewellery',
     '/news/'          => 'news',
     '/about/'         => 'about',
+    '/care/'          => 'care',
   );
   $icon_links = array(
     'http://www.facebook.com/ArianeTobinJewellery'
