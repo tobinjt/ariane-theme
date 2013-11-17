@@ -387,6 +387,7 @@ END_OF_JAVASCRIPT;
   // Configure Wordpress.
   // Add RSS links to <head> section.
   add_theme_support('automatic-feed-links');
+  add_editor_style('style.css');
 
   // Clean up the <head>
   function removeHeadLinks() {
