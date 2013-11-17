@@ -405,9 +405,10 @@ img:hover {
 /**
  * A single page.
  **/
-#main-content-page {
+#main-content-page h2 {
+  font-size: 150%;
+  margin-bottom: 0.5em;
 }
-
 
 /**
  * A jewellery page; everything in single page applies here unless overridden.
@@ -536,4 +537,11 @@ img:hover {
 li {
   list-style-position: inside;
   list-style-type: disc;
+}
+
+/**
+ * The jewellery care page.
+ */
+#care-page li {
+  margin-bottom: 0.5em;
 }
