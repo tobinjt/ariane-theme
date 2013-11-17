@@ -46,10 +46,6 @@ embed {max-width: 100%;}
 /* force a vertical scrollbar to prevent a jumpy page */
 html {overflow-y: scroll;}
 
-/* we use a lot of ULs that aren't bulleted.
-  don't forget to restore the bullets within content. */
-ul {list-style: none;}
-
 blockquote, q {quotes: none;}
 
 blockquote:before,
@@ -534,4 +530,10 @@ img:hover {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   font-size: 2em;
+}
+
+/* The list indicator should be inside the container. */
+li {
+  list-style-position: inside;
+  list-style-type: disc;
 }
