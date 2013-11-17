@@ -103,7 +103,8 @@ END_OF_TAG;
           $new_links[$url] = strtolower($text);
         }
       }
-      if (count($skipped_links) > 0) {
+      // Remove false for helpful logging.
+      if (false and count($skipped_links) > 0) {
         error_log('Skipped some non-existent links: '
           . print_r($skipped_links, true));
       }
