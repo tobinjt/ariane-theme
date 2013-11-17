@@ -243,6 +243,52 @@ END_OF_TABLE_END;
     return MakeJewelleryGrid($content);
   }
 
+  /* StyleWrapShortcode: Wrap a div with a style around content.
+   * This *must* be used in the enclosing form.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function StyleWrapShortcode($atts, $content=null, $tag) {
+    if (is_null($content)) {
+      return '<h1>style_wrap: no content to display!</h1>' . "\n";
+    }
+    if (is_string($atts)) {
+      return '<h1>style_wrap: need <b>class</b> or <b>id</b> attributes!</h1>'
+        . "\n";
+    }
+
+    $attrs = shortcode_atts(
+      array(
+        'class' => '',
+        'id' => '',
+      ),
+      $atts);
+    $div_parts = array('<div');
+    if ($attrs['class'] != '') {
+      $div_parts[] = 'class="' . $attrs['class'] . '"';
+    }
+    if ($attrs['id'] != '') {
+      $div_parts[] = 'id="' . $attrs['id'] . '"';
+    }
+    $div_parts[] = '>';
+    $full_div = implode(' ', $div_parts);
+
+    // Wordpress will sometimes add a </p> after the shortcode.
+    $stripped_content = preg_replace('/^\ *<\/p>/', '', $content);
+    return <<<END_OF_DIV
+{$full_div}
+  {$stripped_content}
+</div>
+END_OF_DIV;
+  }
+
 
   /* SliderImages: Dynamically build the Javascript array of images when
    * displaying the slider.
@@ -379,4 +425,5 @@ END_OF_JAVASCRIPT;
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('slider', 'SliderSetupShortcode');
+  add_shortcode('style_wrap', 'StyleWrapShortcode');
 ?>
