@@ -26,6 +26,17 @@ jQuery(document).ready(function (){
   jQuery("#click-to-respond").click(toggle_comment_box);
   jQuery("#cancel-comment-form").click(toggle_comment_box);
 });
+
+jQuery(document).ready(
+  function (){
+    jQuery('.set-width-from-image').each(
+      function() {
+        var images = jQuery(this).find('img');
+        var width = images[0].width;
+        jQuery(this).attr('style', 'max-width: ' + width + 'px');
+      });
+  }
+);
 </script>
 
   </body>
