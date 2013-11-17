@@ -295,6 +295,9 @@ p {
 .larger-text {
   font-size: 150%;
 }
+.left-align {
+  text-align: left;
+}
 .text-centered {
   text-align: center;
 }
@@ -550,4 +553,11 @@ li {
  */
 #care-page li {
   margin-bottom: 0.5em;
+}
+
+/**
+ * Individual piece-of-jewellery page.
+ */
+.jewellery-description {
+  max-width: 400px;
 }
