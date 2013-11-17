@@ -384,6 +384,62 @@ END_OF_JAVASCRIPT;
     return '<div id="slider-div"></div>';
   }
 
+  /* JewelleryPageShortcode: create a jewellery page.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function JewelleryPageShortcode($atts, $content, $tag) {
+    if (is_null($content)) {
+      return '<h1>jewellery_page: no description to display!</h1>' . "\n";
+    }
+    if (is_string($atts)) {
+      return '<h1>jewellery_page: need attributes! XXX </h1>'
+        . "\n";
+    }
+
+    $attrs = shortcode_atts(
+      array(
+        'image_url' => '',
+        'name' => '',
+        'price' => '',
+        'product_id' => '',
+      ),
+      $atts);
+    foreach ($attrs as $key => $value) {
+      if ($value == '') {
+        return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
+      }
+    }
+
+    // Wordpress puts <br /> at the start and end of the content.
+    $content = str_replace('<br />', '', $content);
+    $html = <<<END_OF_HTML
+<div class="aligncenter text-centered">
+  <img alt="{$attrs["name"]}" src="/wp-content/uploads{$attrs["image_url"]}" />
+</div>
+<div class="jewellery-description aligncenter">
+  <div class="text-centered">
+    <p class="grey larger-text">{$attrs["name"]}</p>
+    <p>{$content}</p>
+  </div>
+  <div>
+    <span class="left-align">Price: €{$attrs["price"]}.</span>
+    [add_to_cart item="{$attrs["product_id"]}"
+      style="display:inline; float: right;" showprice="no" ajax="yes" ]
+  </div>
+</div>
+END_OF_HTML;
+    // add_to_cart needsd to be expanded.
+    return do_shortcode($html);
+  }
+
 
   // Configure Wordpress.
   // Add RSS links to <head> section.
@@ -426,6 +482,7 @@ END_OF_JAVASCRIPT;
 
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
+  add_shortcode('jewellery_page', 'JewelleryPageShortcode');
   add_shortcode('slider', 'SliderSetupShortcode');
   add_shortcode('style_wrap', 'StyleWrapShortcode');
 ?>
