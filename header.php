@@ -75,7 +75,7 @@
   );
   echo make_link_bar(
     array('page-links left-page-links' => $main_links,
-          'right-links' => $icon_links),
+          'float-right' => $icon_links),
     '/news/');
 
   if (is_jewellery_page()) {

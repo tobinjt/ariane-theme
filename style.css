@@ -284,12 +284,22 @@ p {
   text-decoration: none;
 }
 
+/* Classes used in various places for consistency. */
 .grey {
   color: #808080;
 }
 .pink {
   /* Add !important so that this overrides other styles. */
   color: #B92166 !important;
+}
+.larger-text {
+  font-size: 150%;
+}
+.text-centered {
+  text-align: center;
+}
+.float-right {
+  float: right;
 }
 
 /**
@@ -322,10 +332,6 @@ p {
   width: 100%;
   clear: both;
   margin-bottom: 0.5em;
-}
-
-.right-links {
-  float: right;
 }
 
 .page-links > a {
