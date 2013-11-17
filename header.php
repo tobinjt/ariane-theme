@@ -47,8 +47,8 @@
     <header id="header">
       <div id="title">
         <div id="title-text">
-          <a href="/" id="title-pink">ariane tobin</a> <br/>
-          <a href="/" id="title-grey">jewellery</a>
+          <a href="/" id="title-name" class="pink">ariane tobin</a> <br/>
+          <a href="/" id="title-craft" class="grey">jewellery</a>
         </div>
       </div>
 

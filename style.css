@@ -284,6 +284,14 @@ p {
   text-decoration: none;
 }
 
+.grey {
+  color: #808080;
+}
+.pink {
+  /* Add !important so that this overrides other styles. */
+  color: #B92166 !important;
+}
+
 /**
  * Header.
  **/
@@ -301,14 +309,11 @@ p {
   text-align: center;
 }
 
-#title-pink {
-  /* Without !important, this will be overridden by '#page-wrap a'. */
-  color: #B92166 !important;
+#title-name {
   font-size: 5.0em;
 }
 
-#title-grey {
-  color: #808080;
+#title-craft {
   font-size: 3.5em;
 }
 
@@ -331,11 +336,6 @@ p {
 }
 .right-page-links > a {
   margin-left: 0.6em;
-}
-
-#header a.current-url {
-  color: #B92166;
-  font-size: 2.0em;
 }
 
 /* Make the icons grey until hovered over. */
@@ -361,7 +361,6 @@ img:hover {
   text-align: center;
   width: 100%;
   clear: both;
-  color: #B92166;
 }
 
 .copyright span {

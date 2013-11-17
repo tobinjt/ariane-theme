@@ -41,16 +41,16 @@
   /* links_to_html: converts an array of links into HTML with a tags.
    * Args:
    *  $links: array(url => text).
-   *  $url_to_highlight: the url to highlight as the current URL.  Adds
-   *    'class="current-url"' to the link.
+   *  $url_to_highlight: the url to highlight as the current URL.
+   *  $highlight_class: the value of the class attribute of the highlighted URL.
    * Returns:
    *  string.
    */
-  function links_to_html($links, $url_to_highlight) {
+  function links_to_html($links, $url_to_highlight, $highlight_class) {
     $output = array();
     foreach ($links as $url => $text) {
       if ($url == $url_to_highlight) {
-        $extra_class = ' class="current-url"';
+        $extra_class = ' class="' . $highlight_class . '"';
       } else {
         $extra_class = '';
       }
@@ -133,7 +133,7 @@ END_OF_TAG;
 
     $output = array();
     foreach ($groups as $class => $links) {
-      $html_links = links_to_html($links, $url_to_highlight);
+      $html_links = links_to_html($links, $url_to_highlight, 'pink');
       $output[] = wrap_with_tag('span', $class, $html_links);
     }
     return wrap_with_tag('div', 'menubar', implode("\n", $output)) . "\n";
