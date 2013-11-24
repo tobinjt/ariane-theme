@@ -57,6 +57,7 @@
   $main_links = array(
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
+    '/store/'         => 'basket',
     '/news/'          => 'news',
     '/about/'         => 'about',
     '/care/'          => 'care',
