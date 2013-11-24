@@ -578,3 +578,17 @@ li {
 .jewellery-description {
   max-width: 400px;
 }
+
+/**
+ * Checkout page.
+ */
+/* Some of the buttons aren't buttons, they're links that look like buttons.
+ * All the links are grey, but that looks bad in the button, so we force it to
+ * be white.
+ */
+.Cart66ButtonPrimary {
+  color: #FFFFFF !important;
+}
+.Cart66ButtonSecondary {
+  color: #FFFFFF !important;
+}
