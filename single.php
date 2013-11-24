@@ -15,6 +15,7 @@
     include (TEMPLATEPATH . '/_/inc/meta.php' );
 ?>
         </div>
+        <?php edit_post_link('Edit this entry', '', '.'); ?>
       </article>
 <?php
     comments_template();
