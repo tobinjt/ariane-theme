@@ -74,7 +74,7 @@
       => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
   );
   echo make_link_bar(
-    array('page-links left-page-links' => $main_links,
+    array('largest-text left-page-links' => $main_links,
           'float-right' => $icon_links),
     '/news/');
 
@@ -89,7 +89,7 @@
         '/jewellery/rings'      => 'rings',
       );
       echo make_link_bar(
-        array('page-links left-page-links' => $jewellery_links),
+        array('largest-text left-page-links' => $jewellery_links),
         '/news/');
     }
   }

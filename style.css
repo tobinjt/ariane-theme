@@ -292,8 +292,11 @@ p {
   /* Add !important so that this overrides other styles. */
   color: #B92166 !important;
 }
+.largest-text {
+  font-size: 2em;
+}
 .larger-text {
-  font-size: 150%;
+  font-size: 1.5em;
 }
 .left-align {
   text-align: left;
@@ -432,12 +435,12 @@ img:hover {
 /**
  * Jewellery grid.
  */
+#jewellery-grid {
+  /* border: 1px solid black; */
+}
 #jewellery-grid table {
   border-collapse: separate;
-  /* border-spacing: 0px 1em; */
-  border-spacing: 1em;
 }
-
 #jewellery-grid td {
   vertical-align: middle;
 }
@@ -548,21 +551,12 @@ img:hover {
 /**
  * The Jewellery grid.
  **/
-#jewellery-grid img {
-  max-width: 300px;
-}
 #jewellery-grid table {
   width: 100%;
 }
 #jewellery-grid td {
   vertical-align: bottom;
   text-align: center;
-}
-.jewellery-grid-name {
-  text-align: center;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  font-size: 2em;
 }
 
 /* The list indicator should be inside the container. */

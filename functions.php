@@ -190,7 +190,7 @@ END_OF_TAG;
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}" />
     </a>
-    <div class="jewellery-grid-name">
+    <div class="largest-text text-centered">
       <a href="{$data['link']}">{$range}</a>
     </div>
   </td>
