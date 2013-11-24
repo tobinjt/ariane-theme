@@ -427,14 +427,32 @@ img:hover {
 /**
  * A jewellery page; everything in single page applies here unless overridden.
  */
-#jewellery-page table {
+
+
+/**
+ * Jewellery grid.
+ */
+#jewellery-grid table {
   border-collapse: separate;
   /* border-spacing: 0px 1em; */
   border-spacing: 1em;
 }
 
-#jewellery-page td {
+#jewellery-grid td {
   vertical-align: middle;
+}
+
+/**
+ * An individual piece of jewellery.
+ */
+#individual-jewellery-piece {
+  /* border: 1px solid black; */
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#individual-jewellery-description {
+  max-width: 390px;
 }
 
 /**

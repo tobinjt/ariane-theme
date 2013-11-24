@@ -422,26 +422,24 @@ END_OF_JAVASCRIPT;
     // Wordpress puts <br /> at the start and end of the content.
     $content = str_replace('<br />', '', $content);
     $html = <<<END_OF_HTML
-<div class="jewellery-description aligncenter">
-  <div class="text-centered">
-    <p class="grey larger-text no-margin">{$attrs["name"]}</p>
-  </div>
-</div>
-<div class="aligncenter text-centered">
-  <img alt="{$attrs["name"]}" src="/wp-content/uploads{$attrs["image_url"]}" />
-</div>
-<div class="jewellery-description aligncenter">
-  <div class="text-centered">
-    <p>{$content}</p>
-  </div>
-  <div>
-    <span class="left-align">Price: €{$attrs["price"]}.</span>
-    [add_to_cart item="{$attrs["product_id"]}"
-      style="display:inline; float: right;" showprice="no" ajax="yes" ]
-  </div>
-</div>
+<table id="individual-jewellery-piece">
+  <tr>
+    <td>
+      <img alt="{$attrs["name"]}"
+        src="/wp-content/uploads{$attrs["image_url"]}" />
+    </td>
+    <td>
+      <div id="individual-jewellery-description">
+        <p class="grey larger-text">{$attrs["name"]}</p>
+        <p>{$content}</p>
+        <p>Price: €{$attrs["price"]}.</p>
+        [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes" ]
+      </div>
+    </td>
+  </tr>
+</table>
 END_OF_HTML;
-    // add_to_cart needed to be expanded.
+    // add_to_cart needs to be expanded.
     return do_shortcode($html);
   }
 
