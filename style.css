@@ -304,6 +304,11 @@ p {
 .float-right {
   float: right;
 }
+.no-margin {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 
 /**
  * Header.

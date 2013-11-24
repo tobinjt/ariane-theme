@@ -197,8 +197,9 @@ END_OF_TAG;
 END_OF_TD;
     }
 
-    # Turn the <tr>s into a table with two columns.
-    if (count($tds) % 2 == 1) {
+    # Turn the <tr>s into a table with three columns.
+    $num_columns = 3;
+    while (count($tds) % $num_columns != 0) {
       $tds[] = '<td></td>';
     }
     $table = array();
@@ -207,11 +208,11 @@ END_OF_TD;
             <table>
 END_OF_TABLE_START;
     for ($i = 0; $i < count($tds); $i++) {
-      if ($i % 2 == 0) {
+      if ($i % $num_columns == 0) {
         $table[] = '<tr>';
       }
       $table[] = $tds[$i];
-      if ($i % 2 == 1) {
+      if ($i % $num_columns == $num_columns - 1) {
         $table[] = '</tr>';
       }
     }
@@ -421,12 +422,16 @@ END_OF_JAVASCRIPT;
     // Wordpress puts <br /> at the start and end of the content.
     $content = str_replace('<br />', '', $content);
     $html = <<<END_OF_HTML
+<div class="jewellery-description aligncenter">
+  <div class="text-centered">
+    <p class="grey larger-text no-margin">{$attrs["name"]}</p>
+  </div>
+</div>
 <div class="aligncenter text-centered">
   <img alt="{$attrs["name"]}" src="/wp-content/uploads{$attrs["image_url"]}" />
 </div>
 <div class="jewellery-description aligncenter">
   <div class="text-centered">
-    <p class="grey larger-text">{$attrs["name"]}</p>
     <p>{$content}</p>
   </div>
   <div>
@@ -436,7 +441,7 @@ END_OF_JAVASCRIPT;
   </div>
 </div>
 END_OF_HTML;
-    // add_to_cart needsd to be expanded.
+    // add_to_cart needed to be expanded.
     return do_shortcode($html);
   }
 
