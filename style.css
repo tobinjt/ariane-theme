@@ -571,6 +571,9 @@ li {
 #care-page li {
   margin-bottom: 0.5em;
 }
+#care-page h2 {
+  margin-top: 1.0em;
+}
 
 /**
  * Individual piece-of-jewellery page.
