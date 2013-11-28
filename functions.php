@@ -401,7 +401,7 @@ END_OF_JAVASCRIPT;
       return '<h1>jewellery_page: no description to display!</h1>' . "\n";
     }
     if (is_string($atts)) {
-      return '<h1>jewellery_page: need attributes! XXX </h1>'
+      return '<h1>jewellery_page: need attributes! </h1>'
         . "\n";
     }
 
@@ -411,12 +411,17 @@ END_OF_JAVASCRIPT;
         'name' => '',
         'price' => '',
         'product_id' => '',
+        'range' => '',
+        'type' => '',
       ),
       $atts);
     foreach ($attrs as $key => $value) {
       if ($value == '') {
         return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
       }
+    }
+    if (substr($attrs["type"], -1) != 's') {
+      $attrs["type"] .= 's';
     }
 
     // Wordpress puts <br /> at the start and end of the content.
@@ -425,15 +430,17 @@ END_OF_JAVASCRIPT;
 <table id="individual-jewellery-piece">
   <tr>
     <td>
-      <img alt="{$attrs["name"]}"
+      <img alt="{$attrs["range"]} {$attrs["name"]}"
         src="/wp-content/uploads{$attrs["image_url"]}" />
     </td>
     <td>
       <div id="individual-jewellery-description">
-        <p class="grey larger-text">{$attrs["name"]}</p>
+        <p class="pink larger-text">{$attrs["range"]} {$attrs["name"]}</p>
         <p>{$content}</p>
         <p>Price: €{$attrs["price"]}.</p>
         [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes" ]
+        <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
+        <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
       </div>
     </td>
   </tr>
