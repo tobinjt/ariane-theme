@@ -311,6 +311,10 @@ p {
   margin-top: 0;
   margin-bottom: 0;
 }
+.left-right-padding {
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
+}
 
 
 /**
@@ -431,20 +435,6 @@ img:hover {
  * A jewellery page; everything in single page applies here unless overridden.
  */
 
-
-/**
- * Jewellery grid.
- */
-#jewellery-grid {
-  /* border: 1px solid black; */
-}
-#jewellery-grid table {
-  border-collapse: separate;
-}
-#jewellery-grid td {
-  vertical-align: middle;
-}
-
 /**
  * An individual piece of jewellery.
  */
@@ -551,12 +541,26 @@ img:hover {
 /**
  * The Jewellery grid.
  **/
+#jewellery-grid {
+  /* border: 1px solid black; */
+}
 #jewellery-grid table {
   width: 100%;
+  border-collapse: separate;
 }
 #jewellery-grid td {
-  vertical-align: bottom;
-  text-align: center;
+  /* Vertically align along the top so that images line up when the caption
+   * underneath is wrapped.
+   */
+  vertical-align: top;
+  /* Force a fixed width so that all 3 columns are the same width. */
+  width: 300px;
+  /* Add some space underneath each row to more clearly separate them. */
+  padding-bottom: 3em;
+}
+#jewellery-grid p {
+  padding-top: 0;
+  padding-bottom: 2em;
 }
 
 /* The list indicator should be inside the container. */

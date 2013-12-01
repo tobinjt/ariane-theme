@@ -153,10 +153,12 @@ END_OF_TAG;
    *  $page_contents: string, the contents of the page.  First line (CSV header)
    *    will be removed.  Blank lines will be skipped.  <br /> will be stripped
    *    from the end of each line.
+   *  $description: string, the description to display at the top of the page.
+   *    If the string is empty nothing will be added.
    * Returns:
    *  string, HTML to insert in the page.
    */
-  function MakeJewelleryGrid($page_contents) {
+  function MakeJewelleryGrid($page_contents, $description) {
     // Turn the CSV from page contents into a data structure.
     $lines = str_getcsv($page_contents, "\n");
     $ranges = array();
@@ -190,7 +192,7 @@ END_OF_TAG;
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}" />
     </a>
-    <div class="largest-text text-centered">
+    <div class="larger-text text-centered left-right-padding">
       <a href="{$data['link']}">{$range}</a>
     </div>
   </td>
@@ -198,13 +200,14 @@ END_OF_TD;
     }
 
     # Turn the <tr>s into a table with three columns.
+    # If the number of columns is changed, the width of each TD needs to be
+    # changed in style.css.
     $num_columns = 3;
     while (count($tds) % $num_columns != 0) {
       $tds[] = '<td></td>';
     }
     $table = array();
     $table[] = <<<END_OF_TABLE_START
-          <div id="jewellery-grid">
             <table>
 END_OF_TABLE_START;
     for ($i = 0; $i < count($tds); $i++) {
@@ -218,9 +221,24 @@ END_OF_TABLE_START;
     }
     $table[] = <<<END_OF_TABLE_END
             </table>
-          </div>
 END_OF_TABLE_END;
-    return implode("\n", $table);
+
+    $desc = array();
+    if ($description != '') {
+      $desc[] = <<<END_OF_DESCRIPTION
+            <p class="grey larger-text">{$description}</p>
+END_OF_DESCRIPTION;
+    }
+
+    $html = array();
+    $html[] = <<<END_OF_HTML
+          <div id="jewellery-grid">
+END_OF_HTML;
+    $html = array_merge($html, $desc, $table);
+    $html[] = <<<END_OF_HTML
+          </div>
+END_OF_HTML;
+    return implode("\n", $html);
   }
 
   /* JewelleryGridShortcode: wrap MakeJewelleryGrid to provide a shortcode.
@@ -239,10 +257,12 @@ END_OF_TABLE_END;
     if (is_null($content)) {
       return '<h1>jewellery_grid: no content to display!</h1>' . "\n";
     }
-    if (!is_string($atts)) {
-      return '<h1>jewellery_grid: no attributes accepted!</h1>' . "\n";
-    }
-    return MakeJewelleryGrid($content);
+    $attrs = shortcode_atts(
+      array(
+        'description' => '',
+      ),
+      $atts);
+    return MakeJewelleryGrid($content, $attrs["description"]);
   }
 
   /* StyleWrapShortcode: Wrap a div with a style around content.
