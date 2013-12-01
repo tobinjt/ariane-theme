@@ -311,6 +311,9 @@ p {
   margin-top: 0;
   margin-bottom: 0;
 }
+.no-bottom-margin {
+  margin-bottom: 0;
+}
 .left-right-padding {
   padding-left: 0.5em !important;
   padding-right: 0.5em !important;
@@ -322,7 +325,7 @@ p {
  **/
 #header {
   padding-top: 1em;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
 #title {
@@ -560,7 +563,7 @@ img:hover {
 }
 #jewellery-grid p {
   padding-top: 0;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
 /* The list indicator should be inside the container. */
