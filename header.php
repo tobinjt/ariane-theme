@@ -93,7 +93,7 @@
   }
 ?>
 
-      <p class="text-centered larger-text">Ariane will be exhibiting at stand
+      <p class="text-centered larger-text no-bottom-margin">Ariane will be exhibiting at stand
         <strong>B6</strong> on the Balcony at the <a title="National Crafts and
         Design Fair" href="http://www.nationalcraftsfair.ie/">National Crafts
         and Design Fair</a><br /> in the <a
