@@ -192,7 +192,7 @@ END_OF_TAG;
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}" />
     </a>
-    <div class="larger-text text-centered left-right-padding">
+    <div class="larger-text text-centered left-right-margin">
       <a href="{$data['link']}">{$range}</a>
     </div>
   </td>
