@@ -80,19 +80,16 @@
     '/news/');
 
   if (is_jewellery_page()) {
-    // TODO(johntobin): remove when jewellery is ready.
-    if (current_user_can('edit_pages')) {
-      $jewellery_links = array(
-        '/jewellery/bangles'    => 'bangles',
-        '/jewellery/brooches'   => 'brooches',
-        '/jewellery/earrings'   => 'earrings',
-        '/jewellery/neckpieces' => 'neckpieces',
-        '/jewellery/rings'      => 'rings',
-      );
-      echo make_link_bar(
-        array('largest-text left-page-links' => $jewellery_links),
-        '/news/');
-    }
+    $jewellery_links = array(
+      '/jewellery/bangles'    => 'bangles',
+      '/jewellery/brooches'   => 'brooches',
+      '/jewellery/earrings'   => 'earrings',
+      '/jewellery/pendants'   => 'pendants',
+      '/jewellery/rings'      => 'rings',
+    );
+    echo make_link_bar(
+      array('largest-text left-page-links' => $jewellery_links),
+      '/jewellery/');
   }
 ?>
     </header>

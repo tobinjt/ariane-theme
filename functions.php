@@ -408,8 +408,10 @@ END_OF_JAVASCRIPT;
     $attrs = shortcode_atts(
       array(
         'image_url' => '',
+        'limited_to' => '0',
         'name' => '',
         'price' => '',
+        'product_discontinued' => 'false',
         'product_id' => '',
         'range' => '',
         'type' => '',
@@ -426,6 +428,15 @@ END_OF_JAVASCRIPT;
 
     // Wordpress puts <br /> at the start and end of the content.
     $content = str_replace('<br />', '', $content);
+    if ($attrs["limited_to"] > 0) {
+      $limited_to = '<p>Limited edition: only ' . $attrs["limited_to"]
+        . ' will be made.</p>';
+    } else {
+      $limited_to = '';
+    }
+    // We're not ready for limited edition stuff yet.
+    $limited_to = '';
+
     $html = <<<END_OF_HTML
 <table id="individual-jewellery-piece">
   <tr>
@@ -437,8 +448,20 @@ END_OF_JAVASCRIPT;
       <div id="individual-jewellery-description">
         <p class="pink larger-text">{$attrs["range"]} {$attrs["name"]}</p>
         <p>{$content}</p>
+        {$limited_to}
+END_OF_HTML;
+    if ($attrs["product_discontinued"] == "false") {
+      $html .= <<<END_OF_HTML
         <p>Price: €{$attrs["price"]}.</p>
         [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes" ]
+END_OF_HTML;
+    } else {
+      $html .= <<<END_OF_HTML
+        <p>Sadly, this piece of jewellery is sold out.  See below for other
+          items in this range or type.</p>
+END_OF_HTML;
+    }
+    $html .= <<<END_OF_HTML
         <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
         <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
       </div>
