@@ -473,7 +473,8 @@ END_OF_HTML;
     if ($attrs["product_discontinued"] == "false") {
       $html .= <<<END_OF_HTML
         <p>Price: €{$attrs["price"]}.</p>
-        [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes" ]
+        [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
+           text="Add to basket"]
 END_OF_HTML;
     } else {
       $html .= <<<END_OF_HTML
