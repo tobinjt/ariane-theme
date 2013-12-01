@@ -84,7 +84,7 @@
       '/jewellery/bangles'    => 'bangles',
       '/jewellery/brooches'   => 'brooches',
       '/jewellery/earrings'   => 'earrings',
-      '/jewellery/pendants'   => 'pendants',
+      '/jewellery/necklaces'  => 'necklaces',
       '/jewellery/rings'      => 'rings',
     );
     echo make_link_bar(
