@@ -252,6 +252,8 @@ ol.commentlist li.thread-odd {}
  **/
 /* Centered stuff. */
 .aligncenter {
+  /* This makes images into blocks so they will be properly centered. */
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
