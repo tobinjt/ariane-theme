@@ -46,7 +46,7 @@ Slider.change_image = function() {
                       - Slider.images[Slider.image_index]['height']) / 2;
   // Limit the margin so that smaller images aren't pushed below the fold.
   var bounded_margin_top = Math.min(margin_top, 100);
-  var image_url = Slider.images[Slider.image_index]['url'];
+  var image_url = Slider.images[Slider.image_index]['image_url'];
   jQuery('#slider-image'
     ).attr('src', image_url
     ).attr('width', Slider.images[Slider.image_index]['width']
@@ -58,8 +58,8 @@ Slider.change_image = function() {
 
 Slider.preload_next_image = function() {
   if (Slider.images_to_preload.length) {
-    var url = Slider.images_to_preload.shift()['url'];
-    var image = jQuery('<img />').attr('src', url);
+    var image_url = Slider.images_to_preload.shift()['image_url'];
+    var image = jQuery('<img />').attr('src', image_url);
   }
 };
 
@@ -75,7 +75,7 @@ Slider.fade_image = function() {
 };
 
 // Each element in the array must be a dictionary with elements:
-// url, width, height.
+// image_url, width, height.
 Slider.initialise = function(images) {
   Slider.images = images;
   Slider.fisherYates(Slider.images);

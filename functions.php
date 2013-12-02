@@ -333,11 +333,11 @@ END_OF_DIV;
     foreach ($media_query->posts as $post) {
       if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
         $image_stats = wp_get_attachment_metadata($post->ID);
-        $url = wp_get_attachment_url($post->ID);
-        if ($url && $image_stats
+        $image_url = wp_get_attachment_url($post->ID);
+        if ($image_url && $image_stats
             && $image_stats['width'] && $image_stats['height']) {
           $data[] = array(
-            'url' => $url,
+            'image_url' => $image_url,
             'width' => $image_stats['width'],
             'height' => $image_stats['height'],
           );
