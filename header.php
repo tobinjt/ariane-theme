@@ -97,9 +97,9 @@
         <strong>B6</strong> on the Balcony at the <a title="National Crafts and
         Design Fair" href="http://www.nationalcraftsfair.ie/">National Crafts
         and Design Fair</a><br /> in the <a
-        href="http://www.rds.ie/index.jsp?p=102&n=130&a=0" title="Directions to
-        the RDS">RDS</a> between December 4th and 8th - looking forward to
-        meeting you there!</p>
+        href="http://www.rds.ie/index.jsp?p=102&amp;n=130&amp;a=0"
+        title="Directions to the RDS">RDS</a> between December 4th and 8th -
+        looking forward to meeting you there!</p>
 
     </header>
 
