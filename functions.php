@@ -331,13 +331,15 @@ END_OF_DIV;
     );
     $data = array();
     foreach ($media_query->posts as $post) {
-      if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
+      $matches = array();
+      if (preg_match('/^\s*slider\s*([^ ]*)$/', $post->post_content, $matches)) {
         $image_stats = wp_get_attachment_metadata($post->ID);
         $image_url = wp_get_attachment_url($post->ID);
         if ($image_url && $image_stats
             && $image_stats['width'] && $image_stats['height']) {
           $data[] = array(
             'image_url' => $image_url,
+            'link_url' => $matches[1],
             'width' => $image_stats['width'],
             'height' => $image_stats['height'],
           );

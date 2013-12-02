@@ -47,11 +47,14 @@ Slider.change_image = function() {
   // Limit the margin so that smaller images aren't pushed below the fold.
   var bounded_margin_top = Math.min(margin_top, 100);
   var image_url = Slider.images[Slider.image_index]['image_url'];
+  var link_url = Slider.images[Slider.image_index]['link_url'];
   jQuery('#slider-image'
     ).attr('src', image_url
     ).attr('width', Slider.images[Slider.image_index]['width']
     ).attr('height', Slider.images[Slider.image_index]['height']
     ).css('margin-top', bounded_margin_top);
+  jQuery('#slider-link'
+    ).attr('href', link_url);
   jQuery('#slider-div').css('width', Slider.images[Slider.image_index]['width']);
   Slider.image_index = (Slider.image_index + 1) % Slider.images.length;
 };
@@ -80,7 +83,7 @@ Slider.initialise = function(images) {
   Slider.images = images;
   Slider.fisherYates(Slider.images);
   Slider.image_index = 0;
-  // Slider.change_image will load the 0th image, so we need to preload the 1th
+  // Slider.change_image will load the 0th image, so we need to preload the 1st
   // image.
   Slider.images_to_preload = Slider.images.slice(1, Slider.images.length);
   var max_image_height = 0;
@@ -92,7 +95,9 @@ Slider.initialise = function(images) {
   });
   jQuery('#slider-div').css('height', max_image_height);
   jQuery('#slider-div').append(
-      '<img id="slider-image" alt="Slider placeholder">');
+      '<a id="slider-link" href="#">'
+      + '<img id="slider-image" alt="Slider placeholder" />'
+      + '</a>');
   Slider.change_image();
   Slider.preload_next_image();
   // Start the slider in 3 seconds, because the images are only fully displayed
