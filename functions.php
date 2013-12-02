@@ -318,7 +318,7 @@ END_OF_DIV;
   /* SliderImages: Dynamically build the Javascript array of images when
    * displaying the slider.
    * Returns:
-   *  string, the Javascript contents of the array, *without* 'var foo = []'
+   *  string, the Javascript contents of the array, *without* 'var foo = '
    *  around it.
    */
   function SliderImages() {
@@ -329,20 +329,22 @@ END_OF_DIV;
         'posts_per_page' => -1,
       )
     );
-    $output = array();
+    $data = array();
     foreach ($media_query->posts as $post) {
       if (preg_match('/^\s*slider\s*$/', $post->post_content)) {
         $image_stats = wp_get_attachment_metadata($post->ID);
         $url = wp_get_attachment_url($post->ID);
         if ($url && $image_stats
             && $image_stats['width'] && $image_stats['height']) {
-            $output[] = <<<END_OF_ROW
-    {'url': '{$url}', 'width': {$image_stats['width']}, 'height': {$image_stats['height']}},
-END_OF_ROW;
+          $data[] = array(
+            'url' => $url,
+            'width' => $image_stats['width'],
+            'height' => $image_stats['height'],
+          );
         }
       }
     }
-    return implode("\n", $output);
+    return json_encode($data);
   }
 
   /* SliderSetup: return the Javascript needed to set up the slider, including
@@ -357,15 +359,7 @@ END_OF_ROW;
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
-  var images = [
-    {$images}
-  ];
-  // The images array ends with a comma, and IE 8 adds a null or undefined
-  // element after the comma, so we remove that element.
-  if (images[images.length - 1] === null
-        || images[images.length - 1] === undefined) {
-    images.pop();
-  }
+  var images = {$images};
   Slider.initialise(images);
 });
 </script>
