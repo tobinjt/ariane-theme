@@ -229,7 +229,7 @@ END_OF_TABLE_END;
     $desc = array();
     if ($description != '') {
       $desc[] = <<<END_OF_DESCRIPTION
-            <p class="grey larger-text">{$description}</p>
+            <p class="grey larger-text text-centered">{$description}</p>
 END_OF_DESCRIPTION;
     }
 
