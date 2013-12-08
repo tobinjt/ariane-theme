@@ -93,13 +93,13 @@
   }
 ?>
 
-      <p class="text-centered larger-text">Ariane will be exhibiting at stand
-        <strong>B6</strong> on the Balcony at the <a title="National Crafts and
-        Design Fair" href="http://www.nationalcraftsfair.ie/">National Crafts
-        and Design Fair</a><br /> in the <a
-        href="http://www.rds.ie/index.jsp?p=102&amp;n=130&amp;a=0"
-        title="Directions to the RDS">RDS</a> between December 4th and 8th -
-        looking forward to meeting you there!</p>
+      <p class="text-centered larger-text">Huge thanks to everyone who visited
+        us at the <a title="National Crafts and Design Fair"
+        href="http://www.nationalcraftsfair.ie/">National Crafts and Design
+        Fair</a>, especially to all my customers.  The show was very successful
+        so I am currently very low on stock; if you want an item for Christmas
+        that is not in stock please get in touch with me and I will do my very
+        best to look after you.</p>
 
     </header>
 
