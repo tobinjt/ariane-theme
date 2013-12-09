@@ -93,6 +93,13 @@
   }
 ?>
 
+      <p class="text-centered larger-text">Unfortunately our shop is not
+        working at the moment.  We are trying to fix it, but we do not know
+        how long it will take.  You can still browse the jewellery, and if you
+        want to buy something please send me an email at ariane@arianetobin.ie
+        with details and I will organise it with you.  Thank you for your
+        patience.</p>
+
       <p class="text-centered larger-text">Huge thanks to everyone who visited
         us at the <a title="National Crafts and Design Fair"
         href="http://www.nationalcraftsfair.ie/">National Crafts and Design
