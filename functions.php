@@ -193,7 +193,7 @@ END_OF_TAG;
   <td>
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
-        class="aligncenter" />
+        class="aligncenter" height="260px" width="260px" />
     </a>
     <div class="larger-text text-centered left-right-margin">
       <a href="{$data['link']}">{$range}</a>
@@ -460,7 +460,7 @@ END_OF_JAVASCRIPT;
 <table id="individual-jewellery-piece">
   <tr>
     <td>
-      <img alt="{$attrs["range"]} {$attrs["name"]}"
+      <img height="520px" width="520px" alt="{$attrs["range"]} {$attrs["name"]}"
         src="/wp-content/uploads{$attrs["image_url"]}" />
     </td>
     <td>
