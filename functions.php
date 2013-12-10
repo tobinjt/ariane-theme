@@ -38,6 +38,11 @@
     return (strpos(get_current_url(), '/jewellery') === 0);
   }
 
+  /* is_store_page: is the current page a store page?  */
+  function is_store_page() {
+    return (strpos(get_current_url(), '/store') === 0);
+  }
+
   /* links_to_html: converts an array of links into HTML with a tags.
    * Args:
    *  $links: array(url => text).
