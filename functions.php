@@ -469,6 +469,7 @@ END_OF_JAVASCRIPT;
       $limited_to = '';
     }
     // We're not ready for limited edition stuff yet.
+    // TODO(johntobin): support limited editions and one-off pieces.
     $limited_to = '';
 
     $html = <<<END_OF_HTML
@@ -492,8 +493,8 @@ END_OF_HTML;
 END_OF_HTML;
     } else {
       $html .= <<<END_OF_HTML
-        <p>Sadly, this piece of jewellery is sold out.  See below for other
-          items in this range or type.</p>
+        <p>Unfortunately this piece of jewellery is sold out.  See below for
+          other items in this range or type.</p>
 END_OF_HTML;
     }
     $html .= <<<END_OF_HTML
