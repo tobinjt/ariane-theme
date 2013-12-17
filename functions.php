@@ -179,10 +179,15 @@ END_OF_TAG;
     $ranges = array();
     $seen_header = false;
     foreach ($lines as $line) {
+      $line = trim($line);
       // Wordpress puts <br /> and </p> and other shite at the end of some
       // lines, so remove all tags from the start and end of each line.
-      $line = preg_replace('/^ *<[^<]+>/', '', $line);
-      $line = preg_replace('/<[^<]+> *$/', '', $line);
+      $line = preg_replace('/^<[^<]+>/', '', $line);
+      $line = preg_replace('/<[^<]+>$/', '', $line);
+      $line = trim($line);
+      if (strpos($line, '#') === 0) {
+        continue;
+      }
       $data = str_getcsv($line, '|');
       // Skip blank lines.  The CSV parser will return an array with a single
       // element when given a blank line.
