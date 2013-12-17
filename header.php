@@ -96,9 +96,11 @@
       <p class="text-centered larger-text">Huge thanks to everyone who visited
         us at the <a title="National Crafts and Design Fair"
         href="http://www.nationalcraftsfair.ie/">National Crafts and Design
-        Fair</a>, especially to all my customers.  The show was very successful
-        so I am currently very low on stock; if you want an item for Christmas
-        that is not in stock please get in touch with me and I will do my very
-        best to look after you.</p>
+        Fair</a>, especially to all my customers.  Last day for orders of
+        in-stock items is Wednesday 18th December; items that are not in stock
+        can be ordered for January by contacting Ariane (see bottom of page for
+        contact details). <br />
+
+        Wishing you all a Merry Christmas and a Happy New Year!</p>
 
     </header>
