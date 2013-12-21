@@ -91,16 +91,32 @@
       array('largest-text left-page-links' => $jewellery_links),
       '/jewellery/');
   }
+
+  $other_message = <<<OTHER_MESSAGE
+    <p class="text-centered larger-text">
+      Wishing you all a Merry Christmas and a Happy New Year!</p>
+OTHER_MESSAGE;
+  $jewellery_message = <<<JEWELLERY_MESSAGE
+    <p class="text-centered larger-text">
+      In-stock items will not ship until after the 6th of January.</p>
+JEWELLERY_MESSAGE;
+  $store_message = <<<STORE_MESSAGE
+    <ul>
+      <li>Free registered shipping to Ireland, EU, and USA on all orders over
+          €50.</li>
+      <li>Free unregistered shipping to Ireland on all orders under €50.</li>
+      <li>All taxes and duties are the responsibility of the buyer.</li>
+    </ul>
+STORE_MESSAGE;
+
+  if (is_store_page()) {
+    echo $jewellery_message;
+    echo $store_message;
+  } elseif (is_jewellery_page()) {
+    echo $jewellery_message;
+  } else {
+    echo $other_message;
+  }
 ?>
-
-      <p class="text-centered larger-text">Huge thanks to everyone who visited
-        us at the <a title="National Crafts and Design Fair"
-        href="http://www.nationalcraftsfair.ie/">National Crafts and Design
-        Fair</a>, especially to all my customers.  Last day for orders of
-        in-stock items is Wednesday 18th December; items that are not in stock
-        can be ordered for January by contacting Ariane (see bottom of page for
-        contact details). <br />
-
-        Wishing you all a Merry Christmas and a Happy New Year!</p>
 
     </header>
