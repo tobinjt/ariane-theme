@@ -199,11 +199,22 @@ END_OF_TAG;
         $seen_header = true;
         continue;
       }
+      # If there isn't a product id in the line, -1 will be used, otherwise it
+      # will be ignored.
+      $data[] = -1;
       $ranges[$data[0]] = array(
-        'alt'   => $data[1],
-        'image' => $data[2],
-        'link'  => $data[3],
+        'alt'        => $data[1],
+        'image'      => $data[2],
+        'link'       => $data[3],
+        'product_id' => $data[4],
       );
+      $product_id = $ranges[$data[0]]['product_id'];
+      $stock_message = '';
+      if ($product_id != -1
+        && Cart66Product::checkInventoryLevelForProduct($product_id) <= 0) {
+          $stock_message = '<br />(not in stock)';
+      }
+      $ranges[$data[0]]['stock_message'] = $stock_message;
     }
 
     # Turn the data structure into <tr>s.
@@ -215,8 +226,8 @@ END_OF_TAG;
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
         class="aligncenter" height="260px" width="260px" />
     </a>
-    <div class="larger-text text-centered left-right-margin">
-      <a href="{$data['link']}">{$range}</a>
+    <div class="larger-text text-centered left-right-margin grey">
+      <a href="{$data['link']}">{$range}</a> {$data['stock_message']}
     </div>
   </td>
 END_OF_TD;
