@@ -93,15 +93,15 @@
   }
 
   $other_message = <<<OTHER_MESSAGE
-    <p class="text-centered larger-text">
+    <p class="text-centered larger-text grey">
       Wishing you all a Merry Christmas and a Happy New Year!</p>
 OTHER_MESSAGE;
   $jewellery_message = <<<JEWELLERY_MESSAGE
-    <p class="text-centered larger-text">
+    <p class="text-centered larger-text pink">
       In-stock items will not ship until after the 6th of January.</p>
 JEWELLERY_MESSAGE;
   $store_message = <<<STORE_MESSAGE
-    <ul>
+    <ul class="grey">
       <li>Free registered shipping to Ireland, EU, and USA on all orders over
           €50.</li>
       <li>Free unregistered shipping to Ireland on all orders under €50.</li>
