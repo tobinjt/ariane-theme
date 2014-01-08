@@ -94,11 +94,13 @@
 
   $other_message = <<<OTHER_MESSAGE
     <p class="text-centered larger-text grey">
-      Wishing you all a Merry Christmas and a Happy New Year!</p>
+      </p>
 OTHER_MESSAGE;
   $jewellery_message = <<<JEWELLERY_MESSAGE
     <p class="text-centered larger-text pink">
-      In-stock items will not ship until after the 6th of January.</p>
+      Out-of-stock items are available to order; please contact Ariane (see
+      bottom of page) for more details.
+      </p>
 JEWELLERY_MESSAGE;
   $store_message = <<<STORE_MESSAGE
     <ul class="grey">
