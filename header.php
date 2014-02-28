@@ -97,13 +97,11 @@
       </p>
 OTHER_MESSAGE;
   $jewellery_message = <<<JEWELLERY_MESSAGE
-    <p class="text-centered larger-text pink">
-      Out-of-stock items are available to order; please contact Ariane (see
-      bottom of page) for more details.
-      </p>
 JEWELLERY_MESSAGE;
   $store_message = <<<STORE_MESSAGE
     <ul class="grey">
+      <li>Each piece of jewellery is handmade by Ariane in her studio in Carlow,
+          as a result there is normally a two week lead time on all orders.</li>
       <li>Free registered shipping to Ireland, EU, and USA on all orders over
           €50.</li>
       <li>Free unregistered shipping to Ireland on all orders under €50.</li>
