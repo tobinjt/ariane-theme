@@ -613,3 +613,6 @@ li {
 .Cart66ButtonSecondary {
   color: #FFFFFF !important;
 }
+#store_message {
+  padding-top: 1em;
+}

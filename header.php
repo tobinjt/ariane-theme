@@ -99,14 +99,16 @@ OTHER_MESSAGE;
   $jewellery_message = <<<JEWELLERY_MESSAGE
 JEWELLERY_MESSAGE;
   $store_message = <<<STORE_MESSAGE
-    <ul class="grey">
-      <li>Each piece of jewellery is handmade by Ariane in her studio in Carlow,
-          as a result there is normally a two week lead time on all orders.</li>
-      <li>Free registered shipping to Ireland, EU, and USA on all orders over
-          €50.</li>
-      <li>Free unregistered shipping to Ireland on all orders under €50.</li>
-      <li>All taxes and duties are the responsibility of the buyer.</li>
-    </ul>
+    <div id="store_message">
+      <ul class="grey">
+        <li>Each piece of jewellery is handmade by Ariane in her studio in Carlow,
+            as a result there is normally a two week lead time on all orders.</li>
+        <li>Free registered shipping to Ireland, EU, and USA on all orders over
+            €50.</li>
+        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
+        <li>All taxes and duties are the responsibility of the buyer.</li>
+      </ul>
+    </div>
 STORE_MESSAGE;
 
   if (is_store_page()) {
