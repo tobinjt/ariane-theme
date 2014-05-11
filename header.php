@@ -57,10 +57,10 @@
   $main_links = array(
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
-    '/store/cart/'    => 'basket',
     '/news/'          => 'news',
     '/about/'         => 'about',
     '/care/'          => 'care',
+    '/store/cart/'    => 'basket',
   );
   $icon_links = array(
     'http://www.facebook.com/ArianeTobinJewellery'
@@ -88,7 +88,7 @@
       '/jewellery/rings'      => 'rings',
     );
     echo make_link_bar(
-      array('largest-text left-page-links' => $jewellery_links),
+      array('larger-text left-page-links' => $jewellery_links),
       '/jewellery/');
   }
 
