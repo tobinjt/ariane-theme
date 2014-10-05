@@ -1,7 +1,7 @@
     <footer id="footer" class="source-org vcard copyright pink">
       <span>&copy;2011-<?php echo date("Y"); echo " ", strtolower(get_bloginfo('name')); ?></span>
-      <span>phone: 00353 86 834 6825</span>
-      <span>email: ariane at arianetobin.ie</span>
+      <span><a class="pink" href="tel:353868346825">phone: +353 86 834 6825</a></span>
+      <span><a class="pink" href="mailto:ariane@arianetobin.ie">email: ariane@arianetobin.ie</a></span>
     </footer>
 
   </div>
