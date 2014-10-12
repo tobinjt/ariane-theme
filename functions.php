@@ -338,9 +338,10 @@ END_OF_HTML;
 
     // Wordpress will sometimes add a </p> after the shortcode.
     $stripped_content = preg_replace('/^\ *<\/p>/', '', $content);
+    $expanded_content = do_shortcode($stripped_content);
     return <<<END_OF_DIV
 {$full_div}
-  {$stripped_content}
+  {$expanded_content}
 </div>
 END_OF_DIV;
   }
@@ -526,6 +527,93 @@ END_OF_HTML;
     return do_shortcode($html);
   }
 
+  function CarePageShortcode($atts, $content, $tag) {
+    $html = <<<END_OF_HTML
+[style_wrap id="care-page"]
+
+My jewellery is made from a variety of materials, each of which has separate
+care instructions below.  The general care section applies to all my jewellery.
+Be careful when cleaning jewellery made from multiple materials, because a
+cleaning product that is safe on one material may damage another.  If you have
+any questions or doubts, do not hesitate to <a title="Contact details"
+href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
+
+[expand tag="h2" title="General care instructions"]
+
+<ul>
+  <li>Exposure to hairspray, perfume, and other beauty products will leave a
+    residue on jewellery or may damage the finish. Put your jewellery
+    on <strong>after</strong> using these products.</li>
+  <li>Chlorine in a swimming pool or salt in the sea can damage jewellery.
+    Remove your jewellery before swimming.</li>
+  <li>Do not wear your jewellery while cleaning, the chemicals in household
+    cleaners can damage jewellery.</li>
+  <li>Store each piece of jewellery separately so that they do not scratch or
+    scrape each other.</li>
+  <li>Delicate pieces of jewellery should be stored in their original
+    boxes.</li>
+</ul>
+[/expand]
+
+[expand tag="h2" title="Gold"]
+<ul>
+  <li>White gold will have been rhodium plated if you requested it. The rhodium
+    plating will need to be renewed every 12-24 months depending on wear.</li>
+  <li>Gold does not tarnish like silver, but it will get dirty over time, and
+    should be cleaned with a gold cloth.</li>
+  <li>Gold plating should be treated carefully, and never cleaned with anything
+    abrasive.</li>
+</ul>
+[/expand]
+
+[expand tag="h2" title="Pearls"]
+<ul>
+  <li>Pearls are particularly susceptible to damage from perfume and
+    hairspray.</li>
+  <li>Clean by rubbing gently with a soft, clean cloth - <strong>do
+    not</strong> use any chemical cleaning products!</li>
+  <li>Pearls will need to be restrung regularly, with the time between
+    restringing dependent on wear and tear. I offer a good value restringing
+    service for all of my own work.</li>
+</ul>
+[/expand]
+
+[expand tag="h2" title="Precious stones"]
+<ul>
+  <li>Some precious stones can be damaged by water because they are very porous.
+    If this is the case I will tell you when you are buying the piece of
+    jewellery, and I will supply special care instructions for the piece.</li>
+  <li>Precious stones should be cleaned with hand-warm water and a soft cloth.
+    Never use anything abrasive or chemical.</li>
+</ul>
+[/expand]
+
+[expand tag="h2" title="Sterling silver"]
+<ul>
+  <li>Silver naturally tarnishes over time and will eventually need cleaning. I
+    recommend using a silver cloth.</li>
+  <li>Over time, a matt surface will become shinier, and a shiny polished
+    surface will become more matt. I will refinish my own work for a small
+    fee.</li>
+</ul>
+[/expand]
+
+[expand tag="h2" title="Wood"]
+<ul>
+  <li>Do not immerse wood in water.</li>
+  <li>If wood has gotten dull and you want to restore the natural lustre of the
+    wood, rub a small amount of food-safe wood oil (e.g. Swedish oil) over the
+    wood.  If the oil spreads on to silver or gold, remove it quickly with a
+    soft dry cloth because there is a risk of staining.</li>
+</ul>
+[/expand]
+[/style_wrap]
+END_OF_HTML;
+
+    // Shortcodes need to be expanded.
+    return do_shortcode($html);
+  }
+
 
   // Configure Wordpress.
   // Add RSS links to <head> section.
@@ -571,4 +659,5 @@ END_OF_HTML;
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
   add_shortcode('slider', 'SliderSetupShortcode');
   add_shortcode('style_wrap', 'StyleWrapShortcode');
+  add_shortcode('care_page', 'CarePageShortcode');
 ?>
