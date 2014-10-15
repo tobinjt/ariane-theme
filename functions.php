@@ -538,7 +538,7 @@ cleaning product that is safe on one material may damage another.  If you have
 any questions or doubts, do not hesitate to <a title="Contact details"
 href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
 
-[expand tag="h2" title="General care instructions"]
+[expand trigclass="grey" tag="h2" title="General care instructions"]
 
 <ul>
   <li>Exposure to hairspray, perfume, and other beauty products will leave a
@@ -555,7 +555,7 @@ href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
 </ul>
 [/expand]
 
-[expand tag="h2" title="Gold"]
+[expand trigclass="grey" tag="h2" title="Gold"]
 <ul>
   <li>White gold will have been rhodium plated if you requested it. The rhodium
     plating will need to be renewed every 12-24 months depending on wear.</li>
@@ -566,7 +566,7 @@ href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
 </ul>
 [/expand]
 
-[expand tag="h2" title="Pearls"]
+[expand trigclass="grey" tag="h2" title="Pearls"]
 <ul>
   <li>Pearls are particularly susceptible to damage from perfume and
     hairspray.</li>
@@ -578,7 +578,7 @@ href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
 </ul>
 [/expand]
 
-[expand tag="h2" title="Precious stones"]
+[expand trigclass="grey" tag="h2" title="Precious stones"]
 <ul>
   <li>Some precious stones can be damaged by water because they are very porous.
     If this is the case I will tell you when you are buying the piece of
@@ -588,7 +588,7 @@ href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
 </ul>
 [/expand]
 
-[expand tag="h2" title="Sterling silver"]
+[expand trigclass="grey" tag="h2" title="Sterling silver"]
 <ul>
   <li>Silver naturally tarnishes over time and will eventually need cleaning. I
     recommend using a silver cloth.</li>
@@ -598,7 +598,7 @@ href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
 </ul>
 [/expand]
 
-[expand tag="h2" title="Wood"]
+[expand trigclass="grey" tag="h2" title="Wood"]
 <ul>
   <li>Do not immerse wood in water.</li>
   <li>If wood has gotten dull and you want to restore the natural lustre of the
