@@ -10,3 +10,27 @@ it, and also have an attachment URL, but I don't know why I added that check.
 Go to https://buy.cart66.com/, login, click on the order number in the order
 history table, then click on the cart66-pro.zip link.  Copy it to hosting and
 rename it to include the version number.
+
+## How do I add a new product?
+
+Upload two pictures: one 520x520, the other 260x260.
+
+Add the product to Cart66.  You need the price and the item number; scroll
+to the bottom of the page to find the latest item, and add 1 to the number.
+
+Set the inventory level in Cart66.
+
+Create a new range if necessary (see below).
+
+Create a new page for the product.  Make it a child of the range.  Copy the
+text from another product and modify accordingly.
+
+Update the range page and the type page with rows for the new product.
+
+## How do I add a new range?
+
+Create a new page for the range, making it a child of jewellery.
+
+Copy another range's contents and edit appropriately.
+
+Add the new range to the top level jewellery page.
