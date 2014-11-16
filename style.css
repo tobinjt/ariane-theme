@@ -321,6 +321,11 @@ p {
   margin-right: 0.5em !important;
 }
 
+.top-bottom-margin {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
 
 /**
  * Header.

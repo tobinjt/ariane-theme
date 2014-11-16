@@ -188,10 +188,10 @@ END_OF_TAG;
       if (strpos($line, '#') === 0) {
         continue;
       }
-      $data = str_getcsv($line, '|');
+      $csv_data = str_getcsv($line, '|');
       // Skip blank lines.  The CSV parser will return an array with a single
       // element when given a blank line.
-      if (count($data) == 1) {
+      if (count($csv_data) == 1) {
         continue;
       }
       if (!$seen_header) {
@@ -199,38 +199,57 @@ END_OF_TAG;
         $seen_header = true;
         continue;
       }
+      # Line format:
+      # Short description|Image description|Image URL|Link to page|Product ID
       # If there isn't a product id in the line, -1 will be used, otherwise it
       # will be ignored.
-      $data[] = -1;
-      $ranges[$data[0]] = array(
-        'alt'        => $data[1],
-        'image'      => $data[2],
-        'link'       => $data[3],
-        'product_id' => $data[4],
+      $csv_data[] = -1;
+      $ranges[] = array(
+        'range'      => $csv_data[0],
+        'alt'        => $csv_data[1],
+        'image'      => $csv_data[2],
+        'link'       => $csv_data[3],
+        'product_id' => $csv_data[4],
       );
-      $product_id = $ranges[$data[0]]['product_id'];
-      $stock_message = '';
-      if ($product_id != -1
-        && Cart66Product::checkInventoryLevelForProduct($product_id) <= 0) {
-          $stock_message = '<br />(not in stock)';
-      }
-      $ranges[$data[0]]['stock_message'] = $stock_message;
     }
 
     # Turn the data structure into <tr>s.
     $tds = array();
-    foreach ($ranges as $range => $data) {
-      $tds[] = <<<END_OF_TD
+    foreach ($ranges as $_ => $data) {
+      $td = <<<END_OF_TD
   <td>
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
         class="aligncenter" height="260" width="260" />
     </a>
     <div class="larger-text text-centered left-right-margin grey">
-      <a href="{$data['link']}">{$range}</a> {$data['stock_message']}
+      <a href="{$data['link']}">{$data['range']}</a>
     </div>
+END_OF_TD;
+      $product_id = $data['product_id'];
+      if ($product_id != -1) {
+        if (Cart66Product::checkInventoryLevelForProduct($product_id) > 0) {
+          $product = new Cart66Product($product_id);
+          $price = intval($product->price);
+          $td .= <<<END_OF_BUY
+    <div class="larger-text text-centered left-right-margin top-bottom-margin grey">
+      €{$price}
+      [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
+         text="Add to basket" style="display: inline;"]
+    </div>
+END_OF_BUY;
+        } else {
+          $td .= <<<END_OF_OUT_OF_STOCK
+    <div class="text-centered left-right-margin top-bottom-margin grey">
+      Out of stock
+    </div>
+END_OF_OUT_OF_STOCK;
+        }
+      }
+      $td .= <<<END_OF_TD
   </td>
 END_OF_TD;
+      $tds[] = $td;
     }
 
     # Turn the <tr>s into a table with three columns.
@@ -257,22 +276,20 @@ END_OF_TABLE_START;
             </table>
 END_OF_TABLE_END;
 
-    $desc = array();
-    if ($description != '') {
-      $desc[] = <<<END_OF_DESCRIPTION
-            <p class="grey larger-text text-centered">{$description}</p>
-END_OF_DESCRIPTION;
-    }
-
     $html = array();
     $html[] = <<<END_OF_HTML
           <div id="jewellery-grid">
 END_OF_HTML;
-    $html = array_merge($html, $desc, $table);
+    if ($description != '') {
+      $html[] = <<<END_OF_DESCRIPTION
+            <p class="grey larger-text text-centered">{$description}</p>
+END_OF_DESCRIPTION;
+    }
+    $html = array_merge($html, $table);
     $html[] = <<<END_OF_HTML
           </div>
 END_OF_HTML;
-    return implode("\n", $html);
+    return do_shortcode(implode("\n", $html));
   }
 
   /* JewelleryGridShortcode: wrap MakeJewelleryGrid to provide a shortcode.
@@ -315,8 +332,7 @@ END_OF_HTML;
       return '<h1>jewellery_page: no description to display!</h1>' . "\n";
     }
     if (is_string($atts)) {
-      return '<h1>jewellery_page: need attributes! </h1>'
-        . "\n";
+      return '<h1>jewellery_page: need attributes! </h1>' . "\n";
     }
 
     $attrs = shortcode_atts(
