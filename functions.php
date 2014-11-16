@@ -401,7 +401,7 @@ END_OF_HTML;
     $html .= <<<END_OF_HTML
         <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
         <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
-        <p>See the items in <a href="/store/cart">your basket</a></p>
+        <p>See the items in <a href="/store/cart/">your basket</a></p>
       </div>
     </td>
   </tr>
