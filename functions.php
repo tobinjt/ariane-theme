@@ -204,13 +204,17 @@ END_OF_TAG;
       # If there isn't a product id in the line, -1 will be used, otherwise it
       # will be ignored.
       $csv_data[] = -1;
-      $ranges[] = array(
+      $data = array(
         'range'      => $csv_data[0],
         'alt'        => $csv_data[1],
         'image'      => $csv_data[2],
         'link'       => $csv_data[3],
         'product_id' => $csv_data[4],
       );
+      if (substr($data['link'], -1) != '/') {
+        $data['link'] .= '/';
+      }
+      $ranges[] = $data;
     }
 
     # Turn the data structure into <tr>s.
