@@ -18,7 +18,7 @@ Upload two pictures: one 520x520, the other 260x260.
 Add the product to Cart66.  You need the price and the item number; scroll
 to the bottom of the page to find the latest item, and add 1 to the number.
 
-Set the inventory level in Cart66.
+Set the inventory level in Cart66.  Tick the tracking checkbox.
 
 Create a new range if necessary (see below).
 
