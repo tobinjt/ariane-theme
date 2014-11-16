@@ -382,8 +382,10 @@ END_OF_HTML;
         {$limited_to}
 END_OF_HTML;
     if ($attrs["product_discontinued"] == "false") {
+      $product = new Cart66Product($attrs['product_id']);
+      $price = intval($product->price);
       $html .= <<<END_OF_HTML
-        <p>Price: €{$attrs["price"]}.</p>
+        <p>Price: €{$price}.</p>
         [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
            text="Add to basket"]
 END_OF_HTML;
