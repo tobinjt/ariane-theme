@@ -81,11 +81,11 @@
 
   if (is_jewellery_page()) {
     $jewellery_links = array(
-      '/jewellery/bangles'    => 'bangles',
-      # '/jewellery/brooches'   => 'brooches',
-      '/jewellery/earrings'   => 'earrings',
-      '/jewellery/necklaces'  => 'necklaces',
-      '/jewellery/rings'      => 'rings',
+      '/jewellery/bangles/'    => 'bangles',
+      # '/jewellery/brooches/'   => 'brooches',
+      '/jewellery/earrings/'   => 'earrings',
+      '/jewellery/necklaces/'  => 'necklaces',
+      '/jewellery/rings/'      => 'rings',
     );
     echo make_link_bar(
       array('larger-text left-page-links' => $jewellery_links),
