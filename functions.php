@@ -299,6 +299,97 @@ END_OF_HTML;
     return MakeJewelleryGrid($content, $attrs["description"]);
   }
 
+  /* JewelleryPageShortcode: create a jewellery page.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function JewelleryPageShortcode($atts, $content, $tag) {
+    if (is_null($content)) {
+      return '<h1>jewellery_page: no description to display!</h1>' . "\n";
+    }
+    if (is_string($atts)) {
+      return '<h1>jewellery_page: need attributes! </h1>'
+        . "\n";
+    }
+
+    $attrs = shortcode_atts(
+      array(
+        'image_url' => '',
+        'limited_to' => '0',
+        'name' => '',
+        'price' => '',
+        'product_discontinued' => 'false',
+        'product_id' => '',
+        'range' => '',
+        'type' => '',
+      ),
+      $atts);
+    foreach ($attrs as $key => $value) {
+      if ($value == '') {
+        return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
+      }
+    }
+    if (substr($attrs["type"], -1) != 's') {
+      $attrs["type"] .= 's';
+    }
+
+    // Wordpress puts <br /> at the start and end of the content.
+    $content = str_replace('<br />', '', $content);
+    if ($attrs["limited_to"] > 0) {
+      $limited_to = '<p>Limited edition: only ' . $attrs["limited_to"]
+        . ' will be made.</p>';
+    } else {
+      $limited_to = '';
+    }
+    // We're not ready for limited edition stuff yet.
+    // TODO(johntobin): support limited editions and one-off pieces.
+    $limited_to = '';
+
+    $html = <<<END_OF_HTML
+<table id="individual-jewellery-piece">
+  <tr>
+    <td>
+      <img height="520" width="520" alt="{$attrs["range"]} {$attrs["name"]}"
+        src="/wp-content/uploads{$attrs["image_url"]}" />
+    </td>
+    <td>
+      <div id="individual-jewellery-description">
+        <p class="pink larger-text">{$attrs["range"]} {$attrs["name"]}</p>
+        <p>{$content}</p>
+        {$limited_to}
+END_OF_HTML;
+    if ($attrs["product_discontinued"] == "false") {
+      $html .= <<<END_OF_HTML
+        <p>Price: €{$attrs["price"]}.</p>
+        [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
+           text="Add to basket"]
+END_OF_HTML;
+    } else {
+      $html .= <<<END_OF_HTML
+        <p>Unfortunately this piece of jewellery is sold out.  See below for
+          other items in this range or type.</p>
+END_OF_HTML;
+    }
+    $html .= <<<END_OF_HTML
+        <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
+        <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
+        <p>See the items in <a href="/store/cart">your basket</a></p>
+      </div>
+    </td>
+  </tr>
+</table>
+END_OF_HTML;
+    // add_to_cart needs to be expanded.
+    return do_shortcode($html);
+  }
+
   /* StyleWrapShortcode: Wrap a div with a style around content.
    * This *must* be used in the enclosing form.
    * Args (names are ugly but Wordpress-standard):
@@ -434,97 +525,6 @@ END_OF_JAVASCRIPT;
     }
     add_action('wp_footer', 'SliderSetupInFooter');
     return '<div id="slider-div"></div>';
-  }
-
-  /* JewelleryPageShortcode: create a jewellery page.
-   * Args (names are ugly but Wordpress-standard):
-   *  $atts: an associative array of attributes, or an empty string if no
-   *    attributes are given.
-   *  $content: the enclosed content (if the shortcode is used in its enclosing
-   *    form)
-   *  $tag: the shortcode tag, useful for shared callback functions
-   * Returns:
-   *  string, the HTML to insert in the page (Wordpress does that
-   *    automatically).
-   */
-  function JewelleryPageShortcode($atts, $content, $tag) {
-    if (is_null($content)) {
-      return '<h1>jewellery_page: no description to display!</h1>' . "\n";
-    }
-    if (is_string($atts)) {
-      return '<h1>jewellery_page: need attributes! </h1>'
-        . "\n";
-    }
-
-    $attrs = shortcode_atts(
-      array(
-        'image_url' => '',
-        'limited_to' => '0',
-        'name' => '',
-        'price' => '',
-        'product_discontinued' => 'false',
-        'product_id' => '',
-        'range' => '',
-        'type' => '',
-      ),
-      $atts);
-    foreach ($attrs as $key => $value) {
-      if ($value == '') {
-        return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
-      }
-    }
-    if (substr($attrs["type"], -1) != 's') {
-      $attrs["type"] .= 's';
-    }
-
-    // Wordpress puts <br /> at the start and end of the content.
-    $content = str_replace('<br />', '', $content);
-    if ($attrs["limited_to"] > 0) {
-      $limited_to = '<p>Limited edition: only ' . $attrs["limited_to"]
-        . ' will be made.</p>';
-    } else {
-      $limited_to = '';
-    }
-    // We're not ready for limited edition stuff yet.
-    // TODO(johntobin): support limited editions and one-off pieces.
-    $limited_to = '';
-
-    $html = <<<END_OF_HTML
-<table id="individual-jewellery-piece">
-  <tr>
-    <td>
-      <img height="520" width="520" alt="{$attrs["range"]} {$attrs["name"]}"
-        src="/wp-content/uploads{$attrs["image_url"]}" />
-    </td>
-    <td>
-      <div id="individual-jewellery-description">
-        <p class="pink larger-text">{$attrs["range"]} {$attrs["name"]}</p>
-        <p>{$content}</p>
-        {$limited_to}
-END_OF_HTML;
-    if ($attrs["product_discontinued"] == "false") {
-      $html .= <<<END_OF_HTML
-        <p>Price: €{$attrs["price"]}.</p>
-        [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
-           text="Add to basket"]
-END_OF_HTML;
-    } else {
-      $html .= <<<END_OF_HTML
-        <p>Unfortunately this piece of jewellery is sold out.  See below for
-          other items in this range or type.</p>
-END_OF_HTML;
-    }
-    $html .= <<<END_OF_HTML
-        <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
-        <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
-        <p>See the items in <a href="/store/cart">your basket</a></p>
-      </div>
-    </td>
-  </tr>
-</table>
-END_OF_HTML;
-    // add_to_cart needs to be expanded.
-    return do_shortcode($html);
   }
 
   function CarePageShortcode($atts, $content, $tag) {
