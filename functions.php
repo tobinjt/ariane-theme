@@ -340,7 +340,6 @@ END_OF_HTML;
         'image_url' => '',
         'limited_to' => '0',
         'name' => '',
-        'price' => '',
         'product_discontinued' => 'false',
         'product_id' => '',
         'range' => '',
@@ -348,7 +347,7 @@ END_OF_HTML;
       ),
       $atts);
     foreach ($attrs as $key => $value) {
-      if ($value == '' && $key != 'price') {
+      if ($value == '') {
         return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
       }
     }
