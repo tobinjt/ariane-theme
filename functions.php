@@ -348,7 +348,7 @@ END_OF_HTML;
       ),
       $atts);
     foreach ($attrs as $key => $value) {
-      if ($value == '') {
+      if ($value == '' && $key != 'price') {
         return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
       }
     }
