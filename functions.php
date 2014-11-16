@@ -640,10 +640,12 @@ END_OF_HTML;
   // Clean up the <head>
   function removeHeadLinks() {
     remove_action('wp_head', 'rsd_link');
+    remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'wlwmanifest_link');
+    // Remove automatically generated shortlink.
+    remove_action('wp_head', 'wp_shortlink_wp_head');
   }
   add_action('init', 'removeHeadLinks');
-  remove_action('wp_head', 'wp_generator');
   // Remove the version strings from CSS and Javascript.  Found by searching
   // for "wordpress remove query strings from static resources".
   function _remove_script_version($src){
