@@ -1,0 +1,12 @@
+## How are images included in the slider?
+
+The image description needs to start with 'slider ', and be followed by a URL;
+the image will link to that URL.  The image needs to have width and height
+attributes, which are probably automatically added by Wordpress when you upload
+it, and also have an attachment URL, but I don't know why I added that check.
+
+## How do I download a new version of Cart66?
+
+Go to https://buy.cart66.com/, login, click on the order number in the order
+history table, then click on the cart66-pro.zip link.  Copy it to hosting and
+rename it to include the version number.
