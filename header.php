@@ -87,9 +87,13 @@
       '/jewellery/necklaces/'  => 'necklaces',
       '/jewellery/rings/'      => 'rings',
     );
-    echo make_menu_bar([make_link_group(
-      array('larger-text left-page-links' => $jewellery_links),
-      '/jewellery/')]);
+    echo make_menu_bar([
+      make_link_group(
+        array('larger-text left-page-links' => $jewellery_links),
+        '/jewellery/'),
+      wrap_with_tag('span', 'float-right larger-text grey',
+      'Free delivery on all orders to Ireland'),
+      ]);
   }
 
   $other_message = <<<OTHER_MESSAGE
