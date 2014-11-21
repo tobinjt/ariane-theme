@@ -74,10 +74,10 @@
     get_bloginfo('rss2_url')
       => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
   );
-  echo make_link_bar(
+  echo make_menu_bar([make_link_group(
     array('largest-text left-page-links' => $main_links,
           'float-right' => $icon_links),
-    '/news/');
+    '/news/')]);
 
   if (is_jewellery_page()) {
     $jewellery_links = array(
@@ -87,9 +87,9 @@
       '/jewellery/necklaces/'  => 'necklaces',
       '/jewellery/rings/'      => 'rings',
     );
-    echo make_link_bar(
+    echo make_menu_bar([make_link_group(
       array('larger-text left-page-links' => $jewellery_links),
-      '/jewellery/');
+      '/jewellery/')]);
   }
 
   $other_message = <<<OTHER_MESSAGE

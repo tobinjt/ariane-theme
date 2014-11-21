@@ -85,7 +85,7 @@ END_OF_LINK;
 END_OF_TAG;
   }
 
-  /* make_link_bar: returns a bar of links.
+  /* make_link_group: returns a bar of links.
    * Args:
    *   $initial_groups: an array(css-class -> array(url -> link-text)).
    *   $default_url: the URL to use if the current URL is not in $initial_groups.
@@ -93,7 +93,7 @@ END_OF_TAG;
    * Returns:
    *  string.
    */
-  function make_link_bar($initial_groups, $default_url) {
+  function make_link_group($initial_groups, $default_url) {
     // Filter out invalid URLs.
     $groups = array();
     foreach ($initial_groups as $class => $links) {
@@ -152,7 +152,17 @@ END_OF_TAG;
       $html_links = links_to_html($links, $url_to_highlight, 'pink');
       $output[] = wrap_with_tag('span', $class, $html_links);
     }
-    return wrap_with_tag('div', 'menubar', implode("\n", $output)) . "\n";
+    return implode("\n", $output) . "\n";
+  }
+
+  /* make_menu_bar: returns a menu bar.
+   * Args:
+   *   $menu_chunks: an array of strings.
+   * Returns:
+   *  string.
+   */
+  function make_menu_bar($menu_chunks) {
+    return wrap_with_tag('div', 'menubar', implode("\n", $menu_chunks)) . "\n";
   }
 
   function make_icon_link($file, $alt, $width, $height) {
