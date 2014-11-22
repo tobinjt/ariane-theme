@@ -354,6 +354,7 @@ END_OF_HTML;
         'image_url' => '',
         'limited_to' => '0',
         'name' => '',
+        // TODO(johntobin): what are we doing about discontinued products?
         'product_discontinued' => 'false',
         'product_id' => '',
         'range' => '',
@@ -394,7 +395,7 @@ END_OF_HTML;
         <p>{$content}</p>
         {$limited_to}
 END_OF_HTML;
-    if ($attrs["product_discontinued"] == "false") {
+    if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
       $product = new Cart66Product($attrs['product_id']);
       $price = intval($product->price);
       $html .= <<<END_OF_HTML
