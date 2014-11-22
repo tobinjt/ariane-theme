@@ -382,16 +382,21 @@ END_OF_HTML;
     // TODO(johntobin): support limited editions and one-off pieces.
     $limited_to = '';
 
+    // Don't make the range part of thename when the range is singles.
+    $range_in_piece_name = $attrs['range'] . ' ';
+    if ($range_in_piece_name == "singles ") {
+      $range_in_piece_name = '';
+    }
     $html = <<<END_OF_HTML
 <table id="individual-jewellery-piece">
   <tr>
     <td>
-      <img height="520" width="520" alt="{$attrs["range"]} {$attrs["name"]}"
+      <img height="520" width="520" alt="{$range_in_piece_name}{$attrs["name"]}"
         src="/wp-content/uploads{$attrs["image_url"]}" />
     </td>
     <td>
       <div id="individual-jewellery-description">
-        <p class="pink larger-text">{$attrs["range"]} {$attrs["name"]}</p>
+        <p class="pink larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
         <p>{$content}</p>
         {$limited_to}
 END_OF_HTML;
