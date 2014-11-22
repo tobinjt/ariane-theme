@@ -382,7 +382,7 @@ END_OF_HTML;
     // TODO(johntobin): support limited editions and one-off pieces.
     $limited_to = '';
 
-    // Don't make the range part of thename when the range is singles.
+    // Don't make the range part of the name when the range is singles.
     $range_in_piece_name = $attrs['range'] . ' ';
     if ($range_in_piece_name == "singles ") {
       $range_in_piece_name = '';
