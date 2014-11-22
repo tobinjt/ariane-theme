@@ -57,9 +57,9 @@
   $main_links = array(
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
+    '/care/'          => 'care',
     '/news/'          => 'news',
     '/about/'         => 'about',
-    '/care/'          => 'care',
     '/store/cart/'    => 'basket',
   );
   $icon_links = array(
