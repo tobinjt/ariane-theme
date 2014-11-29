@@ -7,7 +7,7 @@
 <!--[if gt IE 9]><!--><html class="no-js" <?php language_attributes(); ?>><!--<![endif]-->
 <!-- the "no-js" class is for Modernizr. -->
 
-<head id="www-sitename-com" data-template-set="html5-reset-wordpress-theme">
+<head>
   <meta charset="<?php bloginfo('charset'); ?>">
 <?php
   if (is_search()) {
@@ -15,11 +15,11 @@
   }
 ?>
   <meta name="description" content="<?php bloginfo('description'); ?>">
-  <meta name="author" content="John Tobin">
+  <meta name="author" content="Ariane Tobin">
   <!-- Dublin Core Metadata : http://dublincore.org/ -->
   <meta name="dcterms.title" content="Ariane Tobin Jewellery">
   <meta name="dcterms.subject" content="Ariane Tobin Jewellery">
-  <meta name="dcterms.creator" content="John Tobin">
+  <meta name="dcterms.creator" content="Ariane Tobin">
   <meta name="dcterms.rightsHolder" content="Ariane Tobin Jewellery">
   <meta name="dcterms.rights"
     content="Copyright Ariane Tobin Jewellery 2011-<?php echo date("Y");?>. All Rights Reserved.">
