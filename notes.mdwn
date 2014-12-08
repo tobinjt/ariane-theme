@@ -11,6 +11,10 @@ Go to https://buy.cart66.com/, login, click on the order number in the order
 history table, then click on the cart66-pro.zip link.  Copy it to hosting and
 rename it to include the version number.
 
+## How do I make an item unique?
+
+Open the item in Cart66 and set max quantity to 1.
+
 ## How do I add a new product?
 
 Upload two pictures: one 520x520, the other 260x260.
