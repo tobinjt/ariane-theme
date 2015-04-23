@@ -9,7 +9,8 @@ it, and also have an attachment URL, but I don't know why I added that check.
 
 Go to https://buy.cart66.com/, login, click on the order number in the order
 history table, then click on the cart66-pro.zip link.  Copy it to hosting and
-rename it to include the version number.
+rename it to ~/wordpress/cart66.${version}.zip, then install it with
+wordpress-install.
 
 ## How do I make an item unique?
 
