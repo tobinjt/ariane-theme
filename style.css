@@ -278,6 +278,8 @@ ol.commentlist li.thread-odd {}
 p {
   margin-top: 1em;
   margin-bottom: 1em;
+  /* Experimenting with line heights for Ariane. */
+  /* line-height: 1.5; */
 }
 
 /* Links should be grey and not underlined. */
