@@ -435,6 +435,10 @@ img:hover {
 /**
  * A single page.
  **/
+#main-content-page {
+  line-height: 1.5;
+}
+
 #main-content-page h2 {
   font-size: 150%;
   margin-top: 0.5em;
