@@ -65,15 +65,15 @@
   );
   $icon_links = array(
     'http://www.facebook.com/ArianeTobinJewellery'
-      => make_icon_link('facebook-icon.png',    'Facebook icon',    16, 16),
+      => make_icon_link('facebook.png',    'Facebook icon',    20, 20),
     'https://twitter.com/#!/ArianeTobin'
-      => make_icon_link('twitter-icon.png',     'Twitter icon',     16, 16),
+      => make_icon_link('twitter.png',     'Twitter icon',     20, 20),
     // 'https://plus.google.com/u/0/106979221491924017894/posts'
-      // => make_icon_link('google-plus-icon.png', 'Google Plus icon', 16, 16),
+      // => make_icon_link('google-plus-icon.png', 'Google Plus icon', 20, 20),
     'http://pinterest.com/arianetobin/'
-      => make_icon_link('pinterest-icon.png',   'Pinterest icon',   16, 16),
+      => make_icon_link('pinterest.png',   'Pinterest icon',   20, 20),
     get_bloginfo('rss2_url')
-      => make_icon_link('rss-icon.jpg',         'RSS feed icon',    16, 16),
+      => make_icon_link('rss.png',         'RSS feed icon',    20, 20),
   );
   echo make_menu_bar([make_link_group(
     array('largest-text left-page-links' => $main_links,
