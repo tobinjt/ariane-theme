@@ -3,6 +3,7 @@
 <?php
   if (is_jewellery_page()) {
     echo '    <div id="jewellery-page">', "\n";
+    echo '      <br id="add-extra-space-before-description"/>', "\n";
   }
   while (have_posts()) {
     the_post();

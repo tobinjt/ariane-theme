@@ -158,11 +158,17 @@ END_OF_TAG;
   /* make_menu_bar: returns a menu bar.
    * Args:
    *   $menu_chunks: an array of strings.
+   *   $css_tags: a string of CSS tags to be added to the containing div.
+   *       'menubar' will always be present in the tags.
    * Returns:
    *  string.
    */
-  function make_menu_bar($menu_chunks) {
-    return wrap_with_tag('div', 'menubar', implode("\n", $menu_chunks)) . "\n";
+  function make_menu_bar($menu_chunks, $css_tags) {
+    $html = wrap_with_tag(
+      'div',
+      'menubar ' . $css_tags,
+      implode("\n", $menu_chunks));
+    return $html . "\n";
   }
 
   function make_icon_link($file, $alt, $width, $height) {

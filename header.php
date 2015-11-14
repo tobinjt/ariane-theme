@@ -75,10 +75,13 @@
     get_bloginfo('rss2_url')
       => make_icon_link('rss.png',         'RSS feed icon',    20, 20),
   );
-  echo make_menu_bar([make_link_group(
-    array('largest-text left-page-links' => $main_links,
-          'float-right' => $icon_links),
-    '/news/')]);
+  echo make_menu_bar([
+    make_link_group(
+      array('largest-text left-page-links' => $main_links,
+            'float-right' => $icon_links),
+      '/news/'),
+      ],
+      '');
 
   if (is_jewellery_page()) {
     $jewellery_links = array(
@@ -90,11 +93,12 @@
     );
     echo make_menu_bar([
       make_link_group(
-        array('larger-text left-page-links' => $jewellery_links),
+        array('left-page-links' => $jewellery_links),
         '/jewellery/'),
-      wrap_with_tag('span', 'float-right larger-text grey',
-      'Free delivery on all orders to Ireland'),
-      ]);
+      wrap_with_tag('span', 'float-right grey',
+        'Free delivery on all orders to Ireland'),
+      ],
+      'larger-text bottom-margin');
   }
 
   $other_message = <<<OTHER_MESSAGE
