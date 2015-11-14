@@ -302,6 +302,9 @@ p {
 .larger-text {
   font-size: 1.5em;
 }
+.large-text {
+  font-size: 1.3em;
+}
 .left-align {
   text-align: left;
 }

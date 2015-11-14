@@ -310,7 +310,7 @@ END_OF_TABLE_END;
 END_OF_HTML;
     if ($description != '') {
       $html[] = <<<END_OF_DESCRIPTION
-            <p class="grey larger-text text-centered">{$description}</p>
+            <p class="grey large-text text-centered">{$description}</p>
 END_OF_DESCRIPTION;
     }
     $html = array_merge($html, $table);
