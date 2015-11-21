@@ -173,8 +173,8 @@ END_OF_TAG;
 
   function make_icon_link($file, $alt, $width, $height) {
     return '<img class="greyscale"' .
-      ' width="' . round($width * 1.414) . '"' .
-      ' height="' . round($height * 1.414) . '"' .
+      ' width="' . $width . '"' .
+      ' height="' . $height . '"' .
       ' src="' .  get_bloginfo('template_directory') . '/images/' .  $file . '"' .
       ' alt="' . $alt . '" />';
   }
