@@ -296,14 +296,27 @@ p {
   /* Add !important so that this overrides other styles. */
   color: #B92166 !important;
 }
-.largest-text {
-  font-size: 2em;
+@media (min-height: 700px) {
+  .largest-text {
+    font-size: 2em;
+  }
+  .larger-text {
+    font-size: 1.5em;
+  }
+  .large-text {
+    font-size: 1.3em;
+  }
 }
-.larger-text {
-  font-size: 1.5em;
-}
-.large-text {
-  font-size: 1.3em;
+@media (max-height: 699px) {
+  .largest-text {
+    font-size: 1.5em;
+  }
+  .larger-text {
+    font-size: 1.2em;
+  }
+  .large-text {
+    font-size: 1.1em;
+  }
 }
 .left-align {
   text-align: left;
@@ -351,12 +364,24 @@ p {
   text-align: center;
 }
 
-#title-name {
-  font-size: 5.0em;
+@media (min-height: 700px) {
+  #title-name {
+    font-size: 5.0em;
+  }
+
+  #title-craft {
+    font-size: 3.5em;
+  }
 }
 
-#title-craft {
-  font-size: 3.5em;
+@media (max-height: 699px) {
+  #title-name {
+    font-size: 3.0em;
+  }
+
+  #title-craft {
+    font-size: 1.5em;
+  }
 }
 
 /* The menubar. */
