@@ -572,9 +572,13 @@ img:hover {
  * The about page.
  **/
 #about-page {
-  width: 80%;
+  /* We don't want really long lines of text across the page.  */
+  max-width: 35em;
   margin-left: auto;
   margin-right: auto;
+  /* Add a little separation from the screen edges on mobile.  */
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 #about-page p {
