@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-  <div id="make-space-for-sidebar">
+  <!-- <div id="make-space-for-sidebar"> -->
     <div id="main-content-post">
 <?php
   while (have_posts()) {
@@ -21,8 +21,8 @@
   }
 ?>
     </div>
-  </div>
+  <!-- </div> -->
 <?php
-  get_sidebar();
+  // get_sidebar();
   get_footer();
 ?>
