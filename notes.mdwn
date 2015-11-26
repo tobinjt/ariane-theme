@@ -55,3 +55,7 @@ To make sure everything works properly: `check-links http://www.arianetobin.ie/`
 ## What references fonts.googleapis.com/css?
 
 The internet says it's part of the Wordpress admin theme, ignore it.
+
+## How do I clear the mod_pagespeed cache?
+
+sudo touch /var/cache/mod_pagespeed/cache.flush
