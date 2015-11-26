@@ -240,7 +240,7 @@ END_OF_TAG;
   <td>
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
-        class="aligncenter" height="260" width="260" />
+        class="aligncenter block" height="260" width="260" />
     </a>
     <div class="larger-text text-centered left-right-margin grey">
       <a href="{$data['link']}">{$data['range']}</a>

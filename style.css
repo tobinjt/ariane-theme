@@ -250,14 +250,6 @@ ol.commentlist li.thread-odd {}
 /**
  * Classes automatically used by Wordpress.
  **/
-/* Centered stuff. */
-.aligncenter {
-  /* This makes images into blocks so they will be properly centered. */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* Captions under photos. */
 .wp-caption-text {
   margin-top: 0.5em;
@@ -345,6 +337,14 @@ p {
 .bottom-margin {
   margin-bottom: 0.5em !important;
 }
+.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+.block {
+  /* This makes images into blocks so they will be properly centered. */
+  display: block;
+}
 
 
 /**
@@ -426,9 +426,20 @@ img:hover {
   clear: both;
 }
 
-.copyright span {
-  margin-left: 4em;
-  margin-right: 4em;
+@media (min-width: 800px) {
+  .copyright li {
+    display: inline;
+    list-style-type: none;
+    margin-left: 4em;
+    margin-right: 4em;
+  }
+}
+
+@media (max-width: 799px) {
+  .copyright li {
+    display: block;
+    list-style-type: none;
+  }
 }
 
 /**
