@@ -426,7 +426,9 @@ img:hover {
   clear: both;
 }
 
-.copyright span {
+.copyright li {
+  display: inline;
+  list-style-type: none;
   margin-left: 4em;
   margin-right: 4em;
 }
