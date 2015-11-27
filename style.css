@@ -254,7 +254,7 @@ ol.commentlist li.thread-odd {}
 .wp-caption-text {
   margin-top: 0.5em;
   text-align: center;
-  margin-right: 10px;
+  margin-right: 1em;
 }
 
 /**
@@ -262,7 +262,10 @@ ol.commentlist li.thread-odd {}
  **/
 #page-wrap {
   max-width: 70em;
-  margin: 20px auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -496,7 +499,7 @@ img:hover {
  * An individual piece of jewellery.
  */
 #individual-jewellery-piece {
-  /* border: 1px solid black; */
+  /* border: 1em solid black; */
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -604,7 +607,7 @@ img:hover {
  * The Jewellery grid.
  **/
 #jewellery-grid {
-  /* border: 1px solid black; */
+  /* border: 1em solid black; */
 }
 #jewellery-grid table {
   width: 100%;
