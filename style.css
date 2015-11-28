@@ -43,30 +43,12 @@ img,
 object,
 embed {max-width: 100%;}
 
-/* force a vertical scrollbar to prevent a jumpy page */
-html {overflow-y: scroll;}
-
-blockquote, q {quotes: none;}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {content: ''; content: none;}
-
 a {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent;}
-
-del {text-decoration: line-through;}
-
-abbr[title], dfn[title] {border-bottom: 1px dotted #000; cursor: help;}
 
 /* tables still need cellspacing="0" in the markup */
 table {border-collapse: collapse; border-spacing: 0;}
 th {font-weight: bold; vertical-align: bottom;}
 td {font-weight: normal; vertical-align: top;}
-
-hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0;}
-
-input, select {vertical-align: middle;}
 
 pre {
   white-space: pre; /* CSS2 */
@@ -74,10 +56,6 @@ pre {
   white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
   word-wrap: break-word; /* IE */
 }
-
-.ie6 input {vertical-align: text-bottom;}
-
-select, input, textarea {font: 99% sans-serif;}
 
 table {font-size: inherit;}
 
@@ -116,64 +94,17 @@ button {width: auto; overflow: visible;}
 /* scale images in IE7 more attractively */
 .ie7 img {-ms-interpolation-mode: bicubic;}
 
-/* let's clear some floats */
-.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
-.clearfix:after { clear: both; }
-/* .clearfix { zoom: 1; } */
-
-
 
 /* Ok, this is where the fun starts.
 -------------------------------------------------------------------------------*/
 
-/* new Linux- and Windows-friendly sans-serif font stack: http://mky.be/fontstack */
-body {font: 13px Helmet, Freesans, sans-serif;}
-
-/* using local fonts? make sure to read up on Paul Irish's
-  Bulletproof @font-face syntax: http://mky.be/font-face/bulletproof/ */
-
 /* we like off-black for text */
 body, select, input, textarea {color: #333;}
 
-a {color: #03f;}
+/* TODO(johntobin): is this needed? */
 a:hover {color: #69f;}
 
-/* Custom text-selection colors (remove any text shadows: twitter.com/miketaylr/status/12228805301) */
-/* ::-moz-selection {background: #fcd700; color: #fff; text-shadow: none;} */
-/* ::selection {background: #fcd700; color: #fff; text-shadow: none;} */
-
-/*  j.mp/webkit-tap-highlight-color */
-a:link {-webkit-tap-highlight-color: #fcd700;}
-
-ins {background-color: #fcd700; color: #000; text-decoration: none;}
-mark {background-color: #fcd700; color: #000; font-style: italic; font-weight: bold;}
-
-
-
-/* And here begins the Wordpress fun.
--------------------------------------------------------------------------------*/
-
-/* #page-wrap {width: 960px; margin: 20px auto;} */
-
-.post {}
-
-.entry-content {}
-.entry-content a {}
-.entry-content a:hover {}
-
-#meta {}
-.postmetadata {}
-
-#sidebar {}
-
-.navgation {}
-.next-posts {}
-.prev-posts {}
-
-#searchform {}
-#s {}
-#searchsubmt {}
-
+/* TODO(johntobin): figure out how much of this is necessary. */
 ol.commentlist {list-style: none;}
 ol.commentlist li {}
 ol.commentlist li.alt {}
@@ -236,14 +167,13 @@ ol.commentlist li.thread-odd {}
   margin-left: auto;
   margin-right: auto;
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
 }
 
 /* Add space back around paragraphs. */
 p {
   margin-top: 1em;
   margin-bottom: 1em;
-  /* Experimenting with line heights for Ariane. */
-  /* line-height: 1.5; */
 }
 
 /* Links should be grey and not underlined. */
@@ -332,7 +262,6 @@ p {
 }
 
 #title-text {
-  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
 }
 
@@ -363,9 +292,6 @@ p {
   margin-bottom: 0.5em;
 }
 
-.page-links > a {
-  font-size: 2.0em;
-}
 .left-page-links > a {
   margin-right: 0.6em;
 }
@@ -536,7 +462,7 @@ img:hover {
 
 /**
  * The comment form and the button to cancel the comment will be hidden at
- * first; clicking on "Leave a reply" will hide "LEave a reply" and show the
+ * first; clicking on "Leave a reply" will hide "Leave a reply" and show the
  * other two; subsequently clicking on "Hide comment form" will reverse.
  **/
 #comment-form-container {
