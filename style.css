@@ -190,6 +190,9 @@ p {
   /* Add !important so that this overrides other styles. */
   color: #B92166 !important;
 }
+
+/* Use smaller text on smaller devices so that we get more content on the
+ * screen. */
 @media (min-height: 700px) {
   .largest-text {
     font-size: 2em;
@@ -257,10 +260,6 @@ p {
   margin-bottom: 1em;
 }
 
-#title {
-  margin-bottom: 2em;
-}
-
 #title-text {
   text-align: center;
 }
@@ -273,6 +272,10 @@ p {
   #title-craft {
     font-size: 3.5em;
   }
+
+  #title {
+    margin-bottom: 2em;
+  }
 }
 
 @media (max-height: 699px) {
@@ -282,6 +285,10 @@ p {
 
   #title-craft {
     font-size: 1.5em;
+  }
+
+  #title {
+    margin-bottom: 1em;
   }
 }
 
