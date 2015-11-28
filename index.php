@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-  <!-- <div id="make-space-for-sidebar"> -->
     <div id="main-content-blog">
 <?php
   if (!have_posts()) {
@@ -26,9 +25,7 @@
   include (TEMPLATEPATH . '/_/inc/nav.php' );
 ?>
     </div>
-  <!-- </div> -->
 
 <?php
-  // get_sidebar();
   get_footer();
 ?>

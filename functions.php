@@ -685,17 +685,6 @@ END_OF_HTML;
      false);
   wp_enqueue_script('modernizr');
 
-  // Set up the sidebar.
-  register_sidebar(array(
-    'name' => __('Sidebar Widgets','html5reset' ),
-    'id'   => 'sidebar-widgets',
-    'description'   => __( 'These are widgets for the sidebar.','html5reset' ),
-    'before_widget' => '<div id="%1$s" class="widget %2$s">',
-    'after_widget'  => '</div>',
-    'before_title'  => '<h2>',
-    'after_title'   => '</h2>'
-  ));
-
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
