@@ -217,9 +217,12 @@ END_OF_TAG;
       }
       # Line format:
       # Short description|Image description|Image URL|Link to page|Product ID
-      # If there isn't a product id in the line, -1 will be used, otherwise it
-      # will be ignored.
-      $csv_data[] = -1;
+      # The top-level jewellery page links to ranges rather than products, so we
+      # can't include purchasing.  We use -1 to indicate that there isn't a
+      # product to offer, and that's checked for later.
+      if (count($csv_data) < 5) {
+        $csv_data[] = -1;
+      }
       $data = array(
         'range'      => $csv_data[0],
         'alt'        => $csv_data[1],
@@ -233,11 +236,11 @@ END_OF_TAG;
       $ranges[] = $data;
     }
 
-    # Turn the data structure into <tr>s.
-    $tds = array();
+    # Turn the data structure into <divs>s.
+    $divs = array();
     foreach ($ranges as $_ => $data) {
-      $td = <<<END_OF_TD
-  <td>
+      $div = <<<END_OF_IMAGE_AND_RANGE
+  <div class="aligncenter jewellery-block">
     <a href="{$data['link']}">
       <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
         class="aligncenter block" height="260" width="260" />
@@ -245,13 +248,15 @@ END_OF_TAG;
     <div class="larger-text text-centered left-right-margin grey">
       <a href="{$data['link']}">{$data['range']}</a>
     </div>
-END_OF_TD;
+END_OF_IMAGE_AND_RANGE;
       $product_id = $data['product_id'];
+      # -1 means there isn't a product to sell, and that happens on the main
+      # jewellery page.
       if ($product_id != -1) {
         $product = new Cart66Product($product_id);
         if (Cart66Product::checkInventoryLevelForProduct($product_id) > 0) {
           $price = intval($product->price);
-          $td .= <<<END_OF_BUY
+          $div .= <<<END_OF_BUY
     <div class="larger-text text-centered left-right-margin top-bottom-margin grey">
       €{$price}
       [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
@@ -260,13 +265,13 @@ END_OF_TD;
 END_OF_BUY;
         } else {
           if ($product->max_quantity == 1) {
-            $td .= <<<END_OF_SOLD
+            $div .= <<<END_OF_SOLD
     <div class="text-centered left-right-margin top-bottom-margin grey">
       Sold
     </div>
 END_OF_SOLD;
           } else {
-            $td .= <<<END_OF_OUT_OF_STOCK
+            $div .= <<<END_OF_OUT_OF_STOCK
     <div class="text-centered left-right-margin top-bottom-margin grey">
       Out of stock
     </div>
@@ -274,35 +279,11 @@ END_OF_OUT_OF_STOCK;
           }
         }
       }
-      $td .= <<<END_OF_TD
-  </td>
-END_OF_TD;
-      $tds[] = $td;
+      $div .= <<<END_OF_DIV
+  </div>
+END_OF_DIV;
+      $divs[] = $div;
     }
-
-    # Turn the <tr>s into a table with three columns.
-    # If the number of columns is changed, the width of each TD needs to be
-    # changed in style.css.
-    $num_columns = 3;
-    while (count($tds) % $num_columns != 0) {
-      $tds[] = '<td></td>';
-    }
-    $table = array();
-    $table[] = <<<END_OF_TABLE_START
-            <table>
-END_OF_TABLE_START;
-    for ($i = 0; $i < count($tds); $i++) {
-      if ($i % $num_columns == 0) {
-        $table[] = '<tr>';
-      }
-      $table[] = $tds[$i];
-      if ($i % $num_columns == $num_columns - 1) {
-        $table[] = '</tr>';
-      }
-    }
-    $table[] = <<<END_OF_TABLE_END
-            </table>
-END_OF_TABLE_END;
 
     $html = array();
     $html[] = <<<END_OF_HTML
@@ -313,7 +294,7 @@ END_OF_HTML;
             <p class="grey large-text text-centered">{$description}</p>
 END_OF_DESCRIPTION;
     }
-    $html = array_merge($html, $table);
+    $html = array_merge($html, $divs);
     $html[] = <<<END_OF_HTML
           </div>
 END_OF_HTML;

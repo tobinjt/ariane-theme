@@ -582,10 +582,11 @@ img:hover {
  **/
 #jewellery-grid {
   /* border: 1em solid black; */
-}
-#jewellery-grid table {
-  width: 100%;
-  border-collapse: separate;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+
 }
 #jewellery-grid td {
   /* Vertically align along the top so that images line up when the caption
