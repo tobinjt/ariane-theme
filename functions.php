@@ -100,7 +100,9 @@ END_OF_TAG;
       $new_links = array();
       $skipped_links = array();
       foreach ($links as $url => $text) {
-        if (strpos($url, '/') === 0 and $url != '/'
+        // Remove false if necessary, but usually the links are good so we don't
+        // need to hit the database checking them every time.
+        if (false and strpos($url, '/') === 0 and $url != '/'
           and is_null(get_page_by_path($url))) {
           // Local page that doesn't exist.  Skip it.
           $skipped_links[$url] = $text;
