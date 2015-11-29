@@ -243,10 +243,12 @@ END_OF_TAG;
     foreach ($ranges as $_ => $data) {
       $div = <<<END_OF_IMAGE_AND_RANGE
   <div class="aligncenter jewellery-block">
-    <a href="{$data['link']}">
-      <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
-        class="aligncenter block" height="260" width="260" />
-    </a>
+    <div class="jewellery-picture-container">
+      <a href="{$data['link']}">
+        <img src="/wp-content/uploads/{$data['image']}" alt="{$data['alt']}"
+          class="aligncenter block" />
+      </a>
+    </div>
     <div class="larger-text text-centered left-right-margin grey">
       <a href="{$data['link']}">{$data['range']}</a>
     </div>

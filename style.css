@@ -489,6 +489,11 @@ img:hover {
   margin-bottom: 1em;
 }
 
+.jewellery-picture-container {
+  width: 260px;
+  height: 260px;
+}
+
 /* The list indicator should be inside the container. */
 li {
   list-style-position: inside;
