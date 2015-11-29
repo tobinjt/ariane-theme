@@ -301,7 +301,7 @@ END_OF_HTML;
 END_OF_DESCRIPTION;
     }
     $html[] = <<<END_OF_HTML
-            <div id="jewellery-grid-inner">
+            <div id="jewellery-grid-inner" class="flexboxrow">
 END_OF_HTML;
     $html = array_merge($html, $divs);
     $html[] = <<<END_OF_HTML
@@ -393,48 +393,44 @@ END_OF_HTML;
       $range_in_piece_name = '';
     }
     $html = <<<END_OF_HTML
-<table id="individual-jewellery-piece">
-  <tr>
-    <td>
-      <img height="520" width="520" alt="{$range_in_piece_name}{$attrs["name"]}"
-        src="/wp-content/uploads{$attrs["image_url"]}" />
-    </td>
-    <td>
-      <div id="individual-jewellery-description">
-        <p class="pink larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
-        <p>{$content}</p>
-        {$limited_to}
+<div id="individual-jewellery-piece" class="flexboxrow">
+  <div id="individual-jewellery-image">
+    <img alt="{$range_in_piece_name}{$attrs["name"]}"
+      src="/wp-content/uploads{$attrs["image_url"]}" />
+  </div>
+  <div id="individual-jewellery-description">
+    <p class="pink larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
+    <p>{$content}</p>
+    {$limited_to}
 END_OF_HTML;
     $product = new Cart66Product($attrs['product_id']);
     if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
       $price = intval($product->price);
       $html .= <<<END_OF_HTML
-        <p>Price: €{$price}.</p>
-        [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
-           text="Add to basket"]
+    <p>Price: €{$price}.</p>
+    [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
+       text="Add to basket"]
 END_OF_HTML;
     } else {
       if ($product->max_quantity == 1) {
         $html .= <<<END_OF_HTML
-          <p>Unfortunately this piece of jewellery has been sold.  Please
-            contact Ariane to discuss commissioning a variation on this piece.
-            </p>
+      <p>Unfortunately this piece of jewellery has been sold.  Please
+        contact Ariane to discuss commissioning a variation on this piece.
+        </p>
 END_OF_HTML;
         } else {
         $html .= <<<END_OF_HTML
-          <p>Unfortunately this piece of jewellery is sold out.  See below for
-            other items in this range or type.</p>
+      <p>Unfortunately this piece of jewellery is sold out.  See below for
+        other items in this range or type.</p>
 END_OF_HTML;
       }
     }
     $html .= <<<END_OF_HTML
-        <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
-        <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
-        <p>See the items in <a href="/store/cart/">your basket</a></p>
-      </div>
-    </td>
-  </tr>
-</table>
+    <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
+    <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
+    <p>See the items in <a href="/store/cart/">your basket</a></p>
+  </div>
+</div>
 END_OF_HTML;
     // add_to_cart needs to be expanded.
     return do_shortcode($html);
