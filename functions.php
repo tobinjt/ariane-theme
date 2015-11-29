@@ -293,11 +293,17 @@ END_OF_DIV;
 END_OF_HTML;
     if ($description != '') {
       $html[] = <<<END_OF_DESCRIPTION
-            <p class="grey large-text text-centered">{$description}</p>
+            <div>
+              <p class="grey large-text text-centered">{$description}</p>
+            </div>
 END_OF_DESCRIPTION;
     }
+    $html[] = <<<END_OF_HTML
+            <div id="jewellery-grid-inner">
+END_OF_HTML;
     $html = array_merge($html, $divs);
     $html[] = <<<END_OF_HTML
+            </div>
           </div>
 END_OF_HTML;
     return do_shortcode(implode("\n", $html));

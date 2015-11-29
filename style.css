@@ -475,13 +475,14 @@ img:hover {
 /**
  * The Jewellery grid.
  **/
-#jewellery-grid {
+#jewellery-grid-inner {
   /* border: 1em solid black; */
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
-
+  /* This forces the grid to be below the description rather than beside it. */
+  clear: both;
 }
 #jewellery-grid p {
   margin-top: 0;
