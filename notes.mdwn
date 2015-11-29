@@ -21,14 +21,18 @@ Open the item in Cart66 and set max quantity to 1.
 Upload two pictures: one 520x520, the other 260x260.
 
 Add the product to Cart66.  You need the price and the item number; scroll
-to the bottom of the page to find the latest item, and add 1 to the number.
+to the bottom of the page to find the latest item (making sure you're on the
+last page too), and add 1 to the number.
 
-Set the inventory level in Cart66.  Tick the tracking checkbox.
+Set the inventory level in Cart66 (it's on a separate page to the products).
+Tick the tracking checkbox.
 
 Create a new range if necessary (see below).
 
 Create a new page for the product.  Make it a child of the range.  Copy the
-text from another product and modify accordingly.
+text from another product and modify accordingly.  The URL will be wrong when
+you're creating the page - the range won't be part of it - but it will be
+corrected when you publish.
 
 Update the range page and the type page with rows for the new product.
 
