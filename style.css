@@ -483,20 +483,6 @@ img:hover {
   flex-flow: row wrap;
 
 }
-#jewellery-grid td {
-  /* Vertically align along the top so that images line up when the caption
-   * underneath is wrapped.
-   */
-  vertical-align: top;
-  /* Force a fixed width so that all 3 columns are the same width. */
-  width: 300px;
-  /* Add some space underneath each row to more clearly separate them
-   * We need padding rather than margin here because the margins will be
-   * collapsed but the paddings won't be.
-   */
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
 #jewellery-grid p {
   margin-top: 0;
   margin-bottom: 1em;
