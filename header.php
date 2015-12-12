@@ -106,6 +106,10 @@
       </p>
 OTHER_MESSAGE;
   $jewellery_message = <<<JEWELLERY_MESSAGE
+    <p class="text-centered larger-text grey">
+      The last day for orders this year is Wednesday 16th December.  Ariane will
+      return to the workshop on Monday 4th January 2016.
+      </p>
 JEWELLERY_MESSAGE;
   $store_message = <<<STORE_MESSAGE
     <div id="store_message">
