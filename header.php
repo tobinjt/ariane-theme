@@ -111,6 +111,7 @@ OTHER_MESSAGE;
       return to the workshop on Monday 4th January 2016.
       </p>
 JEWELLERY_MESSAGE;
+  $jewellery_message = '';
   $store_message = <<<STORE_MESSAGE
     <div id="store_message">
       <ul class="grey">
