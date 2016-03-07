@@ -115,8 +115,9 @@ JEWELLERY_MESSAGE;
   $store_message = <<<STORE_MESSAGE
     <div id="store_message">
       <ul class="grey">
-        <li>Each piece of jewellery is handmade by Ariane in her studio in Carlow,
-            as a result there is normally a two week lead time on all orders.</li>
+        <li>Each piece of jewellery is handmade by Ariane in her studio in
+            Carlow, as a result there is normally a two week lead time on all
+            orders.</li>
         <li>Free registered shipping to Ireland, EU, and USA on all orders over
             €50.</li>
         <li>Free unregistered shipping to Ireland on all orders under €50.</li>
@@ -125,9 +126,37 @@ JEWELLERY_MESSAGE;
     </div>
 STORE_MESSAGE;
 
+  $checkout_message = '';
+  if (is_url('/store/cart/')) {
+    $checkout_message = <<<CHECKOUT_MESSAGE
+      To continue, press the <b>Checkout</b> button at the bottom right of the
+      page.
+CHECKOUT_MESSAGE;
+  }
+  if (is_url('/store/checkout/')) {
+    $checkout_message = <<<CHECKOUT_MESSAGE
+      To continue, press the <b>PayPal</b> button at the bottom right of the
+      page.
+CHECKOUT_MESSAGE;
+  }
+  if (is_url('/store/express/')) {
+    $checkout_message = <<<CHECKOUT_MESSAGE
+      To complete your order you <b>must</b> press the <b>Complete Order</b>
+      button at the bottom left of the page.
+CHECKOUT_MESSAGE;
+  }
+  if ($checkout_message !== '') {
+    $checkout_message = <<<CHECKOUT_MESSAGE
+    <div class="larger-text pink top-bottom-margin">
+      {$checkout_message}
+    <div>
+CHECKOUT_MESSAGE;
+  }
+
   if (is_store_page()) {
     echo $jewellery_message;
     echo $store_message;
+    echo $checkout_message;
   } elseif (is_jewellery_page()) {
     echo $jewellery_message;
   } else {

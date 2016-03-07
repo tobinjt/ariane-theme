@@ -28,7 +28,9 @@
     }
   }
 
-  /* get_current_url: returns the URL. */
+  /* get_current_url: returns the local portion of the URL, i.e. no hostname,
+   * but it does include the query string.
+   */
   function get_current_url() {
     return $_SERVER['REQUEST_URI'];
   }
@@ -41,6 +43,12 @@
   /* is_store_page: is the current page a store page?  */
   function is_store_page() {
     return (strpos(get_current_url(), '/store') === 0);
+  }
+
+  /* is_url: is the current page === $url?  The query string is stripped. */
+  function is_url($url) {
+    $current_url = parse_url(get_current_url(), PHP_URL_PATH);
+    return ($current_url === $url);
   }
 
   /* links_to_html: converts an array of links into HTML with a tags.
