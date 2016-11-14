@@ -181,11 +181,15 @@ END_OF_TAG;
     return $html . "\n";
   }
 
+  function get_image_path($file) {
+    return get_bloginfo('template_directory') . '/images/' .  $file;
+  }
+
   function make_icon_link($file, $alt, $width, $height) {
     return '<img class="greyscale"' .
       ' width="' . $width . '"' .
       ' height="' . $height . '"' .
-      ' src="' .  get_bloginfo('template_directory') . '/images/' .  $file . '"' .
+      ' src="' .  get_image_path($file) . '"' .
       ' alt="' . $alt . '" />';
   }
 
