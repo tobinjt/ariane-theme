@@ -47,10 +47,10 @@
   <div id="page-wrap">
     <header id="header">
       <div id="title">
-        <div id="title-text">
-          <a href="/" id="title-name" class="pink">ariane tobin</a> <br/>
-          <a href="/" id="title-craft" class="grey">jewellery</a>
-        </div>
+        <a href="/" id="title-logo">
+          <img src="<?php echo get_image_path('new-logo.jpg') ?>"
+            class="block aligncenter" />
+        </a>
       </div>
 
 <?php
