@@ -196,24 +196,24 @@ p {
  * screen. */
 @media (min-height: 700px) {
   .largest-text {
-    font-size: 2em;
+    font-size: 1.7em;
   }
   .larger-text {
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   .large-text {
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
 }
 @media (max-height: 699px) {
   .largest-text {
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   .larger-text {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
   .large-text {
-    font-size: 1.1em;
+    font-size: 0.9em;
   }
 }
 .left-align {
@@ -361,7 +361,7 @@ img:hover {
 }
 
 #main-content-page h2 {
-  font-size: 150%;
+  font-size: 1.3em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
@@ -394,7 +394,7 @@ img:hover {
  * The list of blog posts.
  **/
 #main-content-blog h2 {
-  font-size: 150%;
+  font-size: 1.3em;
   margin-bottom: 0.5em;
 }
 
@@ -415,7 +415,7 @@ img:hover {
 }
 
 #main-content-post h1 {
-  font-size: 150%;
+  font-size: 1.3em;
   margin-bottom: 0.5em;
 }
 
