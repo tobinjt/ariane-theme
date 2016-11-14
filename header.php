@@ -48,8 +48,11 @@
     <header id="header">
       <div id="title">
         <a href="/" id="title-logo">
+          <!-- When mod_pagespeed compresses the logo it creates shadowy boxes
+               around the letters and it looks ugly, so disable it. -->
           <img src="<?php echo get_image_path('new-logo.jpg') ?>"
-            class="block aligncenter" />
+            class="block aligncenter"
+            data-pagespeed-no-transform />
         </a>
       </div>
 
