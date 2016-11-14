@@ -186,7 +186,7 @@ p {
 .grey {
   color: #808080;
 }
-.pink {
+.highlight {
   /* Add !important so that this overrides other styles. */
   color: #B92166 !important;
 }

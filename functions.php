@@ -159,7 +159,7 @@ END_OF_TAG;
 
     $output = array();
     foreach ($groups as $class => $links) {
-      $html_links = links_to_html($links, $url_to_highlight, 'pink');
+      $html_links = links_to_html($links, $url_to_highlight, 'highlight');
       $output[] = wrap_with_tag('span', $class, $html_links);
     }
     return implode("\n", $output) . "\n";
@@ -411,7 +411,7 @@ END_OF_HTML;
       src="/wp-content/uploads{$attrs["image_url"]}" />
   </div>
   <div id="individual-jewellery-description">
-    <p class="pink larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
+    <p class="highlight larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
     <p>{$content}</p>
     {$limited_to}
 END_OF_HTML;

@@ -150,7 +150,7 @@ CHECKOUT_MESSAGE;
   }
   if ($checkout_message !== '') {
     $checkout_message = <<<CHECKOUT_MESSAGE
-    <div class="larger-text pink top-bottom-margin">
+    <div class="larger-text highlight top-bottom-margin">
       {$checkout_message}
     <div>
 CHECKOUT_MESSAGE;
