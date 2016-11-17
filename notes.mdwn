@@ -63,3 +63,12 @@ The internet says it's part of the Wordpress admin theme, ignore it.
 ## How do I clear the mod_pagespeed cache?
 
 sudo touch /var/cache/mod_pagespeed/cache.flush
+
+## Favicon stuff
+
+*   Favicons created using http://realfavicongenerator.net/
+*   `images/favicons/browserconfig.xml` needs to be symlinked from the root of
+    the wordpress installation.
+*   `images/favicons/favicon.ico` needs to be symlinked from the root of the
+    wordpress installation.
+*   Check the setup using http://realfavicongenerator.net/favicon_checker
