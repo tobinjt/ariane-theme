@@ -594,7 +594,7 @@ care instructions below.  The general care section applies to all my jewellery.
 Be careful when cleaning jewellery made from multiple materials, because a
 cleaning product that is safe on one material may damage another.  If you have
 any questions or doubts, do not hesitate to <a title="Contact details"
-href="http://www.arianetobin.ie/about/">contact me</a> and ask for help.
+href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
 
 [expand trigclass="grey" tag="h2" title="General care instructions"]
 

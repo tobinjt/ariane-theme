@@ -54,7 +54,8 @@ Edit the product's page.  Starting from the top, change:
 Open the range and type pages for the product, change the name and URL in each
 page.
 
-To make sure everything works properly: `check-links http://www.arianetobin.ie/`
+To make sure everything works properly:
+`check-links https://www.arianetobin.ie/`
 
 ## What references fonts.googleapis.com/css?
 
