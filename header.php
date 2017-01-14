@@ -121,7 +121,7 @@ OTHER_MESSAGE;
       Ariane will return to the workshop in January 2017.
       </p>
 JEWELLERY_MESSAGE;
-  // $jewellery_message = '';
+  $jewellery_message = '';
   $store_message = <<<STORE_MESSAGE
     <div id="store_message">
       <ul class="grey">
