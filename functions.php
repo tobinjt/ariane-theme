@@ -698,10 +698,6 @@ END_OF_HTML;
 
   // Load Javascript libraries.
   wp_enqueue_script('jquery');
-  wp_register_script('modernizr',
-     '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js',
-     false);
-  wp_enqueue_script('modernizr');
 
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
