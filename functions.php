@@ -696,8 +696,16 @@ END_OF_HTML;
   add_filter('script_loader_src', '_remove_script_version', 15, 1);
   add_filter('style_loader_src', '_remove_script_version', 15, 1);
 
-  // Load Javascript libraries.
-  wp_enqueue_script('jquery');
+  // Stop jquery-migrate being loaded.
+  function blockJqueryMigrate($scripts) {
+    $data = $scripts->query('jquery');
+    if (!$data) {
+      return;
+    }
+    $data->deps = array_diff($data->deps, array('jquery-migrate'));
+  }
+  add_action('wp_default_scripts', 'blockJqueryMigrate');
+  wp_deregister_script('jquery-migrate');
 
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
