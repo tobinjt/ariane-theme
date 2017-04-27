@@ -707,6 +707,10 @@ END_OF_HTML;
   add_action('wp_default_scripts', 'blockJqueryMigrate');
   wp_deregister_script('jquery-migrate');
 
+  // Stop loading emoji stuff.
+  remove_action('wp_head', 'print_emoji_detection_script', 7);
+  remove_action('wp_print_styles', 'print_emoji_styles');
+
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
