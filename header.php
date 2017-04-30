@@ -45,6 +45,8 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php echo get_google_analytics_code(); ?>
+
   <div id="page-wrap">
     <header id="header">
       <div id="title">

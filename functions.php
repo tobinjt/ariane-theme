@@ -28,11 +28,40 @@
     }
   }
 
+  /* get_hostname: returns the hostname.
+   */
+  function get_hostname() {
+    return $_SERVER['SERVER_NAME'];
+  }
+
   /* get_current_url: returns the local portion of the URL, i.e. no hostname,
    * but it does include the query string.
    */
   function get_current_url() {
     return $_SERVER['REQUEST_URI'];
+  }
+
+  /* get_google_analytics_code: returns the Jvascript code for Google Analytics,
+   * depending on the hostname.
+   */
+  function get_google_analytics_code() {
+    $hostname = get_hostname();
+    if ($hostname != 'www.arianeobin.ie') {
+      return '';
+    }
+    $output = <<<END_OF_JAVASCRIPT
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-21043347-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+END_OF_JAVASCRIPT;
+    return $output;
   }
 
   /* is_jewellery_page: is the current page a jewellery page?  */
