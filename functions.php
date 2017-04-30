@@ -625,7 +625,7 @@ cleaning product that is safe on one material may damage another.  If you have
 any questions or doubts, do not hesitate to <a title="Contact details"
 href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
 
-[expand trigclass="grey" tag="h2" title="General care instructions"]
+<h2 class="grey">General care instructions</h2>
 
 <ul>
   <li>Exposure to hairspray, perfume, and other beauty products will leave a
@@ -640,9 +640,8 @@ href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
   <li>Delicate pieces of jewellery should be stored in their original
     boxes.</li>
 </ul>
-[/expand]
 
-[expand trigclass="grey" tag="h2" title="Gold"]
+<h2 class="grey">Gold</h2>
 <ul>
   <li>White gold will have been rhodium plated if you requested it. The rhodium
     plating will need to be renewed every 12-24 months depending on wear.</li>
@@ -651,9 +650,8 @@ href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
   <li>Gold plating should be treated carefully, and never cleaned with anything
     abrasive.</li>
 </ul>
-[/expand]
 
-[expand trigclass="grey" tag="h2" title="Pearls"]
+<h2 class="grey">Pearls</h2>
 <ul>
   <li>Pearls are particularly susceptible to damage from perfume and
     hairspray.</li>
@@ -663,9 +661,8 @@ href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
     restringing dependent on wear and tear. I offer a good value restringing
     service for all of my own work.</li>
 </ul>
-[/expand]
 
-[expand trigclass="grey" tag="h2" title="Precious stones"]
+<h2 class="grey">Precious stones</h2>
 <ul>
   <li>Some precious stones can be damaged by water because they are very porous.
     If this is the case I will tell you when you are buying the piece of
@@ -673,9 +670,8 @@ href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
   <li>Precious stones should be cleaned with hand-warm water and a soft cloth.
     Never use anything abrasive or chemical.</li>
 </ul>
-[/expand]
 
-[expand trigclass="grey" tag="h2" title="Sterling silver"]
+<h2 class="grey">Sterling silver</h2>
 <ul>
   <li>Silver naturally tarnishes over time and will eventually need cleaning. I
     recommend using a silver cloth.</li>
@@ -683,9 +679,8 @@ href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
     surface will become more matt. I will refinish my own work for a small
     fee.</li>
 </ul>
-[/expand]
 
-[expand trigclass="grey" tag="h2" title="Wood"]
+<h2 class="grey">Wood</h2>
 <ul>
   <li>Do not immerse wood in water.</li>
   <li>If wood has gotten dull and you want to restore the natural lustre of the
@@ -693,7 +688,6 @@ href="https://www.arianetobin.ie/about/">contact me</a> and ask for help.
     wood.  If the oil spreads on to silver or gold, remove it quickly with a
     soft dry cloth because there is a risk of staining.</li>
 </ul>
-[/expand]
 [/style_wrap]
 END_OF_HTML;
 
