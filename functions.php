@@ -46,7 +46,7 @@
    */
   function get_google_analytics_code() {
     $hostname = get_hostname();
-    if ($hostname != 'www.arianeobin.ie') {
+    if ($hostname != 'www.arianetobin.ie') {
       return '';
     }
     $output = <<<END_OF_JAVASCRIPT
