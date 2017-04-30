@@ -734,6 +734,23 @@ END_OF_HTML;
   remove_action('wp_head', 'print_emoji_detection_script', 7);
   remove_action('wp_print_styles', 'print_emoji_styles');
 
+  // If the Cookie Law Info cookie already exists, remove the Javascript and CSS
+  // it wants to load.
+  function MaybeRemoveCookieLawInfo() {
+    // Page Speed doesn't set the cookie, so fake the typical user experience.
+    $force_hide = false;
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'Google Page Speed Insights')) {
+      $force_hide = true;
+    }
+    if (isset($_COOKIE['viewed_cookie_policy']) || $force_hide) {
+      // Remove the hooks that add Javascript and CSS.
+      remove_action('wp_footer', 'cookielawinfo_inject_cli_script');
+      remove_action('wp_enqueue_scripts',
+        'cookielawinfo_enqueue_frontend_scripts');
+    }
+  }
+  MaybeRemoveCookieLawInfo();
+
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
