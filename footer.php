@@ -16,9 +16,8 @@ VALIDATOR;
   wp_footer();
 ?>
 
-<script type="text/javascript">
-<?php include (TEMPLATEPATH . '/footer.js'); ?>
-</script>
-
+<?php if (is_single()) {
+  include (TEMPLATEPATH . '/footer.js');
+} ?>
   </body>
 </html>

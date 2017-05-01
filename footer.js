@@ -1,3 +1,4 @@
+<script type="text/javascript">
 /* Set up toggling of the comment boxes. */
 jQuery(document).ready(
   function (){
@@ -11,3 +12,4 @@ jQuery(document).ready(
     jQuery("#cancel-comment-form").click(toggle_comment_box);
   }
 );
+</script>
