@@ -719,7 +719,8 @@ END_OF_HTML;
   add_filter('script_loader_src', '_remove_script_version', 15, 1);
   add_filter('style_loader_src', '_remove_script_version', 15, 1);
 
-  // Stop jquery-migrate being loaded.
+  // Stop jquery-migrate being loaded.  jQuery depends on it, so the jQuery deps
+  // need to be changed too.
   function blockJqueryMigrate($scripts) {
     $data = $scripts->query('jquery');
     if (!$data) {
@@ -729,6 +730,13 @@ END_OF_HTML;
   }
   add_action('wp_default_scripts', 'blockJqueryMigrate');
   wp_deregister_script('jquery-migrate');
+
+  // Stop wp-embed being loaded.  I don't know why this has to be triggered in
+  // wp_footer.
+  function blockWPEmbed() {
+    wp_deregister_script('wp-embed');
+  }
+  add_action('wp_footer', 'blockWPEmbed');
 
   // Stop loading emoji stuff.
   remove_action('wp_head', 'print_emoji_detection_script', 7);
