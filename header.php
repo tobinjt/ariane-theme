@@ -52,8 +52,11 @@
       <div id="title">
         <a href="/" id="title-logo">
           <!-- When mod_pagespeed compresses the logo it creates shadowy boxes
-               around the letters and it looks ugly, so disable it. -->
-          <img src="<?php echo get_image_path('new-logo.jpg') ?>"
+               around the letters and it looks ugly, so disable it.
+               The logo has been optimised by running:
+               $ convert new-logo.jpg -sampling-factor 4:2:0 -strip \
+                   new-logo-optimised.jpg -->
+          <img src="<?php echo get_image_path('new-logo-optimised.jpg') ?>"
             class="block aligncenter"
             alt="Ariane Tobin Jewellery logo"
             data-pagespeed-no-transform />
