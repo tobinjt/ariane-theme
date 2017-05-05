@@ -742,6 +742,11 @@ END_OF_HTML;
   remove_action('wp_head', 'print_emoji_detection_script', 7);
   remove_action('wp_print_styles', 'print_emoji_styles');
 
+  // Stop linking wp-json stuff.
+  remove_action('wp_head', 'rest_output_link_wp_head');
+  remove_action('wp_head', 'wp_oembed_add_discovery_links');
+  remove_action('template_redirect', 'rest_output_link_header'); //, 11, 0);
+
   // If the Cookie Law Info cookie already exists, remove the Javascript and CSS
   // it wants to load.
   function MaybeRemoveCookieLawInfo() {
