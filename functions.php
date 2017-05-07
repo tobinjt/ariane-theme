@@ -699,6 +699,9 @@ END_OF_HTML;
   // Configure Wordpress.
   // Add RSS links to <head> section.
   add_theme_support('automatic-feed-links');
+  // Disable comment feeds.  __return_false is a Wordpress function that returns
+  // false to make filters easier.
+  add_filter('feed_links_show_comments_feed', '__return_false');
   add_editor_style('style.css');
 
   // Clean up the <head>
