@@ -428,10 +428,12 @@ END_OF_HTML;
     // TODO(johntobin): support limited editions and one-off pieces.
     $limited_to = '';
 
-    // Don't make the range part of the name when the range is singles.
-    $range_in_piece_name = $attrs['range'] . ' ';
-    if ($range_in_piece_name == "singles ") {
+    // Don't make the range part of the name for some ranges.
+    $blacklisted_ranges = array('archive', 'singles');
+    if (in_array($attrs['range'], $blacklisted_ranges)) {
       $range_in_piece_name = '';
+    } else {
+      $range_in_piece_name = $attrs['range'] . ' ';
     }
     $html = <<<END_OF_HTML
 <div id="individual-jewellery-piece" class="flexboxrow">
