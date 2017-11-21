@@ -94,7 +94,7 @@
       '');
 
   if (is_jewellery_page()) {
-    $jewellery_links = array(
+    $jewellery_types_links = array(
       '/jewellery/bangles/'    => 'bangles',
       # '/jewellery/brooches/'   => 'brooches',
       '/jewellery/earrings/'   => 'earrings',
@@ -103,10 +103,25 @@
     );
     echo make_menu_bar([
       make_link_group(
-        array('left-page-links' => $jewellery_links),
-        '/jewellery/'),
+        array('left-page-links' => $jewellery_types_links), '/jewellery/'),
       wrap_with_tag('span', 'float-right grey',
         'Free delivery on all orders to Ireland'),
+      ],
+      'larger-text bottom-margin');
+
+    $jewellery_ranges_links = array(
+      '/jewellery/cellule/'    => 'cellule',
+      '/jewellery/confluence/' => 'confluence',
+      '/jewellery/halo/'       => 'halo',
+      '/jewellery/laria/'      => 'laria',
+      '/jewellery/sentinel/'   => 'sentinel',
+      '/jewellery/wave/'       => 'wave',
+      '/jewellery/singles/'    => 'singles',
+      '/jewellery/archive/'    => 'archive',
+    );
+    echo make_menu_bar([
+      make_link_group(
+        array('left-page-links' => $jewellery_ranges_links), '/jewellery/'),
       ],
       'larger-text bottom-margin');
   }
