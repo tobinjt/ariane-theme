@@ -80,6 +80,11 @@ END_OF_JAVASCRIPT;
     return ($current_url === $url);
   }
 
+  /* is_archive_page: is the current page a archive page?  */
+  function is_archive_page() {
+    return (strpos(get_current_url(), '/jewellery/archive') === 0);
+  }
+
   /* links_to_html: converts an array of links into HTML with a tags.
    * Args:
    *  $links: array(url => text).
@@ -297,7 +302,8 @@ END_OF_IMAGE_AND_RANGE;
       $product_id = $data['product_id'];
       # -1 means there isn't a product to sell, and that happens on the main
       # jewellery page.
-      if ($product_id != -1) {
+      # Skip showing cart buttons for everything that's been archived.
+      if ($product_id != -1 && !is_archive_page()) {
         $product = new Cart66Product($product_id);
         if (Cart66Product::checkInventoryLevelForProduct($product_id) > 0) {
           $price = intval($product->price);
@@ -397,6 +403,7 @@ END_OF_HTML;
 
     $attrs = shortcode_atts(
       array(
+        'archived' => 'false',
         'image_url' => '',
         'limited_to' => '0',
         'name' => '',
@@ -446,28 +453,37 @@ END_OF_HTML;
     <p>{$content}</p>
     {$limited_to}
 END_OF_HTML;
-    $product = new Cart66Product($attrs['product_id']);
-    if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
-      $price = intval($product->price);
+
+    if ($attrs['archived'] !== 'false') {
       $html .= <<<END_OF_HTML
-    <p>Price: €{$price}.</p>
-    [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
-       text="Add to basket"]
+        <p>Unfortunately this piece of jewellery is no longer being sold .  See
+          below for other items in this range or type.</p>
 END_OF_HTML;
     } else {
-      if ($product->max_quantity == 1) {
+      $product = new Cart66Product($attrs['product_id']);
+      if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
+        $price = intval($product->price);
         $html .= <<<END_OF_HTML
-      <p>Unfortunately this piece of jewellery has been sold.  Please
-        contact Ariane to discuss commissioning a variation on this piece.
-        </p>
+      <p>Price: €{$price}.</p>
+      [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
+         text="Add to basket"]
 END_OF_HTML;
-        } else {
-        $html .= <<<END_OF_HTML
-      <p>Unfortunately this piece of jewellery is sold out.  See below for
-        other items in this range or type.</p>
+      } else {
+        if ($product->max_quantity == 1) {
+          $html .= <<<END_OF_HTML
+        <p>Unfortunately this piece of jewellery has been sold.  Please
+          contact Ariane to discuss commissioning a variation on this piece.
+          </p>
 END_OF_HTML;
+          } else {
+          $html .= <<<END_OF_HTML
+        <p>Unfortunately this piece of jewellery is sold out.  See below for
+          other items in this range or type.</p>
+END_OF_HTML;
+        }
       }
     }
+
     $html .= <<<END_OF_HTML
     <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
     <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
