@@ -329,6 +329,12 @@ END_OF_SOLD;
 END_OF_OUT_OF_STOCK;
           }
         }
+      } else {
+        $div .= <<<END_OF_OUT_OF_STOCK
+    <div class="text-centered left-right-margin top-bottom-margin grey">
+      <!-- This creates some space underneath. -->
+    </div>
+END_OF_OUT_OF_STOCK;
       }
       $div .= <<<END_OF_DIV
   </div>
