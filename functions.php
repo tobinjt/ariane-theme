@@ -407,8 +407,6 @@ END_OF_HTML;
         'image_url' => '',
         'limited_to' => '0',
         'name' => '',
-        // TODO(johntobin): what are we doing about discontinued products?
-        'product_discontinued' => 'false',
         'product_id' => '',
         'range' => '',
         'type' => '',
@@ -455,10 +453,18 @@ END_OF_HTML;
 END_OF_HTML;
 
     if ($attrs['archived'] !== 'false') {
-      $html .= <<<END_OF_HTML
-        <p>Unfortunately this piece of jewellery is no longer being sold .  See
-          below for other items in this range or type.</p>
+      $product = new Cart66Product($attrs['product_id']);
+      if ($product->max_quantity == 1) {
+        $html .= <<<END_OF_HTML
+          <p>Unfortunately this unique piece of jewellery has been sold.  See
+            below for other items in this range or type.</p>
 END_OF_HTML;
+      } else {
+        $html .= <<<END_OF_HTML
+          <p>Unfortunately this piece of jewellery is no longer being sold.  See
+            below for other items in this range or type.</p>
+END_OF_HTML;
+      }
     } else {
       $product = new Cart66Product($attrs['product_id']);
       if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
