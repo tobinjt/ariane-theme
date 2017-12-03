@@ -126,17 +126,25 @@
       'larger-text bottom-margin');
   }
 
+  $all_message = <<<ALL_MESSAGE
+    <p class="text-centered larger-text grey">
+      Ariane will be at <a class="external-link"
+      href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft & Design
+      Fair</a> from Tuesday 5th December to Sunday 10th December.  Please visit
+      us at stand B15 on the Balcony, we'd love to see you!
+      </p>
+ALL_MESSAGE;
   $other_message = <<<OTHER_MESSAGE
     <p class="text-centered larger-text grey">
       </p>
 OTHER_MESSAGE;
   $jewellery_message = <<<JEWELLERY_MESSAGE
     <p class="text-centered larger-text grey">
-      The last day for orders this year is Tuesday 20th December at 12:30.
-      Ariane will return to the workshop in January 2017.
+      The last day for orders this year is Friday 15th December at 12:30.
+      Ariane will return to the workshop in January 2018.
       </p>
 JEWELLERY_MESSAGE;
-  $jewellery_message = '';
+  // $jewellery_message = '';
   $store_message = <<<STORE_MESSAGE
     <div id="store_message">
       <ul class="grey">
@@ -178,6 +186,7 @@ CHECKOUT_MESSAGE;
 CHECKOUT_MESSAGE;
   }
 
+  echo $all_message;
   if (is_store_page()) {
     echo $jewellery_message;
     echo $store_message;

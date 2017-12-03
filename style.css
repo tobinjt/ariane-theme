@@ -175,7 +175,6 @@ p {
 
 /* Links should be grey and not underlined. */
 #page-wrap a {
-  /* color: #7C7D83; */
   color: #95959C;
   text-decoration: none;
 }
@@ -253,6 +252,10 @@ p {
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
+}
+/* Make external links underlined so they stand out in paragraphs. */
+.external-link {
+  text-decoration: underline !important;
 }
 
 /**
