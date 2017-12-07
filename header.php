@@ -130,9 +130,9 @@
     $all_message = <<<ALL_MESSAGE
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft & Design
-        Fair</a> from Tuesday 5th December to Sunday 10th December.  Please visit
-        us at stand B15 on the Balcony, we'd love to see you!
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &
+        Design Fair</a> from Tuesday 5th December to Sunday 10th December.
+        Please visit us at stand B15 on the Balcony, we'd love to see you!
         </p>
 ALL_MESSAGE;
   } else {
