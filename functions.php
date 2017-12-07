@@ -454,7 +454,7 @@ END_OF_HTML;
 <div id="individual-jewellery-piece" class="flexboxrow">
   <div id="individual-jewellery-image">
     <img alt="{$range_in_piece_name}{$attrs["name"]}"
-      src="/wp-content/uploads{$attrs["image_url"]}" />
+      src="/wp-content/uploads/{$attrs["image_url"]}" />
   </div>
   <div id="individual-jewellery-description">
     <p class="highlight larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
