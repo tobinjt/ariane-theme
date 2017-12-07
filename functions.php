@@ -567,12 +567,13 @@ END_OF_DIV;
         'post_type'      => 'attachment',
         'post_status'    => 'any',
         'posts_per_page' => -1,
+        's'              => 'slider',
       )
     );
     $data = array();
     foreach ($media_query->posts as $post) {
       $matches = array();
-      if (preg_match('/^\s*slider\s*([^ ]*)$/', $post->post_content, $matches)) {
+      if (preg_match('/^\s*slider\s+([^ ]+)$/', $post->post_content, $matches)) {
         $image_stats = wp_get_attachment_metadata($post->ID);
         $image_url = wp_get_attachment_url($post->ID);
         if ($image_url && $image_stats
