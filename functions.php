@@ -561,11 +561,14 @@ END_OF_DIV;
 
   /* SliderImages: Dynamically build the Javascript array of images when
    * displaying the slider.
+   * Args:
+   *  $image_size: either 'slider_large' or 'slider_small', the size of images
+   *  to use in the slider.
    * Returns:
    *  string, the Javascript contents of the array, *without* 'var foo = '
    *  around it.
    */
-  function SliderImages() {
+  function SliderImages($image_size) {
     $media_query = new WP_Query(
       array(
         'post_type'      => 'attachment',
@@ -578,7 +581,7 @@ END_OF_DIV;
     foreach ($media_query->posts as $post) {
       $matches = array();
       if (preg_match('/^\s*slider\s+([^ ]+)$/', $post->post_content, $matches)) {
-        $image_info = wp_get_attachment_image_src($post->ID, 'slider_large');
+        $image_info = wp_get_attachment_image_src($post->ID, $image_size);
         if ($image_info) {
           $data[] = array(
             'image_url' => $image_info[0],
@@ -599,7 +602,7 @@ END_OF_DIV;
    */
   function SliderSetup() {
     $template_directory = get_bloginfo('template_directory');
-    $images = trim(SliderImages());
+    $images = trim(SliderImages('slider_large'));
     $output = <<<END_OF_JAVASCRIPT
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
