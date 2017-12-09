@@ -734,6 +734,14 @@ END_OF_HTML;
   // Configure Wordpress.
   // Add RSS links to <head> section.
   add_theme_support('automatic-feed-links');
+
+  // Enable extra image sizes.
+  add_image_size('slider_large', 1024, 768);
+  add_image_size('slider_small', 512, 384);
+  // TODO: should this be larger?
+  add_image_size('product_size', 520, 520);
+  add_image_size('grid_size', 260, 260);
+
   // Disable comment feeds.  __return_false is a Wordpress function that returns
   // false to make filters easier.
   add_filter('feed_links_show_comments_feed', '__return_false');
