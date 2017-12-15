@@ -129,6 +129,13 @@ END_OF_JAVASCRIPT;
     return '2017-12-15 12:30:00 Europe/Dublin';
   }
 
+  /* store_opening_time_human: human readable time for the store to open.
+   * Must be manually kept in sync with store_opening_time().
+   */
+  function store_opening_time_human() {
+    return 'Monday 8th January';
+  }
+
   /* store_opening_time: when the store opens next. */
   function store_opening_time() {
     return '2018-01-07 23:30:00 Europe/Dublin';
@@ -504,11 +511,22 @@ END_OF_HTML;
 
     if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
       $price = intval($product->price);
-      return <<<END_OF_HTML
+      $content = <<<END_OF_HTML
       <p>Price: €{$price}.</p>
+END_OF_HTML;
+      if (!is_store_closed()) {
+        $content .= <<<END_OF_HTML
       [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
          text="Add to basket"]
 END_OF_HTML;
+      } else {
+        $store_opening_time_human = store_opening_time_human();
+        $content .= <<<END_OF_HTML
+        The store is currently closed, it will open again on
+        {$store_opening_time_human}.
+END_OF_HTML;
+      }
+      return $content;
     }
 
     return <<<END_OF_HTML
