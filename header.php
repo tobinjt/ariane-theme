@@ -126,7 +126,7 @@
       'larger-text bottom-margin');
   }
 
-  if (strtotime('2017-12-11') > time()) {
+  if (is_time_before('2017-12-11')) {
     $all_message = <<<ALL_MESSAGE
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
@@ -142,13 +142,24 @@ ALL_MESSAGE;
     <p class="text-centered larger-text grey">
       </p>
 OTHER_MESSAGE;
-  $jewellery_message = <<<JEWELLERY_MESSAGE
-    <p class="text-centered larger-text grey">
-      The last day for orders this year is Friday 15th December at 12:30.
-      Ariane will return to the workshop in January 2018.
-      </p>
+  if (is_store_closed()) {
+    $jewellery_message = <<<JEWELLERY_MESSAGE
+      <p class="text-centered larger-text grey">
+        The store is now closed for the holidays.  Ariane will return to the
+        workshop in January 2018.
+        </p>
 JEWELLERY_MESSAGE;
-  // $jewellery_message = '';
+  } elseif (is_time_before(store_closing_time())) {
+    $store_closing_time_human = store_closing_time_human();
+    $jewellery_message = <<<JEWELLERY_MESSAGE
+      <p class="text-centered larger-text grey">
+        The last day for orders this year is {$store_closing_time_human}.
+        Ariane will return to the workshop in January 2018.
+        </p>
+JEWELLERY_MESSAGE;
+  } else {
+    $jewellery_message = '';
+  }
   $store_message = <<<STORE_MESSAGE
     <div id="store_message">
       <ul class="grey">

@@ -85,6 +85,62 @@ END_OF_JAVASCRIPT;
     return (strpos(get_current_url(), '/jewellery/archive') === 0);
   }
 
+  /* is_time_after: is the current time after the specified time and date?
+   * Args:
+   *  $time_string: a time and date string parsable by strtotime().
+   * Returns:
+   *  Boolean.
+   */
+  function is_time_after($time_string) {
+    return time() > strtotime($time_string);
+  }
+
+  /* is_time_before: is the current time before the specified time and date?
+   * Args:
+   *  $time_string: a time and date string parsable by strtotime().
+   * Returns:
+   *  Boolean.
+   */
+  function is_time_before($time_string) {
+    return time() < strtotime($time_string);
+  }
+
+  /* is_time_between: is the current time between the specified times and dates?
+   * Args:
+   *  $start_time_string: a time and date string parsable by strtotime().
+   *  $end_time_string: a time and date string parsable by strtotime().
+   * Returns:
+   *  Boolean.
+   */
+  function is_time_between($start_time_string, $end_time_string) {
+    return (is_time_after($start_time_string)
+            && is_time_before($end_time_string));
+  }
+
+  /* store_closing_time_human: human readable time for the store to close.
+   * Must be manually kept in sync with store_closing_time().
+   */
+  function store_closing_time_human() {
+    return 'Friday 15th December at 12:30';
+  }
+
+  /* store_closing_time: when the store closes next. */
+  function store_closing_time() {
+    return '2017-12-15 12:30:00 Europe/Dublin';
+  }
+
+  /* store_opening_time: when the store opens next. */
+  function store_opening_time() {
+    return '2018-01-07 23:30:00 Europe/Dublin';
+  }
+
+  /* is_store_closed: is the store currently closed?  Uses store_closing_time()
+   * and store_opening_time().
+   */
+  function is_store_closed() {
+    return is_time_between(store_closing_time(), store_opening_time());
+  }
+
   /* links_to_html: converts an array of links into HTML with a tags.
    * Args:
    *  $links: array(url => text).
