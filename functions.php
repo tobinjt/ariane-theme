@@ -479,6 +479,55 @@ END_OF_HTML;
     return MakeJewelleryGrid($content, $attrs["description"]);
   }
 
+  /* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
+   * is appropriate for the product in the jewellery page.
+   * Args:
+   *  $attrs: the attributes of the product.
+   * Returns:
+   *  string, HTML to insert in page.
+   */
+  function MakeBuyButtonForJewelleryPage($attrs) {
+    $html = '';
+    if ($attrs['archived'] !== 'false') {
+      $product = new Cart66Product($attrs['product_id']);
+      if ($product->max_quantity == 1) {
+        $html .= <<<END_OF_HTML
+          <p>Unfortunately this unique piece of jewellery has been sold.  See
+            below for other items in this range or type.</p>
+END_OF_HTML;
+      } else {
+        $html .= <<<END_OF_HTML
+          <p>Unfortunately this piece of jewellery is no longer being sold.  See
+            below for other items in this range or type.</p>
+END_OF_HTML;
+      }
+    } else {
+      $product = new Cart66Product($attrs['product_id']);
+      if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
+        $price = intval($product->price);
+        $html .= <<<END_OF_HTML
+      <p>Price: €{$price}.</p>
+      [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
+         text="Add to basket"]
+END_OF_HTML;
+      } else {
+        if ($product->max_quantity == 1) {
+          $html .= <<<END_OF_HTML
+        <p>Unfortunately this piece of jewellery has been sold.  Please
+          contact Ariane to discuss commissioning a variation on this piece.
+          </p>
+END_OF_HTML;
+          } else {
+          $html .= <<<END_OF_HTML
+        <p>Unfortunately this piece of jewellery is sold out.  See below for
+          other items in this range or type.</p>
+END_OF_HTML;
+        }
+      }
+    }
+    return $html;
+  }
+
   /* JewelleryPageShortcode: create a jewellery page.
    * Args (names are ugly but Wordpress-standard):
    *  $atts: an associative array of attributes, or an empty string if no
@@ -549,43 +598,7 @@ END_OF_HTML;
     {$limited_to}
 END_OF_HTML;
 
-    if ($attrs['archived'] !== 'false') {
-      $product = new Cart66Product($attrs['product_id']);
-      if ($product->max_quantity == 1) {
-        $html .= <<<END_OF_HTML
-          <p>Unfortunately this unique piece of jewellery has been sold.  See
-            below for other items in this range or type.</p>
-END_OF_HTML;
-      } else {
-        $html .= <<<END_OF_HTML
-          <p>Unfortunately this piece of jewellery is no longer being sold.  See
-            below for other items in this range or type.</p>
-END_OF_HTML;
-      }
-    } else {
-      $product = new Cart66Product($attrs['product_id']);
-      if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
-        $price = intval($product->price);
-        $html .= <<<END_OF_HTML
-      <p>Price: €{$price}.</p>
-      [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
-         text="Add to basket"]
-END_OF_HTML;
-      } else {
-        if ($product->max_quantity == 1) {
-          $html .= <<<END_OF_HTML
-        <p>Unfortunately this piece of jewellery has been sold.  Please
-          contact Ariane to discuss commissioning a variation on this piece.
-          </p>
-END_OF_HTML;
-          } else {
-          $html .= <<<END_OF_HTML
-        <p>Unfortunately this piece of jewellery is sold out.  See below for
-          other items in this range or type.</p>
-END_OF_HTML;
-        }
-      }
-    }
+    $html .= MakeBuyButtonForJewelleryPage($attrs);
 
     $html .= <<<END_OF_HTML
     <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
