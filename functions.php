@@ -283,18 +283,16 @@ END_OF_TAG;
       ' alt="' . $alt . '" />';
   }
 
-  /* MakeJewelleryGrid: create a table from CSV content.
+  /* ParseJewelleryGridContents: turn the CSV from page contents into a data
+   * structure.
    * Args:
    *  $page_contents: string, the contents of the page.  First line (CSV header)
    *    will be removed.  Blank lines will be skipped.  <br /> will be stripped
    *    from the end of each line.
-   *  $description: string, the description to display at the top of the page.
-   *    If the string is empty nothing will be added.
    * Returns:
-   *  string, HTML to insert in the page.
+   *  array, data structure to process.
    */
-  function MakeJewelleryGrid($page_contents, $description) {
-    // Turn the CSV from page contents into a data structure.
+  function ParseJewelleryGridContents($page_contents) {
     $lines = str_getcsv($page_contents, "\n");
     $ranges = array();
     $seen_header = false;
@@ -343,7 +341,69 @@ END_OF_TAG;
       }
       $ranges[] = $data;
     }
+    return $ranges;
+  }
 
+  /* MakeBuyButtonForJewelleryGrid: make a buy botton or a message or whatever
+   * is appropriate for the product in the jewellery grid.
+   * Args:
+   *  $product_id: id of the product in Cart66.
+   * Returns:
+   *  string, HTML to insert in page.
+   */
+  function MakeBuyButtonForJewelleryGrid($product_id) {
+    $content = '';
+    # -1 means there isn't a product to sell, and that happens on the main
+    # jewellery page.
+    # Skip showing cart buttons for everything that's been archived.
+    if ($product_id != -1 && !is_archive_page()) {
+      $product = new Cart66Product($product_id);
+      if (Cart66Product::checkInventoryLevelForProduct($product_id) > 0) {
+        $price = intval($product->price);
+        $content .= <<<END_OF_BUY
+    <div class="larger-text text-centered left-right-margin top-bottom-margin grey">
+      €{$price}
+      [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
+         text="Add to basket" style="display: inline;"]
+    </div>
+END_OF_BUY;
+      } else {
+        if ($product->max_quantity == 1) {
+          $content .= <<<END_OF_SOLD
+    <div class="text-centered left-right-margin top-bottom-margin grey">
+      Sold
+    </div>
+END_OF_SOLD;
+        } else {
+          $content .= <<<END_OF_OUT_OF_STOCK
+    <div class="text-centered left-right-margin top-bottom-margin grey">
+      Out of stock
+    </div>
+END_OF_OUT_OF_STOCK;
+        }
+      }
+    } else {
+      $content .= <<<END_OF_OUT_OF_STOCK
+    <div class="text-centered left-right-margin top-bottom-margin grey">
+      <!-- This creates some space underneath. -->
+    </div>
+END_OF_OUT_OF_STOCK;
+    }
+    return $content;
+  }
+
+  /* MakeJewelleryGrid: create a table from CSV content.
+   * Args:
+   *  $page_contents: string, the contents of the page.  First line (CSV header)
+   *    will be removed.  Blank lines will be skipped.  <br /> will be stripped
+   *    from the end of each line.
+   *  $description: string, the description to display at the top of the page.
+   *    If the string is empty nothing will be added.
+   * Returns:
+   *  string, HTML to insert in the page.
+   */
+  function MakeJewelleryGrid($page_contents, $description) {
+    $ranges = ParseJewelleryGridContents($page_contents);
     # Turn the data structure into <divs>s.
     $divs = array();
     foreach ($ranges as $_ => $data) {
@@ -359,43 +419,7 @@ END_OF_TAG;
       <a href="{$data['link']}">{$data['range']}</a>
     </div>
 END_OF_IMAGE_AND_RANGE;
-      $product_id = $data['product_id'];
-      # -1 means there isn't a product to sell, and that happens on the main
-      # jewellery page.
-      # Skip showing cart buttons for everything that's been archived.
-      if ($product_id != -1 && !is_archive_page()) {
-        $product = new Cart66Product($product_id);
-        if (Cart66Product::checkInventoryLevelForProduct($product_id) > 0) {
-          $price = intval($product->price);
-          $div .= <<<END_OF_BUY
-    <div class="larger-text text-centered left-right-margin top-bottom-margin grey">
-      €{$price}
-      [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
-         text="Add to basket" style="display: inline;"]
-    </div>
-END_OF_BUY;
-        } else {
-          if ($product->max_quantity == 1) {
-            $div .= <<<END_OF_SOLD
-    <div class="text-centered left-right-margin top-bottom-margin grey">
-      Sold
-    </div>
-END_OF_SOLD;
-          } else {
-            $div .= <<<END_OF_OUT_OF_STOCK
-    <div class="text-centered left-right-margin top-bottom-margin grey">
-      Out of stock
-    </div>
-END_OF_OUT_OF_STOCK;
-          }
-        }
-      } else {
-        $div .= <<<END_OF_OUT_OF_STOCK
-    <div class="text-centered left-right-margin top-bottom-margin grey">
-      <!-- This creates some space underneath. -->
-    </div>
-END_OF_OUT_OF_STOCK;
-      }
+      $div .= MakeBuyButtonForJewelleryGrid($data['product_id']);
       $div .= <<<END_OF_DIV
   </div>
 END_OF_DIV;
