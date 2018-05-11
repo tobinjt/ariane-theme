@@ -144,18 +144,20 @@ ALL_MESSAGE;
       </p>
 OTHER_MESSAGE;
   if (is_store_closed()) {
+    $store_opening_time_human = store_opening_time_human();
     $jewellery_message = <<<JEWELLERY_MESSAGE
       <p class="text-centered larger-text grey">
-        The store is now closed for the holidays.  Ariane will return to the
-        workshop in January 2018.
+        The store is now closed, and Ariane will return to the workshop
+        {$store_opening_time_human}.
         </p>
 JEWELLERY_MESSAGE;
   } elseif (is_time_before(store_closing_time())) {
     $store_closing_time_human = store_closing_time_human();
+    $store_opening_time_human = store_opening_time_human();
     $jewellery_message = <<<JEWELLERY_MESSAGE
       <p class="text-centered larger-text grey">
-        The last day for orders this year is {$store_closing_time_human}.
-        Ariane will return to the workshop in January 2018.
+        The store will be closing {$store_closing_time_human}.
+        Ariane will return to the workshop {$store_opening_time_human}.
         </p>
 JEWELLERY_MESSAGE;
   } else {

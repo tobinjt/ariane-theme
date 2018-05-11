@@ -121,24 +121,24 @@ END_OF_JAVASCRIPT;
    * Must be manually kept in sync with store_closing_time().
    */
   function store_closing_time_human() {
-    return 'Friday 15th December at 12:30';
+    return 'Friday 11th May';
   }
 
   /* store_closing_time: when the store closes next. */
   function store_closing_time() {
-    return '2017-12-15 12:30:00 Europe/Dublin';
+    return '2018-05-11 00:30:00 Europe/Dublin';
   }
 
   /* store_opening_time_human: human readable time for the store to open.
    * Must be manually kept in sync with store_opening_time().
    */
   function store_opening_time_human() {
-    return 'Monday 8th January';
+    return 'Monday 28th May';
   }
 
   /* store_opening_time: when the store opens next. */
   function store_opening_time() {
-    return '2018-01-07 23:30:00 Europe/Dublin';
+    return '2018-05-28 00:30:00 Europe/Dublin';
   }
 
   /* is_store_closed: is the store currently closed?  Uses store_closing_time()
