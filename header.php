@@ -180,25 +180,25 @@ STORE_MESSAGE;
   $checkout_message = '';
   if (is_url('/store/cart/')) {
     $checkout_message = <<<CHECKOUT_MESSAGE
-      To continue, press the <b>Checkout</b> button at the bottom right of the
+      To continue, press the <em>Checkout</em> button at the bottom right of the
       page.
 CHECKOUT_MESSAGE;
   }
   if (is_url('/store/checkout/')) {
     $checkout_message = <<<CHECKOUT_MESSAGE
-      To continue, press the <b>PayPal</b> button at the bottom right of the
+      To continue, press the <em>PayPal</em> button at the bottom right of the
       page.
 CHECKOUT_MESSAGE;
   }
   if (is_url('/store/express/')) {
     $checkout_message = <<<CHECKOUT_MESSAGE
-      To complete your order you <b>must</b> press the <b>Complete Order</b>
+      To complete your order you <em>must</em> press the <em>Complete Order</em>
       button at the bottom left of the page.
 CHECKOUT_MESSAGE;
   }
   if ($checkout_message !== '') {
     $checkout_message = <<<CHECKOUT_MESSAGE
-    <div class="larger-text highlight top-bottom-margin">
+    <div class="largest-text highlight bold top-bottom-margin">
       {$checkout_message}
     <div>
 CHECKOUT_MESSAGE;
