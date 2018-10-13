@@ -21,10 +21,12 @@ set max quantity to 1.
 
 ## How do I find attachment ids?
 
-*   Go to [media view](https://www.arianetobin.ie/wp-admin/upload.php)
-*   Change to list view.
-*   Hover over the image name and look for `post=XXX` in the URL; `XXX` is
-    the attachment id.
+*   Go to [media view
+    prod](https://www.arianetobin.ie/wp-admin/upload.php?mode=list) or [media
+    view dev](https://dev.arianetobin.ie/wp-admin/upload.php?mode=list)
+*   Search for the image you want.
+*   Hover over the image name and look for `post=XXX` in the URL; `XXX` is the
+    attachment id.
 
 ## How do I add a new product?
 
