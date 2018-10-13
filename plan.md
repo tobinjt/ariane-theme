@@ -1,6 +1,6 @@
 Plan for website:
 
-*   Change the grid to take attachment ids and look up `grid_size` images.
+*   ~~Change the grid to take attachment ids and look up `grid_size` images.~~
     * https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
 *   Change the product page to take attachment ids and look up `product_size`
     images.
