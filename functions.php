@@ -329,19 +329,17 @@ END_OF_TAG;
         continue;
       }
       # Line format:
-      # * Short description|Image description|Image URL|Link to page|Product ID
+      # * Short description|Image description|Image ID|Link to page|Product ID
       # * The top-level jewellery page links to ranges rather than products, so
       #   we can't include purchasing.  We use -1 to indicate that there isn't a
       #   product to offer, and that's checked for later.
-      # * The URL field can either be a path or an integer; if it's an integer
-      #   we look it up and save the path, width, and height.
       if (count($csv_data) < 5) {
         $csv_data[] = -1;
       }
       $data = array(
         'range'      => $csv_data[0],
         'alt'        => $csv_data[1],
-        'image'      => $csv_data[2],
+        'image_id'   => $csv_data[2],
         'link'       => $csv_data[3],
         'product_id' => $csv_data[4],
         'width'      => 0,
@@ -350,17 +348,11 @@ END_OF_TAG;
       if (substr($data['link'], -1) != '/') {
         $data['link'] .= '/';
       }
-      # TODO: when everything uses attachment IDs remove backwards
-      # compatibility.
-      if (intval($data['image']) != 0) {
-        $image_info = wp_get_attachment_image_src(
-          intval($data['image']), 'grid_size');
-        $data['image'] = $image_info[0];
-        $data['width'] = $image_info[1];
-        $data['height'] = $image_info[2];
-      } else {
-        $data['image'] = '/wp-content/uploads/' . $data['image'];
-      }
+      $image_info = wp_get_attachment_image_src(
+        intval($data['image_id']), 'grid_size');
+      $data['image'] = $image_info[0];
+      $data['width'] = $image_info[1];
+      $data['height'] = $image_info[2];
       $ranges[] = $data;
     }
     return $ranges;
@@ -432,18 +424,12 @@ END_OF_OUT_OF_STOCK;
     # Turn the data structure into <divs>s.
     $divs = array();
     foreach ($ranges as $_ => $data) {
-      $w_h = '';
-      # TODO: when everything uses attachment IDs every image will have width
-      # and height, remove the conditionals.
-      if ($data['width'] > 0 && $data['height'] > 0) {
-        $w_h = 'width=' . $data['width'];
-        $w_h .= ' height=' . $data['height'];
-      }
       $div = <<<END_OF_IMAGE_AND_RANGE
   <div class="aligncenter jewellery-block">
     <div class="jewellery-picture-container">
       <a href="{$data['link']}">
-        <img src="{$data['image']}" alt="{$data['alt']}" {$w_h}
+        <img src="{$data['image']}" alt="{$data['alt']}"
+          width="{$data['width']}" height="{$data['height']}"
           class="aligncenter block" />
       </a>
     </div>
