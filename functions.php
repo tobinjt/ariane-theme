@@ -302,7 +302,6 @@ END_OF_TAG;
   function ParseJewelleryGridContents($page_contents) {
     $lines = str_getcsv($page_contents, "\n");
     $ranges = array();
-    $seen_header = false;
     foreach ($lines as $line) {
       $line = trim($line);
       // Wordpress puts <br /> and </p> and other shite at the end of some
@@ -321,11 +320,6 @@ END_OF_TAG;
       // Skip blank lines.  The CSV parser will return an array with a single
       // element when given a blank line.
       if (count($csv_data) == 1) {
-        continue;
-      }
-      if (!$seen_header) {
-        // Discard the header.
-        $seen_header = true;
         continue;
       }
       # Line format:
