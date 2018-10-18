@@ -559,23 +559,47 @@ END_OF_HTML;
     $attrs = shortcode_atts(
       array(
         'archived' => 'false',
-        'image_url' => '',
+        'height' => 0,
+        'image_id' => 'X',
+        'image_url' => 'X',
         'limited_to' => '0',
         'name' => '',
         'product_id' => '',
         'range' => '',
         'type' => '',
+        'width' => 0,
       ),
       $atts);
     foreach ($attrs as $key => $value) {
-      if ($value == '') {
+      if ($value != 0 && $value == '') {
         return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
       }
     }
-    if (substr($attrs["type"], -1) != 's') {
-      $attrs["type"] .= 's';
+    if ($attrs['image_id'] == 'X' && $attrs['image_url'] == 'X') {
+      return '<h1>Need image_id or image_url</h1>' . "\n";
     }
 
+    # Look up the image.
+    if (intval($attrs['image_id']) != 0) {
+      $image_info = wp_get_attachment_image_src(
+        intval($attrs['image_id']), 'product_size');
+      $attrs['image_url'] = $image_info[0];
+      $attrs['width'] = $image_info[1];
+      $attrs['height'] = $image_info[2];
+    } else {
+      $attrs['image_url'] = '/wp-content/uploads/' . $attrs['image_url'];
+    }
+    $w_h = '';
+    # TODO: when everything uses attachment IDs every image will have width
+    # and height, remove the conditionals.
+    if ($attrs['width'] > 0 && $attrs['height'] > 0) {
+      $w_h = 'width=' . $attrs['width'];
+      $w_h .= ' height=' . $attrs['height'];
+    }
+
+    if (substr($attrs['type'], -1) != 's') {
+      $attrs['type'] .= 's';
+    }
     // Wordpress puts <br /> at the start and end of the content.
     $content = str_replace('<br />', '', $content);
     if ($attrs['limited_to'] > 0) {
