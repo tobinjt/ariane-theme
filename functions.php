@@ -560,8 +560,7 @@ END_OF_HTML;
       array(
         'archived' => 'false',
         'height' => 0,
-        'image_id' => 'X',
-        'image_url' => 'X',
+        'image_id' => '',
         'limited_to' => '0',
         'name' => '',
         'product_id' => '',
@@ -575,28 +574,14 @@ END_OF_HTML;
         return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
       }
     }
-    if ($attrs['image_id'] == 'X' && $attrs['image_url'] == 'X') {
-      return '<h1>Need image_id or image_url</h1>' . "\n";
-    }
 
     # Look up the image.
-    if (intval($attrs['image_id']) != 0) {
-      $image_info = wp_get_attachment_image_src(
-        intval($attrs['image_id']), 'product_size');
-      $attrs['image_url'] = $image_info[0];
-      $attrs['width'] = $image_info[1];
-      $attrs['height'] = $image_info[2];
-    } else {
-      $attrs['image_url'] = '/wp-content/uploads/' . $attrs['image_url'];
-    }
-    $w_h = '';
-    # TODO: when everything uses attachment IDs every image will have width
-    # and height, remove the conditionals.
-    if ($attrs['width'] > 0 && $attrs['height'] > 0) {
-      $w_h = 'width=' . $attrs['width'];
-      $w_h .= ' height=' . $attrs['height'];
-    }
-
+    $image_info = wp_get_attachment_image_src(
+      intval($attrs['image_id']), 'product_size');
+    $attrs['image_url'] = $image_info[0];
+    $attrs['width'] = $image_info[1];
+    $attrs['height'] = $image_info[2];
+    # Change "necklace" to "necklaces".
     if (substr($attrs['type'], -1) != 's') {
       $attrs['type'] .= 's';
     }
@@ -624,7 +609,8 @@ END_OF_HTML;
 <div id="individual-jewellery-piece" class="flexboxrow">
   <div id="individual-jewellery-image">
     <img alt="{$range_in_piece_name}{$attrs['name']}"
-      src="{$attrs['image_url']}" {$w_h} />
+      src="{$attrs['image_url']}"
+      width="{$attrs['width']}" height="{$attrs['height']}" />
   </div>
   <div id="individual-jewellery-description">
     <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>

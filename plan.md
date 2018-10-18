@@ -2,8 +2,8 @@ Plan for website:
 
 *   ~~Change the grid to take attachment ids and look up `grid_size` images.~~
     * https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
-*   Change the product page to take attachment ids and look up `product_size`
-    images.
+*   ~~Change the product page to take attachment ids and look up `product_size`
+    images.~~
     * https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
 *   Change the slider to show large or small images.
     *   Setup 2 divs, 1 small, 1 large.
