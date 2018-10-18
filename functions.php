@@ -485,7 +485,7 @@ END_OF_HTML;
         'description' => '',
       ),
       $atts);
-    return MakeJewelleryGrid($content, $attrs["description"]);
+    return MakeJewelleryGrid($content, $attrs['description']);
   }
 
   /* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
@@ -518,7 +518,7 @@ END_OF_HTML;
 END_OF_HTML;
       if (!is_store_closed()) {
         $content .= <<<END_OF_HTML
-      [add_to_cart item="{$attrs["product_id"]}" showprice="no" ajax="yes"
+      [add_to_cart item="{$attrs['product_id']}" showprice="no" ajax="yes"
          text="Add to basket"]
 END_OF_HTML;
       } else {
@@ -578,8 +578,8 @@ END_OF_HTML;
 
     // Wordpress puts <br /> at the start and end of the content.
     $content = str_replace('<br />', '', $content);
-    if ($attrs["limited_to"] > 0) {
-      $limited_to = '<p>Limited edition: only ' . $attrs["limited_to"]
+    if ($attrs['limited_to'] > 0) {
+      $limited_to = '<p>Limited edition: only ' . $attrs['limited_to']
         . ' will be made.</p>';
     } else {
       $limited_to = '';
@@ -595,14 +595,15 @@ END_OF_HTML;
     } else {
       $range_in_piece_name = $attrs['range'] . ' ';
     }
+
     $html = <<<END_OF_HTML
 <div id="individual-jewellery-piece" class="flexboxrow">
   <div id="individual-jewellery-image">
-    <img alt="{$range_in_piece_name}{$attrs["name"]}"
-      src="/wp-content/uploads/{$attrs["image_url"]}" />
+    <img alt="{$range_in_piece_name}{$attrs['name']}"
+      src="{$attrs['image_url']}" {$w_h} />
   </div>
   <div id="individual-jewellery-description">
-    <p class="highlight larger-text">{$range_in_piece_name}{$attrs["name"]}</p>
+    <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
     <p>{$content}</p>
     {$limited_to}
 END_OF_HTML;
@@ -610,8 +611,8 @@ END_OF_HTML;
     $html .= MakeBuyButtonForJewelleryPage($attrs);
 
     $html .= <<<END_OF_HTML
-    <p>See other items in this range: <a href="/jewellery/{$attrs["range"]}/">{$attrs["range"]}</a></p>
-    <p>See other: <a href="/jewellery/{$attrs["type"]}/">{$attrs["type"]}</a></p>
+    <p>See other items in this range: <a href="/jewellery/{$attrs['range']}/">{$attrs['range']}</a></p>
+    <p>See other: <a href="/jewellery/{$attrs['type']}/">{$attrs['type']}</a></p>
     <p>See the items in <a href="/store/cart/">your basket</a></p>
   </div>
 </div>
