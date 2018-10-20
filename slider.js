@@ -56,6 +56,7 @@ function SliderConf(images, id_prefix) {
   this.images_to_preload = this.images.slice(1, this.images.length);
   // Whether maybe_log() should log to console.
   this.log_to_console = true;
+  this.last_log_date = new Date();
 }
 
 // Namespace for functions.
@@ -70,7 +71,9 @@ var Slider = {};
 Slider.maybe_log = function(config, message) {
   if (config.log_to_console) {
     var date = new Date();
-    console.log(date.toUTCString() + ' ' + message);
+    var diff = date - config.last_log_date;
+    console.log(date.toUTCString() + ' ' + diff + ' ' + message);
+    config.last_log_date = date;
   }
 };
 
