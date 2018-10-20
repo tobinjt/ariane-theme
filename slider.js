@@ -73,8 +73,16 @@ Slider.maybe_log = function(config, message) {
     var date = new Date();
     var diff = date - config.last_log_date;
     console.log(date.toUTCString() + ' ' + diff + ' ' + message);
-    config.last_log_date = date;
   }
+};
+
+/**
+ * Set the base date for timestamp differences in maybe_log() to now.
+ *
+ * @param {SliderConf} config - config to operate on.
+ */
+Slider.set_log_date_to_now = function(config) {
+  config.last_log_date = new Date();
 };
 
 /**
@@ -144,7 +152,9 @@ Slider.fade_image_callback = function(config) {
   Slider.maybe_log(config, 'fade_image_callback called');
   Slider.change_image(config);
   callback = function() {
+    Slider.maybe_log(config, 'fade_image_callback    callback called');
     Slider.preload_next_image(config);
+    Slider.maybe_log(config, 'fade_image_callback    callback returning');
   };
   jQuery(config.image_id).stop(true, true).fadeIn(
     config.fade_duration, 'linear', callback);
@@ -159,10 +169,12 @@ Slider.fade_image_callback = function(config) {
 Slider.fade_image = function(config) {
   Slider.maybe_log(config, 'fade_image called');
   callback = function() {
+    Slider.maybe_log(config, 'fade_image    callback called');
     Slider.fade_image_callback(config);
+    Slider.maybe_log(config, 'fade_image    callback returning');
   };
   jQuery(config.image_id).stop(true, true).fadeOut(
-    Slider.fade_duration, 'linear', callback);
+    config.fade_duration, 'linear', callback);
   Slider.maybe_log(config, 'fade_image returning');
 };
 
@@ -207,7 +219,10 @@ Slider.initialise = function(images, id_prefix) {
       Slider.maybe_log(config, 'initialise callback called');
       Slider.fade_image(config);
       callback = function() {
+        Slider.set_log_date_to_now(config);
+        Slider.maybe_log(config, 'setInterval callback called');
         Slider.fade_image(config);
+        Slider.maybe_log(config, 'setInterval callback returning');
       };
       // Update the slider periodically.
       setInterval(callback, config.rotation_duration);
