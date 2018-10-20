@@ -29,7 +29,6 @@
  * @constructor
  * @param {Object[]} images - images to display.  Other code needs each image
  *   to be an Object with 'width', 'height', and 'image_url' attributes.
- *   TODO: change from ['width'] to .width?
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
  */
@@ -88,16 +87,16 @@ Slider.fisherYates = function(myArray) {
  */
 Slider.change_image = function(config) {
   var margin_top = (parseInt(jQuery(config.div_id).css('height')) -
-                      config.images[config.image_index]['height']) / 2;
+                      config.images[config.image_index].height) / 2;
   var image = config.images[config.image_index];
   jQuery(config.image_id
-    ).attr('src', image['image_url']
-    ).attr('width', image['width']
-    ).attr('height', image['height']
+    ).attr('src', image.image_url
+    ).attr('width', image.width
+    ).attr('height', image.height
     // Limit the margin so that smaller images aren't pushed below the fold.
     ).css('margin-top', Math.min(margin_top, 100));
-  jQuery(config.link_id).attr('href', image['link_url']);
-  jQuery(config.div_id).css('width', image['width']);
+  jQuery(config.link_id).attr('href', image.link_url);
+  jQuery(config.div_id).css('width', image.width);
   config.image_index = (config.image_index + 1) % config.images.length;
 };
 
@@ -108,7 +107,7 @@ Slider.change_image = function(config) {
  */
 Slider.preload_next_image = function(config) {
   if (config.images_to_preload.length) {
-    var image_url = config.images_to_preload.shift()['image_url'];
+    var image_url = config.images_to_preload.shift().image_url;
     var image = jQuery('<img />').attr('src', image_url);
   }
 };
@@ -162,8 +161,8 @@ Slider.initialise = function(images, id_prefix) {
   // but we manually position the top of the image so they don't jump around too
   // much, thus we need to know the max height.
   jQuery(config.images).each(function() {
-    if (this['height'] > max_image_height) {
-      max_image_height = this['height'];
+    if (this.height > max_image_height) {
+      max_image_height = this.height;
     }
   });
   jQuery(config.div_id).css('height', max_image_height);
