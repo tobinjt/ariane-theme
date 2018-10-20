@@ -54,10 +54,25 @@ function SliderConf(images, id_prefix) {
   // Slider.initialise will load the 0th image, so we need to start preloading
   // with the 1st image.
   this.images_to_preload = this.images.slice(1, this.images.length);
+  // Whether maybe_log() should log to console.
+  this.log_to_console = true;
 }
 
 // Namespace for functions.
 var Slider = {};
+
+/**
+ * Log a message plus timestamp to the console if config.log_to_console is true.
+ *
+ * @param {SliderConf} config - config to operate on.
+ * @param {string} message - message to log.
+ */
+Slider.maybe_log = function(config, message) {
+  if (config.log_to_console) {
+    var date = new Date();
+    console.log(date.toUTCString() + ' ' + message);
+  }
+};
 
 /**
  * In-place random permutation of the input array.
@@ -86,6 +101,7 @@ Slider.fisherYates = function(myArray) {
  * @param {SliderConf} config - config to operate on.
  */
 Slider.change_image = function(config) {
+  Slider.maybe_log(config, 'change_image called');
   var margin_top = (parseInt(jQuery(config.div_id).css('height')) -
                       config.images[config.image_index].height) / 2;
   var image = config.images[config.image_index];
@@ -98,6 +114,7 @@ Slider.change_image = function(config) {
   jQuery(config.link_id).attr('href', image.link_url);
   jQuery(config.div_id).css('width', image.width);
   config.image_index = (config.image_index + 1) % config.images.length;
+  Slider.maybe_log(config, 'change_image returning');
 };
 
 /**
@@ -106,10 +123,12 @@ Slider.change_image = function(config) {
  * @param {SliderConf} config - config to operate on.
  */
 Slider.preload_next_image = function(config) {
+  Slider.maybe_log(config, 'preload_next_image called');
   if (config.images_to_preload.length) {
     var image_url = config.images_to_preload.shift().image_url;
     var image = jQuery('<img />').attr('src', image_url);
   }
+  Slider.maybe_log(config, 'preload_next_image returning');
 };
 
 /**
@@ -119,12 +138,14 @@ Slider.preload_next_image = function(config) {
  * @param {SliderConf} config - config to operate on.
  */
 Slider.fade_image_callback = function(config) {
+  Slider.maybe_log(config, 'fade_image_callback called');
   Slider.change_image(config);
   callback = function() {
     Slider.preload_next_image(config);
   };
   jQuery(config.image_id).stop(true, true).fadeIn(
     config.fade_duration, 'linear', callback);
+  Slider.maybe_log(config, 'fade_image_callback returning');
 };
 
 /**
@@ -133,11 +154,13 @@ Slider.fade_image_callback = function(config) {
  * @param {SliderConf} config - config to operate on.
  */
 Slider.fade_image = function(config) {
+  Slider.maybe_log(config, 'fade_image called');
   callback = function() {
     Slider.fade_image_callback(config);
   };
   jQuery(config.image_id).stop(true, true).fadeOut(
     Slider.fade_duration, 'linear', callback);
+  Slider.maybe_log(config, 'fade_image returning');
 };
 
 /** Initialise the slider:
@@ -156,6 +179,7 @@ Slider.fade_image = function(config) {
  */
 Slider.initialise = function(images, id_prefix) {
   config = new SliderConf(images, id_prefix);
+  Slider.maybe_log(config, 'initialise called');
   var max_image_height = 0;
   // Set div height.  The images will be centered so the width doesn't matter,
   // but we manually position the top of the image so they don't jump around too
@@ -177,11 +201,14 @@ Slider.initialise = function(images, id_prefix) {
   // for 3 seconds - the other 2 seconds are fading in and fading out.
   setTimeout(
     function() {
+      Slider.maybe_log(config, 'initialise callback called');
       Slider.fade_image(config);
       callback = function() {
         Slider.fade_image(config);
       };
       // Update the slider periodically.
       setInterval(callback, config.rotation_duration);
+      Slider.maybe_log(config, 'initialise callback returning');
     }, config.display_duration);
+  Slider.maybe_log(config, 'initialise returning');
 };
