@@ -30,6 +30,9 @@ function SliderConf(images, id_prefix) {
   // id_prefix identifies the elements to change; id_prefix-div,
   // id_prefix-image, and id_prefix-link will be changed.
   this.id_prefix = id_prefix;
+  this.div_id = id_prefix + '-div';
+  this.image_id = id_prefix + '-image';
+  this.link_id = id_prefix + '-link';
   this.images = images;
   // Shuffle the images and set up preloading.
   Slider.fisherYates(this.images);
@@ -59,18 +62,17 @@ Slider.fisherYates = function(myArray) {
 
 // config is a SliderConf.
 Slider.change_image = function(config) {
-  var margin_top = (parseInt(jQuery(config.id_prefix + '-div').css('height'))
-                      - config.images[config.image_index]['height']) / 2;
-  jQuery(config.id_prefix + '-image'
-    ).attr('src', config.images[config.image_index]['image_url']
-    ).attr('width', config.images[config.image_index]['width']
-    ).attr('height', config.images[config.image_index]['height']
+  var margin_top = (parseInt(jQuery(config.div_id).css('height')) -
+                      config.images[config.image_index]['height']) / 2;
+  var image = config.images[config.image_index];
+  jQuery(config.image_id
+    ).attr('src', image['image_url']
+    ).attr('width', image['width']
+    ).attr('height', image['height']
     // Limit the margin so that smaller images aren't pushed below the fold.
     ).css('margin-top', Math.min(margin_top, 100));
-  jQuery(config.id_prefix + '-link'
-    ).attr('href', config.images[config.image_index]['link_url']);
-  jQuery(config.id_prefix + '-div'
-    ).css('width', config.images[config.image_index]['width']);
+  jQuery(config.link_id).attr('href', image['link_url']);
+  jQuery(config.div_id).css('width', image['width']);
   config.image_index = (config.image_index + 1) % config.images.length;
 };
 
@@ -86,7 +88,7 @@ Slider.fade_image_callback = function(config) {
   callback = function() {
     Slider.preload_next_image(config);
   };
-  jQuery(config.id_prefix + '-image').stop(true, true).fadeIn(
+  jQuery(config.link_id).stop(true, true).fadeIn(
     config.fade_duration, 'linear', callback);
 };
 
@@ -94,7 +96,7 @@ Slider.fade_image = function(config) {
   callback = function() {
     Slider.fade_image_callback(config);
   };
-  jQuery(config.id_prefix + '-image').stop(true, true).fadeOut(
+  jQuery(config.link_id).stop(true, true).fadeOut(
     Slider.fade_duration, 'linear', callback);
 };
 
@@ -103,18 +105,20 @@ Slider.fade_image = function(config) {
 Slider.initialise = function(images, id_prefix) {
   config = new SliderConf(images, id_prefix);
   var max_image_height = 0;
-  // Set div height.
+  // Set div height.  The images will be centered so the width doesn't matter,
+  // but we manually position the top of the image so they don't jump around too
+  // much, thus we need to know the max height.
   jQuery(config.images).each(function() {
     if (this['height'] > max_image_height) {
       max_image_height = this['height'];
     }
   });
-  jQuery(config.id_prefix + '-div').css('height', max_image_height);
-  id_prefix_no_hash = config.id_prefix.replace('#', '');
-  jQuery(config.id_prefix + '-div').append(
-      '<a id="' + id_prefix_no_hash + '-link" href="#">'
-      + '<img id="' + id_prefix_no_hash + '-image" alt="Slider placeholder" />'
-      + '</a>');
+  jQuery(config.div_id).css('height', max_image_height);
+  jQuery(config.div_id).append(
+      '<a id="' + config.link_id.replace('#', '') + '" href="#">' +
+      '<img id="' + config.image_id.replace('#', '') +
+      '" alt="Slider placeholder" />' +
+      '</a>');
   Slider.change_image(config);
   Slider.preload_next_image(config);
   // Start the slider in 3 seconds, because the images are only fully displayed
