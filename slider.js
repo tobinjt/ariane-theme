@@ -179,14 +179,47 @@ Slider.fade_image = function(config) {
   Slider.maybe_log(config, 'fade_image returning');
 };
 
+/**
+ * This function is called every config.rotation_duration milliseconds.  It
+ * resets logging and calls fade_image.
+ *
+ * @param {SliderConf} config - config to operate on.
+ */
+Slider.periodic_callback = function(config) {
+  Slider.set_log_date_to_now(config);
+  Slider.maybe_log(config, 'periodic_callback called');
+  Slider.fade_image(config);
+  Slider.maybe_log(config, 'periodic_callback returning');
+};
+
+/**
+ * Finish initialisation config.display_duration milliseconds after displaying
+ * the first image.
+ * - Trigger the first image change.
+ * - Set up a timer to call periodic_callback regularly.
+ *
+ * @param {SliderConf} config - config to operate on.
+ */
+Slider.finish_initialisation = function(config) {
+  Slider.maybe_log(config, 'finish_initialisation called');
+  // Trigger the first image change.  Later image changes will be triggered by
+  // periodic_callback.
+  Slider.fade_image(config);
+  var callback = function() {
+    Slider.periodic_callback(config);
+  };
+  // Update the slider periodically.
+  setInterval(callback, config.rotation_duration);
+  Slider.maybe_log(config, 'finish_initialisation returning');
+};
+
 /** Initialise the slider:
  * - Create a SliderConf.
  * - Figure out the height of the div.
  * - Replace the placeholder div with the necessary elements.
  * - Display the first image.
  * - Preload the next image.
- * - Set up a timeout to call fade_image at the right time, and periodically
- *   rotate images.  TODO: simplify this last step.
+ * - Set up a timeout to call finish_initialisation.
  *
  * @param {Object[]} images - images to display.  Other code needs each image
  *   to be an Object with 'width', 'height', and 'image_url' attributes.
@@ -215,19 +248,9 @@ Slider.initialise = function(images, id_prefix) {
   Slider.preload_next_image(config);
   // Start the slider in 3 seconds, because the images are only fully displayed
   // for 3 seconds - the other 2 seconds are fading in and fading out.
-  setTimeout(
-    function() {
-      Slider.maybe_log(config, 'initialise callback called');
-      Slider.fade_image(config);
-      callback = function() {
-        Slider.set_log_date_to_now(config);
-        Slider.maybe_log(config, 'setInterval callback called');
-        Slider.fade_image(config);
-        Slider.maybe_log(config, 'setInterval callback returning');
-      };
-      // Update the slider periodically.
-      setInterval(callback, config.rotation_duration);
-      Slider.maybe_log(config, 'initialise callback returning');
-    }, config.display_duration);
+  var callback = function() {
+    Slider.finish_initialisation(config);
+  };
+  setTimeout(callback, config.display_duration);
   Slider.maybe_log(config, 'initialise returning');
 };
