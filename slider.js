@@ -56,7 +56,7 @@ function SliderConf(images, id_prefix) {
   // with the 1st image.
   this.images_to_preload = this.images.slice(1, this.images.length);
   // Whether maybe_log() should log to console.
-  this.log_to_console = true;
+  this.log_to_console = false;
   this.last_log_date = new Date();
 }
 
