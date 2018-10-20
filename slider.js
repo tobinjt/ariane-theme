@@ -17,7 +17,22 @@
 //    all been preloaded.
 // 6) Nothing happens for a while - the image is being displayed.
 // 7) The interval timer calls Slider.fade_image() and steps 3-7 repeat forever.
+//
+// See http://usejsdoc.org/ for how to write the function docs.
+// TODO: the steps above somewhat duplicate the function documentation,
+// rationalise them.
+// TODO: think about the overall process and whether it can be simplified.
 
+/**
+ * Initialise a SliderConf.
+ *
+ * @constructor
+ * @param {Object[]} images - images to display.  Other code needs each image
+ *   to be an Object with 'width', 'height', and 'image_url' attributes.
+ *   TODO: change from ['width'] to .width?
+ * @param {string} id_prefix - prefix of CSS id of each element accessed by this
+ *   code.
+ */
 // One slider's configuration.
 function SliderConf(images, id_prefix) {
   // The time period for the image to fade in or out.
@@ -45,13 +60,16 @@ function SliderConf(images, id_prefix) {
 // Namespace for functions.
 var Slider = {};
 
-// Copied from http://sedition.com/perl/javascript-fy.html
+/**
+ * In-place random permutation of the input array.
+ * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ * Copied from http://sedition.com/perl/javascript-fy.html
+ *
+ * @param {Object[]} myArray - an array of anything.
+ */
 Slider.fisherYates = function(myArray) {
   var i = myArray.length;
-  if (i == 0) {
-    return false;
-  }
-  while (--i) {
+  while (--i > 0) {
     var j = Math.floor(Math.random() * (i + 1));
     var tempi = myArray[i];
     var tempj = myArray[j];
@@ -60,7 +78,14 @@ Slider.fisherYates = function(myArray) {
   }
 };
 
-// config is a SliderConf.
+/**
+ * Change the image that's displayed, placing it appropriately within the div,
+ * updating the link target, and so on.  Doesn't do fading - caller needs to do
+ * that.  Doesn't set up timeouts or callbacks or anything, again that's the
+ * caller's responsibility.
+ *
+ * @param {SliderConf} config - config to operate on.
+ */
 Slider.change_image = function(config) {
   var margin_top = (parseInt(jQuery(config.div_id).css('height')) -
                       config.images[config.image_index]['height']) / 2;
@@ -76,6 +101,11 @@ Slider.change_image = function(config) {
   config.image_index = (config.image_index + 1) % config.images.length;
 };
 
+/**
+ * Preload the next image if there are any images left to preload.
+ *
+ * @param {SliderConf} config - config to operate on.
+ */
 Slider.preload_next_image = function(config) {
   if (config.images_to_preload.length) {
     var image_url = config.images_to_preload.shift()['image_url'];
@@ -83,25 +113,48 @@ Slider.preload_next_image = function(config) {
   }
 };
 
+/**
+ * Callback that should be invoked when fading an image completes.  Changes the
+ * current image to the next image using Slider.change_image, then fades in the
+ * new image with a callback that preloads the next image.
+ * @param {SliderConf} config - config to operate on.
+ */
 Slider.fade_image_callback = function(config) {
   Slider.change_image(config);
   callback = function() {
     Slider.preload_next_image(config);
   };
-  jQuery(config.link_id).stop(true, true).fadeIn(
+  jQuery(config.image_id).stop(true, true).fadeIn(
     config.fade_duration, 'linear', callback);
 };
 
+/**
+ * Fade out the current image with a callback to fade_image_callback.
+ *
+ * @param {SliderConf} config - config to operate on.
+ */
 Slider.fade_image = function(config) {
   callback = function() {
     Slider.fade_image_callback(config);
   };
-  jQuery(config.link_id).stop(true, true).fadeOut(
+  jQuery(config.image_id).stop(true, true).fadeOut(
     Slider.fade_duration, 'linear', callback);
 };
 
-// Each element in the array must be a dictionary with elements:
-// image_url, width, height.
+/** Initialise the slider:
+ * - Create a SliderConf.
+ * - Figure out the height of the div.
+ * - Replace the placeholder div with the necessary elements.
+ * - Display the first image.
+ * - Preload the next image.
+ * - Set up a timeout to call fade_image at the right time, and periodically
+ *   rotate images.  TODO: simplify this last step.
+ *
+ * @param {Object[]} images - images to display.  Other code needs each image
+ *   to be an Object with 'width', 'height', and 'image_url' attributes.
+ * @param {string} id_prefix - prefix of CSS id of each element accessed by this
+ *   code.
+ */
 Slider.initialise = function(images, id_prefix) {
   config = new SliderConf(images, id_prefix);
   var max_image_height = 0;
