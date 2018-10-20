@@ -1,3 +1,4 @@
+'use strict';
 // Javascript implementing the slider functionality.
 // Flow of control:
 // 1) Slider.initialise(images, id_prefix) is called, which sets up everything,
@@ -151,7 +152,7 @@ Slider.preload_next_image = function(config) {
 Slider.fade_image_callback = function(config) {
   Slider.maybe_log(config, 'fade_image_callback called');
   Slider.change_image(config);
-  callback = function() {
+  var callback = function() {
     Slider.maybe_log(config, 'fade_image_callback    callback called');
     Slider.preload_next_image(config);
     Slider.maybe_log(config, 'fade_image_callback    callback returning');
@@ -168,7 +169,7 @@ Slider.fade_image_callback = function(config) {
  */
 Slider.fade_image = function(config) {
   Slider.maybe_log(config, 'fade_image called');
-  callback = function() {
+  var callback = function() {
     Slider.maybe_log(config, 'fade_image    callback called');
     Slider.fade_image_callback(config);
     Slider.maybe_log(config, 'fade_image    callback returning');
@@ -193,7 +194,7 @@ Slider.fade_image = function(config) {
  *   code.
  */
 Slider.initialise = function(images, id_prefix) {
-  config = new SliderConf(images, id_prefix);
+  var config = new SliderConf(images, id_prefix);
   Slider.maybe_log(config, 'initialise called');
   var max_image_height = 0;
   // Set div height.  The images will be centered so the width doesn't matter,
