@@ -13,7 +13,7 @@ history table, then click on the cart66-pro.zip link.  Copy it to hosting and
 rename it to `~/wordpress/cart66.${version}.zip`, then install it with
 `wordpress-install ~/arianetobin.ie/ plugin cart66`.
 
-## How do I make an item unique?
+## How do I make an item unique?
 
 Open the item in
 [Cart66](https://www.arianetobin.ie/wp-admin/admin.php?page=cart66-products) and
@@ -59,7 +59,7 @@ Copy another range's contents and edit appropriately.
 
 Add the new range to the top level jewellery page and add it in `header.php`.
 
-## How do I rename a product?
+## How do I rename a product?
 
 Edit the product's page.  Starting from the top, change:
 *   The name of the page.
@@ -76,7 +76,7 @@ that invoices etc. are correct.
 To make sure everything works properly:
 `check-links https://www.arianetobin.ie/`
 
-## What references fonts.googleapis.com/css?
+## What references fonts.googleapis.com/css?
 
 The internet says it's part of the Wordpress admin theme, ignore it.
 
