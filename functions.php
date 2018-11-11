@@ -399,7 +399,8 @@ END_OF_SOLD;
     }
 
     return <<<END_OF_OUT_OF_STOCK
-      Out of stock
+      This piece is out of stock, please contact Ariane as it's possible this
+      item could be made to order.
 END_OF_OUT_OF_STOCK;
   }
 
@@ -432,7 +433,8 @@ END_OF_OUT_OF_STOCK;
     </div>
 END_OF_IMAGE_AND_RANGE;
       $div .= <<<END_OF_OPEN_BUY_DIV
-    <div class="text-centered left-right-margin top-bottom-margin grey">
+    <div class="text-centered left-right-margin top-bottom-margin grey
+      jewellery-text-container">
 END_OF_OPEN_BUY_DIV;
       $div .= MakeBuyButtonForJewelleryGrid($data['product_id']);
       $div .= <<<END_OF_DIV

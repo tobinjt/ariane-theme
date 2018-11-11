@@ -504,6 +504,10 @@ img:hover {
   margin-bottom: 1em;
 }
 
+.jewellery-text-container {
+  max-width: 260px;
+}
+
 .jewellery-picture-container {
   width: 260px;
   height: 260px;
