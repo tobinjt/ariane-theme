@@ -127,12 +127,12 @@
       'larger-text bottom-margin');
   }
 
-  if (is_time_before('2017-12-11')) {
+  if (is_time_before('2018-12-09')) {
     $all_message = <<<ALL_MESSAGE
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
         href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &
-        Design Fair</a> from Tuesday 5th December to Sunday 10th December.
+        Design Fair</a> from Wednesday 5th December to Sunday 9th December.
         Please visit us at stand B15 on the Balcony, we'd love to see you!
         </p>
 ALL_MESSAGE;
