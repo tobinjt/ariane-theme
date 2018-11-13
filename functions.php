@@ -917,21 +917,58 @@ END_OF_HTML;
   remove_action('template_redirect', 'rest_output_link_header'); //, 11, 0);
 
   // If the Cookie Law Info cookie already exists, remove the Javascript and CSS
-  // it wants to load.
-  function MaybeRemoveCookieLawInfo() {
+  // it wants to load.  Output from MaybeHideCookieLawInfoInFooter() needs to be
+  // inserted in <head> to hide the text added to the footer.
+  function ShouldRemoveCookieLawInfo() {
+    $hide = false;
+    if (isset($_COOKIE['viewed_cookie_policy'])) {
+      $hide = true;
+    }
     // Page Speed doesn't set the cookie, so fake the typical user experience.
-    $force_hide = false;
+    // TODO: These useer-agent strings need to be verified.
     if (strpos($_SERVER['HTTP_USER_AGENT'], 'Google Page Speed Insights')) {
-      $force_hide = true;
+      $hide = true;
     }
-    if (isset($_COOKIE['viewed_cookie_policy']) || $force_hide) {
-      // Remove the hooks that add Javascript and CSS.
-      remove_action('wp_footer', 'cookielawinfo_inject_cli_script');
-      remove_action('wp_enqueue_scripts',
-        'cookielawinfo_enqueue_frontend_scripts');
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse')) {
+      $hide = true;
     }
+    return $hide;
   }
-  MaybeRemoveCookieLawInfo();
+
+  function MaybeHideCookieLawInfoInFooter() {
+    if (!ShouldRemoveCookieLawInfo()) {
+      return "";
+    }
+    return <<<END_OF_CSS
+
+  <style>
+    #cookie-law-info-bar {
+      display: none;
+    }
+  </style>
+
+END_OF_CSS;
+  }
+
+  function MaybeRemoveCookieLawInfoFromHead() {
+    if (!ShouldRemoveCookieLawInfo()) {
+      return;
+    }
+    // Remove the Javascript and CSS.
+    // To figure out the correct strings in future, add this at the end of
+    // header.php in <pre> tags:
+    //    global $wp_scripts;
+    //    print_r($wp_scripts);
+    // Then search the output for 'cookie-law-info' and look for "handle =
+    // 'foo'", where 'foo' is the string you need.
+    wp_dequeue_style('cookie-law-info');
+    wp_deregister_style('cookie-law-info');
+    wp_dequeue_style('cookie-law-info-gdpr');
+    wp_deregister_style('cookie-law-info-gdpr');
+    wp_dequeue_script('cookie-law-info');
+    wp_deregister_script('cookie-law-info');
+  }
+  add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
 
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');

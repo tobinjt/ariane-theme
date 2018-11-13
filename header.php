@@ -42,6 +42,7 @@
     wp_enqueue_script('comment-reply');
   }
   wp_head();
+  echo MaybeHideCookieLawInfoInFooter();
 ?>
 </head>
 
