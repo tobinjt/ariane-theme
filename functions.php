@@ -854,6 +854,8 @@ END_OF_HTML;
   }
 
 
+
+
   // Configure Wordpress.
   // Add RSS links to <head> section.
   add_theme_support('automatic-feed-links');
@@ -865,10 +867,15 @@ END_OF_HTML;
   add_image_size('product_size', 520, 520);
   add_image_size('grid_size', 260, 260);
 
+  // Use my style sheet.
+  add_editor_style('style.css');
+
+  // Remove unnecessary resources that Wordpress or plugins include in every
+  // page.
+
   // Disable comment feeds.  __return_false is a Wordpress function that returns
   // false to make filters easier.
   add_filter('feed_links_show_comments_feed', '__return_false');
-  add_editor_style('style.css');
 
   // Clean up the <head>
   function removeHeadLinks() {
@@ -879,8 +886,10 @@ END_OF_HTML;
     remove_action('wp_head', 'wp_shortlink_wp_head');
   }
   add_action('init', 'removeHeadLinks');
-  // Remove the version strings from CSS and Javascript.  Found by searching
-  // for "wordpress remove query strings from static resources".
+
+  // Remove the version strings from CSS and Javascript to improve browser
+  // caching.  Found by searching for "wordpress remove query strings from
+  // static resources".
   function _remove_script_version($src){
     $parts = explode('?', $src);
     return $parts[0];
@@ -969,6 +978,8 @@ END_OF_CSS;
     wp_deregister_script('cookie-law-info');
   }
   add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
+
+  // End removing unnecesary resources.
 
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
