@@ -3,7 +3,6 @@
 <html <?php language_attributes(); ?>>
 
 <head>
-  <!-- arianetobin.ie works properly. -->
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
@@ -33,9 +32,7 @@
   <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
-  <title>
-       <?php echo_title(); echo "\n"; ?>
-  </title>
+  <title><?php echo_title(); ?></title>
 
 <?php
   if (is_single()) {
