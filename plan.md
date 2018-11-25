@@ -1,10 +1,10 @@
 Plan for website:
 
 *   ~~Change the grid to take attachment ids and look up `grid_size` images.~~
-    * https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
+    *   https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
 *   ~~Change the product page to take attachment ids and look up `product_size`
     images.~~
-    * https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
+    *   https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
 *   ~~Does the slider flash or transition too abruptly?~~
 *   Change the slider to show large or small images.
     *   Setup 2 divs, 1 small, 1 large.
@@ -13,11 +13,12 @@ Plan for website:
     *   Unknown: how do I stop both sliders initialising and running?  It'll
         work if both are running, but it's crappy for users.  Maybe make the
         slider check if the div is visible?
-*   Run PageSpeed against the different pages.
+*   ~~Run PageSpeed against the different pages.~~
     *   Stop Cart66 resources (JS, CSS) being requested unless the page needs
-        those resources.
-    *   Look at SEO report when it's available in stable Chrome.
-*   Figure out how to use HTTP2:
+        those resources.  Not doing this: they're needed on almost every page.
+    *   ~~Look at SEO report when it's available in stable Chrome.~~
+*   ~~Figure out how to use HTTP2.~~  This appears to just work now that HTTP2
+    works in general.
     *   Send a location header if there isn't a cookie?
     *   How do I make Wordpress plugins use HTTP2?
     *   https://responsivedesign.is/articles/configuring-http2-push-wordpress/
@@ -28,4 +29,5 @@ Plan for website:
     *   https://make.wordpress.org/core/2016/07/06/resource-hints-in-4-6/
     *   https://www.sitespeed.io/
 *   We need a Cart66 replacement sooner or later; either migrate to their hosted
-    offering or find a similar solution.
+    offering or find a similar solution.  Probably use Shopify,
+    https://www.shopify.com/lite
