@@ -394,6 +394,8 @@ img:hover {
 .individual-jewellery-image {
   /* Do I care about height and width? */
   max-width: 40em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -467,9 +469,14 @@ img:hover {
 }
 
 /**
- * The slider.
+ * The sliders.
  **/
 #slider-div {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#product-page-slider-div {
   margin-left: auto;
   margin-right: auto;
 }

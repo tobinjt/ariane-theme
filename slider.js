@@ -128,7 +128,6 @@ Slider.change_image = function(config) {
   if (config.images_are_links) {
     jQuery(config.link_id).attr('href', image.link_url);
   }
-  jQuery(config.div_id).css('width', image.width);
   config.image_index = (config.image_index + 1) % config.images.length;
   Slider.maybe_log(config, 'change_image returning');
 };
@@ -219,7 +218,7 @@ Slider.finish_initialisation = function(config) {
 
 /** Initialise the slider:
  * - Create a SliderConf.
- * - Figure out the height of the div.
+ * - Figure out the height and width of the div.
  * - Replace the placeholder div with the necessary elements.
  * - Display the first image.
  * - Preload the next image.
@@ -235,15 +234,23 @@ Slider.initialise = function(images, id_prefix, images_are_links) {
   var config = new SliderConf(images, id_prefix, images_are_links);
   Slider.maybe_log(config, 'initialise called');
   var max_image_height = 0;
-  // Set div height.  The images will be centered so the width doesn't matter,
-  // but we manually position the top of the image so they don't jump around too
-  // much, thus we need to know the max height.
+  var max_image_width = 0;
+  // Set div height and width:
+  // - We manually position the top of the image so they don't jump around too
+  //   much.
+  // - We want the div to have a consistent width so that content on either side
+  //   doesn't jump around too much
   jQuery(config.images).each(function() {
     if (this.height > max_image_height) {
       max_image_height = this.height;
     }
+    if (this.width > max_image_width) {
+      max_image_width = this.width;
+    }
   });
-  jQuery(config.div_id).css('height', max_image_height);
+  jQuery(config.div_id
+    ).css('height', max_image_height
+    ).css('width', max_image_width);
   var img = jQuery('<img>', {
     'id': config.image_id.replace('#', ''),
     'href': '#'
