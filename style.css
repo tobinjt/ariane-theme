@@ -443,14 +443,9 @@ img:hover {
 }
 
 /**
- * The sliders.
+ * The main page slider.
  **/
 #slider-div {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#product-page-slider-div {
   margin-left: auto;
   margin-right: auto;
 }
@@ -473,11 +468,10 @@ img:hover {
   margin-left: 0.5em;
 }
 
-.individual-jewellery-image {
-  /* Do I care about height and width? */
-  max-width: 40em;
+#individual-jewellery-image {
   margin-left: auto;
   margin-right: auto;
+  display: block;
 }
 
 

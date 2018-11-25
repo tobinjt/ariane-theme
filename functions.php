@@ -725,14 +725,13 @@ END_OF_HTML;
 END_OF_HTML;
     if ($single_image) {
       $html .= <<<END_OF_HTML
-  <div class="individual-jewellery-image">
+  <div id="individual-jewellery-image">
     <img alt="{$range_in_piece_name}{$attrs['name']}"
       src="{$attrs['image_url']}"
       width="{$attrs['width']}" height="{$attrs['height']}" />
   </div>
 END_OF_HTML;
     } else {
-      # TODO: add class=individual-jewellery-image to slider div.
       global $PRODUCT_PAGE_SLIDER_DATA;
       $PRODUCT_PAGE_SLIDER_DATA = json_encode($slider_images);
       $html .= <<<END_OF_HTML
@@ -908,7 +907,7 @@ END_OF_JAVASCRIPT;
   function ProductPageSliderSetupInFooter() {
     global $PRODUCT_PAGE_SLIDER_DATA;
     echo SliderSetupGeneric($PRODUCT_PAGE_SLIDER_DATA,
-      '#product-page-slider', false);
+      '#individual-jewellery', false);
   }
 
   /* ProductPageSliderSetupShortcode: wrap ProductPageSliderSetupInFooter to
@@ -932,7 +931,7 @@ END_OF_JAVASCRIPT;
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
     add_action('wp_footer', 'ProductPageSliderSetupInFooter');
-    return '<div id="product-page-slider-div"></div>';
+    return '<div id="individual-jewellery-div"></div>';
   }
 
   function CarePageShortcode($atts, $content, $tag) {

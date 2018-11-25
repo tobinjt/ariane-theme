@@ -253,7 +253,7 @@ Slider.initialise = function(images, id_prefix, images_are_links) {
     ).css('width', max_image_width);
   var img = jQuery('<img>', {
     'id': config.image_id.replace('#', ''),
-    'href': '#'
+    'alt': 'Slider image'
   });
   if (config.images_are_links) {
     var link = jQuery('<a>', {
