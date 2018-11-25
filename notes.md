@@ -30,8 +30,6 @@ set max quantity to 1.
 
 ## How do I add a new product?
 
-*   Upload the picture, they'll be automatically resized to the sizes we need.
-
 *   Add the product to
     [Cart66](https://www.arianetobin.ie/wp-admin/admin.php?page=cart66-products).
     You need the price and the item number; scroll to the bottom of the page to
@@ -44,10 +42,14 @@ set max quantity to 1.
 
 *   Create a new range if necessary (see below).
 
-*   Create a new page for the product.  Make it a child of the range.  Copy the
-    text from another product and modify accordingly.  The URL will be wrong
-    when you're creating the page - the range won't be part of it - but it will
-    be corrected when you publish.
+*   Upload the picture, they'll be automatically resized to the sizes we need.
+    [Find the picture again](https://www.arianetobin.ie/wp-admin/upload.php) and
+    note the image ID.
+
+*   Create a new page for the product.  Make it a child of the range *before you
+    start typing the title*.  Copy the text from another product and modify
+    accordingly.  ~~The URL will be wrong when you're creating the page - the
+    range won't be part of it - but it will be corrected when you publish.~~
 
 *    Update the range page and the type page with rows for the new product.
 
