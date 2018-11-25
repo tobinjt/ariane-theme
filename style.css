@@ -450,6 +450,13 @@ img:hover {
   margin-right: auto;
 }
 
+/* Must be kept in sync with #individual-jewellery-image */
+#slider-image {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 /**
  * A jewellery page; everything in single page applies here unless overridden.
  */
@@ -468,6 +475,7 @@ img:hover {
   margin-left: 0.5em;
 }
 
+/* Must be kept in sync with #slider-image */
 #individual-jewellery-image {
   margin-left: auto;
   margin-right: auto;
