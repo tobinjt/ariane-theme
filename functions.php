@@ -630,8 +630,9 @@ END_OF_HTML;
     }
 
     return <<<END_OF_HTML
-        <p>Unfortunately this piece of jewellery is sold out.  See below for
-          other items in this range or type.</p>
+      <p>This piece is out of stock, please contact Ariane as it's possible this
+        item could be made to order.  See below for other items in this range or
+        type.</p>
 END_OF_HTML;
   }
 
