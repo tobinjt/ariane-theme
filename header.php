@@ -62,6 +62,7 @@
         </a>
       </div>
 
+      <nav>
 <?php
   # This assumes that arrays are ordered, which appears to be true.
   $main_links = array(
@@ -124,94 +125,7 @@
       ],
       'larger-text bottom-margin');
   }
-
-  if (is_time_before('2018-12-09')) {
-    $all_message = <<<ALL_MESSAGE
-      <p class="text-centered larger-text grey">
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &
-        Design Fair</a> from Wednesday 5th December to Sunday 9th December.
-        Please visit us at stand B15 on the Balcony, we'd love to see you!
-        </p>
-ALL_MESSAGE;
-  } else {
-    $all_message = '';
-  }
-  $other_message = <<<OTHER_MESSAGE
-    <p class="text-centered larger-text grey">
-      </p>
-OTHER_MESSAGE;
-  if (is_store_closed()) {
-    $store_opening_time_human = store_opening_time_human();
-    $jewellery_message = <<<JEWELLERY_MESSAGE
-      <p class="text-centered larger-text grey">
-        The store is now closed, and Ariane will return to the workshop
-        {$store_opening_time_human}.
-        </p>
-JEWELLERY_MESSAGE;
-  } elseif (is_time_before(store_closing_time())) {
-    $store_closing_time_human = store_closing_time_human();
-    $store_opening_time_human = store_opening_time_human();
-    $jewellery_message = <<<JEWELLERY_MESSAGE
-      <p class="text-centered larger-text grey">
-        The store will be closing {$store_closing_time_human}.
-        Ariane will return to the workshop {$store_opening_time_human}.
-        </p>
-JEWELLERY_MESSAGE;
-  } else {
-    $jewellery_message = '';
-  }
-  $store_message = <<<STORE_MESSAGE
-    <div id="store_message">
-      <ul class="grey">
-        <li>Each piece of jewellery is handmade by Ariane in her studio in
-            Carlow, as a result there is normally a two week lead time on all
-            orders.</li>
-        <li>Free registered shipping to Ireland, EU, and USA on all orders over
-            €50.</li>
-        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
-        <li>All taxes and duties are the responsibility of the buyer.</li>
-      </ul>
-    </div>
-STORE_MESSAGE;
-
-  $checkout_message = '';
-  if (is_url('/store/cart/')) {
-    $checkout_message = <<<CHECKOUT_MESSAGE
-      To continue, press the <em>Checkout</em> button at the bottom right of the
-      page.
-CHECKOUT_MESSAGE;
-  }
-  if (is_url('/store/checkout/')) {
-    $checkout_message = <<<CHECKOUT_MESSAGE
-      To continue, press the <em>PayPal</em> button at the bottom right of the
-      page.
-CHECKOUT_MESSAGE;
-  }
-  if (is_url('/store/express/')) {
-    $checkout_message = <<<CHECKOUT_MESSAGE
-      To complete your order you <em>must</em> press the <em>Complete Order</em>
-      button at the bottom left of the page.
-CHECKOUT_MESSAGE;
-  }
-  if ($checkout_message !== '') {
-    $checkout_message = <<<CHECKOUT_MESSAGE
-    <div class="largest-text highlight bold top-bottom-margin">
-      {$checkout_message}
-    <div>
-CHECKOUT_MESSAGE;
-  }
-
-  echo $all_message;
-  if (is_store_page()) {
-    echo $jewellery_message;
-    echo $store_message;
-    echo $checkout_message;
-  } elseif (is_jewellery_page()) {
-    echo $jewellery_message;
-  } else {
-    echo $other_message;
-  }
 ?>
 
+      </nav>
     </header>
