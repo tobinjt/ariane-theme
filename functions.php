@@ -827,7 +827,7 @@ END_OF_DIV;
 <script type="text/javascript">
 jQuery(document).ready(function() {
   var images = {$images};
-  Slider.initialise(images, '#slider');
+  Slider.initialise(images, '#slider', true);
 });
 </script>
 <!-- Include the rest of the Javascript. -->

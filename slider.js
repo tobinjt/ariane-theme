@@ -32,9 +32,10 @@
  *   to be an Object with 'width', 'height', and 'image_url' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
+ * @param {bool} images_are_links - whether images should link to pages.
  */
 // One slider's configuration.
-function SliderConf(images, id_prefix) {
+function SliderConf(images, id_prefix, images_are_links) {
   // The time period for the image to fade in or out.
   this.fade_duration = 1000;
   // How long to fully display the image.
@@ -45,6 +46,7 @@ function SliderConf(images, id_prefix) {
   // id_prefix identifies the elements to change; id_prefix-div,
   // id_prefix-image, and id_prefix-link will be changed.
   this.id_prefix = id_prefix;
+  this.images_are_links = images_are_links;
   this.div_id = id_prefix + '-div';
   this.image_id = id_prefix + '-image';
   this.link_id = id_prefix + '-link';
@@ -123,7 +125,9 @@ Slider.change_image = function(config) {
     ).attr('height', image.height
     // Limit the margin so that smaller images aren't pushed below the fold.
     ).css('margin-top', Math.min(margin_top, 100));
-  jQuery(config.link_id).attr('href', image.link_url);
+  if (config.images_are_links) {
+    jQuery(config.link_id).attr('href', image.link_url);
+  }
   jQuery(config.div_id).css('width', image.width);
   config.image_index = (config.image_index + 1) % config.images.length;
   Slider.maybe_log(config, 'change_image returning');
@@ -225,9 +229,10 @@ Slider.finish_initialisation = function(config) {
  *   to be an Object with 'width', 'height', and 'image_url' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
+ * @param {bool} images_are_links - whether images should link to pages.
  */
-Slider.initialise = function(images, id_prefix) {
-  var config = new SliderConf(images, id_prefix);
+Slider.initialise = function(images, id_prefix, images_are_links) {
+  var config = new SliderConf(images, id_prefix, images_are_links);
   Slider.maybe_log(config, 'initialise called');
   var max_image_height = 0;
   // Set div height.  The images will be centered so the width doesn't matter,
@@ -239,11 +244,20 @@ Slider.initialise = function(images, id_prefix) {
     }
   });
   jQuery(config.div_id).css('height', max_image_height);
-  jQuery(config.div_id).append(
-      '<a id="' + config.link_id.replace('#', '') + '" href="#">' +
-      '<img id="' + config.image_id.replace('#', '') +
-      '" alt="Slider placeholder" />' +
-      '</a>');
+  var img = jQuery('<img>', {
+    'id': config.image_id.replace('#', ''),
+    'href': '#'
+  });
+  if (config.images_are_links) {
+    var link = jQuery('<a>', {
+      'id': config.link_id.replace('#', ''),
+      'alt': 'Slider placeholder'
+    });
+    link.append(img);
+    jQuery(config.div_id).append(link);
+  } else {
+    jQuery(config.div_id).append(img);
+  }
   Slider.change_image(config);
   Slider.preload_next_image(config);
   // Start the slider in 3 seconds, because the images are only fully displayed
