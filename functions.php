@@ -674,12 +674,28 @@ END_OF_HTML;
       }
     }
 
-    # Look up the image.
-    $image_info = wp_get_attachment_image_src(
-      intval($attrs['image_id']), 'product_size');
-    $attrs['image_url'] = $image_info[0];
-    $attrs['width'] = $image_info[1];
-    $attrs['height'] = $image_info[2];
+    # Look up the image(s).
+    $image_ids = explode(',', $attrs['image_id']);
+    $single_image = (count($image_ids) == 1);
+    if ($single_image) {
+      # Single image is the simple, common case.
+      $image_info = wp_get_attachment_image_src(
+        intval($attrs['image_id']), 'product_size');
+      $attrs['image_url'] = $image_info[0];
+      $attrs['width'] = $image_info[1];
+      $attrs['height'] = $image_info[2];
+    } else {
+      $slider_images = array();
+      foreach ($image_ids as $image_id) {
+        $image_info = wp_get_attachment_image_src($image_id, 'product_size');
+        $slider_images[] = array(
+          'image_url' => $image_info[0],
+          'width' => $image_info[1],
+          'height' => $image_info[2],
+        );
+      }
+    }
+
     # Change "necklace" to "necklaces".
     if (substr($attrs['type'], -1) != 's') {
       $attrs['type'] .= 's';
@@ -706,11 +722,26 @@ END_OF_HTML;
 
     $html = <<<END_OF_HTML
 <div id="individual-jewellery-piece" class="flexboxrow">
-  <div id="individual-jewellery-image">
+END_OF_HTML;
+    if ($single_image) {
+      $html .= <<<END_OF_HTML
+  <div class="individual-jewellery-image">
     <img alt="{$range_in_piece_name}{$attrs['name']}"
       src="{$attrs['image_url']}"
       width="{$attrs['width']}" height="{$attrs['height']}" />
   </div>
+END_OF_HTML;
+    } else {
+      # TODO: add class=individual-jewellery-image to slider div.
+      # TODO: Stop text bouncing left and right because images are different
+      # sizes.
+      global $PRODUCT_PAGE_SLIDER_DATA;
+      $PRODUCT_PAGE_SLIDER_DATA = json_encode($slider_images);
+      $html .= <<<END_OF_HTML
+[product_page_slider]
+END_OF_HTML;
+    }
+    $html .= <<<END_OF_HTML
   <div id="individual-jewellery-description">
     <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
     <p>{$content}</p>
@@ -872,16 +903,16 @@ END_OF_JAVASCRIPT;
     return '<div id="slider-div"></div>';
   }
 
-  /* ProductPageSliderSetup: output the Javascript needed to set up the slider,
-   * including the images.
+  /* ProductPageSliderSetupInFooter: output the Javascript needed to set up the
+   * slider, including the images.
    */
-  function ProductPageSliderSetup() {
+  function ProductPageSliderSetupInFooter() {
     global $PRODUCT_PAGE_SLIDER_DATA;
     echo SliderSetupGeneric($PRODUCT_PAGE_SLIDER_DATA,
-      '#product-page-slider-div');
+      '#product-page-slider');
   }
 
-  /* ProductPageSliderSetupShortcode: wrap ProducePageSliderSetupInFooter to
+  /* ProductPageSliderSetupShortcode: wrap ProductPageSliderSetupInFooter to
    * provide a shortcode.  This *must not* be used in the enclosing form.
    * Args (names are ugly but Wordpress-standard):
    *  $atts: an associative array of attributes, or an empty string if no
@@ -901,7 +932,7 @@ END_OF_JAVASCRIPT;
     if (!is_string($atts)) {
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
-    add_action('wp_footer', 'ProducePageSliderSetupInFooter');
+    add_action('wp_footer', 'ProductPageSliderSetupInFooter');
     return '<div id="product-page-slider-div"></div>';
   }
 

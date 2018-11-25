@@ -391,7 +391,7 @@ img:hover {
   margin-left: 0.5em;
 }
 
-#individual-jewellery-image {
+.individual-jewellery-image {
   /* Do I care about height and width? */
   max-width: 40em;
 }
