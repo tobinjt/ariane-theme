@@ -374,32 +374,6 @@ img:hover {
 }
 
 /**
- * A jewellery page; everything in single page applies here unless overridden.
- */
-
-/**
- * An individual piece of jewellery.
- */
-#individual-jewellery-piece {
-  /* border: 1em solid black; */
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-#individual-jewellery-description {
-  max-width: 29em;
-  margin-left: 0.5em;
-}
-
-.individual-jewellery-image {
-  /* Do I care about height and width? */
-  max-width: 40em;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-/**
  * The list of blog posts.
  **/
 #main-content-blog h2 {
@@ -482,21 +456,30 @@ img:hover {
 }
 
 /**
- * The about page.
- **/
-#about-page {
-  /* We don't want really long lines of text across the page.  */
-  max-width: 35em;
-  margin-left: auto;
-  margin-right: auto;
-  /* Add a little separation from the screen edges on mobile.  */
-  padding-left: 1em;
-  padding-right: 1em;
+ * A jewellery page; everything in single page applies here unless overridden.
+ */
+
+/**
+ * An individual piece of jewellery.
+ */
+#individual-jewellery-piece {
+  /* border: 1em solid black; */
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-#about-page p {
-  margin-bottom: 2.0em;
+#individual-jewellery-description {
+  max-width: 29em;
+  margin-left: 0.5em;
 }
+
+.individual-jewellery-image {
+  /* Do I care about height and width? */
+  max-width: 40em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /**
  * The Jewellery grid.
@@ -520,27 +503,6 @@ img:hover {
   height: 260px;
 }
 
-/* The list indicator should be inside the container. */
-li {
-  list-style-position: inside;
-  list-style-type: disc;
-}
-
-/**
- * The jewellery care page.
- */
-#care-page {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-#care-page li {
-  margin-bottom: 0.5em;
-}
-#care-page h2 {
-  margin-top: 1.0em;
-}
-
 /**
  * Checkout page.
  */
@@ -558,4 +520,42 @@ li {
 }
 #store_message {
   padding-top: 1em;
+}
+
+/* The list indicator should be inside the container. */
+li {
+  list-style-position: inside;
+  list-style-type: disc;
+}
+
+/**
+ * The about page.
+ **/
+#about-page {
+  /* We don't want really long lines of text across the page.  */
+  max-width: 35em;
+  margin-left: auto;
+  margin-right: auto;
+  /* Add a little separation from the screen edges on mobile.  */
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#about-page p {
+  margin-bottom: 2.0em;
+}
+
+/**
+ * The jewellery care page.
+ */
+#care-page {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#care-page li {
+  margin-bottom: 0.5em;
+}
+#care-page h2 {
+  margin-top: 1.0em;
 }
