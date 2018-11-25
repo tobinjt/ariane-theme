@@ -110,6 +110,7 @@
       'larger-text bottom-margin');
 
     $jewellery_ranges_links = array(
+      '/jewellery/botanical/'  => 'botanical',
       '/jewellery/cellule/'    => 'cellule',
       '/jewellery/confluence/' => 'confluence',
       '/jewellery/halo/'       => 'halo',
