@@ -814,20 +814,23 @@ END_OF_DIV;
     return json_encode($data);
   }
 
-  /* SliderSetup: return the Javascript needed to set up the slider, including
-   * the images.
+  /* SliderSetupGeneric: return the Javascript needed to set up the slider,
+   * including the images.
+   * Args:
+   *  $json: JSON containing image data.
+   *  $slider_prefix: id_prefix - prefix of CSS id to be used by slider.
    * Returns:
    *  string, HTML that should be output.
    */
-  function SliderSetup() {
+  function SliderSetupGeneric($images, $id_prefix) {
     $template_directory = get_bloginfo('template_directory');
-    $images = trim(SliderImages('slider_large'));
+    $images = trim($images);
     $output = <<<END_OF_JAVASCRIPT
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
   var images = {$images};
-  Slider.initialise(images, '#slider', true);
+  Slider.initialise(images, '{$id_prefix}', true);
 });
 </script>
 <!-- Include the rest of the Javascript. -->
@@ -838,11 +841,11 @@ END_OF_JAVASCRIPT;
     return $output;
   }
 
-  /* SliderSetupInFooter: Run SliderSetup and output the result.  This should be
-   * used when registering SliderSetup to run in wp_footer().
+  /* SliderSetupFrontPage: output the Javascript needed to set up the slider,
+   * including the images.
    */
-  function SliderSetupInFooter() {
-    echo SliderSetup();
+  function SliderSetupFrontPage() {
+    echo SliderSetupGeneric(SliderImages('slider_large'), '#slider');
   }
 
   /* SliderSetupShortcode: wrap SliderSetup to provide a shortcode.
@@ -865,8 +868,41 @@ END_OF_JAVASCRIPT;
     if (!is_string($atts)) {
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
-    add_action('wp_footer', 'SliderSetupInFooter');
+    add_action('wp_footer', 'SliderSetupFrontPage');
     return '<div id="slider-div"></div>';
+  }
+
+  /* ProductPageSliderSetup: output the Javascript needed to set up the slider,
+   * including the images.
+   */
+  function ProductPageSliderSetup() {
+    global $PRODUCT_PAGE_SLIDER_DATA;
+    echo SliderSetupGeneric($PRODUCT_PAGE_SLIDER_DATA,
+      '#product-page-slider-div');
+  }
+
+  /* ProductPageSliderSetupShortcode: wrap ProducePageSliderSetupInFooter to
+   * provide a shortcode.  This *must not* be used in the enclosing form.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function ProductPageSliderSetupShortcode($atts, $content=null, $tag) {
+    if (!is_null($content) and $content != '') {
+      return '<h1>slider: no content accepted!  Given: '
+        . htmlspecialchars($content) . '</h1>' . "\n";
+    }
+    if (!is_string($atts)) {
+      return '<h1>slider: no attributes accepted!</h1>' . "\n";
+    }
+    add_action('wp_footer', 'ProducePageSliderSetupInFooter');
+    return '<div id="product-page-slider-div"></div>';
   }
 
   function CarePageShortcode($atts, $content, $tag) {
@@ -1083,6 +1119,7 @@ END_OF_CSS;
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
   add_shortcode('slider', 'SliderSetupShortcode');
+  add_shortcode('product_page_slider', 'ProductPageSliderSetupShortcode');
   add_shortcode('style_wrap', 'StyleWrapShortcode');
   add_shortcode('care_page', 'CarePageShortcode');
 ?>
