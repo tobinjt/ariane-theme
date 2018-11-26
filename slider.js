@@ -50,13 +50,18 @@ function SliderConf(images, id_prefix, images_are_links) {
   this.div_id = id_prefix + '-div';
   this.image_id = id_prefix + '-image';
   this.link_id = id_prefix + '-link';
+
+  // The first image will already have been displayed, so make sure it's the
+  // last image in the queue.
   this.images = images;
+  var first_image = this.images.shift();
   // Shuffle the images and set up preloading.
   Slider.fisherYates(this.images);
+  this.images.push(first_image);
   this.image_index = 0;
-  // Slider.initialise will load the 0th image, so we need to start preloading
-  // with the 1st image.
-  this.images_to_preload = this.images.slice(1, this.images.length);
+
+  // Copy the array because preloading modifies it inplace.
+  this.images_to_preload = this.images.slice(0, this.images.length);
   // Whether maybe_log() should log to console.
   this.log_to_console = false;
   this.last_log_date = new Date();
@@ -251,21 +256,6 @@ Slider.initialise = function(images, id_prefix, images_are_links) {
   jQuery(config.div_id
     ).css('height', max_image_height
     ).css('width', max_image_width);
-  var img = jQuery('<img>', {
-    'id': config.image_id.replace('#', ''),
-    'alt': 'Slider image'
-  });
-  if (config.images_are_links) {
-    var link = jQuery('<a>', {
-      'id': config.link_id.replace('#', ''),
-      'alt': 'Slider placeholder'
-    });
-    link.append(img);
-    jQuery(config.div_id).append(link);
-  } else {
-    jQuery(config.div_id).append(img);
-  }
-  Slider.change_image(config);
   Slider.preload_next_image(config);
   // Start the slider in 3 seconds, because the images are only fully displayed
   // for 3 seconds - the other 2 seconds are fading in and fading out.

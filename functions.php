@@ -1,4 +1,17 @@
 <?php
+  /* get_hostname: returns the hostname.
+   */
+  function get_hostname() {
+    return $_SERVER['SERVER_NAME'];
+  }
+
+  // Send errors to browser on dev site for easier debugging.
+  if (get_hostname() == 'dev.arianetobin.ie') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+  }
+
   // Define most of our functions first; some small functions will be defined
   // inline when configuring Wordpress.
   /* echo_title(): outputs the appropriate title.  */
@@ -26,12 +39,6 @@
     if ($paged > 1) {
       echo ' - page ' . $paged;
     }
-  }
-
-  /* get_hostname: returns the hostname.
-   */
-  function get_hostname() {
-    return $_SERVER['SERVER_NAME'];
   }
 
   /* get_current_url: returns the local portion of the URL, i.e. no hostname,
@@ -676,25 +683,19 @@ END_OF_HTML;
 
     # Look up the image(s).
     $image_ids = explode(',', $attrs['image_id']);
-    $single_image = (count($image_ids) == 1);
-    if ($single_image) {
-      # Single image is the simple, common case.
-      $image_info = wp_get_attachment_image_src(
-        intval($attrs['image_id']), 'product_size');
-      $attrs['image_url'] = $image_info[0];
-      $attrs['width'] = $image_info[1];
-      $attrs['height'] = $image_info[2];
-    } else {
-      $slider_images = array();
-      foreach ($image_ids as $image_id) {
-        $image_info = wp_get_attachment_image_src($image_id, 'product_size');
-        $slider_images[] = array(
-          'image_url' => $image_info[0],
-          'width' => $image_info[1],
-          'height' => $image_info[2],
-        );
-      }
+    $slider_images = array();
+    foreach ($image_ids as $image_id) {
+      $image_info = wp_get_attachment_image_src($image_id, 'product_size');
+      $slider_images[] = array(
+        'image_url' => $image_info[0],
+        'width' => $image_info[1],
+        'height' => $image_info[2],
+      );
     }
+    # Load the first image immediately.
+    $attrs['image_url'] = $slider_images[0]['image_url'];
+    $attrs['width'] = $slider_images[0]['width'];
+    $attrs['height'] = $slider_images[0]['height'];
 
     # Change "necklace" to "necklaces".
     if (substr($attrs['type'], -1) != 's') {
@@ -721,24 +722,13 @@ END_OF_HTML;
     }
 
     $html = <<<END_OF_HTML
-<div id="individual-jewellery-piece" class="flexboxrow">
-END_OF_HTML;
-    if ($single_image) {
-      $html .= <<<END_OF_HTML
-  <div id="individual-jewellery-image">
-    <img alt="{$range_in_piece_name}{$attrs['name']}"
+<div class="flexboxrow">
+  <div id="individual-jewellery-div" >
+    <img id="individual-jewellery-image"
+      alt="{$range_in_piece_name}{$attrs['name']}"
       src="{$attrs['image_url']}"
       width="{$attrs['width']}" height="{$attrs['height']}" />
   </div>
-END_OF_HTML;
-    } else {
-      global $PRODUCT_PAGE_SLIDER_DATA;
-      $PRODUCT_PAGE_SLIDER_DATA = json_encode($slider_images);
-      $html .= <<<END_OF_HTML
-[product_page_slider]
-END_OF_HTML;
-    }
-    $html .= <<<END_OF_HTML
   <div id="individual-jewellery-description">
     <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
     <p>{$content}</p>
@@ -754,7 +744,14 @@ END_OF_HTML;
   </div>
 </div>
 END_OF_HTML;
-    // add_to_cart needs to be expanded.
+    if (count($slider_images) > 1) {
+      global $PRODUCT_PAGE_SLIDER_DATA;
+      $PRODUCT_PAGE_SLIDER_DATA = json_encode($slider_images);
+      $html .= <<<END_OF_HTML
+[product_page_slider]
+END_OF_HTML;
+    }
+    // Shortcodes need to be expanded.
     return do_shortcode($html);
   }
 
@@ -812,8 +809,7 @@ END_OF_DIV;
    *  $image_size: either 'slider_large' or 'slider_small', the size of images
    *  to use in the slider.
    * Returns:
-   *  string, the Javascript contents of the array, *without* 'var foo = '
-   *  around it.
+   *  array of image information, needs to be passed to json_encode().
    */
   function SliderImages($image_size) {
     $media_query = new WP_Query(
@@ -824,13 +820,13 @@ END_OF_DIV;
         's'              => 'slider',
       )
     );
-    $data = array();
+    $images = array();
     foreach ($media_query->posts as $post) {
       $matches = array();
       if (preg_match('/^\s*slider\s+([^ ]+)$/', $post->post_content, $matches)) {
         $image_info = wp_get_attachment_image_src($post->ID, $image_size);
         if ($image_info) {
-          $data[] = array(
+          $images[] = array(
             'image_url' => $image_info[0],
             'link_url' => $matches[1],
             'width' => $image_info[1],
@@ -839,7 +835,7 @@ END_OF_DIV;
         }
       }
     }
-    return json_encode($data);
+    return $images;
   }
 
   /* SliderSetupGeneric: return the Javascript needed to set up the slider,
@@ -874,7 +870,8 @@ END_OF_JAVASCRIPT;
    * including the images.
    */
   function SliderSetupFrontPage() {
-    echo SliderSetupGeneric(SliderImages('slider_large'), '#slider', true);
+    global $SLIDER_IMAGES_FRONT_PAGE;
+    echo SliderSetupGeneric($SLIDER_IMAGES_FRONT_PAGE, '#slider', true);
   }
 
   /* SliderSetupShortcode: wrap SliderSetup to provide a shortcode.
@@ -897,8 +894,22 @@ END_OF_JAVASCRIPT;
     if (!is_string($atts)) {
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
+
     add_action('wp_footer', 'SliderSetupFrontPage');
-    return '<div id="slider-div"></div>';
+    $images = SliderImages('slider_large');
+    global $SLIDER_IMAGES_FRONT_PAGE;
+    $SLIDER_IMAGES_FRONT_PAGE = json_encode($images);
+    $image = $images[0];
+    $html = <<<END_OF_HTML
+<div id="slider-div">
+  <a href="#" id="slider-link" alt="Selection of Ariane's best work">
+    <img id="slider-image" src="{$image['image_url']}"
+      alt="Selection of Ariane's best work"
+      width="{$image['width']}" height="{$image['height']}" />
+  </a>
+</div>;
+END_OF_HTML;
+    return $html;
   }
 
   /* ProductPageSliderSetupInFooter: output the Javascript needed to set up the
@@ -931,7 +942,7 @@ END_OF_JAVASCRIPT;
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
     add_action('wp_footer', 'ProductPageSliderSetupInFooter');
-    return '<div id="individual-jewellery-div"></div>';
+    return '';
   }
 
   function CarePageShortcode($atts, $content, $tag) {
