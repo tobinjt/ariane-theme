@@ -114,6 +114,7 @@
       '/jewellery/botanical/'  => 'botanical',
       '/jewellery/cellule/'    => 'cellule',
       '/jewellery/confluence/' => 'confluence',
+      '/jewellery/dabble/'     => 'dabble',
       '/jewellery/halo/'       => 'halo',
       '/jewellery/laria/'      => 'laria',
       '/jewellery/sentinel/'   => 'sentinel',
