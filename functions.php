@@ -902,7 +902,8 @@ END_OF_JAVASCRIPT;
     $image = $images[0];
     $html = <<<END_OF_HTML
 <div id="slider-div">
-  <a href="#" id="slider-link" alt="Selection of Ariane's best work">
+  <a href="{$image['link_url']}" id="slider-link"
+    alt="Selection of Ariane's best work">
     <img id="slider-image" src="{$image['image_url']}"
       alt="Selection of Ariane's best work"
       width="{$image['width']}" height="{$image['height']}" />
