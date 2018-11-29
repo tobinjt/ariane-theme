@@ -805,13 +805,10 @@ END_OF_DIV;
 
   /* SliderImages: Dynamically build the Javascript array of images when
    * displaying the slider.
-   * Args:
-   *  $image_size: either 'slider_large' or 'slider_small', the size of images
-   *  to use in the slider.
    * Returns:
    *  array of image information, needs to be passed to json_encode().
    */
-  function SliderImages($image_size) {
+  function SliderImages() {
     $media_query = new WP_Query(
       array(
         'post_type'      => 'attachment',
@@ -824,15 +821,16 @@ END_OF_DIV;
     foreach ($media_query->posts as $post) {
       $matches = array();
       if (preg_match('/^\s*slider\s+([^ ]+)$/', $post->post_content, $matches)) {
-        $image_info = wp_get_attachment_image_src($post->ID, $image_size);
-        if ($image_info) {
-          $images[] = array(
-            'src' => $image_info[0],
-            'href' => $matches[1],
-            'width' => $image_info[1],
-            'height' => $image_info[2],
-          );
-        }
+        $image_large = wp_get_attachment_image_src($post->ID, 'slider_large');
+        $image_small = wp_get_attachment_image_src($post->ID, 'slider_small');
+        $images[] = array(
+          'src' => $image_large[0],
+          'href' => $matches[1],
+          'srcset' => ("{$image_large[0]} {$image_large[1]}w,\n"
+                       . " {$image_small[0]} {$image_small[1]}w"),
+          'sizes' => ("(max-width: 799px) {$image_small[1]}px,\n"
+                      . " {$image_large[1]}px"),
+        );
       }
     }
     return $images;
@@ -905,9 +903,10 @@ END_OF_JAVASCRIPT;
     alt="Selection of Ariane's best work">
     <img id="slider-image" src="{$image['src']}"
       alt="Selection of Ariane's best work"
-      width="{$image['width']}" height="{$image['height']}" />
+      srcset="{$image['srcset']}"
+      sizes="{$image['sizes']}" />
   </a>
-</div>;
+</div>
 END_OF_HTML;
     return $html;
   }

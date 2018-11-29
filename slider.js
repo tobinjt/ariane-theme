@@ -119,15 +119,14 @@ Slider.fisherYates = function(myArray) {
  */
 Slider.change_image = function(config) {
   Slider.maybe_log(config, 'change_image called');
-  var margin_top = (parseInt(jQuery(config.div_id).css('height')) -
-                      config.images[config.image_index].height) / 2;
   var image = config.images[config.image_index];
-  jQuery(config.image_id
-    ).attr('src', image.src
-    ).attr('width', image.width
-    ).attr('height', image.height
-    // Limit the margin so that smaller images aren't pushed below the fold.
-    ).css('margin-top', Math.min(margin_top, 100));
+  var img = jQuery(config.image_id);
+  var attrs = ['height', 'width', 'src', 'srcset', 'sizes'];
+  for (var i = 0; i < attrs.length; i++) {
+    if (attrs[i] in image) {
+      img.attr(attrs[i], image[attrs[i]]);
+    }
+  }
   if ('href' in image) {
     jQuery(config.link_id).attr('href', image.href);
   }
@@ -144,7 +143,8 @@ Slider.preload_next_image = function(config) {
   Slider.maybe_log(config, 'preload_next_image called');
   if (config.images_to_preload.length) {
     var src = config.images_to_preload.shift().src;
-    var image = jQuery('<img />').attr('src', src);
+    // TODO: preloading?
+    // var image = jQuery('<img />').attr('src', src);
   }
   Slider.maybe_log(config, 'preload_next_image returning');
 };
@@ -235,24 +235,30 @@ Slider.finish_initialisation = function(config) {
 Slider.initialise = function(images, id_prefix) {
   var config = new SliderConf(images, id_prefix);
   Slider.maybe_log(config, 'initialise called');
-  var max_image_height = 0;
-  var max_image_width = 0;
-  // Set div height and width:
-  // - We manually position the top of the image so they don't jump around too
-  //   much.
-  // - We want the div to have a consistent width so that content on either side
-  //   doesn't jump around too much
-  jQuery(config.images).each(function() {
-    if (this.height > max_image_height) {
-      max_image_height = this.height;
-    }
-    if (this.width > max_image_width) {
-      max_image_width = this.width;
-    }
-  });
-  jQuery(config.div_id
-    ).css('height', max_image_height
-    ).css('width', max_image_width);
+
+  // Front page slider doesn't use width and height because it uses srcset and
+  // sizes.  Product page sliders do use width and height.
+  if ('width' in images[0]) {
+    var max_image_height = 0;
+    var max_image_width = 0;
+    // Set div height and width:
+    // - We manually position the top of the image so they don't jump around too
+    //   much.
+    // - We want the div to have a consistent width so that content on either
+    //   side doesn't jump around too much
+    jQuery(config.images).each(function() {
+      if (this.height > max_image_height) {
+        max_image_height = this.height;
+      }
+      if (this.width > max_image_width) {
+        max_image_width = this.width;
+      }
+    });
+    jQuery(config.div_id
+      ).css('height', max_image_height
+      ).css('width', max_image_width);
+  }
+
   Slider.preload_next_image(config);
   // Start the slider in 3 seconds, because the images are only fully displayed
   // for 3 seconds - the other 2 seconds are fading in and fading out.
