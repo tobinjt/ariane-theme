@@ -843,11 +843,10 @@ END_OF_DIV;
    * Args:
    *  $json: JSON containing image data.
    *  $slider_prefix: id_prefix - prefix of CSS id to be used by slider.
-   *  $images_are_links: bool, whether images are links.
    * Returns:
    *  string, HTML that should be output.
    */
-  function SliderSetupGeneric($images, $id_prefix, $images_are_links) {
+  function SliderSetupGeneric($images, $id_prefix) {
     $template_directory = get_bloginfo('template_directory');
     $images = trim($images);
     $output = <<<END_OF_JAVASCRIPT
@@ -855,7 +854,7 @@ END_OF_DIV;
 <script type="text/javascript">
 jQuery(document).ready(function() {
   var images = {$images};
-  Slider.initialise(images, '{$id_prefix}', $images_are_links);
+  Slider.initialise(images, '{$id_prefix}');
 });
 </script>
 <!-- Include the rest of the Javascript. -->
@@ -871,7 +870,7 @@ END_OF_JAVASCRIPT;
    */
   function SliderSetupFrontPage() {
     global $SLIDER_IMAGES_FRONT_PAGE;
-    echo SliderSetupGeneric($SLIDER_IMAGES_FRONT_PAGE, '#slider', true);
+    echo SliderSetupGeneric($SLIDER_IMAGES_FRONT_PAGE, '#slider');
   }
 
   /* SliderSetupShortcode: wrap SliderSetup to provide a shortcode.
@@ -918,8 +917,7 @@ END_OF_HTML;
    */
   function ProductPageSliderSetupInFooter() {
     global $PRODUCT_PAGE_SLIDER_DATA;
-    echo SliderSetupGeneric($PRODUCT_PAGE_SLIDER_DATA,
-      '#individual-jewellery', false);
+    echo SliderSetupGeneric($PRODUCT_PAGE_SLIDER_DATA, '#individual-jewellery');
   }
 
   /* ProductPageSliderSetupShortcode: wrap ProductPageSliderSetupInFooter to

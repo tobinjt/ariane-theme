@@ -32,10 +32,9 @@
  *   to be an Object with 'width', 'height', and 'image_url' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
- * @param {bool} images_are_links - whether images should link to pages.
  */
 // One slider's configuration.
-function SliderConf(images, id_prefix, images_are_links) {
+function SliderConf(images, id_prefix) {
   // The time period for the image to fade in or out.
   this.fade_duration = 1000;
   // How long to fully display the image.
@@ -46,7 +45,6 @@ function SliderConf(images, id_prefix, images_are_links) {
   // id_prefix identifies the elements to change; id_prefix-div,
   // id_prefix-image, and id_prefix-link will be changed.
   this.id_prefix = id_prefix;
-  this.images_are_links = images_are_links;
   this.div_id = id_prefix + '-div';
   this.image_id = id_prefix + '-image';
   this.link_id = id_prefix + '-link';
@@ -130,7 +128,7 @@ Slider.change_image = function(config) {
     ).attr('height', image.height
     // Limit the margin so that smaller images aren't pushed below the fold.
     ).css('margin-top', Math.min(margin_top, 100));
-  if (config.images_are_links) {
+  if ('link_url' in image) {
     jQuery(config.link_id).attr('href', image.link_url);
   }
   config.image_index = (config.image_index + 1) % config.images.length;
@@ -233,10 +231,9 @@ Slider.finish_initialisation = function(config) {
  *   to be an Object with 'width', 'height', and 'image_url' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
- * @param {bool} images_are_links - whether images should link to pages.
  */
-Slider.initialise = function(images, id_prefix, images_are_links) {
-  var config = new SliderConf(images, id_prefix, images_are_links);
+Slider.initialise = function(images, id_prefix) {
+  var config = new SliderConf(images, id_prefix);
   Slider.maybe_log(config, 'initialise called');
   var max_image_height = 0;
   var max_image_width = 0;
