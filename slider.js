@@ -29,7 +29,7 @@
  *
  * @constructor
  * @param {Object[]} images - images to display.  Other code needs each image
- *   to be an Object with 'width', 'height', and 'image_url' attributes.
+ *   to be an Object with 'width', 'height', and 'src' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
  */
@@ -123,13 +123,13 @@ Slider.change_image = function(config) {
                       config.images[config.image_index].height) / 2;
   var image = config.images[config.image_index];
   jQuery(config.image_id
-    ).attr('src', image.image_url
+    ).attr('src', image.src
     ).attr('width', image.width
     ).attr('height', image.height
     // Limit the margin so that smaller images aren't pushed below the fold.
     ).css('margin-top', Math.min(margin_top, 100));
-  if ('link_url' in image) {
-    jQuery(config.link_id).attr('href', image.link_url);
+  if ('href' in image) {
+    jQuery(config.link_id).attr('href', image.href);
   }
   config.image_index = (config.image_index + 1) % config.images.length;
   Slider.maybe_log(config, 'change_image returning');
@@ -143,8 +143,8 @@ Slider.change_image = function(config) {
 Slider.preload_next_image = function(config) {
   Slider.maybe_log(config, 'preload_next_image called');
   if (config.images_to_preload.length) {
-    var image_url = config.images_to_preload.shift().image_url;
-    var image = jQuery('<img />').attr('src', image_url);
+    var src = config.images_to_preload.shift().src;
+    var image = jQuery('<img />').attr('src', src);
   }
   Slider.maybe_log(config, 'preload_next_image returning');
 };
@@ -228,7 +228,7 @@ Slider.finish_initialisation = function(config) {
  * - Set up a timeout to call finish_initialisation.
  *
  * @param {Object[]} images - images to display.  Other code needs each image
- *   to be an Object with 'width', 'height', and 'image_url' attributes.
+ *   to be an Object with 'width', 'height', and 'src' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
  */

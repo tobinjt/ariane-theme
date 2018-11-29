@@ -687,13 +687,13 @@ END_OF_HTML;
     foreach ($image_ids as $image_id) {
       $image_info = wp_get_attachment_image_src($image_id, 'product_size');
       $slider_images[] = array(
-        'image_url' => $image_info[0],
+        'src' => $image_info[0],
         'width' => $image_info[1],
         'height' => $image_info[2],
       );
     }
     # Load the first image immediately.
-    $attrs['image_url'] = $slider_images[0]['image_url'];
+    $attrs['src'] = $slider_images[0]['src'];
     $attrs['width'] = $slider_images[0]['width'];
     $attrs['height'] = $slider_images[0]['height'];
 
@@ -726,7 +726,7 @@ END_OF_HTML;
   <div id="individual-jewellery-div" >
     <img id="individual-jewellery-image"
       alt="{$range_in_piece_name}{$attrs['name']}"
-      src="{$attrs['image_url']}"
+      src="{$attrs['src']}"
       width="{$attrs['width']}" height="{$attrs['height']}" />
   </div>
   <div id="individual-jewellery-description">
@@ -827,8 +827,8 @@ END_OF_DIV;
         $image_info = wp_get_attachment_image_src($post->ID, $image_size);
         if ($image_info) {
           $images[] = array(
-            'image_url' => $image_info[0],
-            'link_url' => $matches[1],
+            'src' => $image_info[0],
+            'href' => $matches[1],
             'width' => $image_info[1],
             'height' => $image_info[2],
           );
@@ -901,9 +901,9 @@ END_OF_JAVASCRIPT;
     $image = $images[0];
     $html = <<<END_OF_HTML
 <div id="slider-div">
-  <a href="{$image['link_url']}" id="slider-link"
+  <a href="{$image['href']}" id="slider-link"
     alt="Selection of Ariane's best work">
-    <img id="slider-image" src="{$image['image_url']}"
+    <img id="slider-image" src="{$image['src']}"
       alt="Selection of Ariane's best work"
       width="{$image['width']}" height="{$image['height']}" />
   </a>
