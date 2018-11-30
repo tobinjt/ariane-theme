@@ -441,17 +441,17 @@ CHECKOUT_MESSAGE;
         'range'      => $csv_data[0],
         'alt'        => $csv_data[1],
         'image_id'   => $csv_data[2],
-        'link'       => $csv_data[3],
+        'href'       => $csv_data[3],
         'product_id' => $csv_data[4],
         'width'      => 0,
         'height'     => 0,
       );
-      if (substr($data['link'], -1) != '/') {
+      if (substr($data['href'], -1) != '/') {
         $data['link'] .= '/';
       }
       $image_info = wp_get_attachment_image_src(
         intval($data['image_id']), 'grid_size');
-      $data['image'] = $image_info[0];
+      $data['src'] = $image_info[0];
       $data['width'] = $image_info[1];
       $data['height'] = $image_info[2];
       $ranges[] = $data;
@@ -529,14 +529,14 @@ END_OF_OUT_OF_STOCK;
       $div = <<<END_OF_IMAGE_AND_RANGE
   <div class="aligncenter jewellery-block">
     <div class="jewellery-picture-container">
-      <a href="{$data['link']}">
-        <img src="{$data['image']}" alt="{$data['alt']}"
+      <a href="{$data['href']}">
+        <img src="{$data['src']}" alt="{$data['alt']}"
           width="{$data['width']}" height="{$data['height']}"
           class="aligncenter block" />
       </a>
     </div>
     <div class="larger-text text-centered left-right-margin grey">
-      <a href="{$data['link']}">{$data['range']}</a>
+      <a href="{$data['href']}">{$data['range']}</a>
     </div>
 END_OF_IMAGE_AND_RANGE;
       $div .= <<<END_OF_OPEN_BUY_DIV
