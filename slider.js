@@ -81,7 +81,7 @@ Slider.maybe_log = function(config, message) {
   if (config.log_to_console) {
     var date = new Date();
     var diff = date - config.last_log_date;
-    console.log(config.id_prefix + ' ' + date.toUTCString() + ' ' + diff +
+    console.log(config.id_prefix + ' ' + date.toString() + ' ' + diff +
                 ' ' + message);
   }
 };
