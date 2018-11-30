@@ -443,17 +443,21 @@ CHECKOUT_MESSAGE;
         'image_id'   => $csv_data[2],
         'href'       => $csv_data[3],
         'product_id' => $csv_data[4],
-        'width'      => 0,
-        'height'     => 0,
       );
       if (substr($data['href'], -1) != '/') {
         $data['link'] .= '/';
       }
-      $image_info = wp_get_attachment_image_src(
-        intval($data['image_id']), 'grid_size');
-      $data['src'] = $image_info[0];
-      $data['width'] = $image_info[1];
-      $data['height'] = $image_info[2];
+      $image_ids = explode(',', $data['image_id']);
+      $slider_images = array();
+      foreach ($image_ids as $image_id) {
+        $image_info = wp_get_attachment_image_src($image_id, 'grid_size');
+        $slider_images[] = array(
+          'src' => $image_info[0],
+          'width' => $image_info[1],
+          'height' => $image_info[2],
+        );
+      }
+      $data['images'] = $slider_images;
       $ranges[] = $data;
     }
     return $ranges;
@@ -525,14 +529,23 @@ END_OF_OUT_OF_STOCK;
     $ranges = ParseJewelleryGridContents($page_contents);
     # Turn the data structure into <divs>s.
     $divs = array();
-    foreach ($ranges as $_ => $data) {
+    $slider_needed = false;
+    foreach ($ranges as $i => $data) {
+      $image = $data['images'][0];
+      $id = "item-" . $i;
+      if (count($data['images']) > 1) {
+        global $SLIDER_IMAGES;
+        $SLIDER_IMAGES['#' . $id] = json_encode($data['images']);
+        $slider_needed = true;
+      }
+
       $div = <<<END_OF_IMAGE_AND_RANGE
   <div class="aligncenter jewellery-block">
     <div class="jewellery-picture-container">
       <a href="{$data['href']}">
-        <img src="{$data['src']}" alt="{$data['alt']}"
-          width="{$data['width']}" height="{$data['height']}"
-          class="aligncenter block" />
+        <img src="{$image['src']}" alt="{$data['alt']}"
+          width="{$image['width']}" height="{$image['height']}"
+          class="aligncenter block" id="{$id}-image"/>
       </a>
     </div>
     <div class="larger-text text-centered left-right-margin grey">
@@ -570,6 +583,9 @@ END_OF_HTML;
             </div>
           </div>
 END_OF_HTML;
+    if ($slider_needed) {
+      add_action('wp_footer', 'SliderSetupGeneric');
+    }
     return do_shortcode(implode("\n", $html));
   }
 

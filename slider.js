@@ -49,6 +49,9 @@ function SliderConf(id_prefix, images) {
   this.image_id = id_prefix + '-image';
   this.link_id = id_prefix + '-link';
 
+  if (!jQuery(this.image_id).length) {
+    alert('Did not find img id ' + this.image_id);
+  }
   // The first image will already have been displayed, so make sure it's the
   // last image in the queue.
   this.images = images;
@@ -78,7 +81,8 @@ Slider.maybe_log = function(config, message) {
   if (config.log_to_console) {
     var date = new Date();
     var diff = date - config.last_log_date;
-    console.log(date.toUTCString() + ' ' + diff + ' ' + message);
+    console.log(config.id_prefix + ' ' + date.toUTCString() + ' ' + diff +
+                ' ' + message);
   }
 };
 
