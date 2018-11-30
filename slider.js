@@ -28,13 +28,13 @@
  * Initialise a SliderConf.
  *
  * @constructor
- * @param {Object[]} images - images to display.  Other code needs each image
- *   to be an Object with 'width', 'height', and 'src' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
+ * @param {Object[]} images - images to display.  Other code needs each image
+ *   to be an Object with 'width', 'height', and 'src' attributes.
  */
 // One slider's configuration.
-function SliderConf(images, id_prefix) {
+function SliderConf(id_prefix, images) {
   // The time period for the image to fade in or out.
   this.fade_duration = 1000;
   // How long to fully display the image.
@@ -227,13 +227,13 @@ Slider.finish_initialisation = function(config) {
  * - Preload the next image.
  * - Set up a timeout to call finish_initialisation.
  *
- * @param {Object[]} images - images to display.  Other code needs each image
- *   to be an Object with 'width', 'height', and 'src' attributes.
  * @param {string} id_prefix - prefix of CSS id of each element accessed by this
  *   code.
+ * @param {Object[]} images - images to display.  Other code needs each image
+ *   to be an Object with 'width', 'height', and 'src' attributes.
  */
-Slider.initialise = function(images, id_prefix) {
-  var config = new SliderConf(images, id_prefix);
+Slider.initialise = function(id_prefix, images) {
+  var config = new SliderConf(id_prefix, images);
   Slider.maybe_log(config, 'initialise called');
 
   // Front page slider doesn't use width and height because it uses srcset and

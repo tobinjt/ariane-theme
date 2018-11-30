@@ -12,6 +12,10 @@
     ini_set('display_startup_errors', 1);
   }
 
+  // Used to collect slider configs and set them up.
+  global $SLIDER_IMAGES;
+  $SLIDER_IMAGES = array();
+
   // Define most of our functions first; some small functions will be defined
   // inline when configuring Wordpress.
   /* echo_title(): outputs the appropriate title.  */
@@ -745,10 +749,10 @@ END_OF_HTML;
 </div>
 END_OF_HTML;
     if (count($slider_images) > 1) {
-      global $PRODUCT_PAGE_SLIDER_DATA;
-      $PRODUCT_PAGE_SLIDER_DATA = json_encode($slider_images);
+      global $SLIDER_IMAGES;
+      $SLIDER_IMAGES['#individual-jewellery'] = json_encode($slider_images);
       $html .= <<<END_OF_HTML
-[product_page_slider]
+[generic_slider]
 END_OF_HTML;
     }
     // Shortcodes need to be expanded.
@@ -836,23 +840,26 @@ END_OF_DIV;
     return $images;
   }
 
-  /* SliderSetupGeneric: return the Javascript needed to set up the slider,
-   * including the images.
-   * Args:
-   *  $json: JSON containing image data.
-   *  $slider_prefix: id_prefix - prefix of CSS id to be used by slider.
-   * Returns:
-   *  string, HTML that should be output.
+  /* SliderSetupGeneric: output the Javascript needed to set up the slider,
+   * including the images.  Should be called indirectly by Wordpress, by
+   * registering it with:
+   * add_action('wp_footer', 'SliderSetupGeneric');
    */
-  function SliderSetupGeneric($images, $id_prefix) {
-    $template_directory = get_bloginfo('template_directory');
-    $images = trim($images);
+  function SliderSetupGeneric() {
     $output = <<<END_OF_JAVASCRIPT
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
-  var images = {$images};
-  Slider.initialise(images, '{$id_prefix}');
+END_OF_JAVASCRIPT;
+    global $SLIDER_IMAGES;
+    foreach ($SLIDER_IMAGES as $id_prefix => $images) {
+      $images = trim($images);
+      $output .= <<<END_OF_JAVASCRIPT
+  Slider.initialise('{$id_prefix}', {$images});
+END_OF_JAVASCRIPT;
+    }
+    $template_directory = get_bloginfo('template_directory');
+    $output .= <<<END_OF_JAVASCRIPT
 });
 </script>
 <!-- Include the rest of the Javascript. -->
@@ -860,19 +867,51 @@ jQuery(document).ready(function() {
 <!-- End of SliderSetup. -->
 
 END_OF_JAVASCRIPT;
-    return $output;
+    echo $output;
   }
 
-  /* SliderSetupFrontPage: output the Javascript needed to set up the slider,
-   * including the images.
+  /* FrontPageSliderSetupShortcode: wrap SliderSetupGeneric to provide a
+   * shortcode.  This *must not* be used in the enclosing form.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
    */
-  function SliderSetupFrontPage() {
-    global $SLIDER_IMAGES_FRONT_PAGE;
-    echo SliderSetupGeneric($SLIDER_IMAGES_FRONT_PAGE, '#slider');
+  function FrontPageSliderSetupShortcode($atts, $content=null, $tag) {
+    if (!is_null($content) and $content != '') {
+      return '<h1>slider: no content accepted!  Given: '
+        . htmlspecialchars($content) . '</h1>' . "\n";
+    }
+    if (!is_string($atts)) {
+      return '<h1>slider: no attributes accepted!</h1>' . "\n";
+    }
+
+    add_action('wp_footer', 'SliderSetupGeneric');
+    $images = SliderImages('slider_large');
+    global $SLIDER_IMAGES;
+    $SLIDER_IMAGES['#slider'] = json_encode($images);
+    $image = $images[0];
+    $html = <<<END_OF_HTML
+<div id="slider-div">
+  <a href="{$image['href']}" id="slider-link"
+    alt="Selection of Ariane's best work">
+    <img id="slider-image" src="{$image['src']}"
+      alt="Selection of Ariane's best work"
+      srcset="{$image['srcset']}"
+      sizes="{$image['sizes']}" />
+  </a>
+</div>
+END_OF_HTML;
+    return $html;
   }
 
-  /* SliderSetupShortcode: wrap SliderSetup to provide a shortcode.
-   * This *must not* be used in the enclosing form.
+  /* SliderSetupShortcode: wrap SliderSetupGeneric to provide a shortcode.  This
+   * *must not* be used in the enclosing form.
    * Args (names are ugly but Wordpress-standard):
    *  $atts: an associative array of attributes, or an empty string if no
    *    attributes are given.
@@ -891,55 +930,7 @@ END_OF_JAVASCRIPT;
     if (!is_string($atts)) {
       return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
-
-    add_action('wp_footer', 'SliderSetupFrontPage');
-    $images = SliderImages('slider_large');
-    global $SLIDER_IMAGES_FRONT_PAGE;
-    $SLIDER_IMAGES_FRONT_PAGE = json_encode($images);
-    $image = $images[0];
-    $html = <<<END_OF_HTML
-<div id="slider-div">
-  <a href="{$image['href']}" id="slider-link"
-    alt="Selection of Ariane's best work">
-    <img id="slider-image" src="{$image['src']}"
-      alt="Selection of Ariane's best work"
-      srcset="{$image['srcset']}"
-      sizes="{$image['sizes']}" />
-  </a>
-</div>
-END_OF_HTML;
-    return $html;
-  }
-
-  /* ProductPageSliderSetupInFooter: output the Javascript needed to set up the
-   * slider, including the images.
-   */
-  function ProductPageSliderSetupInFooter() {
-    global $PRODUCT_PAGE_SLIDER_DATA;
-    echo SliderSetupGeneric($PRODUCT_PAGE_SLIDER_DATA, '#individual-jewellery');
-  }
-
-  /* ProductPageSliderSetupShortcode: wrap ProductPageSliderSetupInFooter to
-   * provide a shortcode.  This *must not* be used in the enclosing form.
-   * Args (names are ugly but Wordpress-standard):
-   *  $atts: an associative array of attributes, or an empty string if no
-   *    attributes are given.
-   *  $content: the enclosed content (if the shortcode is used in its enclosing
-   *    form)
-   *  $tag: the shortcode tag, useful for shared callback functions
-   * Returns:
-   *  string, the HTML to insert in the page (Wordpress does that
-   *    automatically).
-   */
-  function ProductPageSliderSetupShortcode($atts, $content=null, $tag) {
-    if (!is_null($content) and $content != '') {
-      return '<h1>slider: no content accepted!  Given: '
-        . htmlspecialchars($content) . '</h1>' . "\n";
-    }
-    if (!is_string($atts)) {
-      return '<h1>slider: no attributes accepted!</h1>' . "\n";
-    }
-    add_action('wp_footer', 'ProductPageSliderSetupInFooter');
+    add_action('wp_footer', 'SliderSetupGeneric');
     return '';
   }
 
@@ -1078,7 +1069,7 @@ END_OF_HTML;
     $data->deps = array_diff($data->deps, array('jquery-migrate'));
   }
   add_action('wp_default_scripts', 'blockJqueryMigrate');
-  wp_deregister_script('jquery-migrate');
+  // wp_deregister_script('jquery-migrate');
 
   // Stop wp-embed being loaded.  I don't know why this has to be triggered in
   // wp_footer.
@@ -1156,8 +1147,8 @@ END_OF_CSS;
   // Add shortcodes.
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
-  add_shortcode('slider', 'SliderSetupShortcode');
-  add_shortcode('product_page_slider', 'ProductPageSliderSetupShortcode');
+  add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
+  add_shortcode('generic_slider', 'SliderSetupShortcode');
   add_shortcode('style_wrap', 'StyleWrapShortcode');
   add_shortcode('care_page', 'CarePageShortcode');
 ?>
