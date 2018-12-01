@@ -120,6 +120,22 @@ Slider.fisherYates = function(myArray) {
 };
 
 /**
+ * Copy attributes from an image to an img object.
+ *
+ * @param {Object} image - a single image.
+ * @param {Object} img - an img object.
+ */
+
+Slider.copy_attributes = function(image, img) {
+  var attrs = ['height', 'width', 'src', 'srcset', 'sizes'];
+  for (var i = 0; i < attrs.length; i++) {
+    if (attrs[i] in image) {
+      img.attr(attrs[i], image[attrs[i]]);
+    }
+  }
+};
+
+/**
  * Change the image that's displayed, placing it appropriately within the div,
  * updating the link target, and so on.  Doesn't do fading - caller needs to do
  * that.  Doesn't set up timeouts or callbacks or anything, again that's the
@@ -131,12 +147,7 @@ Slider.change_image = function(config) {
   Slider.maybe_log(config, 'change_image called');
   var image = config.images[config.image_index];
   var img = jQuery(config.image_id);
-  var attrs = ['height', 'width', 'src', 'srcset', 'sizes'];
-  for (var i = 0; i < attrs.length; i++) {
-    if (attrs[i] in image) {
-      img.attr(attrs[i], image[attrs[i]]);
-    }
-  }
+  Slider.copy_attributes(image, img);
   if ('href' in image) {
     jQuery(config.link_id).attr('href', image.href);
   }
@@ -152,9 +163,9 @@ Slider.change_image = function(config) {
 Slider.preload_next_image = function(config) {
   Slider.maybe_log(config, 'preload_next_image called');
   if (config.images_to_preload.length) {
-    var src = config.images_to_preload.shift().src;
-    // TODO: preloading?
-    // var image = jQuery('<img />').attr('src', src);
+    var image = config.images_to_preload.shift();
+    var img = jQuery('<img />');
+    Slider.copy_attributes(image, img);
   }
   Slider.maybe_log(config, 'preload_next_image returning');
 };
