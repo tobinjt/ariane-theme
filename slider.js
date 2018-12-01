@@ -28,26 +28,34 @@
  * Initialise a SliderConf.
  *
  * @constructor
- * @param {string} id_prefix - prefix of CSS id of each element accessed by this
- *   code.
+ * @param {Object} input_config - config containing id_prefix and other options.
  * @param {Object[]} images - images to display.  Other code needs each image
  *   to be an Object with 'width', 'height', and 'src' attributes.
  */
 // One slider's configuration.
-function SliderConf(id_prefix, images) {
+function SliderConf(input_config, images) {
+  // Base values that can be overridden by input_config.
   // The time period for the image to fade in or out.
   this.fade_duration = 1000;
   // How long to fully display the image.
   this.display_duration = 3000;
+  // id_prefix identifies the elements to change; id_prefix-div,
+  // id_prefix-image, and id_prefix-link will be changed.
+  this.id_prefix = 'id_prefix must be supplied in input_config';
+  // Whether maybe_log() should log to console.
+  this.log_to_console = false;
+
+  for (var attrname in input_config) {
+    this[attrname] = input_config[attrname];
+  }
+
+  // Derived values.
   // How long between slider rotations.
   this.rotation_duration = (
       this.display_duration + (this.fade_duration * 2));
-  // id_prefix identifies the elements to change; id_prefix-div,
-  // id_prefix-image, and id_prefix-link will be changed.
-  this.id_prefix = id_prefix;
-  this.div_id = id_prefix + '-div';
-  this.image_id = id_prefix + '-image';
-  this.link_id = id_prefix + '-link';
+  this.div_id = this.id_prefix + '-div';
+  this.image_id = this.id_prefix + '-image';
+  this.link_id = this.id_prefix + '-link';
 
   if (!jQuery(this.image_id).length) {
     alert('Did not find img id ' + this.image_id);
@@ -63,8 +71,6 @@ function SliderConf(id_prefix, images) {
 
   // Copy the array because preloading modifies it inplace.
   this.images_to_preload = this.images.slice(0, this.images.length);
-  // Whether maybe_log() should log to console.
-  this.log_to_console = false;
   this.last_log_date = new Date();
 }
 
@@ -231,13 +237,11 @@ Slider.finish_initialisation = function(config) {
  * - Preload the next image.
  * - Set up a timeout to call finish_initialisation.
  *
- * @param {string} id_prefix - prefix of CSS id of each element accessed by this
- *   code.
- * @param {Object[]} images - images to display.  Other code needs each image
- *   to be an Object with 'width', 'height', and 'src' attributes.
+ * @param {Object} input_config - config containing id_prefix and other options.
+ * @param {Object[]} images - images to display.
  */
-Slider.initialise = function(id_prefix, images) {
-  var config = new SliderConf(id_prefix, images);
+Slider.initialise = function(input_config, images) {
+  var config = new SliderConf(input_config, images);
   Slider.maybe_log(config, 'initialise called');
 
   // Front page slider doesn't use width and height because it uses srcset and
@@ -264,8 +268,9 @@ Slider.initialise = function(id_prefix, images) {
   }
 
   Slider.preload_next_image(config);
-  // Start the slider in 3 seconds, because the images are only fully displayed
-  // for 3 seconds - the other 2 seconds are fading in and fading out.
+  // Start the slider in display_duration seconds, because the images are only
+  // fully displayed for display_duration seconds - the other seconds in
+  // rotation_duration are fading in and fading out.
   var callback = function() {
     Slider.finish_initialisation(config);
   };

@@ -5,8 +5,12 @@
     return $_SERVER['SERVER_NAME'];
   }
 
+  function is_dev_website() {
+    return get_hostname() == 'dev.arianetobin.ie';
+  }
+
   // Send errors to browser on dev site for easier debugging.
-  if (get_hostname() == 'dev.arianetobin.ie') {
+  if (is_dev_website()) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -866,12 +870,16 @@ END_OF_DIV;
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
+
 END_OF_JAVASCRIPT;
+    $is_dev_website = is_dev_website() ? 'true' : 'false';
     global $SLIDER_IMAGES;
     foreach ($SLIDER_IMAGES as $id_prefix => $images) {
       $images = trim($images);
       $output .= <<<END_OF_JAVASCRIPT
-  Slider.initialise('{$id_prefix}', {$images});
+  Slider.initialise({'id_prefix': '{$id_prefix}',
+                     'log_to_console': {$is_dev_website}},
+                    {$images});
 END_OF_JAVASCRIPT;
     }
     $template_directory = get_bloginfo('template_directory');
