@@ -445,7 +445,7 @@ CHECKOUT_MESSAGE;
         'product_id' => $csv_data[4],
       );
       if (substr($data['href'], -1) != '/') {
-        $data['link'] .= '/';
+        $data['href'] .= '/';
       }
       $image_ids = explode(',', $data['image_id']);
       $slider_images = array();
