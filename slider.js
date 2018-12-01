@@ -3,26 +3,28 @@
 // Flow of control:
 // 1) Slider.initialise(images, id_prefix) is called, which sets up everything,
 //    including displaying the first image and preloading the next image.
-//    The page must contain a single <div> with the name id_prefix + '-div'.
+//    The page must contain the necessary HTML for images and links.
 // 2) The last action taken by Slider.initialise() is to set up a once-off
 //    function to be called in Slider.display_duration milliseconds.  This will
-//    a) call Slider.fade_image() to rotate the slider the first time, and will
-//    b) call setInterval so that Slider.fade_image() is called every
-//       Slider.rotation_duration milliseconds.
-// 3) Slider.fade_image() causes the image to fade out over Slider.fade_duration
-//    milliseconds, and sets Slider.fade_image_callback() as the callback.
-// 4) Slider.fade_image_callback() calls Slider.change_image() to change the
-//    image.  Then it causes the image to fade in over Slider.fade_duration
-//    milliseconds, and sets Slider.preload_next_image() as the callback.
+//    a) call Slider.fade_image_then_change_image() to rotate the slider the
+//       first time, and will
+//    b) call setInterval so that Slider.fade_image_then_change_image() is
+//       called every Slider.rotation_duration milliseconds.
+// 3) Slider.fade_image_then_change_image() causes the image to fade out over
+//    Slider.fade_duration milliseconds, and sets
+//    Slider.change_image_and_fade_in() as the callback.
+// 4) Slider.change_image_and_fade_in() calls Slider.change_image() to change
+//    the image.  Then it causes the image to fade in over Slider.fade_duration
+//    milliseconds, and calls Slider.preload_next_image().
 // 5) Slider.preload_next_image() will preload the next image if they haven't
 //    all been preloaded.
 // 6) Nothing happens for a while - the image is being displayed.
-// 7) The interval timer calls Slider.fade_image() and steps 3-7 repeat forever.
+// 7) The interval timer calls Slider.fade_image_then_change_image() and steps
+//    3-7 repeat forever.
 //
 // See http://usejsdoc.org/ for how to write the function docs.
 // TODO: the steps above somewhat duplicate the function documentation,
 // rationalise them.
-// TODO: think about the overall process and whether it can be simplified.
 
 /**
  * Initialise a SliderConf.
@@ -173,49 +175,44 @@ Slider.preload_next_image = function(config) {
 /**
  * Callback that should be invoked when fading an image completes.  Changes the
  * current image to the next image using Slider.change_image, then fades in the
- * new image with a callback that preloads the next image.
+ * new image, and finally preloads the next imagei while the current image is
+ * fading in.
  * @param {SliderConf} config - config to operate on.
  */
-Slider.fade_image_callback = function(config) {
-  Slider.maybe_log(config, 'fade_image_callback called');
+Slider.change_image_and_fade_in = function(config) {
+  Slider.maybe_log(config, 'change_image_and_fade_in called');
   Slider.change_image(config);
-  var callback = function() {
-    Slider.maybe_log(config, 'fade_image_callback    callback called');
-    Slider.preload_next_image(config);
-    Slider.maybe_log(config, 'fade_image_callback    callback returning');
-  };
   jQuery(config.image_id).stop(true, true).fadeIn(
-    config.fade_duration, 'linear', callback);
-  Slider.maybe_log(config, 'fade_image_callback returning');
+    config.fade_duration, 'linear');
+  Slider.preload_next_image(config);
+  Slider.maybe_log(config, 'change_image_and_fade_in returning');
 };
 
 /**
- * Fade out the current image with a callback to fade_image_callback.
+ * Fade out the current image with a callback to change_image_and_fade_in.
  *
  * @param {SliderConf} config - config to operate on.
  */
-Slider.fade_image = function(config) {
-  Slider.maybe_log(config, 'fade_image called');
+Slider.fade_image_then_change_image = function(config) {
+  Slider.maybe_log(config, 'fade_image_then_change_image called');
   var callback = function() {
-    Slider.maybe_log(config, 'fade_image    callback called');
-    Slider.fade_image_callback(config);
-    Slider.maybe_log(config, 'fade_image    callback returning');
+    Slider.change_image_and_fade_in(config);
   };
   jQuery(config.image_id).stop(true, true).fadeOut(
     config.fade_duration, 'linear', callback);
-  Slider.maybe_log(config, 'fade_image returning');
+  Slider.maybe_log(config, 'fade_image_then_change_image returning');
 };
 
 /**
  * This function is called every config.rotation_duration milliseconds.  It
- * resets logging and calls fade_image.
+ * resets logging and calls fade_image_then_change_image.
  *
  * @param {SliderConf} config - config to operate on.
  */
 Slider.periodic_callback = function(config) {
   Slider.set_log_date_to_now(config);
   Slider.maybe_log(config, 'periodic_callback called');
-  Slider.fade_image(config);
+  Slider.fade_image_then_change_image(config);
   Slider.maybe_log(config, 'periodic_callback returning');
 };
 
@@ -231,7 +228,7 @@ Slider.finish_initialisation = function(config) {
   Slider.maybe_log(config, 'finish_initialisation called');
   // Trigger the first image change.  Later image changes will be triggered by
   // periodic_callback.
-  Slider.fade_image(config);
+  Slider.fade_image_then_change_image(config);
   var callback = function() {
     Slider.periodic_callback(config);
   };
