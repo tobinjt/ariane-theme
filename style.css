@@ -464,6 +464,16 @@ img:hover {
 /**
  * An individual piece of jewellery.
  */
+#individual-jewellery-div {
+  /* Keep everything to the left so they don't move around when different size
+   * images are displayed. */
+  margin-right: auto;
+}
+
+#individual-jewellery-div li {
+  display: inline;
+  list-style-type: none;
+}
 #individual-jewellery-piece {
   /* border: 1em solid black; */
   border-collapse: collapse;

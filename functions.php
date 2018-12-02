@@ -16,9 +16,14 @@
     ini_set('display_startup_errors', 1);
   }
 
-  // Used to collect slider configs and set them up.
+  // Used to collect slider configs and set them up.  Maps ID => JSON-encoded
+  // image info.
   global $SLIDER_IMAGES;
   $SLIDER_IMAGES = array();
+  // Used to collect change_images configs and set them up.  Maps ID => raw
+  // image info.
+  global $CHANGE_IMAGES;
+  $CHANGE_IMAGES = array();
 
   // Define most of our functions first; some small functions will be defined
   // inline when configuring Wordpress.
@@ -707,19 +712,21 @@ END_OF_HTML;
 
     # Look up the image(s).
     $image_ids = explode(',', $attrs['image_id']);
-    $slider_images = array();
+    $images = array();
     foreach ($image_ids as $image_id) {
       $image_info = wp_get_attachment_image_src($image_id, 'product_size');
-      $slider_images[] = array(
+      $images[] = array(
         'src' => $image_info[0],
         'width' => $image_info[1],
         'height' => $image_info[2],
       );
+      if ($image_info[1] > $attrs['width']) {
+        $attrs['width'] = $image_info[1];
+      }
+      if ($image_info[2] > $attrs['height']) {
+        $attrs['height'] = $image_info[2];
+      }
     }
-    # Load the first image immediately.
-    $attrs['src'] = $slider_images[0]['src'];
-    $attrs['width'] = $slider_images[0]['width'];
-    $attrs['height'] = $slider_images[0]['height'];
 
     # Change "necklace" to "necklaces".
     if (substr($attrs['type'], -1) != 's') {
@@ -748,29 +755,63 @@ END_OF_HTML;
     $html = <<<END_OF_HTML
 <div class="flexboxrow">
   <div id="individual-jewellery-div" >
-    <img id="individual-jewellery-image"
-      alt="{$range_in_piece_name}{$attrs['name']}"
-      src="{$attrs['src']}"
-      width="{$attrs['width']}" height="{$attrs['height']}" />
+
+END_OF_HTML;
+    if (count($images) > 1) {
+      global $CHANGE_IMAGES;
+      $CHANGE_IMAGES['#individual-jewellery-image'] = $images;
+      $html .= <<<END_OF_HTML
+    <div>
+      <ul>
+
+END_OF_HTML;
+
+      foreach ($image_ids as $i => $image_id) {
+        $image_info = wp_get_attachment_image_src($image_id, 'thumbnail');
+        $html .= <<<END_OF_HTML
+        <li><img src="{$image_info[0]}"
+                 alt="{$range_in_piece_name}{$attrs['name']}"
+                 onclick="change_image({$i}, '#individual-jewellery-image')"
+                 width="{$image_info[1]}" height="{$image_info[2]}" /> </li>
+
+END_OF_HTML;
+      }
+      $html .= <<<END_OF_HTML
+      </ul>
+    </div>
+[change_images]
+END_OF_HTML;
+    }
+
+    $html .= <<<END_OF_HTML
+    <div width="{$attrs['width']}" height="${attrs['height']}">
+      <img id="individual-jewellery-image"
+        alt="{$range_in_piece_name}{$attrs['name']}"
+        src="{$images[0]['src']}"
+        width="{$images[0]['width']}" height="{$images[0]['height']}" />
+    </div>
   </div>
   <div id="individual-jewellery-description">
     <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
     <p>{$content}</p>
     {$limited_to}
+
 END_OF_HTML;
 
     $html .= MakeBuyButtonForJewelleryPage($attrs);
 
     $html .= <<<END_OF_HTML
+
     <p>See other items in this range: <a href="/jewellery/{$attrs['range']}/">{$attrs['range']}</a></p>
     <p>See other: <a href="/jewellery/{$attrs['type']}/">{$attrs['type']}</a></p>
     <p>See the items in <a href="/store/cart/">your basket</a></p>
   </div>
 </div>
+
 END_OF_HTML;
-    if (count($slider_images) > 1) {
+    if (count($images) > 1 && false) {
       global $SLIDER_IMAGES;
-      $SLIDER_IMAGES['#individual-jewellery'] = json_encode($slider_images);
+      $SLIDER_IMAGES['#individual-jewellery'] = json_encode($images);
       $html .= <<<END_OF_HTML
 [generic_slider]
 END_OF_HTML;
@@ -958,6 +999,59 @@ END_OF_HTML;
     return '';
   }
 
+  /* ChangeImagesSetupGeneric: output the Javascript needed to set up changing
+   * of images by clicking on thumbnails, including the images.  Should be
+   * called indirectly by Wordpress, by registering it with:
+   * add_action('wp_footer', 'ChangeImagesSetupGeneric');
+   */
+  function ChangeImagesSetupGeneric() {
+    global $CHANGE_IMAGES;
+    $images = json_encode($CHANGE_IMAGES);
+    $output = <<<END_OF_JAVASCRIPT
+<!-- Start of ChangeImages. -->
+<script type="text/javascript">
+function change_image(i, id) {
+  var images = {$images};
+  // Construct a new image and swap it in, otherwise it flashes awkwardly - the
+  // old image resizes and then the new image is displayed.
+  var img = jQuery(id);
+  var new_img = jQuery('<img>');
+  new_img.attr('id', img.attr('id'));
+  new_img.attr('alt', img.attr('alt'));
+  new_img.attr(images[id][i]);
+  img.replaceWith(new_img);
+};
+</script>
+<!-- End of ChangeImages. -->
+
+END_OF_JAVASCRIPT;
+    echo $output;
+  }
+
+  /* ChangeImagesSetupShortcode: wrap ChangeImagesSetupGeneric to provide a
+   * shortcode.  This *must not* be used in the enclosing form.
+   * Args (names are ugly but Wordpress-standard):
+   *  $atts: an associative array of attributes, or an empty string if no
+   *    attributes are given.
+   *  $content: the enclosed content (if the shortcode is used in its enclosing
+   *    form)
+   *  $tag: the shortcode tag, useful for shared callback functions
+   * Returns:
+   *  string, the HTML to insert in the page (Wordpress does that
+   *    automatically).
+   */
+  function ChangeImagesSetupShortcode($atts, $content=null, $tag) {
+    if (!is_null($content) and $content != '') {
+      return '<h1>slider: no content accepted!  Given: '
+        . htmlspecialchars($content) . '</h1>' . "\n";
+    }
+    if (!is_string($atts)) {
+      return '<h1>change_images: no attributes accepted!</h1>' . "\n";
+    }
+    add_action('wp_footer', 'ChangeImagesSetupGeneric');
+    return '';
+  }
+
   function CarePageShortcode($atts, $content, $tag) {
     $html = <<<END_OF_HTML
 [style_wrap id="care-page"]
@@ -1052,6 +1146,8 @@ END_OF_HTML;
   // TODO: should this be larger?
   add_image_size('product_size', 520, 520);
   add_image_size('grid_size', 260, 260);
+  // 'thumbnail' size is automatically generated by Wordpress and is used in
+  // product pages.
 
   // Use my style sheet.
   add_editor_style('style.css');
@@ -1173,6 +1269,7 @@ END_OF_CSS;
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
   add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
   add_shortcode('generic_slider', 'SliderSetupShortcode');
+  add_shortcode('change_images', 'ChangeImagesSetupShortcode');
   add_shortcode('style_wrap', 'StyleWrapShortcode');
   add_shortcode('care_page', 'CarePageShortcode');
 ?>
