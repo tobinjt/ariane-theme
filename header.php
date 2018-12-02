@@ -112,14 +112,16 @@
     $jewellery_ranges_links = array(
       '/jewellery/amble/'      => 'amble',
       '/jewellery/botanical/'  => 'botanical',
+      '/jewellery/carapace/'   => 'carapace',
       '/jewellery/cellule/'    => 'cellule',
       '/jewellery/confluence/' => 'confluence',
       '/jewellery/dabble/'     => 'dabble',
       '/jewellery/halo/'       => 'halo',
       '/jewellery/laria/'      => 'laria',
+      '/jewellery/pod/'        => 'pod',
       '/jewellery/sentinel/'   => 'sentinel',
       '/jewellery/wave/'       => 'wave',
-      '/jewellery/singles/'    => 'singles',
+      // '/jewellery/singles/'    => 'singles',
       '/jewellery/archive/'    => 'archive',
     );
     echo make_menu_bar([
