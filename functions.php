@@ -1,4 +1,7 @@
 <?php
+  // Requires PHP 7.0 or greater.
+  declare(strict_types=1);
+
   /* get_hostname: returns the hostname.
    */
   function get_hostname() {
@@ -12,8 +15,8 @@
   // Send errors to browser on dev site for easier debugging.
   if (is_dev_website()) {
     error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
   }
 
   // Used to collect slider configs and set them up.  Maps ID => JSON-encoded
