@@ -2,13 +2,16 @@
   // Requires PHP 7.0 or greater.
   declare(strict_types=1);
 
+  // TODO: when we're running PHP 7.1 or later use 'void' return type where
+  // appropriate.
+
   /* get_hostname: returns the hostname.
    */
-  function get_hostname() {
+  function get_hostname(): string {
     return $_SERVER['SERVER_NAME'];
   }
 
-  function is_dev_website() {
+  function is_dev_website(): bool {
     return get_hostname() == 'dev.arianetobin.ie';
   }
 
@@ -31,6 +34,7 @@
   // Define most of our functions first; some small functions will be defined
   // inline when configuring Wordpress.
   /* echo_title(): outputs the appropriate title.  */
+  // TODO: return a string rather than outputting it.
   function echo_title() {
     if (is_tag()) {
       single_tag_title("Tag Archive for &quot;"); echo '&quot; - ';
@@ -60,16 +64,15 @@
   /* get_current_url: returns the local portion of the URL, i.e. no hostname,
    * but it does include the query string.
    */
-  function get_current_url() {
+  function get_current_url(): string {
     return $_SERVER['REQUEST_URI'];
   }
 
   /* get_google_analytics_code: returns the Jvascript code for Google Analytics,
    * depending on the hostname.
    */
-  function get_google_analytics_code() {
-    $hostname = get_hostname();
-    if ($hostname != 'www.arianetobin.ie') {
+  function get_google_analytics_code(): string {
+    if (is_dev_website()) {
       return '';
     }
     $output = <<<END_OF_JAVASCRIPT
@@ -88,23 +91,23 @@ END_OF_JAVASCRIPT;
   }
 
   /* is_jewellery_page: is the current page a jewellery page?  */
-  function is_jewellery_page() {
+  function is_jewellery_page(): bool {
     return (strpos(get_current_url(), '/jewellery') === 0);
   }
 
   /* is_store_page: is the current page a store page?  */
-  function is_store_page() {
+  function is_store_page(): bool {
     return (strpos(get_current_url(), '/store') === 0);
   }
 
   /* is_url: is the current page === $url?  The query string is stripped. */
-  function is_url($url) {
+  function is_url(string $url): bool {
     $current_url = parse_url(get_current_url(), PHP_URL_PATH);
     return ($current_url === $url);
   }
 
   /* is_archive_page: is the current page a archive page?  */
-  function is_archive_page() {
+  function is_archive_page(): bool {
     return (strpos(get_current_url(), '/jewellery/archive') === 0);
   }
 
@@ -114,7 +117,7 @@ END_OF_JAVASCRIPT;
    * Returns:
    *  Boolean.
    */
-  function is_time_after($time_string) {
+  function is_time_after($time_string): bool {
     return time() > strtotime($time_string);
   }
 
@@ -124,7 +127,7 @@ END_OF_JAVASCRIPT;
    * Returns:
    *  Boolean.
    */
-  function is_time_before($time_string) {
+  function is_time_before($time_string): bool {
     return time() < strtotime($time_string);
   }
 
@@ -135,7 +138,7 @@ END_OF_JAVASCRIPT;
    * Returns:
    *  Boolean.
    */
-  function is_time_between($start_time_string, $end_time_string) {
+  function is_time_between($start_time_string, $end_time_string): bool {
     return (is_time_after($start_time_string)
             && is_time_before($end_time_string));
   }
@@ -143,31 +146,31 @@ END_OF_JAVASCRIPT;
   /* store_closing_time_human: human readable time for the store to close.
    * Must be manually kept in sync with store_closing_time().
    */
-  function store_closing_time_human() {
+  function store_closing_time_human(): string {
     return 'Friday 11th May';
   }
 
   /* store_closing_time: when the store closes next. */
-  function store_closing_time() {
+  function store_closing_time(): string {
     return '2018-05-11 00:30:00 Europe/Dublin';
   }
 
   /* store_opening_time_human: human readable time for the store to open.
    * Must be manually kept in sync with store_opening_time().
    */
-  function store_opening_time_human() {
+  function store_opening_time_human(): string {
     return 'Monday 28th May';
   }
 
   /* store_opening_time: when the store opens next. */
-  function store_opening_time() {
+  function store_opening_time(): string {
     return '2018-05-28 00:30:00 Europe/Dublin';
   }
 
   /* is_store_closed: is the store currently closed?  Uses store_closing_time()
    * and store_opening_time().
    */
-  function is_store_closed() {
+  function is_store_closed(): bool {
     return is_time_between(store_closing_time(), store_opening_time());
   }
 
@@ -179,7 +182,8 @@ END_OF_JAVASCRIPT;
    * Returns:
    *  string.
    */
-  function links_to_html($links, $url_to_highlight, $highlight_class) {
+  function links_to_html(array $links, string $url_to_highlight,
+                         string $highlight_class): string {
     $output = array();
     foreach ($links as $url => $text) {
       if ($url == $url_to_highlight) {
@@ -204,7 +208,7 @@ END_OF_LINK;
    * Returns:
    *  string.
    */
-  function wrap_with_tag($tag, $class, $html) {
+  function wrap_with_tag(string $tag, string $class, string $html): string {
     $html = ltrim($html);
     return <<<END_OF_TAG
       <{$tag} class="{$class}">
@@ -221,7 +225,7 @@ END_OF_TAG;
    * Returns:
    *  string.
    */
-  function make_link_group($initial_groups, $default_url) {
+  function make_link_group(array $initial_groups, string $default_url): string {
     // Filter out invalid URLs.
     $groups = array();
     foreach ($initial_groups as $class => $links) {
@@ -292,7 +296,7 @@ END_OF_TAG;
    * Returns:
    *  string.
    */
-  function make_menu_bar($menu_chunks, $css_tags) {
+  function make_menu_bar(array $menu_chunks, string $css_tags): string {
     $html = wrap_with_tag(
       'div',
       'menubar ' . $css_tags,
@@ -300,11 +304,12 @@ END_OF_TAG;
     return $html . "\n";
   }
 
-  function get_image_path($file) {
+  function get_image_path(string $file): string {
     return get_bloginfo('template_directory') . '/images/' .  $file;
   }
 
-  function make_icon_link($file, $alt, $width, $height) {
+  function make_icon_link(string $file, string $alt, string $width,
+                          string $height): string {
     return '<img class="greyscale"' .
       ' width="' . $width . '"' .
       ' height="' . $height . '"' .
@@ -317,7 +322,7 @@ END_OF_TAG;
    * Returns:
    *  string.
    */
-  function get_messages_for_top_of_page() {
+  function get_messages_for_top_of_page(): string {
     if (is_time_before('2018-12-09')) {
       $all_message = <<<ALL_MESSAGE
         <p class="text-centered larger-text grey">
@@ -418,7 +423,7 @@ CHECKOUT_MESSAGE;
    * Returns:
    *  array, data structure to process.
    */
-  function ParseJewelleryGridContents($page_contents) {
+  function ParseJewelleryGridContents(string $page_contents): array {
     $lines = str_getcsv($page_contents, "\n");
     $ranges = array();
     foreach ($lines as $line) {
@@ -447,7 +452,7 @@ CHECKOUT_MESSAGE;
       #   we can't include purchasing.  We use -1 to indicate that there isn't a
       #   product to offer, and that's checked for later.
       if (count($csv_data) < 5) {
-        $csv_data[] = -1;
+        $csv_data[] = '-1';
       }
       $data = array(
         'range'      => $csv_data[0],
@@ -482,11 +487,11 @@ CHECKOUT_MESSAGE;
    * Returns:
    *  string, HTML to insert in page.
    */
-  function MakeBuyButtonForJewelleryGrid($product_id) {
+  function MakeBuyButtonForJewelleryGrid(string $product_id): string {
     # -1 means there isn't a product to sell, and that happens on the main
     # jewellery page.
     # Skip showing cart buttons for everything that's been archived.
-    if ($product_id == -1 || is_archive_page()) {
+    if ($product_id == '-1' || is_archive_page()) {
       return <<<END_OF_NO_PRODUCT_OR_ARCHIVE
       <!-- This creates some space underneath. -->
 END_OF_NO_PRODUCT_OR_ARCHIVE;
@@ -537,7 +542,7 @@ END_OF_OUT_OF_STOCK;
    * Returns:
    *  string, HTML to insert in the page.
    */
-  function MakeJewelleryGrid($page_contents, $description) {
+  function MakeJewelleryGrid(string $page_contents, string $description): string {
     $ranges = ParseJewelleryGridContents($page_contents);
     # Turn the data structure into <divs>s.
     $divs = array();
@@ -613,7 +618,8 @@ END_OF_HTML;
    *  string, the HTML to insert in the page (Wordpress does that
    *    automatically).
    */
-  function JewelleryGridShortcode($atts, $content=null, $tag) {
+  function JewelleryGridShortcode(array $atts, string $content,
+                                  string $tag): string {
     if (is_null($content)) {
       return '<h1>jewellery_grid: no content to display!</h1>' . "\n";
     }
@@ -632,7 +638,7 @@ END_OF_HTML;
    * Returns:
    *  string, HTML to insert in page.
    */
-  function MakeBuyButtonForJewelleryPage($attrs) {
+  function MakeBuyButtonForJewelleryPage(array $attrs): string {
     $product = new Cart66Product($attrs['product_id']);
     if ($product->max_quantity == 1) {
       return <<<END_OF_HTML
@@ -686,14 +692,8 @@ END_OF_HTML;
    *  string, the HTML to insert in the page (Wordpress does that
    *    automatically).
    */
-  function JewelleryPageShortcode($atts, $content, $tag) {
-    if (is_null($content)) {
-      return '<h1>jewellery_page: no description to display!</h1>' . "\n";
-    }
-    if (is_string($atts)) {
-      return '<h1>jewellery_page: need attributes! </h1>' . "\n";
-    }
-
+  function JewelleryPageShortcode(array $atts, string $content,
+                                  string $tag): string {
     $attrs = shortcode_atts(
       array(
         'archived' => 'false',
@@ -835,15 +835,8 @@ END_OF_HTML;
    *  string, the HTML to insert in the page (Wordpress does that
    *    automatically).
    */
-  function StyleWrapShortcode($atts, $content=null, $tag) {
-    if (is_null($content)) {
-      return '<h1>style_wrap: no content to display!</h1>' . "\n";
-    }
-    if (is_string($atts)) {
-      return '<h1>style_wrap: need <b>class</b> or <b>id</b> attributes!</h1>'
-        . "\n";
-    }
-
+  function StyleWrapShortcode(array $atts, string $content,
+                              string $tag): string {
     $attrs = shortcode_atts(
       array(
         'class' => '',
@@ -876,7 +869,7 @@ END_OF_DIV;
    * Returns:
    *  array of image information, needs to be passed to json_encode().
    */
-  function SliderImages() {
+  function SliderImages(): array {
     $media_query = new WP_Query(
       array(
         'post_type'      => 'attachment',
@@ -950,15 +943,12 @@ END_OF_JAVASCRIPT;
    *  string, the HTML to insert in the page (Wordpress does that
    *    automatically).
    */
-  function FrontPageSliderSetupShortcode($atts, $content=null, $tag) {
+  function FrontPageSliderSetupShortcode(string $atts, string $content,
+                                         string $tag): string {
     if (!is_null($content) and $content != '') {
-      return '<h1>slider: no content accepted!  Given: '
+      return '<h1>FrontPageSliderSetupShortcode: no content accepted!  Given: '
         . htmlspecialchars($content) . '</h1>' . "\n";
     }
-    if (!is_string($atts)) {
-      return '<h1>slider: no attributes accepted!</h1>' . "\n";
-    }
-
     add_action('wp_footer', 'SliderSetupGeneric');
     $images = SliderImages('slider_large');
     global $SLIDER_IMAGES;
@@ -990,13 +980,11 @@ END_OF_HTML;
    *  string, the HTML to insert in the page (Wordpress does that
    *    automatically).
    */
-  function SliderSetupShortcode($atts, $content=null, $tag) {
+  function SliderSetupShortcode(array $atts, string $content,
+                                string $tag): string {
     if (!is_null($content) and $content != '') {
-      return '<h1>slider: no content accepted!  Given: '
+      return '<h1>SliderSetupShortcode: no content accepted!  Given: '
         . htmlspecialchars($content) . '</h1>' . "\n";
-    }
-    if (!is_string($atts)) {
-      return '<h1>slider: no attributes accepted!</h1>' . "\n";
     }
     add_action('wp_footer', 'SliderSetupGeneric');
     return '';
@@ -1043,19 +1031,18 @@ END_OF_JAVASCRIPT;
    *  string, the HTML to insert in the page (Wordpress does that
    *    automatically).
    */
-  function ChangeImagesSetupShortcode($atts, $content=null, $tag) {
+  function ChangeImagesSetupShortcode(string $atts, string $content=null,
+                                      string $tag): string {
     if (!is_null($content) and $content != '') {
       return '<h1>slider: no content accepted!  Given: '
         . htmlspecialchars($content) . '</h1>' . "\n";
-    }
-    if (!is_string($atts)) {
-      return '<h1>change_images: no attributes accepted!</h1>' . "\n";
     }
     add_action('wp_footer', 'ChangeImagesSetupGeneric');
     return '';
   }
 
-  function CarePageShortcode($atts, $content, $tag) {
+  function CarePageShortcode(string $atts, string $content = null,
+                             string $tag): string {
     $html = <<<END_OF_HTML
 [style_wrap id="care-page"]
 
@@ -1175,7 +1162,7 @@ END_OF_HTML;
   // Remove the version strings from CSS and Javascript to improve browser
   // caching.  Found by searching for "wordpress remove query strings from
   // static resources".
-  function _remove_script_version($src){
+  function _remove_script_version(string $src): string {
     $parts = explode('?', $src);
     return $parts[0];
   }
@@ -1184,7 +1171,7 @@ END_OF_HTML;
 
   // Stop jquery-migrate being loaded.  jQuery depends on it, so the jQuery deps
   // need to be changed too.
-  function blockJqueryMigrate($scripts) {
+  function blockJqueryMigrate(WP_Scripts $scripts) {
     $data = $scripts->query('jquery');
     if (!$data) {
       return;
@@ -1214,7 +1201,7 @@ END_OF_HTML;
   // If the Cookie Law Info cookie already exists, remove the Javascript and CSS
   // it wants to load.  Output from MaybeHideCookieLawInfoInFooter() needs to be
   // inserted in <head> to hide the text added to the footer.
-  function ShouldRemoveCookieLawInfo() {
+  function ShouldRemoveCookieLawInfo(): bool {
     $hide = false;
     if (isset($_COOKIE['viewed_cookie_policy'])) {
       $hide = true;
@@ -1230,7 +1217,7 @@ END_OF_HTML;
     return $hide;
   }
 
-  function MaybeHideCookieLawInfoInFooter() {
+  function MaybeHideCookieLawInfoInFooter(): string {
     if (!ShouldRemoveCookieLawInfo()) {
       return "";
     }
