@@ -69,7 +69,7 @@
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
     '/care/'          => 'care',
-    '/news/'          => 'news',
+    // '/news/'          => 'news',
     '/about/'         => 'about',
     '/store/cart/'    => 'basket',
   );
