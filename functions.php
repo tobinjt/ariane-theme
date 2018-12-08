@@ -111,6 +111,15 @@ END_OF_JAVASCRIPT;
     return (strpos(get_current_url(), '/jewellery/archive') === 0);
   }
 
+  /* now: returns current time or fake time for testing.
+   * Returns:
+   *  Integer.
+   */
+  function now(): int {
+    // return strtotime('2018-12-17 18:30:00 Europe/Dublin');
+    return time();
+  }
+
   /* is_time_after: is the current time after the specified time and date?
    * Args:
    *  $time_string: a time and date string parsable by strtotime().
@@ -118,7 +127,7 @@ END_OF_JAVASCRIPT;
    *  Boolean.
    */
   function is_time_after($time_string): bool {
-    return time() > strtotime($time_string);
+    return now() > strtotime($time_string);
   }
 
   /* is_time_before: is the current time before the specified time and date?
@@ -128,7 +137,7 @@ END_OF_JAVASCRIPT;
    *  Boolean.
    */
   function is_time_before($time_string): bool {
-    return time() < strtotime($time_string);
+    return now() < strtotime($time_string);
   }
 
   /* is_time_between: is the current time between the specified times and dates?
@@ -165,6 +174,22 @@ END_OF_JAVASCRIPT;
   /* store_opening_time: when the store opens next. */
   function store_opening_time(): string {
     return '2019-01-07 00:30:00 Europe/Dublin';
+  }
+
+  /* last_day_for_delivery_outside_ireland_human.
+   * Must be manually kept in sync with last_day_for_delivery_outside_ireland().
+   */
+  function last_day_for_delivery_outside_ireland_human(): string {
+    return 'Wednesday 11th December';
+  }
+
+  function last_day_for_delivery_outside_ireland(): string {
+    return '2018-12-11 18:30:00 Europe/Dublin';
+  }
+
+  /* last_day_for_delivery_outside_ireland */
+  function show_store_closing_messager_this_date(): string {
+    return '2018-12-01 01:30:00 Europe/Dublin';
   }
 
   /* is_store_closed: is the store currently closed?  Uses store_closing_time()
@@ -347,18 +372,33 @@ OTHER_MESSAGE;
           {$store_opening_time_human}.
           </p>
 JEWELLERY_MESSAGE;
-    } elseif (is_time_before(store_closing_time())) {
-      $store_closing_time_human = store_closing_time_human();
-      $store_opening_time_human = store_opening_time_human();
+    } elseif (is_time_after(show_store_closing_messager_this_date())) {
       $jewellery_message = <<<JEWELLERY_MESSAGE
         <p class="text-centered larger-text grey">
-          The store will be closing {$store_closing_time_human}.
-          Ariane will return to the workshop {$store_opening_time_human}.
+JEWELLERY_MESSAGE;
+      if (is_time_after(last_day_for_delivery_outside_ireland())) {
+        $jewellery_message .= <<<JEWELLERY_MESSAGE
+          Delivery outside Ireland before December 25th cannot be guaranteed for
+          orders placed now.
+JEWELLERY_MESSAGE;
+      } else {
+        $last = last_day_for_delivery_outside_ireland_human();
+        $jewellery_message .= <<<JEWELLERY_MESSAGE
+          Delivery outside Ireland before December 25th cannot be guaranteed for
+          orders placed after {$last}.
+JEWELLERY_MESSAGE;
+      }
+      $store_closing_time_human = store_closing_time_human();
+      $store_opening_time_human = store_opening_time_human();
+      $jewellery_message .= <<<JEWELLERY_MESSAGE
+          The store will be closing on {$store_closing_time_human}.
+          Ariane will return to the workshop on {$store_opening_time_human}.
           </p>
 JEWELLERY_MESSAGE;
     } else {
       $jewellery_message = '';
     }
+
     $store_message = <<<STORE_MESSAGE
       <div id="store_message">
         <ul class="grey">
