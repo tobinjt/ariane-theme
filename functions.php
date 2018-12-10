@@ -1166,10 +1166,14 @@ END_OF_JAVASCRIPT;
     }
     // Page Speed doesn't set the cookie, so fake the typical user experience.
     // TODO: These useer-agent strings need to be verified.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], 'Google Page Speed Insights')) {
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    if (is_null($user_agent)) {
+      $user_agent = 'fake user agent';
+    }
+    if (strpos($user_agent, 'Google Page Speed Insights')) {
       $hide = true;
     }
-    if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse')) {
+    if (strpos($user_agent, 'Chrome-Lighthouse')) {
       $hide = true;
     }
     return $hide;
