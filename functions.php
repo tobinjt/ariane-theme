@@ -5,7 +5,7 @@
   // TODO: when we're running PHP 7.1 or later use 'void' return type where
   // appropriate.
 
-  require_once('Urls.php');
+  require_once('src/Urls.php');
 
   function is_dev_website(): bool {
     return get_hostname() == 'dev.arianetobin.ie';
