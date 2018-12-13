@@ -5,11 +5,7 @@
   // TODO: when we're running PHP 7.1 or later use 'void' return type where
   // appropriate.
 
-  /* get_hostname: returns the hostname.
-   */
-  function get_hostname(): string {
-    return $_SERVER['SERVER_NAME'];
-  }
+  require_once('Urls.php');
 
   function is_dev_website(): bool {
     return get_hostname() == 'dev.arianetobin.ie';
