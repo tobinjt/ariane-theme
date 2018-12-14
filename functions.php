@@ -7,10 +7,6 @@
 
   require_once('src/Urls.php');
 
-  function is_dev_website(): bool {
-    return get_hostname() == 'dev.arianetobin.ie';
-  }
-
   // Send errors to browser on dev site for easier debugging.
   if (is_dev_website()) {
     error_reporting(E_ALL);
@@ -57,13 +53,6 @@
     }
   }
 
-  /* get_current_url: returns the local portion of the URL, i.e. no hostname,
-   * but it does include the query string.
-   */
-  function get_current_url(): string {
-    return $_SERVER['REQUEST_URI'];
-  }
-
   /* get_google_analytics_code: returns the Jvascript code for Google Analytics,
    * depending on the hostname.
    */
@@ -84,27 +73,6 @@
   </script>
 END_OF_JAVASCRIPT;
     return $output;
-  }
-
-  /* is_jewellery_page: is the current page a jewellery page?  */
-  function is_jewellery_page(): bool {
-    return (strpos(get_current_url(), '/jewellery') === 0);
-  }
-
-  /* is_store_page: is the current page a store page?  */
-  function is_store_page(): bool {
-    return (strpos(get_current_url(), '/store') === 0);
-  }
-
-  /* is_url: is the current page === $url?  The query string is stripped. */
-  function is_url(string $url): bool {
-    $current_url = parse_url(get_current_url(), PHP_URL_PATH);
-    return ($current_url === $url);
-  }
-
-  /* is_archive_page: is the current page a archive page?  */
-  function is_archive_page(): bool {
-    return (strpos(get_current_url(), '/jewellery/archive') === 0);
   }
 
   /* now: returns current time or fake time for testing.
@@ -410,19 +378,19 @@ JEWELLERY_MESSAGE;
 STORE_MESSAGE;
 
     $checkout_message = '';
-    if (is_url('/store/cart/')) {
+    if (is_current_url('/store/cart/')) {
       $checkout_message = <<<CHECKOUT_MESSAGE
         To continue, press the <em>Checkout</em> button at the bottom right of the
         page.
 CHECKOUT_MESSAGE;
     }
-    if (is_url('/store/checkout/')) {
+    if (is_current_url('/store/checkout/')) {
       $checkout_message = <<<CHECKOUT_MESSAGE
         To continue, press the <em>PayPal</em> button at the bottom right of the
         page.
 CHECKOUT_MESSAGE;
     }
-    if (is_url('/store/express/')) {
+    if (is_current_url('/store/express/')) {
       $checkout_message = <<<CHECKOUT_MESSAGE
         To complete your order you <em>must</em> press the <em>Complete Order</em>
         button at the bottom left of the page.
