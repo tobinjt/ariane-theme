@@ -249,7 +249,7 @@ OTHER_MESSAGE;
           {$store_opening_time_human}.
           </p>
 JEWELLERY_MESSAGE;
-    } elseif (is_time_before(show_store_closing_message_after_this_date(),
+    } elseif (is_time_between(store_closing_message_display_date(),
         store_closing_time())) {
       $jewellery_message = <<<JEWELLERY_MESSAGE
         <p class="text-centered larger-text grey">
