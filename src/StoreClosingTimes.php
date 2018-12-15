@@ -1,9 +1,5 @@
 <?php
-/* Functions related to the store closing and opening.
- * Requires a function "now(): int {" that returns the current timestamp; it's
- * not defined in this file so that it can be easily overridden for testing.
- * TODO: is there a better way to do this?
- */
+/* Functions related to the store closing and opening.  */
 
 global $TIMES;
 $TIMES = array();
@@ -11,6 +7,7 @@ define('STORE_CLOSING_TIME', 0);
 define('STORE_OPENING_TIME', 1);
 define('LAST_DELIVERY_OUTSIDE_IRELAND', 2);
 define('CLOSING_MESSAGE_DISPLAY_DATE', 3);
+define('NOW_FOR_TESTING', 4);
 
 /* Set the closing time of the store.
  * Args:
@@ -46,6 +43,15 @@ function set_last_delivery_outside_ireland(string $timestring) {
 function set_store_closing_message_display_date(string $timestring) {
   global $TIMES;
   $TIMES[CLOSING_MESSAGE_DISPLAY_DATE] = $timestring;
+}
+
+/* Set the time returned by now() for testing purposes.
+ * Args:
+ *  $timestring: a time and date string parsable by strtotime().
+ */
+function set_now_for_testing(string $timestring) {
+  global $TIMES;
+  $TIMES[NOW_FOR_TESTING] = $timestring;
 }
 
 /* timestring_to_human: converts a timestring parsable by strtotime() to a human
@@ -93,6 +99,18 @@ function last_day_for_delivery_outside_ireland_human(): string {
 function store_closing_message_display_date(): string {
   global $TIMES;
   return $TIMES[CLOSING_MESSAGE_DISPLAY_DATE];
+}
+
+/* now: returns current time or fake time for testing.
+ * Returns:
+ *  Integer.
+ */
+function now(): int {
+  global $TIMES;
+  if (isset($TIMES[NOW_FOR_TESTING])) {
+    return strtotime($TIMES[NOW_FOR_TESTING]);
+  }
+  return time();
 }
 
 /* is_time_after: is the current time after the specified time and date?

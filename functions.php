@@ -76,16 +76,6 @@ END_OF_JAVASCRIPT;
     return $output;
   }
 
-  /* now: returns current time or fake time for testing.
-   * Returns:
-   *  Integer.
-   */
-  function now(): int {
-    // return strtotime('2018-12-17 18:30:00 Europe/Dublin');
-    return time();
-  }
-
-
   /* links_to_html: converts an array of links into HTML with a tags.
    * Args:
    *  $links: array(url => text).

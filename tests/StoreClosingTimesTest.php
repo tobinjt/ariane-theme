@@ -30,5 +30,33 @@ class StoreClosingTimesTest extends TestCase {
     $this->assertEquals('Tuesday 11 December',
       last_day_for_delivery_outside_ireland_human());
   }
+
+  public function test_time_comparisons() {
+    global $TIMES;
+    $this->assertGreaterThan(12345, now());
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    $this->assertEquals('2018-12-25 00:00:00 Europe/Dublin',
+      $TIMES[NOW_FOR_TESTING]);
+    $this->assertEquals(1545696000, now());
+
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    $this->assertTrue(is_time_after('2018-12-23 00:00:00 Europe/Dublin'));
+    $this->assertFalse(is_time_after('2018-12-27 00:00:00 Europe/Dublin'));
+    $this->assertFalse(is_time_before('2018-12-23 00:00:00 Europe/Dublin'));
+    $this->assertTrue(is_time_before('2018-12-27 00:00:00 Europe/Dublin'));
+    $this->assertTrue(is_time_between('2018-12-23 00:00:00 Europe/Dublin',
+      '2018-12-27 00:00:00 Europe/Dublin'));
+    $this->assertFalse(is_time_between('2018-12-27 00:00:00 Europe/Dublin',
+      '2018-12-23 00:00:00 Europe/Dublin'));
+    $this->assertFalse(is_time_between('2017-12-23 00:00:00 Europe/Dublin',
+      '2017-12-27 00:00:00 Europe/Dublin'));
+
+    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
+    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    $this->assertTrue(is_store_closed());
+    set_opening_time('2018-12-24 00:00:00 Europe/Dublin');
+    $this->assertFalse(is_store_closed());
+  }
 }
 ?>
