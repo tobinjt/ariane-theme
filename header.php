@@ -55,7 +55,7 @@
                The logo has been optimised by running:
                $ convert new-logo.jpg -sampling-factor 4:2:0 -strip \
                    new-logo-optimised.jpg -->
-          <img src="<?php echo get_image_path('new-logo-optimised.jpg') ?>"
+          <img src="<?php echo get_theme_image_path('new-logo-optimised.jpg') ?>"
             class="block aligncenter"
             alt="Ariane Tobin Jewellery logo"
             data-pagespeed-no-transform />

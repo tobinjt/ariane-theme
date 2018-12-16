@@ -180,7 +180,7 @@ function make_icon_link(string $file, string $alt, string $width,
   return '<img class="greyscale"' .
     ' width="' . $width . '"' .
     ' height="' . $height . '"' .
-    ' src="' .  get_image_path($file) . '"' .
+    ' src="' .  get_theme_image_path($file) . '"' .
     ' alt="' . $alt . '" />';
 }
 
