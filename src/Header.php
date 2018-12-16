@@ -184,4 +184,75 @@ function make_icon_link(string $file, string $alt, string $width,
     ' alt="' . $alt . '" />';
 }
 
+function make_full_menu_bar(): string {
+  $output = '';
+  # This assumes that arrays are ordered, which appears to be true.
+  $main_links = array(
+    '/'               => 'home',
+    '/jewellery/'     => 'jewellery',
+    '/care/'          => 'care',
+    // '/news/'          => 'news',
+    '/about/'         => 'about',
+    '/store/cart/'    => 'basket',
+  );
+  $icon_links = array(
+    'https://www.facebook.com/ArianeTobinJewellery'
+      => make_icon_link('facebook.png',    'Facebook icon',    20, 20),
+    'https://twitter.com/#!/ArianeTobin'
+      => make_icon_link('twitter.png',     'Twitter icon',     20, 20),
+    // 'https://plus.google.com/u/0/106979221491924017894/posts'
+      // => make_icon_link('google-plus-icon.png', 'Google Plus icon', 20, 20),
+    'https://pinterest.com/arianetobin/'
+      => make_icon_link('pinterest.png',   'Pinterest icon',   20, 20),
+    get_bloginfo('rss2_url')
+      => make_icon_link('rss.png',         'RSS feed icon',    20, 20),
+  );
+  $output .= make_menu_bar([
+    make_link_group(
+      array('largest-text left-page-links' => $main_links,
+            'float-right' => $icon_links),
+      '/news/'),
+      ],
+      '');
+
+  if (is_jewellery_page()) {
+    $jewellery_types_links = array(
+      '/jewellery/bangles/'    => 'bangles',
+      # '/jewellery/brooches/'   => 'brooches',
+      '/jewellery/earrings/'   => 'earrings',
+      '/jewellery/necklaces/'  => 'necklaces',
+      '/jewellery/rings/'      => 'rings',
+    );
+    $output .= make_menu_bar([
+      make_link_group(
+        array('left-page-links' => $jewellery_types_links), '/jewellery/'),
+      wrap_with_tag('span', 'float-right grey',
+        'Free delivery on all orders to Ireland'),
+      ],
+      'larger-text bottom-margin');
+
+    $jewellery_ranges_links = array(
+      '/jewellery/amble/'      => 'amble',
+      '/jewellery/botanical/'  => 'botanical',
+      '/jewellery/carapace/'   => 'carapace',
+      '/jewellery/cellule/'    => 'cellule',
+      '/jewellery/confluence/' => 'confluence',
+      '/jewellery/dabble/'     => 'dabble',
+      '/jewellery/halo/'       => 'halo',
+      '/jewellery/laria/'      => 'laria',
+      '/jewellery/pod/'        => 'pod',
+      '/jewellery/sentinel/'   => 'sentinel',
+      '/jewellery/wave/'       => 'wave',
+      // '/jewellery/singles/'    => 'singles',
+      '/jewellery/archive/'    => 'archive',
+    );
+    $output .= make_menu_bar([
+      make_link_group(
+        array('left-page-links' => $jewellery_ranges_links), '/jewellery/'),
+      ],
+      'larger-text bottom-margin');
+  }
+
+  return $output;
+}
 ?>
