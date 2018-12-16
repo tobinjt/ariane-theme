@@ -2,6 +2,12 @@
 use PHPUnit\Framework\TestCase;
 require_once('src/Urls.php');
 
+/* Needed by test_get_theme_image_path().  */
+function get_bloginfo(string $template_directory): string {
+  assert($template_directory == 'template_directory');
+  return 'DIR';
+}
+
 class UrlsTest extends TestCase {
   public function set_hostname(string $hostname) {
     $_SERVER['SERVER_NAME'] = $hostname;
@@ -67,6 +73,11 @@ class UrlsTest extends TestCase {
     $this->assertFalse(is_current_url('/jewellery/archive'));
     $this->set_url('/jewellery/archive');
     $this->assertFalse(is_current_url('/jewellery/archive/'));
+  }
+
+  public function test_get_theme_image_path() {
+    $this->assertEquals('DIR/images/asdf.png',
+      get_theme_image_path('asdf.png'));
   }
 }
 ?>

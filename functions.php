@@ -18,15 +18,6 @@
     ini_set('display_startup_errors', '1');
   }
 
-  // Used to collect slider configs and set them up.  Maps ID => JSON-encoded
-  // image info.
-  global $SLIDER_IMAGES;
-  $SLIDER_IMAGES = array();
-  // Used to collect change_images configs and set them up.  Maps ID => raw
-  // image info.
-  global $CHANGE_IMAGES;
-  $CHANGE_IMAGES = array();
-
   // Define most of our functions first; some small functions will be defined
   // inline when configuring Wordpress.
   /* echo_title(): outputs the appropriate title.  */
@@ -207,10 +198,6 @@ END_OF_TAG;
       'menubar ' . $css_tags,
       implode("\n", $menu_chunks));
     return $html . "\n";
-  }
-
-  function get_image_path(string $file): string {
-    return get_bloginfo('template_directory') . '/images/' .  $file;
   }
 
   function make_icon_link(string $file, string $alt, string $width,
