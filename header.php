@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
-  <title><?php echo_title(); ?></title>
+  <title><?php echo get_title(); ?></title>
 
 <?php
   if (is_single()) {

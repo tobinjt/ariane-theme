@@ -1,32 +1,26 @@
 <?php
 /* Functions needed by header.php.  */
 
-/* echo_title(): outputs the appropriate title.  */
-// TODO: return a string rather than outputting it.
-function echo_title() {
-  if (is_tag()) {
-    single_tag_title("Tag Archive for &quot;"); echo '&quot; - ';
-  } elseif (is_archive()) {
-    wp_title(''); echo ' Archive - ';
-  } elseif (is_search()) {
-    echo 'Search for &quot;' . get_search_query() . '&quot; - ';
+/* get_title(): return the appropriate title.  */
+function get_title() {
+  $result = '';
+  if (is_search()) {
+    $result .= 'Search for &quot;' . get_search_query() . '&quot; - ';
   } elseif (is_404()) {
-    echo 'Not Found - ';
+    $result .= 'Not Found - ';
   } elseif (is_single() || is_page()) {
    $title = wp_title('', False);
    if ($title != '') {
-     echo $title, ' - ';
+     $result .= $title . ' - ';
    }
   }
+
+  $result .= get_bloginfo('name');
   if (is_home()) {
-    bloginfo('name'); echo ' - '; bloginfo('description');
-  } else {
-    bloginfo('name');
+    $result .= ' - ';
+    $result .= get_bloginfo('description');
   }
-  $paged = get_query_var('paged');
-  if ($paged > 1) {
-    echo ' - page ' . $paged;
-  }
+  return $result;
 }
 
 /* get_google_analytics_code: returns the Jvascript code for Google Analytics,
