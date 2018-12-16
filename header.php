@@ -65,6 +65,7 @@
       <nav>
 <?php
   # This assumes that arrays are ordered, which appears to be true.
+  # TODO: Move this into a function and test it.
   $main_links = array(
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
