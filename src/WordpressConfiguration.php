@@ -42,10 +42,7 @@ function ShouldRemoveCookieLawInfo(): bool {
  * it wants to load.  Output needs to be inserted in <head> to hide the text
  * added to the footer by the plugin.
  */
-function MaybeHideCookieLawInfoInFooter(): string {
-  if (!ShouldRemoveCookieLawInfo()) {
-    return "";
-  }
+function HideCookieLawInfoInFooter(): string {
   return <<<END_OF_CSS
 
 <style>

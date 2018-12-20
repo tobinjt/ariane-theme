@@ -39,7 +39,9 @@
     wp_enqueue_script('comment-reply');
   }
   wp_head();
-  echo MaybeHideCookieLawInfoInFooter();
+  if (ShouldRemoveCookieLawInfo()) {
+    echo HideCookieLawInfoInFooter();
+  }
 ?>
 </head>
 
