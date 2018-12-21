@@ -141,12 +141,15 @@ class JewelleryPageShortcodeTest extends TestCase {
   }
 
   public function test_single_image() {
+    global $CHANGE_IMAGES;
+    $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = 3;
     $attrs['product_id'] = 7;
     add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
     $this->set_up_MakeBuyButton($attrs['product_id'], 123, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
+    $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<EXPECTED
 <div class="flexboxrow">
   <div id="individual-jewellery-div">
@@ -175,6 +178,8 @@ EXPECTED;
   }
 
   public function test_multiple_images() {
+    global $CHANGE_IMAGES;
+    $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3,79,37';
     $attrs['product_id'] = 7;
@@ -187,6 +192,13 @@ EXPECTED;
     add_image_info(37, 'thumbnail', array('thumb3', 51, 93));
     $this->set_up_MakeBuyButton($attrs['product_id'], 543, 15);
     $content = JewelleryPageShortcode($attrs, '<br /> asdf', '');
+    $expected_array = array(
+      array('src' => 'URL', 'width' => 23, 'height' => 59),
+      array('src' => 'URL2', 'width' => 41, 'height' => 83),
+      array('src' => 'URL3', 'width' => 47, 'height' => 97),
+    );
+    $this->assertEquals($expected_array,
+      $CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<EXPECTED
 <div class="flexboxrow">
   <div id="individual-jewellery-div">
