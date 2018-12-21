@@ -71,6 +71,7 @@ function JewelleryPageShortcode(array $atts, string $content,
     array(
       'archived' => 'false',
       'image_id' => null,
+      # TODO: remove limited_to entirely.
       'limited_to' => '0',
       'name' => null,
       'product_id' => null,
@@ -110,15 +111,6 @@ function JewelleryPageShortcode(array $atts, string $content,
   }
   // Wordpress puts <br /> at the start and end of the content.
   $content = str_replace('<br />', '', $content);
-  if ($attrs['limited_to'] > 0) {
-    $limited_to = '<p>Limited edition: only ' . $attrs['limited_to']
-      . ' will be made.</p>';
-  } else {
-    $limited_to = '';
-  }
-  // We're not ready for limited edition stuff yet.
-  // TODO(johntobin): support limited editions and one-off pieces.
-  $limited_to = '';
 
   // Don't make the range part of the name for some ranges.
   $blacklisted_ranges = array('archive', 'singles');
@@ -170,7 +162,6 @@ END_OF_HTML;
   <div id="individual-jewellery-description">
     <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
     <p>{$content}</p>
-    {$limited_to}
 
 END_OF_HTML;
 
