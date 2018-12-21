@@ -28,17 +28,20 @@ END_OF_HTML;
     $price = intval($product->price);
     $content = <<<END_OF_HTML
     <p>Price: €{$price}.</p>
+
 END_OF_HTML;
     if (!is_store_closed()) {
       $content .= <<<END_OF_HTML
     [add_to_cart item="{$attrs['product_id']}" showprice="no" ajax="yes"
        text="Add to basket"]
+
 END_OF_HTML;
     } else {
       $store_opening_time_human = store_opening_time_human();
       $content .= <<<END_OF_HTML
       The store is currently closed, it will open again on
       {$store_opening_time_human}.
+
 END_OF_HTML;
     }
     return $content;
@@ -67,21 +70,21 @@ function JewelleryPageShortcode(array $atts, string $content,
   $attrs = shortcode_atts(
     array(
       'archived' => 'false',
-      'height' => 0,
-      'image_id' => '',
+      'image_id' => null,
       'limited_to' => '0',
-      'name' => '',
-      'product_id' => '',
-      'range' => '',
-      'type' => '',
-      'width' => 0,
+      'name' => null,
+      'product_id' => null,
+      'range' => null,
+      'type' => null,
     ),
     $atts);
   foreach ($attrs as $key => $value) {
-    if ($value != 0 && $value == '') {
+    if (is_null($value)) {
       return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
     }
   }
+  $attrs['height'] = 0;
+  $attrs['width'] = 0;
 
   # Look up the image(s).
   $image_ids = explode(',', $attrs['image_id']);
@@ -127,47 +130,47 @@ function JewelleryPageShortcode(array $atts, string $content,
 
   $html = <<<END_OF_HTML
 <div class="flexboxrow">
-<div id="individual-jewellery-div" >
+  <div id="individual-jewellery-div">
 
 END_OF_HTML;
   if (count($images) > 1) {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = $images;
     $html .= <<<END_OF_HTML
-  <div>
-    <ul>
+    <div>
+      <ul>
 
 END_OF_HTML;
 
     foreach ($image_ids as $i => $image_id) {
       $image_info = wp_get_attachment_image_src($image_id, 'thumbnail');
       $html .= <<<END_OF_HTML
-      <li><img src="{$image_info[0]}"
-               alt="{$range_in_piece_name}{$attrs['name']}"
-               onclick="change_image({$i}, '#individual-jewellery-image')"
-               width="{$image_info[1]}" height="{$image_info[2]}" /> </li>
+        <li><img src="{$image_info[0]}"
+                 alt="{$range_in_piece_name}{$attrs['name']}"
+                 onclick="change_image({$i}, '#individual-jewellery-image')"
+                 width="{$image_info[1]}" height="{$image_info[2]}" /> </li>
 
 END_OF_HTML;
     }
     $html .= <<<END_OF_HTML
-    </ul>
-  </div>
-[change_images]
+      </ul>
+    </div>
+  [change_images]
 END_OF_HTML;
   }
 
   $html .= <<<END_OF_HTML
-  <div width="{$attrs['width']}" height="${attrs['height']}">
-    <img id="individual-jewellery-image"
-      alt="{$range_in_piece_name}{$attrs['name']}"
-      src="{$images[0]['src']}"
-      width="{$images[0]['width']}" height="{$images[0]['height']}" />
+    <div width="{$attrs['width']}" height="${attrs['height']}">
+      <img id="individual-jewellery-image"
+        alt="{$range_in_piece_name}{$attrs['name']}"
+        src="{$images[0]['src']}"
+        width="{$images[0]['width']}" height="{$images[0]['height']}" />
+    </div>
   </div>
-</div>
-<div id="individual-jewellery-description">
-  <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
-  <p>{$content}</p>
-  {$limited_to}
+  <div id="individual-jewellery-description">
+    <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
+    <p>{$content}</p>
+    {$limited_to}
 
 END_OF_HTML;
 
@@ -175,10 +178,10 @@ END_OF_HTML;
 
   $html .= <<<END_OF_HTML
 
-  <p>See other items in this range: <a href="/jewellery/{$attrs['range']}/">{$attrs['range']}</a></p>
-  <p>See other: <a href="/jewellery/{$attrs['type']}/">{$attrs['type']}</a></p>
-  <p>See the items in <a href="/store/cart/">your basket</a></p>
-</div>
+    <p>See other items in this range: <a href="/jewellery/{$attrs['range']}/">{$attrs['range']}</a></p>
+    <p>See other: <a href="/jewellery/{$attrs['type']}/">{$attrs['type']}</a></p>
+    <p>See the items in <a href="/store/cart/">your basket</a></p>
+  </div>
 </div>
 
 END_OF_HTML;
