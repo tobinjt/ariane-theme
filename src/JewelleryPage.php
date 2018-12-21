@@ -176,13 +176,6 @@ END_OF_HTML;
 </div>
 
 END_OF_HTML;
-  if (count($images) > 1 && false) {
-    global $SLIDER_IMAGES;
-    $SLIDER_IMAGES['#individual-jewellery'] = json_encode($images);
-    $html .= <<<END_OF_HTML
-[generic_slider]
-END_OF_HTML;
-  }
   // Shortcodes need to be expanded.
   return do_shortcode($html);
 }
