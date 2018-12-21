@@ -111,21 +111,19 @@ function wp_get_attachment_image_src(int $image_id, string $size): array {
   return $IMAGE_INFO[$image_id][$size];
 }
 
-// Other helper functions.
-// Get a reasonable set of attrs to pass to JewelleryPageShortcode.
-function get_attrs(): array {
-  return array(
-    'archived' => 'false',
-    'image_id' => null,
-    'limited_to' => '0',
-    'name' => 'name should be set',
-    'product_id' => null,
-    'range' => 'range should be set',
-    'type' => 'type should be set',
-  );
-}
-
 class JewelleryPageShortcodeTest extends TestCase {
+  // Get a reasonable set of attrs to pass to JewelleryPageShortcode.
+  public function get_attrs(): array {
+    return array(
+      'archived' => 'false',
+      'image_id' => null,
+      'limited_to' => '0',
+      'name' => 'name should be set',
+      'product_id' => null,
+      'range' => 'range should be set',
+      'type' => 'type should be set',
+    );
+  }
 
   public function set_up_MakeBuyButton(int $product_id, int $price,
     int $stock_level) {
@@ -143,7 +141,7 @@ class JewelleryPageShortcodeTest extends TestCase {
   }
 
   public function test_single_image() {
-    $attrs = get_attrs();
+    $attrs = $this->get_attrs();
     $attrs['image_id'] = 3;
     $attrs['product_id'] = 7;
     add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
@@ -177,7 +175,7 @@ EXPECTED;
   }
 
   public function test_multiple_images() {
-    $attrs = get_attrs();
+    $attrs = $this->get_attrs();
     $attrs['image_id'] = '3,79,37';
     $attrs['product_id'] = 7;
     $attrs['range'] = 'singles';  # Test that range isn't included for singles.
