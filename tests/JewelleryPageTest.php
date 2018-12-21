@@ -11,7 +11,7 @@ $PRICES = array();
 class Cart66Product {
   public $max_quantity = 0;
   public $price = 0;
-  function __construct($id) {
+  function __construct(int $id) {
     global $MAX_QUANTITIES, $PRICES;
     if (isset($MAX_QUANTITIES[$id])) {
       $this->max_quantity = $MAX_QUANTITIES[$id];
@@ -22,21 +22,21 @@ class Cart66Product {
   }
 
   // Mock functions used by SUT.
-  public static function checkInventoryLevelForProduct($id) {
+  public static function checkInventoryLevelForProduct(int $id) {
     global $INVENTORY_LEVEL;
     return $INVENTORY_LEVEL[$id];
   }
 
   // Helper functions used by tests.
-  public static function setInventoryLevelForProduct($id, $level) {
+  public static function setInventoryLevelForProduct(int $id, int $level) {
     global $INVENTORY_LEVEL;
     $INVENTORY_LEVEL[$id] = $level;
   }
-  public static function setMaxQuantity($id, $max) {
+  public static function setMaxQuantity(int $id, int $max) {
     global $MAX_QUANTITIES;
     $MAX_QUANTITIES[$id] = $max;
   }
-  public static function setPrice($id, $price) {
+  public static function setPrice(int $id, int $price) {
     global $PRICES;
     $PRICES[$id] = $price;
   }
@@ -86,6 +86,94 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $content = MakeBuyButtonForJewelleryPage($attrs);
     $this->assertRegExp('/add_to_cart item="19" showprice="no"/', $content);
     $this->assertRegExp('/Price: €234/', $content);
+  }
+}
+
+global $IMAGE_INFO;
+$IMAGE_INFO = array();
+
+// Wordpress functions we need to fake.
+function shortcode_atts(array $array1, array $array2): array {
+  return array_merge($array1, $array2);
+}
+
+function do_shortcode(string $content): string {
+  return $content;
+}
+
+function add_image_info(string $image_id, string $size, array $info) {
+  global $IMAGE_INFO;
+  $IMAGE_INFO[$image_id][$size] = $info;
+}
+
+function wp_get_attachment_image_src(int $image_id, string $size): array {
+  global $IMAGE_INFO;
+  return $IMAGE_INFO[$image_id][$size];
+}
+
+// Other helper functions.
+// Get a reasonable set of attrs to pass to JewelleryPageShortcode.
+function get_attrs(): array {
+  return array(
+    'archived' => 'false',
+    'image_id' => null,
+    'limited_to' => '0',
+    'name' => 'name should be set',
+    'product_id' => null,
+    'range' => 'range should be set',
+    'type' => 'type should be set',
+  );
+}
+
+class JewelleryPageShortcodeTest extends TestCase {
+
+  public function set_up_MakeBuyButton(int $product_id, int $price,
+    int $stock_level) {
+    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
+    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
+    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
+    Cart66Product::setPrice($product_id, $price);
+    Cart66Product::setInventoryLevelForProduct($product_id, $stock_level);
+    Cart66Product::setMaxQuantity($product_id, 17);
+  }
+
+  public function test_missing_attr() {
+    $content = JewelleryPageShortcode([], '', '');
+    $this->assertRegExp('/jewellery_page: empty attribute/', $content);
+  }
+
+  public function test_single_image() {
+    $attrs = get_attrs();
+    $attrs['image_id'] = 3;
+    $attrs['product_id'] = 7;
+    add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
+    $this->set_up_MakeBuyButton($attrs['product_id'], 123, 11);
+    $content = JewelleryPageShortcode($attrs, 'description of piece', '');
+    $expected = <<<EXPECTED
+<div class="flexboxrow">
+  <div id="individual-jewellery-div">
+    <div width="23" height="59">
+      <img id="individual-jewellery-image"
+        alt="range should be set name should be set"
+        src="URL"
+        width="23" height="59" />
+    </div>
+  </div>
+  <div id="individual-jewellery-description">
+    <p class="highlight larger-text">range should be set name should be set</p>
+    <p>description of piece</p>
+    <p>Price: €123.</p>
+    [add_to_cart item="7" showprice="no" ajax="yes"
+       text="Add to basket"]
+
+    <p>See other items in this range: <a href="/jewellery/range should be set/">range should be set</a></p>
+    <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
+    <p>See the items in <a href="/store/cart/">your basket</a></p>
+  </div>
+</div>
+
+EXPECTED;
+    $this->assertEquals($expected, $content);
   }
 }
 ?>
