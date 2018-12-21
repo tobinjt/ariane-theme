@@ -175,5 +175,64 @@ class JewelleryPageShortcodeTest extends TestCase {
 EXPECTED;
     $this->assertEquals($expected, $content);
   }
+
+  public function test_multiple_images() {
+    $attrs = get_attrs();
+    $attrs['image_id'] = '3,79,37';
+    $attrs['product_id'] = 7;
+    $attrs['range'] = 'singles';  # Test that range isn't included for singles.
+    add_image_info(3, 'product_size', array('URL', 23, 59));
+    add_image_info(79, 'product_size', array('URL2', 41, 83));
+    add_image_info(37, 'product_size', array('URL3', 47, 97));
+    add_image_info(3, 'thumbnail', array('thumb', 25, 57));
+    add_image_info(79, 'thumbnail', array('thumb2', 44, 80));
+    add_image_info(37, 'thumbnail', array('thumb3', 51, 93));
+    $this->set_up_MakeBuyButton($attrs['product_id'], 543, 15);
+    $content = JewelleryPageShortcode($attrs, '<br /> asdf', '');
+    $expected = <<<EXPECTED
+<div class="flexboxrow">
+  <div id="individual-jewellery-div">
+
+    <div>
+      <ul>
+        <li><img src="thumb"
+                 alt="name should be set"
+                 onclick="change_image(0, '#individual-jewellery-image')"
+                 width="25" height="57" /> </li>
+        <li><img src="thumb2"
+                 alt="name should be set"
+                 onclick="change_image(1, '#individual-jewellery-image')"
+                 width="44" height="80" /> </li>
+        <li><img src="thumb3"
+                 alt="name should be set"
+                 onclick="change_image(2, '#individual-jewellery-image')"
+                 width="51" height="93" /> </li>
+      </ul>
+    </div>
+    [change_images]
+
+    <div width="47" height="97">
+      <img id="individual-jewellery-image"
+        alt="name should be set"
+        src="URL"
+        width="23" height="59" />
+    </div>
+  </div>
+  <div id="individual-jewellery-description">
+    <p class="highlight larger-text">name should be set</p>
+    <p> asdf</p>
+    <p>Price: €543.</p>
+    [add_to_cart item="7" showprice="no" ajax="yes"
+       text="Add to basket"]
+
+    <p>See other items in this range: <a href="/jewellery/singles/">singles</a></p>
+    <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
+    <p>See the items in <a href="/store/cart/">your basket</a></p>
+  </div>
+</div>
+
+EXPECTED;
+    $this->assertEquals($expected, $content);
+  }
 }
 ?>

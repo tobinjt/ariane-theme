@@ -129,6 +129,7 @@ END_OF_HTML;
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = $images;
     $html .= <<<END_OF_HTML
+
     <div>
       <ul>
 
@@ -147,7 +148,9 @@ END_OF_HTML;
     $html .= <<<END_OF_HTML
       </ul>
     </div>
-  [change_images]
+    [change_images]
+
+
 END_OF_HTML;
   }
 
