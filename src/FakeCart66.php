@@ -1,8 +1,11 @@
 <?php
-global $INVENTORY_LEVEL, $MAX_QUANTITIES, $PRICES;
-$INVENTORY_LEVEL = array();
-$MAX_QUANTITIES = array();
-$PRICES = array();
+// Clean up all state set up by tests.
+function clear_cart66_testing_state() {
+  global $INVENTORY_LEVEL, $MAX_QUANTITIES, $PRICES;
+  $INVENTORY_LEVEL = array();
+  $MAX_QUANTITIES = array();
+  $PRICES = array();
+}
 
 class Cart66Product {
   public $max_quantity = 0;

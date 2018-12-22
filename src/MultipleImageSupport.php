@@ -29,15 +29,15 @@ function SliderImages(): array {
   $images = array();
   foreach ($media_query->posts as $post) {
     $matches = array();
-    if (preg_match('/^\s*slider\s+([^ ]+)$/', $post->post_content, $matches)) {
+    if (preg_match('/^\s*slider\s+([^ ]+)\s*$/', $post->post_content, $matches)) {
       $image_large = wp_get_attachment_image_src($post->ID, 'slider_large');
       $image_small = wp_get_attachment_image_src($post->ID, 'slider_small');
       $images[] = array(
         'src' => $image_large[0],
         'href' => $matches[1],
-        'srcset' => ("{$image_large[0]} {$image_large[1]}w,\n"
+        'srcset' => ("{$image_large[0]} {$image_large[1]}w,"
                      . " {$image_small[0]} {$image_small[1]}w"),
-        'sizes' => ("(max-width: 799px) {$image_small[1]}px,\n"
+        'sizes' => ("(max-width: 799px) {$image_small[1]}px,"
                     . " {$image_large[1]}px"),
       );
     }

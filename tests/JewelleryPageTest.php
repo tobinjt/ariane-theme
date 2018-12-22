@@ -6,6 +6,11 @@ require_once('src/FakeWordpress.php');
 require_once('src/JewelleryPage.php');
 
 class MakeBuyButtonForJewelleryPageTest extends TestCase {
+  public function setUp() {
+    clear_wordpress_testing_state();
+    clear_cart66_testing_state();
+  }
+
   public function test_max_quantity() {
     $attrs = ['product_id' => 7];
     Cart66Product::setMaxQuantity($attrs['product_id'], 1);
@@ -53,6 +58,11 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
 }
 
 class JewelleryPageShortcodeTest extends TestCase {
+  public function setUp() {
+    clear_wordpress_testing_state();
+    clear_cart66_testing_state();
+  }
+
   // Get a reasonable set of attrs to pass to JewelleryPageShortcode.
   public function get_attrs(): array {
     return array(
