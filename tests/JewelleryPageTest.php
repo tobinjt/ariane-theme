@@ -1,46 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/StoreClosingTimes.php');
+require_once('src/FakeCart66.php');
+require_once('src/FakeWordpress.php');
 require_once('src/JewelleryPage.php');
-
-global $INVENTORY_LEVEL, $MAX_QUANTITIES, $PRICES;
-$INVENTORY_LEVEL = array();
-$MAX_QUANTITIES = array();
-$PRICES = array();
-
-class Cart66Product {
-  public $max_quantity = 0;
-  public $price = 0;
-  function __construct(int $id) {
-    global $MAX_QUANTITIES, $PRICES;
-    if (isset($MAX_QUANTITIES[$id])) {
-      $this->max_quantity = $MAX_QUANTITIES[$id];
-    }
-    if (isset($PRICES[$id])) {
-      $this->price = $PRICES[$id];
-    }
-  }
-
-  // Mock functions used by SUT.
-  public static function checkInventoryLevelForProduct(int $id) {
-    global $INVENTORY_LEVEL;
-    return $INVENTORY_LEVEL[$id];
-  }
-
-  // Helper functions used by tests.
-  public static function setInventoryLevelForProduct(int $id, int $level) {
-    global $INVENTORY_LEVEL;
-    $INVENTORY_LEVEL[$id] = $level;
-  }
-  public static function setMaxQuantity(int $id, int $max) {
-    global $MAX_QUANTITIES;
-    $MAX_QUANTITIES[$id] = $max;
-  }
-  public static function setPrice(int $id, int $price) {
-    global $PRICES;
-    $PRICES[$id] = $price;
-  }
-}
 
 class MakeBuyButtonForJewelleryPageTest extends TestCase {
   public function test_max_quantity() {
@@ -87,28 +50,6 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $this->assertRegExp('/add_to_cart item="19" showprice="no"/', $content);
     $this->assertRegExp('/Price: €234/', $content);
   }
-}
-
-global $IMAGE_INFO;
-$IMAGE_INFO = array();
-
-// Wordpress functions we need to fake.
-function shortcode_atts(array $array1, array $array2): array {
-  return array_merge($array1, $array2);
-}
-
-function do_shortcode(string $content): string {
-  return $content;
-}
-
-function add_image_info(string $image_id, string $size, array $info) {
-  global $IMAGE_INFO;
-  $IMAGE_INFO[$image_id][$size] = $info;
-}
-
-function wp_get_attachment_image_src(int $image_id, string $size): array {
-  global $IMAGE_INFO;
-  return $IMAGE_INFO[$image_id][$size];
 }
 
 class JewelleryPageShortcodeTest extends TestCase {
