@@ -93,10 +93,6 @@ END_OF_JAVASCRIPT;
  */
 function FrontPageSliderSetupShortcode(string $atts, string $content,
                                        string $tag): string {
-  if (!is_null($content) and $content != '') {
-    return '<h1>FrontPageSliderSetupShortcode: no content accepted!  Given: '
-      . htmlspecialchars($content) . '</h1>' . "\n";
-  }
   add_action('wp_footer', 'SliderSetupGeneric');
   $images = SliderImages('slider_large');
   global $SLIDER_IMAGES;
@@ -130,10 +126,6 @@ END_OF_HTML;
  */
 function SliderSetupShortcode(array $atts, string $content,
                               string $tag): string {
-  if (!is_null($content) and $content != '') {
-    return '<h1>SliderSetupShortcode: no content accepted!  Given: '
-      . htmlspecialchars($content) . '</h1>' . "\n";
-  }
   add_action('wp_footer', 'SliderSetupGeneric');
   return '';
 }
@@ -181,10 +173,6 @@ END_OF_JAVASCRIPT;
  */
 function ChangeImagesSetupShortcode(string $atts, string $content=null,
                                     string $tag): string {
-  if (!is_null($content) and $content != '') {
-    return '<h1>slider: no content accepted!  Given: '
-      . htmlspecialchars($content) . '</h1>' . "\n";
-  }
   add_action('wp_footer', 'ChangeImagesSetupGeneric');
   return '';
 }
