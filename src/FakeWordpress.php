@@ -18,6 +18,11 @@ function do_shortcode(string $content): string {
   return $content;
 }
 
+function add_action(string $section, string $function) {
+  assert($section == 'wp_footer');
+  assert(function_exists($function));
+}
+
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];

@@ -44,4 +44,72 @@ class SliderImagesTest extends TestCase {
   }
 
 }
+
+class SmallFunctionsTest extends TestCase {
+  public function setUp() {
+    clear_wordpress_testing_state();
+  }
+
+  public function test_ChangeImagesSetupShortcode() {
+    $this->assertEquals('', ChangeImagesSetupShortcode(array(), '', ''));
+  }
+
+  public function test_SliderSetupShortcode() {
+    $this->assertEquals('', SliderSetupShortcode(array(), '', ''));
+  }
+
+  public function test_ChangeImagesSetupGeneric() {
+    global $CHANGE_IMAGES;
+    $CHANGE_IMAGES = array();
+    $CHANGE_IMAGES['foo'] = array(1, 2);
+    $CHANGE_IMAGES['bar'] = array('asdf', 'qwerty');
+    $expected = <<<END_OUT_OUTPUT
+<!-- Start of ChangeImages. -->
+<script type="text/javascript">
+function change_image(i, id) {
+var images = {"foo":[1,2],"bar":["asdf","qwerty"]};
+// Construct a new image and swap it in, otherwise it flashes awkwardly - the
+// old image resizes and then the new image is displayed.
+var img = jQuery(id);
+var new_img = jQuery('<img>');
+new_img.attr('id', img.attr('id'));
+new_img.attr('alt', img.attr('alt'));
+new_img.attr(images[id][i]);
+img.replaceWith(new_img);
+};
+</script>
+<!-- End of ChangeImages. -->
+
+END_OUT_OUTPUT;
+    $this->expectOutputString($expected);
+    ChangeImagesSetupGeneric();
+  }
+
+  public function test_SliderSetupGeneric() {
+    global $SLIDER_IMAGES;
+    $SLIDER_IMAGES = array();
+    $SLIDER_IMAGES['#foo'] = json_encode(array(11, 23));
+    $SLIDER_IMAGES['#bar'] = json_encode(array('pinky', 'brain'));
+    $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
+    $expected = <<<END_OUT_OUTPUT
+<!-- Start of SliderSetup. -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  Slider.initialise({'id_prefix': '#foo',
+                     'log_to_console': true},
+                    [11,23]);
+  Slider.initialise({'id_prefix': '#bar',
+                     'log_to_console': true},
+                    ["pinky","brain"]);
+});
+</script>
+<!-- Include the rest of the Javascript. -->
+<script type="text/javascript" src="DIR/slider.js"></script>
+<!-- End of SliderSetup. -->
+
+END_OUT_OUTPUT;
+    $this->expectOutputString($expected);
+    SliderSetupGeneric();
+  }
+}
 ?>

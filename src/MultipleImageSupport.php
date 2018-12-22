@@ -62,9 +62,10 @@ END_OF_JAVASCRIPT;
   foreach ($SLIDER_IMAGES as $id_prefix => $images) {
     $images = trim($images);
     $output .= <<<END_OF_JAVASCRIPT
-Slider.initialise({'id_prefix': '{$id_prefix}',
-                   'log_to_console': {$is_dev_website}},
-                  {$images});
+  Slider.initialise({'id_prefix': '{$id_prefix}',
+                     'log_to_console': {$is_dev_website}},
+                    {$images});
+
 END_OF_JAVASCRIPT;
   }
   $template_directory = get_bloginfo('template_directory');
@@ -94,7 +95,7 @@ END_OF_JAVASCRIPT;
 function FrontPageSliderSetupShortcode(string $atts, string $content,
                                        string $tag): string {
   add_action('wp_footer', 'SliderSetupGeneric');
-  $images = SliderImages('slider_large');
+  $images = SliderImages();
   global $SLIDER_IMAGES;
   $SLIDER_IMAGES['#slider'] = json_encode($images);
   $image = $images[0];
@@ -171,7 +172,7 @@ END_OF_JAVASCRIPT;
  *  string, the HTML to insert in the page (Wordpress does that
  *    automatically).
  */
-function ChangeImagesSetupShortcode(string $atts, string $content=null,
+function ChangeImagesSetupShortcode(array $atts, string $content=null,
                                     string $tag): string {
   add_action('wp_footer', 'ChangeImagesSetupGeneric');
   return '';
