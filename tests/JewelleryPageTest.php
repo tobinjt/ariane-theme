@@ -170,7 +170,6 @@ EXPECTED;
                  width="51" height="93" /> </li>
       </ul>
     </div>
-    [change_images]
 
     <div width="47" height="97">
       <img id="individual-jewellery-image"

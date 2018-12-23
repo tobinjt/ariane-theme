@@ -50,14 +50,6 @@ class SmallFunctionsTest extends TestCase {
     clear_wordpress_testing_state();
   }
 
-  public function test_ChangeImagesSetupShortcode() {
-    $this->assertEquals('', ChangeImagesSetupShortcode(array(), '', ''));
-  }
-
-  public function test_SliderSetupShortcode() {
-    $this->assertEquals('', SliderSetupShortcode(array(), '', ''));
-  }
-
   public function test_ChangeImagesSetupGeneric() {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES = array();

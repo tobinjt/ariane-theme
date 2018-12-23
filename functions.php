@@ -136,8 +136,6 @@ END_OF_DIV;
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
   add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
-  add_shortcode('generic_slider', 'SliderSetupShortcode');
-  add_shortcode('change_images', 'ChangeImagesSetupShortcode');
   add_shortcode('style_wrap', 'StyleWrapShortcode');
 
   // Enable extra image sizes.

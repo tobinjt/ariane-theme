@@ -6,7 +6,7 @@
  */
 global $SLIDER_IMAGES;
 $SLIDER_IMAGES = array();
-/* Used to collect change_images configs and set them up.  Maps ID => raw
+/* Used to collect change images configs and set them up.  Maps ID => raw
  * image info.
  */
 global $CHANGE_IMAGES;
@@ -113,24 +113,6 @@ END_OF_HTML;
   return $html;
 }
 
-/* SliderSetupShortcode: wrap SliderSetupGeneric to provide a shortcode.  This
- * *must not* be used in the enclosing form.
- * Args (names are ugly but Wordpress-standard):
- *  $atts: an associative array of attributes, or an empty string if no
- *    attributes are given.
- *  $content: the enclosed content (if the shortcode is used in its enclosing
- *    form)
- *  $tag: the shortcode tag, useful for shared callback functions
- * Returns:
- *  string, the HTML to insert in the page (Wordpress does that
- *    automatically).
- */
-function SliderSetupShortcode(array $atts, string $content,
-                              string $tag): string {
-  add_action('wp_footer', 'SliderSetupGeneric');
-  return '';
-}
-
 /* ChangeImagesSetupGeneric: output the Javascript needed to set up changing
  * of images by clicking on thumbnails, including the images.  Should be
  * called indirectly by Wordpress, by registering it with:
@@ -158,23 +140,5 @@ img.replaceWith(new_img);
 
 END_OF_JAVASCRIPT;
   echo $output;
-}
-
-/* ChangeImagesSetupShortcode: wrap ChangeImagesSetupGeneric to provide a
- * shortcode.  This *must not* be used in the enclosing form.
- * Args (names are ugly but Wordpress-standard):
- *  $atts: an associative array of attributes, or an empty string if no
- *    attributes are given.
- *  $content: the enclosed content (if the shortcode is used in its enclosing
- *    form)
- *  $tag: the shortcode tag, useful for shared callback functions
- * Returns:
- *  string, the HTML to insert in the page (Wordpress does that
- *    automatically).
- */
-function ChangeImagesSetupShortcode(array $atts, string $content=null,
-                                    string $tag): string {
-  add_action('wp_footer', 'ChangeImagesSetupGeneric');
-  return '';
 }
 ?>
