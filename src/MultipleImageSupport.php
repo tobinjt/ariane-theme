@@ -80,22 +80,16 @@ END_OF_JAVASCRIPT;
   echo $output;
 }
 
-/* FrontPageSliderSetupShortcode: wrap SliderSetupGeneric to provide a
- * shortcode.  This *must not* be used in the enclosing form.
- * Args (names are ugly but Wordpress-standard):
- *  $atts: an associative array of attributes, or an empty string if no
- *    attributes are given.
- *  $content: the enclosed content (if the shortcode is used in its enclosing
- *    form)
- *  $tag: the shortcode tag, useful for shared callback functions
+/* FrontPageSliderSetup: wrap SliderSetupGeneric to set up the front page image
+ * slider.
+ * Args:
+ *  $images: array of images returned by SliderImages().
  * Returns:
  *  string, the HTML to insert in the page (Wordpress does that
  *    automatically).
  */
-function FrontPageSliderSetupShortcode(string $atts, string $content,
-                                       string $tag): string {
+function FrontPageSliderSetup(array $images): string {
   add_action('wp_footer', 'SliderSetupGeneric');
-  $images = SliderImages();
   global $SLIDER_IMAGES;
   $SLIDER_IMAGES['#slider'] = json_encode($images);
   $image = $images[0];

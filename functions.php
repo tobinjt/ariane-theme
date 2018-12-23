@@ -61,6 +61,25 @@
 END_OF_DIV;
   }
 
+/* FrontPageSliderSetupShortcode: wrap FrontPageSliderSetup to provide a
+ * shortcode.  This *must not* be used in the enclosing form.
+ * Args (names are ugly but Wordpress-standard):
+ *  $atts: an associative array of attributes, or an empty string if no
+ *    attributes are given.
+ *  $content: the enclosed content (if the shortcode is used in its enclosing
+ *    form)
+ *  $tag: the shortcode tag, useful for shared callback functions
+ * Returns:
+ *  string, the HTML to insert in the page (Wordpress does that
+ *    automatically).
+ */
+function FrontPageSliderSetupShortcode(string $atts, string $content,
+                                       string $tag): string {
+  $images = SliderImages();
+  return FrontPageSliderSetup($images);
+}
+
+
   // Configure Wordpress.
   // Remove unnecessary resources that Wordpress or plugins include in every
   // page.
