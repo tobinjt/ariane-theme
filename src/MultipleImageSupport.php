@@ -95,14 +95,15 @@ function FrontPageSliderSetup(array $images): string {
   $image = $images[0];
   $html = <<<END_OF_HTML
 <div id="slider-div">
-<a href="{$image['href']}" id="slider-link"
-  alt="Selection of Ariane's best work">
-  <img id="slider-image" src="{$image['src']}"
-    alt="Selection of Ariane's best work"
-    srcset="{$image['srcset']}"
-    sizes="{$image['sizes']}" />
-</a>
+  <a href="{$image['href']}" id="slider-link"
+    alt="Selection of Ariane's best work">
+    <img id="slider-image" src="{$image['src']}"
+      alt="Selection of Ariane's best work"
+      srcset="{$image['srcset']}"
+      sizes="{$image['sizes']}" />
+  </a>
 </div>
+
 END_OF_HTML;
   return $html;
 }

@@ -55,7 +55,7 @@ class SmallFunctionsTest extends TestCase {
     $CHANGE_IMAGES = array();
     $CHANGE_IMAGES['foo'] = array(1, 2);
     $CHANGE_IMAGES['bar'] = array('asdf', 'qwerty');
-    $expected = <<<END_OUT_OUTPUT
+    $expected = <<<END_OF_OUTPUT
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
@@ -72,7 +72,7 @@ img.replaceWith(new_img);
 </script>
 <!-- End of ChangeImages. -->
 
-END_OUT_OUTPUT;
+END_OF_OUTPUT;
     $this->expectOutputString($expected);
     ChangeImagesSetupGeneric();
   }
@@ -83,7 +83,7 @@ END_OUT_OUTPUT;
     $SLIDER_IMAGES['#foo'] = json_encode(array(11, 23));
     $SLIDER_IMAGES['#bar'] = json_encode(array('pinky', 'brain'));
     $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
-    $expected = <<<END_OUT_OUTPUT
+    $expected = <<<END_OF_OUTPUT
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -99,9 +99,34 @@ jQuery(document).ready(function() {
 <script type="text/javascript" src="DIR/slider.js"></script>
 <!-- End of SliderSetup. -->
 
-END_OUT_OUTPUT;
+END_OF_OUTPUT;
     $this->expectOutputString($expected);
     SliderSetupGeneric();
+  }
+
+  public function test_FrontPageSliderSetup() {
+    global $SLIDER_IMAGES;
+    $SLIDER_IMAGES = array();
+    $images = array(
+      array('href' => 'linky', 'src' => 'jpg', 'srcset' => 'foo',
+        'sizes' => 'bar'),
+      array(1, 2, 3, 4),
+    );
+    $content = FrontPageSliderSetup($images);
+    $expected = <<<END_OF_OUTPUT
+<div id="slider-div">
+  <a href="linky" id="slider-link"
+    alt="Selection of Ariane's best work">
+    <img id="slider-image" src="jpg"
+      alt="Selection of Ariane's best work"
+      srcset="foo"
+      sizes="bar" />
+  </a>
+</div>
+
+END_OF_OUTPUT;
+    $this->assertEquals($expected, $content);
+    $this->assertEquals(json_encode($images), $SLIDER_IMAGES['#slider']);
   }
 }
 ?>
