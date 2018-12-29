@@ -81,42 +81,49 @@ function MakeBuyButtonForJewelleryGrid(string $product_id): string {
   if ($product_id == '-1' || is_archive_page()) {
     return <<<END_OF_NO_PRODUCT_OR_ARCHIVE
     <!-- This creates some space underneath. -->
+
 END_OF_NO_PRODUCT_OR_ARCHIVE;
   }
 
   $product = new Cart66Product($product_id);
-  if (Cart66Product::checkInventoryLevelForProduct($product_id) > 0) {
-    $price = intval($product->price);
-    $content = <<<END_OF_PRICE
-    <div class="larger-text">
-      €{$price}
-END_OF_PRICE;
-    if (!is_store_closed()) {
-      $content .= <<<END_OF_BUY
-      [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
-         text="Add to basket" style="display: inline;"]
-END_OF_BUY;
-    } else {
-      $content .= <<<END_OF_CLOSED
-      (store closed)
-END_OF_CLOSED;
-    }
-    $content .= <<<END_OF_DIV
-    </div>
-END_OF_DIV;
-    return $content;
-  }
-
-  if ($product->max_quantity == 1) {
-    return <<<END_OF_SOLD
+  if (Cart66Product::checkInventoryLevelForProduct($product_id) == 0) {
+    if ($product->max_quantity == 1) {
+      return <<<END_OF_SOLD
     Sold
-END_OF_SOLD;
-  }
 
-  return <<<END_OF_OUT_OF_STOCK
+END_OF_SOLD;
+    }
+
+    return <<<END_OF_OUT_OF_STOCK
     This piece is out of stock, please contact Ariane as it's possible this
     item could be made to order.
+
 END_OF_OUT_OF_STOCK;
+  }
+
+  $price = intval($product->price);
+  $content = <<<END_OF_PRICE
+    <div class="larger-text">
+      €{$price}
+
+END_OF_PRICE;
+  if (!is_store_closed()) {
+    $content .= <<<END_OF_BUY
+      [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
+         text="Add to basket" style="display: inline;"]
+
+END_OF_BUY;
+  } else {
+    $content .= <<<END_OF_CLOSED
+      (store closed)
+
+END_OF_CLOSED;
+  }
+  $content .= <<<END_OF_DIV
+    </div>
+
+END_OF_DIV;
+  return $content;
 }
 
 /* MakeJewelleryGrid: create a table from CSV content.
