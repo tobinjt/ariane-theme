@@ -3,6 +3,11 @@ use PHPUnit\Framework\TestCase;
 require_once('src/StoreClosingTimes.php');
 
 class StoreClosingTimesTest extends TestCase {
+  public function setUp() {
+    global $TIMES;
+    $TIMES = array();
+  }
+
   public function test_setting_and_getting_times() {
     global $TIMES;
     set_closing_time('asdf');
