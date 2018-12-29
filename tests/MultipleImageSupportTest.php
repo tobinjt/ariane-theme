@@ -8,6 +8,10 @@ class SliderImagesTest extends TestCase {
     clear_wordpress_testing_state();
   }
 
+  public function tearDown() {
+    verify_wordpress_testing_state();
+  }
+
   public function test_no_images() {
     $non_slider_post = new WP_Post(3, 'qwerty');
     WP_Query::add_query_result($non_slider_post);
@@ -48,6 +52,10 @@ class SliderImagesTest extends TestCase {
 class SmallFunctionsTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
+  }
+
+  public function tearDown() {
+    verify_wordpress_testing_state();
   }
 
   public function test_ChangeImagesSetupGeneric() {
@@ -112,6 +120,7 @@ END_OF_OUTPUT;
         'sizes' => 'bar'),
       array(1, 2, 3, 4),
     );
+    expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     $content = FrontPageSliderSetup($images);
     $expected = <<<END_OF_OUTPUT
 <div id="slider-div">

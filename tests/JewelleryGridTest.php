@@ -10,6 +10,10 @@ class ParseJewelleryGridContentsTest extends TestCase {
     clear_wordpress_testing_state();
   }
 
+  public function tearDown() {
+    verify_wordpress_testing_state();
+  }
+
   public function test_parsing() {
     $input = <<<END_OF_INPUT
 # This comment will be skipped.
@@ -61,6 +65,10 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
+  }
+
+  public function tearDown() {
+    verify_wordpress_testing_state();
   }
 
   public function set_url(string $url) {
@@ -136,6 +144,10 @@ class MakeJewelleryGridTest extends TestCase {
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
   }
 
+  public function tearDown() {
+    verify_wordpress_testing_state();
+  }
+
   public function set_url(string $url) {
     $_SERVER['REQUEST_URI'] = $url;
   }
@@ -186,6 +198,7 @@ END_OF_EXPECTED;
   }
 
   public function test_multiple_images_and_pieces() {
+    expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     # First range.
     Cart66Product::setPrice(19, 234);
     Cart66Product::setInventoryLevelForProduct(19, 3);
