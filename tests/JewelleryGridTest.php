@@ -134,7 +134,7 @@ END_OF_EXPECTED;
   }
 }
 
-class MakeJewelleryGridTest extends TestCase {
+class JewelleryGridShortcodeTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
@@ -161,7 +161,8 @@ class MakeJewelleryGridTest extends TestCase {
 name of the range|this is the alt text|11|linky/|19
 
 END_OF_INPUT;
-    $output = MakeJewelleryGrid($input, 'DESCRIPTION');
+    $output = JewelleryGridShortcode(
+      array('description' => 'DESCRIPTION'), $input, '');
     $expected = <<<END_OF_EXPECTED
         <div id="jewellery-grid">
           <div>
@@ -215,7 +216,8 @@ name of the range|this is the alt text|11|linky/|19
 range range range|alt text for second range|13,17,23|linky/|53
 
 END_OF_INPUT;
-    $output = MakeJewelleryGrid($input, 'DESCRIPTION');
+    $output = JewelleryGridShortcode(
+      array('description' => 'DESCRIPTION'), $input, '');
     $expected = <<<END_OF_EXPECTED
         <div id="jewellery-grid">
           <div>

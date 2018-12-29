@@ -126,18 +126,28 @@ END_OF_DIV;
   return $content;
 }
 
-/* MakeJewelleryGrid: create a table from CSV content.
- * Args:
- *  $page_contents: string, the contents of the page.  First line (CSV header)
- *    will be removed.  Blank lines will be skipped.  <br /> will be stripped
- *    from the end of each line.
- *  $description: string, the description to display at the top of the page.
- *    If the string is empty nothing will be added.
+/* JewelleryGridShortcode: create a table from CSV content.
+ * This *must* be used in the enclosing form.
+ * Args (names are ugly but Wordpress-standard):
+ *  $atts: associative array of attributes, optionally containing $description:
+ *    string, the description to display at the top of the page.  If the string
+ *    is empty no description will be added.
+ *  $content: string, the contents of the page.  Blank lines will be skipped.
+ *    <br /> will be stripped from the end of each line.
+ *  $tag: unused.
  * Returns:
- *  string, HTML to insert in the page.
+ *  string, the HTML to insert in the page (Wordpress does that automatically).
  */
-function MakeJewelleryGrid(string $page_contents, string $description): string {
-  $ranges = ParseJewelleryGridContents($page_contents);
+function JewelleryGridShortcode(array $atts, string $content,
+                                string $tag): string {
+  $attrs = shortcode_atts(
+    array(
+      'description' => '',
+    ),
+    $atts);
+
+  $description = $attrs['description'];
+  $ranges = ParseJewelleryGridContents($content);
   # Turn the data structure into <divs>s.
   $divs = array();
   $slider_needed = false;
@@ -204,28 +214,4 @@ END_OF_HTML;
   return do_shortcode(implode("\n", $html));
 }
 
-/* JewelleryGridShortcode: wrap MakeJewelleryGrid to provide a shortcode.
- * This *must* be used in the enclosing form.
- * Args (names are ugly but Wordpress-standard):
- *  $atts: an associative array of attributes, or an empty string if no
- *    attributes are given.
- *  $content: the enclosed content (if the shortcode is used in its enclosing
- *    form)
- *  $tag: the shortcode tag, useful for shared callback functions
- * Returns:
- *  string, the HTML to insert in the page (Wordpress does that
- *    automatically).
- */
-function JewelleryGridShortcode(array $atts, string $content,
-                                string $tag): string {
-  if (is_null($content)) {
-    return '<h1>jewellery_grid: no content to display!</h1>' . "\n";
-  }
-  $attrs = shortcode_atts(
-    array(
-      'description' => '',
-    ),
-    $atts);
-  return MakeJewelleryGrid($content, $attrs['description']);
-}
 ?>
