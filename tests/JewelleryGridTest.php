@@ -115,14 +115,83 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     Cart66Product::setInventoryLevelForProduct(19, 3);
     $content = MakeBuyButtonForJewelleryGrid('19');
     $expected = <<<END_OF_EXPECTED
-    <div class="larger-text">
-      €234
-      [add_to_cart item="19" showprice="no" ajax="yes"
-         text="Add to basket" style="display: inline;"]
-    </div>
+                <div class="larger-text">
+                  €234
+                  [add_to_cart item="19" showprice="no" ajax="yes"
+                     text="Add to basket" style="display: inline;"]
+                </div>
 
 END_OF_EXPECTED;
     $this->assertEquals($expected, $content);
+  }
+}
+
+class MakeJewelleryGridTest extends TestCase {
+  public function setUp() {
+    clear_wordpress_testing_state();
+    clear_cart66_testing_state();
+    $this->set_url('/jewellery/foo/');
+    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
+    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
+    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
+  }
+
+  public function set_url(string $url) {
+    $_SERVER['REQUEST_URI'] = $url;
+  }
+
+  public function test_single_images() {
+    Cart66Product::setPrice(19, 234);
+    Cart66Product::setInventoryLevelForProduct(19, 3);
+    add_image_info(11, 'grid_size', array('URL', 23, 59));
+    $input = <<<END_OF_INPUT
+# Format: range|alt|image_id|href|product_id
+name of the range|this is the alt text|11|linky/|19
+
+END_OF_INPUT;
+    $output = MakeJewelleryGrid($input, 'DESCRIPTION');
+    $expected = <<<END_OF_EXPECTED
+        <div id="jewellery-grid">
+          <div>
+            <p class="grey large-text text-centered">DESCRIPTION</p>
+          </div>
+          <div id="jewellery-grid-inner" class="flexboxrow">
+            <div class="aligncenter jewellery-block">
+              <div class="jewellery-picture-container">
+                <a href="linky/">
+                  <img src="URL" alt="this is the alt text"
+                    width="23" height="59"
+                    class="aligncenter block" id="item-0-image"/>
+                </a>
+              </div>
+              <div class="larger-text text-centered left-right-margin grey">
+                <a href="linky/">name of the range</a>
+              </div>
+              <div class="text-centered left-right-margin top-bottom-margin grey
+                jewellery-text-container">
+                <div class="larger-text">
+                  €234
+                  [add_to_cart item="19" showprice="no" ajax="yes"
+                     text="Add to basket" style="display: inline;"]
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+END_OF_EXPECTED;
+    $output = $this->add_numbers($output);
+    $expected = $this->add_numbers($expected);
+    $this->assertEquals($expected, $output);
+  }
+
+  public function add_numbers(string $content): string {
+    $lines = explode("\n", $content);
+    $new_lines = array();
+    foreach ($lines as $i => $line) {
+      $new_lines[] = $i . ' ' . $line;
+    }
+    return implode("\n", $new_lines);
   }
 }
 ?>

@@ -103,24 +103,24 @@ END_OF_OUT_OF_STOCK;
 
   $price = intval($product->price);
   $content = <<<END_OF_PRICE
-    <div class="larger-text">
-      €{$price}
+                <div class="larger-text">
+                  €{$price}
 
 END_OF_PRICE;
   if (!is_store_closed()) {
     $content .= <<<END_OF_BUY
-      [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
-         text="Add to basket" style="display: inline;"]
+                  [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
+                     text="Add to basket" style="display: inline;"]
 
 END_OF_BUY;
   } else {
     $content .= <<<END_OF_CLOSED
-      (store closed)
+                  (store closed)
 
 END_OF_CLOSED;
   }
   $content .= <<<END_OF_DIV
-    </div>
+                </div>
 
 END_OF_DIV;
   return $content;
@@ -151,26 +151,28 @@ function MakeJewelleryGrid(string $page_contents, string $description): string {
     }
 
     $div = <<<END_OF_IMAGE_AND_RANGE
-<div class="aligncenter jewellery-block">
-  <div class="jewellery-picture-container">
-    <a href="{$data['href']}">
-      <img src="{$image['src']}" alt="{$data['alt']}"
-        width="{$image['width']}" height="{$image['height']}"
-        class="aligncenter block" id="{$id}-image"/>
-    </a>
-  </div>
-  <div class="larger-text text-centered left-right-margin grey">
-    <a href="{$data['href']}">{$data['range']}</a>
-  </div>
+            <div class="aligncenter jewellery-block">
+              <div class="jewellery-picture-container">
+                <a href="{$data['href']}">
+                  <img src="{$image['src']}" alt="{$data['alt']}"
+                    width="{$image['width']}" height="{$image['height']}"
+                    class="aligncenter block" id="{$id}-image"/>
+                </a>
+              </div>
+              <div class="larger-text text-centered left-right-margin grey">
+                <a href="{$data['href']}">{$data['range']}</a>
+              </div>
+
 END_OF_IMAGE_AND_RANGE;
     $div .= <<<END_OF_OPEN_BUY_DIV
-  <div class="text-centered left-right-margin top-bottom-margin grey
-    jewellery-text-container">
+              <div class="text-centered left-right-margin top-bottom-margin grey
+                jewellery-text-container">
+
 END_OF_OPEN_BUY_DIV;
     $div .= MakeBuyButtonForJewelleryGrid($data['product_id']);
     $div .= <<<END_OF_DIV
-  </div>
-</div>
+              </div>
+            </div>
 END_OF_DIV;
     $divs[] = $div;
   }
@@ -197,6 +199,8 @@ END_OF_HTML;
   if ($slider_needed) {
     add_action('wp_footer', 'SliderSetupGeneric');
   }
+  # Add a newline.
+  $html[] = '';
   return do_shortcode(implode("\n", $html));
 }
 
