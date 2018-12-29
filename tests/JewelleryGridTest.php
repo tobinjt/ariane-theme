@@ -185,6 +185,86 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
 
+  public function test_multiple_images_and_pieces() {
+    # First range.
+    Cart66Product::setPrice(19, 234);
+    Cart66Product::setInventoryLevelForProduct(19, 3);
+    add_image_info(11, 'grid_size', array('URL', 23, 59));
+    # Second range.
+    Cart66Product::setPrice(53, 321);
+    Cart66Product::setInventoryLevelForProduct(53, 41);
+    add_image_info(13, 'grid_size', array('URLX', 23, 59));
+    add_image_info(17, 'grid_size', array('URLY', 29, 61));
+    add_image_info(23, 'grid_size', array('URLZ', 31, 67));
+    $input = <<<END_OF_INPUT
+# Format: range|alt|image_id|href|product_id
+name of the range|this is the alt text|11|linky/|19
+range range range|alt text for second range|13,17,23|linky/|53
+
+END_OF_INPUT;
+    $output = MakeJewelleryGrid($input, 'DESCRIPTION');
+    $expected = <<<END_OF_EXPECTED
+        <div id="jewellery-grid">
+          <div>
+            <p class="grey large-text text-centered">DESCRIPTION</p>
+          </div>
+          <div id="jewellery-grid-inner" class="flexboxrow">
+            <div class="aligncenter jewellery-block">
+              <div class="jewellery-picture-container">
+                <a href="linky/">
+                  <img src="URL" alt="this is the alt text"
+                    width="23" height="59"
+                    class="aligncenter block" id="item-0-image"/>
+                </a>
+              </div>
+              <div class="larger-text text-centered left-right-margin grey">
+                <a href="linky/">name of the range</a>
+              </div>
+              <div class="text-centered left-right-margin top-bottom-margin grey
+                jewellery-text-container">
+                <div class="larger-text">
+                  €234
+                  [add_to_cart item="19" showprice="no" ajax="yes"
+                     text="Add to basket" style="display: inline;"]
+                </div>
+              </div>
+            </div>
+            <div class="aligncenter jewellery-block">
+              <div class="jewellery-picture-container">
+                <a href="linky/">
+                  <img src="URLX" alt="alt text for second range"
+                    width="23" height="59"
+                    class="aligncenter block" id="item-1-image"/>
+                </a>
+              </div>
+              <div class="larger-text text-centered left-right-margin grey">
+                <a href="linky/">range range range</a>
+              </div>
+              <div class="text-centered left-right-margin top-bottom-margin grey
+                jewellery-text-container">
+                <div class="larger-text">
+                  €321
+                  [add_to_cart item="53" showprice="no" ajax="yes"
+                     text="Add to basket" style="display: inline;"]
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+END_OF_EXPECTED;
+    $output = $this->add_numbers($output);
+    $expected = $this->add_numbers($expected);
+    $this->assertEquals($expected, $output);
+    $expected_slider = array(
+      '#item-1' => ('[{"src":"URLX","width":23,"height":59},'
+                    . '{"src":"URLY","width":29,"height":61},'
+                    . '{"src":"URLZ","width":31,"height":67}]'),
+    );
+    global $SLIDER_IMAGES;
+    $this->assertEquals($expected_slider, $SLIDER_IMAGES);
+  }
+
   public function add_numbers(string $content): string {
     $lines = explode("\n", $content);
     $new_lines = array();
