@@ -21,6 +21,12 @@ function do_shortcode(string $content): string {
   return $content;
 }
 
+/* Needed by test_get_theme_image_path().  */
+function get_bloginfo(string $template_directory): string {
+  assert($template_directory == 'template_directory');
+  return 'DIR';
+}
+
 // Functions for add_action.
 function clear_add_action() {
   global $EXPECTED_ADD_ACTION;

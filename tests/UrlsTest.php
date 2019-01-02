@@ -1,12 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
+require_once('src/FakeWordpress.php');
 require_once('src/Urls.php');
-
-/* Needed by test_get_theme_image_path().  */
-function get_bloginfo(string $template_directory): string {
-  assert($template_directory == 'template_directory');
-  return 'DIR';
-}
 
 class UrlsTest extends TestCase {
   public function set_hostname(string $hostname) {
