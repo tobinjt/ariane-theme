@@ -42,7 +42,7 @@ END_OF_EXPECTED;
 class WrapWithTagTest extends TestCase {
   public function test_all() {
     $output = wrap_with_tag('the tag', 'the class',
-      '  leading spaces are stripped, trailing are not ');
+      '  leading spaces are stripped, trailing are not ', 4);
     $expected = implode("\n", array(
       '    <the tag class="the class">',
       '      leading spaces are stripped, trailing are not ',
@@ -85,14 +85,14 @@ class MakeLinkGroupTest extends TestCase {
     );
     $output = make_link_group($groups, '5url');
     $expected = <<<END_OF_EXPECTED
-    <span class="classy">
-      <a href="url1/" class="highlight">txet 1knil</a>
-      <a href="5url">wibble</a>
-    </span>
-    <span class="more classy">
-      <a href="mega-url">urly urly urly</a>
-      <a href="foo">bar</a>
-    </span>
+      <span class="classy">
+        <a href="url1/" class="highlight">txet 1knil</a>
+        <a href="5url">wibble</a>
+      </span>
+      <span class="more classy">
+        <a href="mega-url">urly urly urly</a>
+        <a href="foo">bar</a>
+      </span>
 
 END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
@@ -146,5 +146,31 @@ class PickURLToHighlightTest extends TestCase {
     $this->assertEquals('/default_url/', $output);
   }
 
+}
+
+class MakeFullMenuBarTest extends TestCase {
+  public function test_no_jewellery() {
+    set_url('/care/');
+    $output = make_full_menu_bar();
+    $expected = <<<END_OF_EXPECTED
+    <div class="menubar ">
+      <span class="largest-text left-page-links">
+        <a href="/">home</a>
+        <a href="/jewellery/">jewellery</a>
+        <a href="/care/" class="highlight">care</a>
+        <a href="/about/">about</a>
+        <a href="/store/cart/">basket</a>
+      </span>
+      <span class="float-right">
+        <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
+        <a href="https://twitter.com/#!/ArianeTobin"><img class="greyscale" width="20" height="20" src="dir/images/twitter.png" alt="twitter icon" /></a>
+        <a href="https://pinterest.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/pinterest.png" alt="pinterest icon" /></a>
+      </span>
+
+    </div>
+
+END_OF_EXPECTED;
+    $this->assertEquals($expected, $output);
+  }
 }
 ?>

@@ -79,15 +79,18 @@ END_OF_LINK;
  *  $tag: the tag to wrap around the HTML.
  *  $class: the CSS class for the tag.
  *  $html: the HTML to wrap the tag around.
+ *  $indent: the number of spaces to indent with.
  * Returns:
  *  string.
  */
-function wrap_with_tag(string $tag, string $class, string $html): string {
+function wrap_with_tag(string $tag, string $class, string $html,
+  int $indent): string {
   $html = ltrim($html);
+  $spaces = str_repeat(' ', $indent);
   return <<<END_OF_TAG
-    <{$tag} class="{$class}">
-      {$html}
-    </{$tag}>
+{$spaces}<{$tag} class="{$class}">
+{$spaces}  {$html}
+{$spaces}</{$tag}>
 END_OF_TAG;
 }
 
@@ -141,8 +144,8 @@ function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
   $output = array();
   foreach ($groups as $class => $links) {
-    $html_links = links_to_html($links, $url_to_highlight, 'highlight', 6);
-    $output[] = wrap_with_tag('span', $class, $html_links);
+    $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
+    $output[] = wrap_with_tag('span', $class, $html_links, 6);
   }
   return implode("\n", $output) . "\n";
 }
@@ -159,7 +162,8 @@ function make_menu_bar(array $menu_chunks, string $css_tags): string {
   $html = wrap_with_tag(
     'div',
     'menubar ' . $css_tags,
-    implode("\n      ", $menu_chunks));
+    implode("\n      ", $menu_chunks),
+    4);
   return $html . "\n";
 }
 
