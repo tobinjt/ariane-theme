@@ -91,43 +91,53 @@ function wrap_with_tag(string $tag, string $class, string $html): string {
 END_OF_TAG;
 }
 
-/* make_link_group: returns a bar of links.
+/* Find the URL to highlight.
  * Args:
  *   $groups: an array(css-class -> array(url -> link-text)).
- *   $default_url: the URL to use if the current URL is not in $initial_groups.
+ *   $default_url: the URL to use if the current URL is not in $groups.
  *                 Useful to make the blog link be highlighted for blog posts.
  * Returns:
- *  string.
+ *  string, URL to highlight.
  */
-function make_link_group(array $groups, string $default_url): string {
-  // Find the URL to highlight.
-  $current_url = get_current_url();
+function pick_url_to_highlight(array $groups, string $default_url): string {
+  if (is_404()) {
+    // Don't highlight any link for error pages
+    return '/qwertyasdf';
+  }
+  // Strip trailing slashes everywhere to make comparisons easier.
+  $current_url = rtrim(get_current_url(), '/');
   $url_to_highlight = $default_url;
   foreach ($groups as $links) {
     foreach ($links as $url => $text) {
       $pattern = rtrim($url, '/');
+      if ($pattern == $current_url) {
+        return $url;
+      }
+      if (is_store_page() and strpos($url, '/store')) {
+        # There are several pages under the store that should all have
+        # 'basket' highlighted as the current link.
+        return $url;
+      }
       # This assumes that if the URLs overlap the most specific will be last.
       # We look for matches at the start of the string.
       # Using === rather than == is essential, otherwise the comparison fails.
       if ($pattern != '' and strpos($current_url, $pattern) === 0) {
         $url_to_highlight = $url;
       }
-      if ($url == $current_url) {
-        # I think this will only happen for the home page.
-        $url_to_highlight = $url;
-      }
-      if (strpos($url, '/store') === 0 and is_store_page()) {
-        # There are several pages under the store that should all have
-        # 'basket' highlighted as the current link.
-        $url_to_highlight = $url;
-      }
     }
   }
-  if (is_404()) {
-    # Don't highlight any link for error pages
-    $url_to_highlight = '/qwertyasdf';
-  }
+}
 
+/* make_link_group: returns a bar of links.
+ * Args:
+ *   $groups: an array(css-class -> array(url -> link-text)).
+ *   $default_url: the URL to use if the current URL is not in $groups.
+ *                 Useful to make the blog link be highlighted for blog posts.
+ * Returns:
+ *  string.
+ */
+function make_link_group(array $groups, string $default_url): string {
+  $url_to_highlight = pick_url_to_highlight($groups, $default_url);
   $output = array();
   foreach ($groups as $class => $links) {
     $html_links = links_to_html($links, $url_to_highlight, 'highlight', 6);
