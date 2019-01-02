@@ -179,8 +179,8 @@ function make_full_menu_bar(): string {
       // => make_icon_link('google-plus-icon.png', 'Google Plus icon', 20, 20),
     'https://pinterest.com/arianetobin/'
       => make_icon_link('pinterest.png',   'Pinterest icon',   20, 20),
-    get_bloginfo('rss2_url')
-      => make_icon_link('rss.png',         'RSS feed icon',    20, 20),
+    // get_bloginfo('rss2_url')
+      // => make_icon_link('rss.png',         'RSS feed icon',    20, 20),
   );
   $output .= make_menu_bar([
     make_link_group(

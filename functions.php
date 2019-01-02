@@ -169,7 +169,7 @@ function FrontPageSliderSetupShortcode(string $atts, string $content,
   // Use my style sheet.
   add_editor_style('style.css');
   // Add RSS links to <head> section.
-  add_theme_support('automatic-feed-links');
+  // add_theme_support('automatic-feed-links');
 
   // Configure opening and closing themes.
   set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
