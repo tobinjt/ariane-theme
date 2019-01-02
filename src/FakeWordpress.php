@@ -5,6 +5,7 @@ function clear_wordpress_testing_state() {
   WP_Query::clear_query_results();
   clear_image_info();
   clear_add_action();
+  clear_page_state();
 }
 
 // Clean up all state set up by tests.
@@ -21,8 +22,23 @@ function do_shortcode(string $content): string {
   return $content;
 }
 
+// Functions about the page state, type of page, etc.
+function clear_page_state() {
+  global $PAGE_STATE;
+  $PAGE_STATE = array();
+}
+
 function is_404() {
+  global $PAGE_STATE;
+  if (isset($PAGE_STATE['404'])) {
+    return $PAGE_STATE['404'];
+  }
   return false;
+}
+
+function set_is_404(bool $is) {
+  global $PAGE_STATE;
+  $PAGE_STATE['404'] = $is;
 }
 
 /* Needed by test_get_theme_image_path().  */

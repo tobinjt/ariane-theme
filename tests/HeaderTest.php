@@ -98,4 +98,53 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
 }
+
+class PickURLToHighlightTest extends TestCase {
+  public function setUp() {
+    clear_wordpress_testing_state();
+  }
+
+  public function test_404() {
+    set_is_404(true);
+    $output = pick_url_to_highlight(array(), 'zxcv');
+    $this->assertEquals('/qwertyasdf', $output);
+  }
+
+  public function test_store_page() {
+    set_url('/store/wibble');
+    $groups = array(
+      'main' => array('/care/' => 'care', '/store/basket' => 'basket'),
+      'foo' => array('/qwerty/' => 'qwerty', '/bar/' => 'bar'),
+    );
+    $output = pick_url_to_highlight($groups, '/default_url/');
+    $this->assertEquals('/store/basket', $output);
+  }
+
+  public function test_last_match_wins() {
+    set_url('/jewellery/wave/ring');
+    $groups = array(
+      'main' => array('/jewellery' => 'jewellery', '/jewellery/wave' => 'wave'),
+    );
+    $output = pick_url_to_highlight($groups, '/default_url/');
+    $this->assertEquals('/jewellery/wave', $output);
+
+    set_url('/jewellery/wave/ring');
+    $groups = array(
+      'main' => array('/jewellery/wave' => 'wave', '/jewellery' => 'jewellery'),
+    );
+    $output = pick_url_to_highlight($groups, '/default_url/');
+    $this->assertEquals('/jewellery', $output);
+  }
+
+  public function test_default_if_no_match() {
+    set_url('/wibble/');
+    $groups = array(
+      'main' => array('/care/' => 'care', '/store/basket' => 'basket'),
+      'foo' => array('/qwerty/' => 'qwerty', '/bar/' => 'bar'),
+    );
+    $output = pick_url_to_highlight($groups, '/default_url/');
+    $this->assertEquals('/default_url/', $output);
+  }
+
+}
 ?>

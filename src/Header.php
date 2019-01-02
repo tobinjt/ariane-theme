@@ -113,7 +113,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
       if ($pattern == $current_url) {
         return $url;
       }
-      if (is_store_page() and strpos($url, '/store')) {
+      if (is_store_page() and strpos($url, '/store') === 0) {
         # There are several pages under the store that should all have
         # 'basket' highlighted as the current link.
         return $url;
@@ -126,6 +126,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
       }
     }
   }
+  return $url_to_highlight;
 }
 
 /* make_link_group: returns a bar of links.
