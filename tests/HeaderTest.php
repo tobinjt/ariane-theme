@@ -1,6 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/FakeWordpress.php');
+require_once('src/TestHelpers.php');
 require_once('src/Header.php');
 
 class GetGoogleAnalyticsCodeTest extends TestCase {
@@ -26,7 +27,7 @@ class LinksToHTMLTest extends TestCase {
       'pinkyfinger' => 'two hands',
       'wibble' => 'make ME lowercase',
     );
-    $output = links_to_html($links, 'pinky', 'highlight ME');
+    $output = links_to_html($links, 'pinky', 'highlight ME', 8);
     $expected = <<<END_OF_EXPECTED
         <a href="link1">asdf</a>
         <a href="link2">qwerty</a>
@@ -70,6 +71,29 @@ class MakeIconLinkTest extends TestCase {
     $output = make_icon_link('icon.png', 'alt text for icon', '7', '11');
     $expected = <<<END_OF_EXPECTED
 <img class="greyscale" width="7" height="11" src="DIR/images/icon.png" alt="alt text for icon" />
+END_OF_EXPECTED;
+    $this->assertEquals($expected, $output);
+  }
+}
+
+class MakeLinkGroupTest extends TestCase {
+  public function test_simple() {
+    set_url('url1/');
+    $groups = array(
+      'classy' => array('url1/' => 'txet 1knil', '5url' => 'wibble'),
+      'more classy' => array('mega-url' => 'urly urly urly', 'foo' => 'bar'),
+    );
+    $output = make_link_group($groups, '5url');
+    $expected = <<<END_OF_EXPECTED
+    <span class="classy">
+      <a href="url1/" class="highlight">txet 1knil</a>
+      <a href="5url">wibble</a>
+    </span>
+    <span class="more classy">
+      <a href="mega-url">urly urly urly</a>
+      <a href="foo">bar</a>
+    </span>
+
 END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }

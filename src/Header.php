@@ -50,11 +50,13 @@ END_OF_JAVASCRIPT;
  *  $links: array(url => text).
  *  $url_to_highlight: the url to highlight as the current URL.
  *  $highlight_class: the value of the class attribute of the highlighted URL.
+ *  $indent: the number of spaces to indent with.
  * Returns:
  *  string.
  */
 function links_to_html(array $links, string $url_to_highlight,
-                       string $highlight_class): string {
+                       string $highlight_class, int $indent): string {
+  $spaces = str_repeat(' ', $indent);
   $output = array();
   foreach ($links as $url => $text) {
     if ($url == $url_to_highlight) {
@@ -64,7 +66,7 @@ function links_to_html(array $links, string $url_to_highlight,
     }
     $text = strtolower($text);
     $output[] = <<<END_OF_LINK
-        <a href="{$url}"{$extra_class}>{$text}</a>
+{$spaces}<a href="{$url}"{$extra_class}>{$text}</a>
 END_OF_LINK;
   }
   return implode("\n", $output);
@@ -128,7 +130,7 @@ function make_link_group(array $groups, string $default_url): string {
 
   $output = array();
   foreach ($groups as $class => $links) {
-    $html_links = links_to_html($links, $url_to_highlight, 'highlight');
+    $html_links = links_to_html($links, $url_to_highlight, 'highlight', 6);
     $output[] = wrap_with_tag('span', $class, $html_links);
   }
   return implode("\n", $output) . "\n";

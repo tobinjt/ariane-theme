@@ -21,6 +21,10 @@ function do_shortcode(string $content): string {
   return $content;
 }
 
+function is_404() {
+  return false;
+}
+
 /* Needed by test_get_theme_image_path().  */
 function get_bloginfo(string $template_directory): string {
   assert($template_directory == 'template_directory');
