@@ -147,7 +147,7 @@ function make_link_group(array $groups, string $default_url): string {
     $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
     $output[] = wrap_with_tag('span', $class, $html_links, 6);
   }
-  return implode("\n", $output) . "\n";
+  return implode("\n", $output);
 }
 
 /* make_menu_bar: returns a menu bar.
@@ -208,6 +208,7 @@ function make_full_menu_bar(): string {
       '');
 
   if (is_jewellery_page()) {
+    $output .= "\n";
     $jewellery_types_links = array(
       '/jewellery/bangles/'    => 'bangles',
       # '/jewellery/brooches/'   => 'brooches',
@@ -218,10 +219,11 @@ function make_full_menu_bar(): string {
     $output .= make_menu_bar([
       make_link_group(
         array('left-page-links' => $jewellery_types_links), '/jewellery/'),
-      wrap_with_tag('span', 'float-right grey',
-        'Free delivery on all orders to Ireland'),
+      ltrim(wrap_with_tag('span', 'float-right grey',
+        'Free delivery on all orders to Ireland', 6)),
       ],
       'larger-text bottom-margin');
+    $output .= "\n";
 
     $jewellery_ranges_links = array(
       '/jewellery/amble/'      => 'amble',

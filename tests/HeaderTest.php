@@ -93,7 +93,6 @@ class MakeLinkGroupTest extends TestCase {
         <a href="mega-url">urly urly urly</a>
         <a href="foo">bar</a>
       </span>
-
 END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
@@ -166,7 +165,58 @@ class MakeFullMenuBarTest extends TestCase {
         <a href="https://twitter.com/#!/ArianeTobin"><img class="greyscale" width="20" height="20" src="dir/images/twitter.png" alt="twitter icon" /></a>
         <a href="https://pinterest.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/pinterest.png" alt="pinterest icon" /></a>
       </span>
+    </div>
 
+END_OF_EXPECTED;
+    $this->assertEquals($expected, $output);
+  }
+
+  public function test_with_jewellery() {
+    set_url('/jewellery/care/');
+    $output = make_full_menu_bar();
+    $expected = <<<END_OF_EXPECTED
+    <div class="menubar ">
+      <span class="largest-text left-page-links">
+        <a href="/">home</a>
+        <a href="/jewellery/" class="highlight">jewellery</a>
+        <a href="/care/">care</a>
+        <a href="/about/">about</a>
+        <a href="/store/cart/">basket</a>
+      </span>
+      <span class="float-right">
+        <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
+        <a href="https://twitter.com/#!/ArianeTobin"><img class="greyscale" width="20" height="20" src="dir/images/twitter.png" alt="twitter icon" /></a>
+        <a href="https://pinterest.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/pinterest.png" alt="pinterest icon" /></a>
+      </span>
+    </div>
+
+    <div class="menubar larger-text bottom-margin">
+      <span class="left-page-links">
+        <a href="/jewellery/bangles/">bangles</a>
+        <a href="/jewellery/earrings/">earrings</a>
+        <a href="/jewellery/necklaces/">necklaces</a>
+        <a href="/jewellery/rings/">rings</a>
+      </span>
+      <span class="float-right grey">
+        Free delivery on all orders to Ireland
+      </span>
+    </div>
+
+    <div class="menubar larger-text bottom-margin">
+      <span class="left-page-links">
+        <a href="/jewellery/amble/">amble</a>
+        <a href="/jewellery/botanical/">botanical</a>
+        <a href="/jewellery/carapace/">carapace</a>
+        <a href="/jewellery/cellule/">cellule</a>
+        <a href="/jewellery/confluence/">confluence</a>
+        <a href="/jewellery/dabble/">dabble</a>
+        <a href="/jewellery/halo/">halo</a>
+        <a href="/jewellery/laria/">laria</a>
+        <a href="/jewellery/pod/">pod</a>
+        <a href="/jewellery/sentinel/">sentinel</a>
+        <a href="/jewellery/wave/">wave</a>
+        <a href="/jewellery/archive/">archive</a>
+      </span>
     </div>
 
 END_OF_EXPECTED;
