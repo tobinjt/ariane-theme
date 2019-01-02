@@ -136,7 +136,7 @@ function make_link_group(array $groups, string $default_url): string {
 
 /* make_menu_bar: returns a menu bar.
  * Args:
- *   $menu_chunks: an array of strings.
+ *   $menu_chunks: an array of HTML strings.
  *   $css_tags: a string of CSS tags to be added to the containing div.
  *       'menubar' will always be present in the tags.
  * Returns:
@@ -146,7 +146,7 @@ function make_menu_bar(array $menu_chunks, string $css_tags): string {
   $html = wrap_with_tag(
     'div',
     'menubar ' . $css_tags,
-    implode("\n", $menu_chunks));
+    implode("\n      ", $menu_chunks));
   return $html . "\n";
 }
 
