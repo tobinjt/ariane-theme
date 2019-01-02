@@ -62,6 +62,7 @@ function links_to_html(array $links, string $url_to_highlight,
     } else {
       $extra_class = '';
     }
+    $text = strtolower($text);
     $output[] = <<<END_OF_LINK
         <a href="{$url}"{$extra_class}>{$text}</a>
 END_OF_LINK;
@@ -90,39 +91,13 @@ END_OF_TAG;
 
 /* make_link_group: returns a bar of links.
  * Args:
- *   $initial_groups: an array(css-class -> array(url -> link-text)).
+ *   $groups: an array(css-class -> array(url -> link-text)).
  *   $default_url: the URL to use if the current URL is not in $initial_groups.
  *                 Useful to make the blog link be highlighted for blog posts.
  * Returns:
  *  string.
  */
-function make_link_group(array $initial_groups, string $default_url): string {
-  // Filter out invalid URLs.
-  $groups = array();
-  foreach ($initial_groups as $class => $links) {
-    $new_links = array();
-    $skipped_links = array();
-    foreach ($links as $url => $text) {
-      // Remove false if necessary, but usually the links are good so we don't
-      // need to hit the database checking them every time.
-      if (false and strpos($url, '/') === 0 and $url != '/'
-        and is_null(get_page_by_path($url))) {
-        // Local page that doesn't exist.  Skip it.
-        $skipped_links[$url] = $text;
-      } else {
-        $new_links[$url] = strtolower($text);
-      }
-    }
-    // Remove false for helpful logging.
-    if (false and count($skipped_links) > 0) {
-      error_log('Skipped some non-existent links: '
-        . print_r($skipped_links, true));
-    }
-    if (count($new_links) > 0) {
-      $groups[$class] = $new_links;
-    }
-  }
-
+function make_link_group(array $groups, string $default_url): string {
   // Find the URL to highlight.
   $current_url = get_current_url();
   $url_to_highlight = $default_url;
