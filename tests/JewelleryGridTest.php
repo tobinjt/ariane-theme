@@ -3,6 +3,7 @@ use PHPUnit\Framework\TestCase;
 require_once('src/StoreClosingTimes.php');
 require_once('src/FakeCart66.php');
 require_once('src/FakeWordpress.php');
+require_once('src/TestHelpers.php');
 require_once('src/JewelleryGrid.php');
 
 class ParseJewelleryGridContentsTest extends TestCase {
@@ -71,24 +72,20 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function set_url(string $url) {
-    $_SERVER['REQUEST_URI'] = $url;
-  }
-
   public function test_negative_product_id() {
-    $this->set_url('/jewellery/foo/');
+    set_url('/jewellery/foo/');
     $content = MakeBuyButtonForJewelleryGrid('-1');
     $this->assertRegExp('/This creates some space underneath./', $content);
   }
 
   public function test_archived() {
-    $this->set_url('/jewellery/archive/');
+    set_url('/jewellery/archive/');
     $content = MakeBuyButtonForJewelleryGrid('11');
     $this->assertRegExp('/This creates some space underneath./', $content);
   }
 
   public function test_max_quantity() {
-    $this->set_url('/jewellery/foo/');
+    set_url('/jewellery/foo/');
     Cart66Product::setMaxQuantity(7, 1);
     Cart66Product::setInventoryLevelForProduct(7, 0);
     $content = MakeBuyButtonForJewelleryGrid('7');
@@ -96,14 +93,14 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
   }
 
   public function test_no_stock() {
-    $this->set_url('/jewellery/foo/');
+    set_url('/jewellery/foo/');
     Cart66Product::setInventoryLevelForProduct(13, 0);
     $content = MakeBuyButtonForJewelleryGrid('13');
     $this->assertRegExp('/This piece is out of stock/', $content);
   }
 
   public function test_has_stock_store_closed() {
-    $this->set_url('/jewellery/foo/');
+    set_url('/jewellery/foo/');
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
@@ -115,7 +112,7 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
   }
 
   public function test_has_stock_store_open() {
-    $this->set_url('/jewellery/foo/');
+    set_url('/jewellery/foo/');
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
@@ -138,7 +135,7 @@ class JewelleryGridShortcodeTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
-    $this->set_url('/jewellery/foo/');
+    set_url('/jewellery/foo/');
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
@@ -146,10 +143,6 @@ class JewelleryGridShortcodeTest extends TestCase {
 
   public function tearDown() {
     verify_wordpress_testing_state();
-  }
-
-  public function set_url(string $url) {
-    $_SERVER['REQUEST_URI'] = $url;
   }
 
   public function test_single_images() {
