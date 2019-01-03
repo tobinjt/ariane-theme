@@ -4,22 +4,17 @@
 /* get_title(): return the appropriate title.  */
 function get_title() {
   $result = '';
-  if (is_search()) {
-    $result .= 'Search for &quot;' . get_search_query() . '&quot; - ';
-  } elseif (is_404()) {
-    $result .= 'Not Found - ';
+  if (is_404()) {
+    $result = 'Not Found - ';
   } elseif (is_single() || is_page()) {
-   $title = wp_title('', False);
-   if ($title != '') {
-     $result .= $title . ' - ';
-   }
+    // is_single() is true for blog posts. is_single() is true for blog posts.
+    $title = wp_title('', False);
+    if ($title != '') {
+      $result = $title . ' - ';
+    }
   }
 
   $result .= get_bloginfo('name');
-  if (is_home()) {
-    $result .= ' - ';
-    $result .= get_bloginfo('description');
-  }
   return $result;
 }
 
