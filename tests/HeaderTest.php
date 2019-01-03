@@ -223,4 +223,30 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
 }
+
+class GetTitleTest extends TestCase {
+  public function setUp() {
+    clear_wordpress_testing_state();
+  }
+
+  public function test_404() {
+    set_is_404(true);
+    $this->assertEquals('Not Found - BLOG NAME', get_title());
+  }
+
+  public function test_not_a_page() {
+    $this->assertEquals('BLOG NAME', get_title());
+  }
+
+  public function test_page_without_title() {
+    set_is_page(true);
+    $this->assertEquals('BLOG NAME - BLOG NAME', get_title());
+  }
+
+  public function test_page_with_title() {
+    set_is_page(true);
+    set_wp_title('PAGE TITLE');
+    $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
+  }
+}
 ?>

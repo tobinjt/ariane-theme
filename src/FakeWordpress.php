@@ -28,23 +28,65 @@ function clear_page_state() {
   $PAGE_STATE = array();
 }
 
-function is_404() {
+function is_404(): bool {
   global $PAGE_STATE;
-  if (isset($PAGE_STATE['404'])) {
-    return $PAGE_STATE['404'];
+  if (isset($PAGE_STATE['is_404'])) {
+    return $PAGE_STATE['is_404'];
   }
   return false;
 }
 
 function set_is_404(bool $is) {
   global $PAGE_STATE;
-  $PAGE_STATE['404'] = $is;
+  $PAGE_STATE['is_404'] = $is;
 }
 
-/* Needed by test_get_theme_image_path().  */
-function get_bloginfo(string $template_directory): string {
-  assert($template_directory == 'template_directory');
-  return 'DIR';
+function is_single(): bool {
+  global $PAGE_STATE;
+  if (isset($PAGE_STATE['is_single'])) {
+    return $PAGE_STATE['is_single'];
+  }
+  return false;
+}
+
+function set_is_single(bool $is) {
+  global $PAGE_STATE;
+  $PAGE_STATE['is_single'] = $is;
+}
+
+function is_page(): bool {
+  global $PAGE_STATE;
+  if (isset($PAGE_STATE['is_page'])) {
+    return $PAGE_STATE['is_page'];
+  }
+  return false;
+}
+
+function set_is_page(bool $is) {
+  global $PAGE_STATE;
+  $PAGE_STATE['is_page'] = $is;
+}
+
+function wp_title(): string {
+  global $PAGE_STATE;
+  if (isset($PAGE_STATE['wp_title'])) {
+    return $PAGE_STATE['wp_title'];
+  }
+  return false;
+}
+
+function set_wp_title(string $title) {
+  global $PAGE_STATE;
+  $PAGE_STATE['wp_title'] = $title;
+}
+
+function get_bloginfo(string $param): string {
+  $values = array(
+    'name' => 'BLOG NAME',
+    'template_directory' => 'DIR',
+  );
+  assert(isset($values[$param]));
+  return $values[$param];
 }
 
 // Functions for add_action.

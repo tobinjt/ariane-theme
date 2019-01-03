@@ -7,10 +7,13 @@ function get_title() {
   if (is_404()) {
     $result = 'Not Found - ';
   } elseif (is_single() || is_page()) {
-    // is_single() is true for blog posts. is_single() is true for blog posts.
+    // is_single() is true for blog posts.
     $title = wp_title('', False);
     if ($title != '') {
       $result = $title . ' - ';
+    } else {
+      // No much else we can do here :(
+      $result = get_bloginfo('name') . ' - ';
     }
   }
 
