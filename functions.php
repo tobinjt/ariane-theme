@@ -84,17 +84,21 @@ function FrontPageSliderSetupShortcode(string $atts, string $content,
   // Remove unnecessary resources that Wordpress or plugins include in every
   // page.
 
-  // Disable comment feeds.  __return_false is a Wordpress function that returns
-  // false to make filters easier.
+  // Disable comment feeds on blog posts.  __return_false is a Wordpress
+  // function that returns false to make filters easier.
   add_filter('feed_links_show_comments_feed', '__return_false');
 
   // Clean up the <head>
   function removeHeadLinks() {
+    // Remove some links that are unnecessary.
     remove_action('wp_head', 'rsd_link');
     remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'wlwmanifest_link');
     // Remove automatically generated shortlink.
     remove_action('wp_head', 'wp_shortlink_wp_head');
+    // Disable comment feeds on pages.
+    remove_action('wp_head', 'feed_links_extra', 3);
+    remove_action('wp_head', 'feed_links', 2);
   }
   add_action('init', 'removeHeadLinks');
 
