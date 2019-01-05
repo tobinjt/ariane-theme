@@ -177,7 +177,7 @@ function FrontPageSliderSetupShortcode(string $atts, string $content,
 
   // Configure opening and closing themes.
   set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-  set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+  set_opening_time('2019-01-05 00:30:00 Europe/Dublin');
   set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
   set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
 ?>
