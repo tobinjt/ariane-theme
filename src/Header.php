@@ -305,17 +305,8 @@ ALL_MESSAGE;
   return '';
 }
 
-/* get_messages_for_top_of_page: returns the messages to display at the top of
- * the page.  Not actually used in header.php, but maybe should be.
- * TODO: should this be used in header.php instead of page.php?
- * Returns:
- *  string.
- */
-function get_messages_for_top_of_page(): string {
-  $other_message = <<<OTHER_MESSAGE
-    <p class="text-centered larger-text grey">
-      </p>
-OTHER_MESSAGE;
+/* Get the message for the top of jewellery pages. */
+function get_jewellery_page_message(): string {
   if (is_store_closed()) {
     $store_opening_time_human = store_opening_time_human();
     $jewellery_message = <<<JEWELLERY_MESSAGE
@@ -351,21 +342,11 @@ JEWELLERY_MESSAGE;
   } else {
     $jewellery_message = '';
   }
+  return $jewellery_message;
+}
 
-  $store_message = <<<STORE_MESSAGE
-    <div id="store_message">
-      <ul class="grey">
-        <li>Each piece of jewellery is handmade by Ariane in her studio in
-            Carlow, as a result there is normally a two week lead time on all
-            orders.</li>
-        <li>Free registered shipping to Ireland, EU, and USA on all orders over
-            €50.</li>
-        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
-        <li>All taxes and duties are the responsibility of the buyer.</li>
-      </ul>
-    </div>
-STORE_MESSAGE;
-
+/* Get the message for the top of store pages. */
+function get_store_page_message(): string {
   $checkout_message = '';
   if (is_current_url('/store/cart/')) {
     $checkout_message = <<<CHECKOUT_MESSAGE
@@ -393,11 +374,41 @@ CHECKOUT_MESSAGE;
 CHECKOUT_MESSAGE;
   }
 
+  $checkout_message .= <<<CHECKOUT_MESSAGE
+    <div id="store_message">
+      <ul class="grey">
+        <li>Each piece of jewellery is handmade by Ariane in her studio in
+            Carlow, as a result there is normally a two week lead time on all
+            orders.</li>
+        <li>Free registered shipping to Ireland, EU, and USA on all orders over
+            €50.</li>
+        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
+        <li>All taxes and duties are the responsibility of the buyer.</li>
+      </ul>
+    </div>
+CHECKOUT_MESSAGE;
+
+  return $checkout_message;
+}
+
+/* get_messages_for_top_of_page: returns the messages to display at the top of
+ * the page.  Not actually used in header.php, but maybe should be.
+ * TODO: should this be used in header.php instead of page.php?
+ * Returns:
+ *  string.
+ */
+function get_messages_for_top_of_page(): string {
+  $other_message = <<<OTHER_MESSAGE
+    <p class="text-centered larger-text grey">
+      </p>
+OTHER_MESSAGE;
+
+  $jewellery_message = get_jewellery_page_message();
+  $checkout_message = get_store_page_message();
   $messages = array();
   $messages[] = get_rds_message();
   if (is_store_page()) {
     $messages[] = $jewellery_message;
-    $messages[] = $store_message;
     $messages[] = $checkout_message;
   } elseif (is_jewellery_page()) {
     $messages[] = $jewellery_message;
