@@ -4,8 +4,7 @@ require_once('src/StoreClosingTimes.php');
 
 class StoreClosingTimesTest extends TestCase {
   public function setUp() {
-    global $TIMES;
-    $TIMES = array();
+    clear_all_times();
   }
 
   public function test_setting_and_getting_times() {
@@ -24,6 +23,13 @@ class StoreClosingTimesTest extends TestCase {
     $this->assertEquals('the brain', $TIMES[STOP_DISPLAYING_RDS_MESSAGE]);
     $this->assertEquals('the brain', stop_displaying_rds_message());
 
+    set_rds_start_time('Loki');
+    $this->assertEquals('Loki', $TIMES[RDS_START_TIME]);
+    $this->assertEquals('Loki', rds_start_time());
+    set_rds_stop_time('Molly');
+    $this->assertEquals('Molly', $TIMES[RDS_STOP_TIME]);
+    $this->assertEquals('Molly', rds_stop_time());
+
     set_last_delivery_outside_ireland('wasd');
     $this->assertEquals('wasd', $TIMES[LAST_DELIVERY_OUTSIDE_IRELAND]);
     $this->assertEquals('wasd', last_day_for_delivery_outside_ireland());
@@ -37,9 +43,13 @@ class StoreClosingTimesTest extends TestCase {
       timestring_to_human('2018-12-25 18:30:00 Europe/Dublin'));
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    set_rds_start_time('2018-12-05 18:30:00 Europe/Dublin');
+    set_rds_stop_time('2018-12-09 00:30:00 Europe/Dublin');
     set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
     $this->assertEquals('Monday 17 December', store_closing_time_human());
     $this->assertEquals('Monday 07 January', store_opening_time_human());
+    $this->assertEquals('Wednesday 05 December', rds_start_time_human());
+    $this->assertEquals('Sunday 09 December', rds_stop_time_human());
     $this->assertEquals('Tuesday 11 December',
       last_day_for_delivery_outside_ireland_human());
   }

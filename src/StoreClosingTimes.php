@@ -9,6 +9,8 @@ define('LAST_DELIVERY_OUTSIDE_IRELAND', 2);
 define('CLOSING_MESSAGE_DISPLAY_DATE', 3);
 define('START_DISPLAYING_RDS_MESSAGE', 4);
 define('STOP_DISPLAYING_RDS_MESSAGE', 5);
+define('RDS_START_TIME', 6);
+define('RDS_STOP_TIME', 7);
 define('NOW_FOR_TESTING', 100);
 
 /* Set the closing time of the store.
@@ -65,6 +67,24 @@ function set_stop_displaying_rds_message(string $timestring) {
   $TIMES[STOP_DISPLAYING_RDS_MESSAGE] = $timestring;
 }
 
+/* Set the time the RDS starts.
+ * Args:
+ *  $timestring: a time and date string parsable by strtotime().
+ */
+function set_rds_start_time(string $timestring) {
+  global $TIMES;
+  $TIMES[RDS_START_TIME] = $timestring;
+}
+
+/* Set the time the RDS stops.
+ * Args:
+ *  $timestring: a time and date string parsable by strtotime().
+ */
+function set_rds_stop_time(string $timestring) {
+  global $TIMES;
+  $TIMES[RDS_STOP_TIME] = $timestring;
+}
+
 /* Set the time returned by now() for testing purposes.
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
@@ -111,6 +131,26 @@ function start_displaying_rds_message(): string {
 function stop_displaying_rds_message(): string {
   global $TIMES;
   return $TIMES[STOP_DISPLAYING_RDS_MESSAGE];
+}
+
+/* rds_start_time: when the RDS starts. */
+function rds_start_time(): string {
+  global $TIMES;
+  return $TIMES[RDS_START_TIME];
+}
+
+/* rds_stop_time: when the RDS stops. */
+function rds_stop_time(): string {
+  global $TIMES;
+  return $TIMES[RDS_STOP_TIME];
+}
+
+function rds_start_time_human(): string {
+  return timestring_to_human(rds_start_time());
+}
+
+function rds_stop_time_human(): string {
+  return timestring_to_human(rds_stop_time());
 }
 
 /* last_day_for_delivery_outside_ireland: time after which deliveries outside
@@ -183,5 +223,11 @@ function is_time_between(string $start_time_string,
  */
 function is_store_closed(): bool {
   return is_time_between(store_closing_time(), store_opening_time());
+}
+
+/* clear_all_times: clear all the times for predictable tests. */
+function clear_all_times() {
+  global $TIMES;
+  $TIMES = array();
 }
 ?>
