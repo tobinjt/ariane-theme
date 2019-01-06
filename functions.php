@@ -181,9 +181,9 @@ function FrontPageSliderSetupShortcode(string $atts, string $content,
   // TODO: change these times when we know the dates.
   set_start_displaying_rds_message('2019-11-01 00:30:00 Europe/Dublin');
   set_stop_displaying_rds_message('2019-12-10 00:30:00 Europe/Dublin');
-  set_rds_stand('B15 on the Balcony');
   set_rds_start_time('2019-12-01 00:30 Europe/Dublin');
   set_rds_stop_time('2019-12-05 23:30 Europe/Dublin');
+  set_rds_stand('B15 on the Balcony');
   set_rds_link('http://www.giftedfair.ie/');
   set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
   set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');

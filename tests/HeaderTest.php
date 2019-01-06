@@ -249,6 +249,12 @@ class GetTitleTest extends TestCase {
     set_wp_title('PAGE TITLE');
     $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
   }
+
+  public function test_post_with_title() {
+    set_is_single(true);
+    set_wp_title('PAGE TITLE');
+    $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
+  }
 }
 
 class GetMessageTest extends TestCase {
