@@ -7,7 +7,9 @@ define('STORE_CLOSING_TIME', 0);
 define('STORE_OPENING_TIME', 1);
 define('LAST_DELIVERY_OUTSIDE_IRELAND', 2);
 define('CLOSING_MESSAGE_DISPLAY_DATE', 3);
-define('NOW_FOR_TESTING', 4);
+define('START_DISPLAYING_RDS_MESSAGE', 4);
+define('STOP_DISPLAYING_RDS_MESSAGE', 5);
+define('NOW_FOR_TESTING', 100);
 
 /* Set the closing time of the store.
  * Args:
@@ -45,6 +47,24 @@ function set_store_closing_message_display_date(string $timestring) {
   $TIMES[CLOSING_MESSAGE_DISPLAY_DATE] = $timestring;
 }
 
+/* Set the time to start displaying the RDS message.
+ * Args:
+ *  $timestring: a time and date string parsable by strtotime().
+ */
+function set_start_displaying_rds_message(string $timestring) {
+  global $TIMES;
+  $TIMES[START_DISPLAYING_RDS_MESSAGE] = $timestring;
+}
+
+/* Set the time to stop displaying the RDS message.
+ * Args:
+ *  $timestring: a time and date string parsable by strtotime().
+ */
+function set_stop_displaying_rds_message(string $timestring) {
+  global $TIMES;
+  $TIMES[STOP_DISPLAYING_RDS_MESSAGE] = $timestring;
+}
+
 /* Set the time returned by now() for testing purposes.
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
@@ -79,6 +99,18 @@ function store_opening_time(): string {
 
 function store_opening_time_human(): string {
   return timestring_to_human(store_opening_time());
+}
+
+/* start_displaying_rds_message: when to start displaying the RDS message. */
+function start_displaying_rds_message(): string {
+  global $TIMES;
+  return $TIMES[START_DISPLAYING_RDS_MESSAGE];
+}
+
+/* stop_displaying_rds_message: when to stop displaying the RDS message. */
+function stop_displaying_rds_message(): string {
+  global $TIMES;
+  return $TIMES[STOP_DISPLAYING_RDS_MESSAGE];
 }
 
 /* last_day_for_delivery_outside_ireland: time after which deliveries outside
