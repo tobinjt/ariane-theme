@@ -248,6 +248,63 @@ function make_full_menu_bar(): string {
   return $output;
 }
 
+// Stand we're in at the craft fair.
+function rds_stand(): string {
+  global $RDS_STAND;
+  return $RDS_STAND;
+}
+
+function set_rds_stand(string $stand) {
+  global $RDS_STAND;
+  $RDS_STAND = $stand;
+}
+
+// Link to the craft fair.
+function rds_link(): string {
+  global $RDS_LINK;
+  return $RDS_LINK;
+}
+
+function set_rds_link(string $link) {
+  global $RDS_LINK;
+  $RDS_LINK = $link;
+}
+
+// Name of the craft fair.
+function rds_name(): string {
+  global $RDS_NAME;
+  return $RDS_NAME;
+}
+
+function set_rds_name(string $name) {
+  global $RDS_NAME;
+  $RDS_NAME = $name;
+}
+
+/* get_rds_message: return the message to display about the RDS, or an empty
+ * string if it's not the right time of year.
+ * Returns:
+ *  string.
+ */
+function get_rds_message(): string {
+  if (is_time_between(start_displaying_rds_message(),
+    stop_displaying_rds_message())) {
+    $rds_start = rds_start_time_human();
+    $rds_stop = rds_stop_time_human();
+    $rds_stand = rds_stand();
+    $rds_link = rds_link();
+    $rds_name = rds_name();
+    return <<<ALL_MESSAGE
+      <p class="text-centered larger-text grey">
+        Ariane will be at <a class="external-link"
+        href="{$rds_link}">{$rds_name}</a> from {$rds_start} to {$rds_stop}.
+        Please visit us at stand {$rds_stand}, we'd love to see you!
+      </p>
+ALL_MESSAGE;
+  }
+  return '';
+}
+
 /* get_messages_for_top_of_page: returns the messages to display at the top of
  * the page.  Not actually used in header.php, but maybe should be.
  * TODO: should this be used in header.php instead of page.php?
@@ -255,18 +312,6 @@ function make_full_menu_bar(): string {
  *  string.
  */
 function get_messages_for_top_of_page(): string {
-  if (is_time_before('2018-12-09')) {
-    $all_message = <<<ALL_MESSAGE
-      <p class="text-centered larger-text grey">
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &
-        Design Fair</a> from Wednesday 5th December to Sunday 9th December.
-        Please visit us at stand B15 on the Balcony, we'd love to see you!
-        </p>
-ALL_MESSAGE;
-  } else {
-    $all_message = '';
-  }
   $other_message = <<<OTHER_MESSAGE
     <p class="text-centered larger-text grey">
       </p>
@@ -349,7 +394,7 @@ CHECKOUT_MESSAGE;
   }
 
   $messages = array();
-  $messages[] = $all_message;
+  $messages[] = get_rds_message();
   if (is_store_page()) {
     $messages[] = $jewellery_message;
     $messages[] = $store_message;

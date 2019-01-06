@@ -1,6 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/FakeWordpress.php');
+require_once('src/StoreClosingTimes.php');
 require_once('src/TestHelpers.php');
 require_once('src/Header.php');
 
@@ -247,6 +248,36 @@ class GetTitleTest extends TestCase {
     set_is_page(true);
     set_wp_title('PAGE TITLE');
     $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
+  }
+}
+
+class GetMessageTest extends TestCase {
+  public function setUp() {
+    clear_all_times();
+  }
+
+  public function test_get_rds_message() {
+    set_start_displaying_rds_message('2018-10-23 00:00:00 Europe/Dublin');
+    set_stop_displaying_rds_message('2018-12-27 00:00:00 Europe/Dublin');
+    set_rds_start_time('2018-12-23 00:00:00 Europe/Dublin');
+    set_rds_stop_time(stop_displaying_rds_message());
+    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
+    set_rds_stand('B15 on the Balcony');
+    set_rds_link('http://www.giftedfair.ie/');
+    set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
+
+    $this->assertEquals('', get_rds_message());
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    $message = get_rds_message();
+    $regexes = array(
+      'Ariane will be at',
+      rds_start_time_human() ,
+      rds_stand(),
+      rds_name(),
+    );
+    foreach($regexes as $regex) {
+      $this->assertRegExp('/' . $regex . '/', $message);
+    }
   }
 }
 ?>
