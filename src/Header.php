@@ -357,10 +357,12 @@ CHECKOUT_MESSAGE;
 CHECKOUT_MESSAGE;
   }
   if ($checkout_message !== '') {
+    $checkout_message = ltrim($checkout_message);
     $checkout_message = <<<CHECKOUT_MESSAGE
     <div class="largest-text highlight bold top-bottom-margin">
       {$checkout_message}
     </div>
+
 CHECKOUT_MESSAGE;
   }
 

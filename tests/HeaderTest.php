@@ -330,4 +330,50 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());
   }
 }
+
+class GetStorePageMessageTest extends TestCase {
+  public function setUp() {
+    clear_server_variables();
+  }
+
+  public function test_cart() {
+    set_url('/store/cart/');
+    $this->assertRegExp('/press the <em>Checkout<\/em> button/',
+      get_store_page_message());
+  }
+
+  public function test_checkout() {
+    set_url('/store/checkout/');
+    $this->assertRegExp('/press the <em>PayPal<\/em> button/',
+      get_store_page_message());
+  }
+
+  public function test_express() {
+    set_url('/store/express/');
+    $this->assertRegExp('/press the <em>Complete Order<\/em>/',
+      get_store_page_message());
+  }
+
+  public function test_full_message() {
+    set_url('/store/express/');
+    $expected = <<<END_OF_EXPECTED
+    <div class="largest-text highlight bold top-bottom-margin">
+      To complete your order you <em>must</em> press the <em>Complete Order</em>
+      button at the bottom left of the page.
+    </div>
+    <div id="store_message">
+      <ul class="grey">
+        <li>Each piece of jewellery is handmade by Ariane in her studio in
+            Carlow, as a result there is normally a two week lead time on all
+            orders.</li>
+        <li>Free registered shipping to Ireland, EU, and USA on all orders over
+            €50.</li>
+        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
+        <li>All taxes and duties are the responsibility of the buyer.</li>
+      </ul>
+    </div>
+END_OF_EXPECTED;
+    $this->assertEquals($expected, get_store_page_message());
+  }
+}
 ?>
