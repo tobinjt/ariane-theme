@@ -257,7 +257,7 @@ class GetTitleTest extends TestCase {
   }
 }
 
-class GetMessageTest extends TestCase {
+class GetRDSMessageTest extends TestCase {
   public function setUp() {
     clear_all_times();
   }
@@ -284,6 +284,50 @@ class GetMessageTest extends TestCase {
     foreach($regexes as $regex) {
       $this->assertRegExp('/' . $regex . '/', $message);
     }
+  }
+}
+
+class GetJewelleryPageMessageTest extends TestCase {
+  public function setUp() {
+    clear_all_times();
+  }
+
+  public function test_store_closed() {
+    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
+    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    $expected = <<<END_OF_EXPECTED
+      <p class="text-centered larger-text grey">
+        The store is now closed, and Ariane will return to the workshop
+        Monday 07 January.
+      </p>
+END_OF_EXPECTED;
+    $this->assertEquals($expected, get_jewellery_page_message());
+  }
+
+  public function test_no_message() {
+    set_now_for_testing('2018-12-15 00:00:00 Europe/Dublin');
+    set_store_closing_message_display_date('2018-12-22 18:30:00 Europe/Dublin');
+    set_closing_time('2018-12-27 18:30:00 Europe/Dublin');
+    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    $this->assertEquals('', get_jewellery_page_message());
+  }
+
+  public function test_last_delivery_warning() {
+    set_store_closing_message_display_date('2018-12-18 18:30:00 Europe/Dublin');
+    set_now_for_testing('2018-12-22 00:00:00 Europe/Dublin');
+    set_last_delivery_outside_ireland('2018-12-23 00:00:00 Europe/Dublin');
+    set_closing_time('2018-12-27 18:30:00 Europe/Dublin');
+    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    $expected = <<<END_OF_EXPECTED
+    <p class="text-centered larger-text grey">
+      Delivery outside Ireland before December 25th cannot be guaranteed for
+      orders placed after Sunday 23 December.
+      The store will be closing on Thursday 27 December.
+      Ariane will return to the workshop on Monday 07 January.
+    </p>
+END_OF_EXPECTED;
+    $this->assertEquals($expected, get_jewellery_page_message());
   }
 }
 ?>

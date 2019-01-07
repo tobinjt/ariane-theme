@@ -309,40 +309,30 @@ ALL_MESSAGE;
 function get_jewellery_page_message(): string {
   if (is_store_closed()) {
     $store_opening_time_human = store_opening_time_human();
-    $jewellery_message = <<<JEWELLERY_MESSAGE
+    return <<<JEWELLERY_MESSAGE
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
         {$store_opening_time_human}.
-        </p>
+      </p>
 JEWELLERY_MESSAGE;
-  } elseif (is_time_between(store_closing_message_display_date(),
-      store_closing_time())) {
-    $jewellery_message = <<<JEWELLERY_MESSAGE
-      <p class="text-centered larger-text grey">
-JEWELLERY_MESSAGE;
-    if (is_time_after(last_day_for_delivery_outside_ireland())) {
-      $jewellery_message .= <<<JEWELLERY_MESSAGE
-        Delivery outside Ireland before December 25th cannot be guaranteed for
-        orders placed now.
-JEWELLERY_MESSAGE;
-    } else {
-      $last = last_day_for_delivery_outside_ireland_human();
-      $jewellery_message .= <<<JEWELLERY_MESSAGE
-        Delivery outside Ireland before December 25th cannot be guaranteed for
-        orders placed after {$last}.
-JEWELLERY_MESSAGE;
-    }
-    $store_closing_time_human = store_closing_time_human();
-    $store_opening_time_human = store_opening_time_human();
-    $jewellery_message .= <<<JEWELLERY_MESSAGE
-        The store will be closing on {$store_closing_time_human}.
-        Ariane will return to the workshop on {$store_opening_time_human}.
-        </p>
-JEWELLERY_MESSAGE;
-  } else {
-    $jewellery_message = '';
   }
-  return $jewellery_message;
+
+  if (!is_time_between(store_closing_message_display_date(),
+      store_closing_time())) {
+    return '';
+  }
+
+  $last = last_day_for_delivery_outside_ireland_human();
+  $store_closing_time_human = store_closing_time_human();
+  $store_opening_time_human = store_opening_time_human();
+  return <<<JEWELLERY_MESSAGE
+    <p class="text-centered larger-text grey">
+      Delivery outside Ireland before December 25th cannot be guaranteed for
+      orders placed after {$last}.
+      The store will be closing on {$store_closing_time_human}.
+      Ariane will return to the workshop on {$store_opening_time_human}.
+    </p>
+JEWELLERY_MESSAGE;
 }
 
 /* Get the message for the top of store pages. */
