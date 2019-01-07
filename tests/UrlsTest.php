@@ -5,6 +5,10 @@ require_once('src/TestHelpers.php');
 require_once('src/Urls.php');
 
 class UrlsTest extends TestCase {
+  public function setUp() {
+    clear_server_variables();
+  }
+
   public function test_get_hostname() {
     set_hostname('foo');
     $this->assertEquals('foo', get_hostname());

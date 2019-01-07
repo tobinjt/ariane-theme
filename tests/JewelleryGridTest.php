@@ -66,6 +66,7 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
+    clear_server_variables();
   }
 
   public function tearDown() {
@@ -135,6 +136,7 @@ class JewelleryGridShortcodeTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
+    clear_server_variables();
     set_url('/jewellery/foo/');
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');

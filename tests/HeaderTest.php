@@ -78,6 +78,10 @@ END_OF_EXPECTED;
 }
 
 class MakeLinkGroupTest extends TestCase {
+  public function setUp() {
+    clear_server_variables();
+  }
+
   public function test_simple() {
     set_url('url1/');
     $groups = array(
@@ -102,6 +106,7 @@ END_OF_EXPECTED;
 class PickURLToHighlightTest extends TestCase {
   public function setUp() {
     clear_wordpress_testing_state();
+    clear_server_variables();
   }
 
   public function test_404() {
@@ -149,6 +154,10 @@ class PickURLToHighlightTest extends TestCase {
 }
 
 class MakeFullMenuBarTest extends TestCase {
+  public function setUp() {
+    clear_server_variables();
+  }
+
   public function test_no_jewellery() {
     set_url('/care/');
     $output = make_full_menu_bar();
