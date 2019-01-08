@@ -310,6 +310,7 @@ class GetJewelleryPageMessageTest extends TestCase {
         The store is now closed, and Ariane will return to the workshop
         Monday 07 January.
       </p>
+
 END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());
   }
@@ -381,8 +382,97 @@ class GetStorePageMessageTest extends TestCase {
         <li>All taxes and duties are the responsibility of the buyer.</li>
       </ul>
     </div>
+
 END_OF_EXPECTED;
     $this->assertEquals($expected, get_store_page_message());
+  }
+}
+
+class GetMessagesForTopOfPageTest extends TestCase {
+  public function setUp() {
+    clear_all_times();
+    clear_server_variables();
+
+    set_start_displaying_rds_message('2018-10-23 00:00:00 Europe/Dublin');
+    set_stop_displaying_rds_message('2018-12-27 00:00:00 Europe/Dublin');
+    set_rds_start_time('2018-12-23 00:00:00 Europe/Dublin');
+    set_rds_stop_time(stop_displaying_rds_message());
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    set_rds_stand('B15 on the Balcony');
+    set_rds_link('http://www.giftedfair.ie/');
+    set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
+  }
+
+  public function test_index_page() {
+    set_url('/');
+    $expected = <<<END_OF_EXPECTED
+      <p class="text-centered larger-text grey">
+        Ariane will be at <a class="external-link"
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
+        Please visit us at stand B15 on the Balcony, we'd love to see you!
+      </p>
+
+END_OF_EXPECTED;
+    $content = get_messages_for_top_of_page();
+    $this->assertEquals($expected, $content);
+  }
+
+  public function test_jewellery_page() {
+    set_url('/jewellery/sentinel/');
+    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
+    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    $expected = <<<END_OF_EXPECTED
+      <p class="text-centered larger-text grey">
+        Ariane will be at <a class="external-link"
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
+        Please visit us at stand B15 on the Balcony, we'd love to see you!
+      </p>
+
+      <p class="text-centered larger-text grey">
+        The store is now closed, and Ariane will return to the workshop
+        Monday 07 January.
+      </p>
+
+END_OF_EXPECTED;
+    $content = get_messages_for_top_of_page();
+    $this->assertEquals($expected, $content);
+  }
+
+  public function test_store_page() {
+    set_url('/store/cart/');
+    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
+    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    $expected = <<<END_OF_EXPECTED
+      <p class="text-centered larger-text grey">
+        Ariane will be at <a class="external-link"
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
+        Please visit us at stand B15 on the Balcony, we'd love to see you!
+      </p>
+
+      <p class="text-centered larger-text grey">
+        The store is now closed, and Ariane will return to the workshop
+        Monday 07 January.
+      </p>
+
+    <div class="largest-text highlight bold top-bottom-margin">
+      To continue, press the <em>Checkout</em> button at the bottom right of the
+      page.
+    </div>
+    <div id="store_message">
+      <ul class="grey">
+        <li>Each piece of jewellery is handmade by Ariane in her studio in
+            Carlow, as a result there is normally a two week lead time on all
+            orders.</li>
+        <li>Free registered shipping to Ireland, EU, and USA on all orders over
+            €50.</li>
+        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
+        <li>All taxes and duties are the responsibility of the buyer.</li>
+      </ul>
+    </div>
+
+END_OF_EXPECTED;
+    $content = get_messages_for_top_of_page();
+    $this->assertEquals($expected, $content);
   }
 }
 ?>

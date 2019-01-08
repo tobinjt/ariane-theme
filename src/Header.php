@@ -300,6 +300,7 @@ function get_rds_message(): string {
         href="{$rds_link}">{$rds_name}</a> from {$rds_start} to {$rds_stop}.
         Please visit us at stand {$rds_stand}, we'd love to see you!
       </p>
+
 ALL_MESSAGE;
   }
   return '';
@@ -314,6 +315,7 @@ function get_jewellery_page_message(): string {
         The store is now closed, and Ariane will return to the workshop
         {$store_opening_time_human}.
       </p>
+
 JEWELLERY_MESSAGE;
   }
 
@@ -378,6 +380,7 @@ CHECKOUT_MESSAGE;
         <li>All taxes and duties are the responsibility of the buyer.</li>
       </ul>
     </div>
+
 CHECKOUT_MESSAGE;
 
   return $checkout_message;
@@ -390,22 +393,13 @@ CHECKOUT_MESSAGE;
  *  string.
  */
 function get_messages_for_top_of_page(): string {
-  $other_message = <<<OTHER_MESSAGE
-    <p class="text-centered larger-text grey">
-      </p>
-OTHER_MESSAGE;
-
-  $jewellery_message = get_jewellery_page_message();
-  $checkout_message = get_store_page_message();
   $messages = array();
   $messages[] = get_rds_message();
   if (is_store_page()) {
-    $messages[] = $jewellery_message;
-    $messages[] = $checkout_message;
+    $messages[] = get_jewellery_page_message();
+    $messages[] = get_store_page_message();
   } elseif (is_jewellery_page()) {
-    $messages[] = $jewellery_message;
-  } else {
-    $messages[] = $other_message;
+    $messages[] = get_jewellery_page_message();
   }
   return implode("\n", $messages);
 }
