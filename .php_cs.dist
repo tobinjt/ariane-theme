@@ -5,7 +5,7 @@ $finder = PhpCsFixer\Finder::create()
 
 return PhpCsFixer\Config::create()
   ->setRules([
-    '@PSR2' => false,
+    '@PSR2' => true,
     '@PhpCsFixer' => false,
     'concat_space' => ['spacing' => 'one'],
     'heredoc_to_nowdoc' => true,
@@ -35,6 +35,7 @@ return PhpCsFixer\Config::create()
     'no_whitespace_in_blank_line' => true,
     'ordered_imports' => true,
     'return_type_declaration' => true,
+    'semicolon_after_instruction' => true,
     'single_blank_line_at_eof' => true,
     'single_line_comment_style' => true,
     'single_quote' => true,
