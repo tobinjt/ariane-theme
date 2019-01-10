@@ -150,7 +150,6 @@ class PickURLToHighlightTest extends TestCase {
     $output = pick_url_to_highlight($groups, '/default_url/');
     $this->assertEquals('/default_url/', $output);
   }
-
 }
 
 class MakeFullMenuBarTest extends TestCase {
@@ -286,11 +285,11 @@ class GetRDSMessageTest extends TestCase {
     $message = get_rds_message();
     $regexes = array(
       'Ariane will be at',
-      rds_start_time_human() ,
+      rds_start_time_human(),
       rds_stand(),
       rds_name(),
     );
-    foreach($regexes as $regex) {
+    foreach ($regexes as $regex) {
       $this->assertRegExp('/' . $regex . '/', $message);
     }
   }

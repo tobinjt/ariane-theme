@@ -8,7 +8,7 @@ function get_title() {
     $result = 'Not Found - ';
   } elseif (is_single() || is_page()) {
     // is_single() is true for blog posts.
-    $title = wp_title('', False);
+    $title = wp_title('', false);
     if ($title != '') {
       $result = $title . ' - ';
     } else {
@@ -170,7 +170,7 @@ function make_icon_link(string $file, string $alt, string $width,
   return '<img class="greyscale"' .
     ' width="' . $width . '"' .
     ' height="' . $height . '"' .
-    ' src="' .  get_theme_image_path($file) . '"' .
+    ' src="' . get_theme_image_path($file) . '"' .
     ' alt="' . $alt . '" />';
 }
 

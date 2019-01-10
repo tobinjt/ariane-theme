@@ -38,5 +38,5 @@ function is_current_url(string $url): bool {
 
 // Get the full path to an image within the theme.
 function get_theme_image_path(string $file): string {
-  return get_bloginfo('template_directory') . '/images/' .  $file;
+  return get_bloginfo('template_directory') . '/images/' . $file;
 }

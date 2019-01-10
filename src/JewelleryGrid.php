@@ -153,7 +153,7 @@ function JewelleryGridShortcode(array $atts, string $content,
   $slider_needed = false;
   foreach ($ranges as $i => $data) {
     $image = $data['images'][0];
-    $id = "item-" . $i;
+    $id = 'item-' . $i;
     if (count($data['images']) > 1) {
       global $SLIDER_IMAGES;
       $SLIDER_IMAGES['#' . $id] = json_encode($data['images']);

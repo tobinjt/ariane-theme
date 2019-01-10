@@ -46,7 +46,6 @@ class SliderImagesTest extends TestCase {
     $this->assertEquals($expected[0]['srcset'], $images[0]['srcset']);
     $this->assertEquals($expected, $images);
   }
-
 }
 
 class SmallFunctionsTest extends TestCase {
