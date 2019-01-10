@@ -33,7 +33,7 @@ name of the range|this is the alt text|11|linky/
 name of the range|this is the alt text|11|linky|7
 
 END_OF_INPUT;
-    # Most basic possible line:
+    // Most basic possible line:
     add_image_info(11, 'grid_size', array('URL', 23, 59));
     $expected = array(
       array(
@@ -51,7 +51,7 @@ END_OF_INPUT;
         ),
       ),
     );
-    # The lines should all parse the same as the first, or have minor changes.
+    // The lines should all parse the same as the first, or have minor changes.
     $expected[] = $expected[0];
     $expected[] = $expected[0];
     $expected[] = $expected[0];
@@ -195,11 +195,11 @@ END_OF_EXPECTED;
 
   public function test_multiple_images_and_pieces() {
     expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
-    # First range.
+    // First range.
     Cart66Product::setPrice(19, 234);
     Cart66Product::setInventoryLevelForProduct(19, 3);
     add_image_info(11, 'grid_size', array('URL', 23, 59));
-    # Second range.
+    // Second range.
     Cart66Product::setPrice(53, 321);
     Cart66Product::setInventoryLevelForProduct(53, 41);
     add_image_info(13, 'grid_size', array('URLX', 23, 59));

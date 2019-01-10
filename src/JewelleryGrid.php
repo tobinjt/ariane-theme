@@ -1,5 +1,5 @@
 <?php
-/* Support for Jewellery grids showing multiple products.  */
+// Support for Jewellery grids showing multiple products.
 
 /* ParseJewelleryGridContents: turn the CSV from page contents into a data
  * structure.
@@ -23,9 +23,9 @@ function ParseJewelleryGridContents(string $page_contents): array {
     if (strpos($line, '#') === 0) {
       continue;
     }
-    # Awful hack to work around wordpress turning 276x300 into 276!300, where
-    # ! is actually some weird unicode x - this breaks image urls. ARGH.
-    # TODO(johntobin): figure this shit out properly.
+    // Awful hack to work around wordpress turning 276x300 into 276!300, where
+    // ! is actually some weird unicode x - this breaks image urls. ARGH.
+    // TODO(johntobin): figure this shit out properly.
     $line = preg_replace('/&#215;/', 'x', $line);
     $csv_data = str_getcsv($line, '|');
     // Skip blank lines.  The CSV parser will return an array with a single
@@ -33,11 +33,11 @@ function ParseJewelleryGridContents(string $page_contents): array {
     if (count($csv_data) == 1) {
       continue;
     }
-    # Line format:
-    # * Short description|Image description|Image ID|Link to page|Product ID
-    # * The top-level jewellery page links to ranges rather than products, so
-    #   we can't include purchasing.  We use -1 to indicate that there isn't a
-    #   product to offer, and that's checked for later.
+    // Line format:
+    // * Short description|Image description|Image ID|Link to page|Product ID
+    // * The top-level jewellery page links to ranges rather than products, so
+    //   we can't include purchasing.  We use -1 to indicate that there isn't a
+    //   product to offer, and that's checked for later.
     if (count($csv_data) < 5) {
       $csv_data[] = '-1';
     }
@@ -75,9 +75,9 @@ function ParseJewelleryGridContents(string $page_contents): array {
  *  string, HTML to insert in page.
  */
 function MakeBuyButtonForJewelleryGrid(string $product_id): string {
-  # -1 means there isn't a product to sell, and that happens on the main
-  # jewellery page.
-  # Skip showing cart buttons for everything that's been archived.
+  // -1 means there isn't a product to sell, and that happens on the main
+  // jewellery page.
+  // Skip showing cart buttons for everything that's been archived.
   if ($product_id == '-1' || is_archive_page()) {
     return <<<END_OF_NO_PRODUCT_OR_ARCHIVE
     <!-- This creates some space underneath. -->
@@ -148,7 +148,7 @@ function JewelleryGridShortcode(array $atts, string $content,
 
   $description = $attrs['description'];
   $ranges = ParseJewelleryGridContents($content);
-  # Turn the data structure into <divs>s.
+  // Turn the data structure into <divs>s.
   $divs = array();
   $slider_needed = false;
   foreach ($ranges as $i => $data) {
@@ -209,7 +209,7 @@ END_OF_HTML;
   if ($slider_needed) {
     add_action('wp_footer', 'SliderSetupGeneric');
   }
-  # Add a newline.
+  // Add a newline.
   $html[] = '';
   return do_shortcode(implode("\n", $html));
 }

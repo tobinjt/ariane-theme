@@ -1,5 +1,5 @@
 <?php
-/* Support for multiple images in a page: sliders and manually changed.  */
+// Support for multiple images in a page: sliders and manually changed.
 
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.

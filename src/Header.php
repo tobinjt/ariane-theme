@@ -1,7 +1,7 @@
 <?php
-/* Functions needed by header.php.  */
+// Functions needed by header.php.
 
-/* get_title(): return the appropriate title.  */
+// get_title(): return the appropriate title.
 function get_title() {
   $result = '';
   if (is_404()) {
@@ -115,13 +115,13 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
         return $url;
       }
       if (is_store_page() and strpos($url, '/store') === 0) {
-        # There are several pages under the store that should all have
-        # 'basket' highlighted as the current link.
+        // There are several pages under the store that should all have
+        // 'basket' highlighted as the current link.
         return $url;
       }
-      # This assumes that if the URLs overlap the most specific will be last.
-      # We look for matches at the start of the string.
-      # Using === rather than == is essential, otherwise the comparison fails.
+      // This assumes that if the URLs overlap the most specific will be last.
+      // We look for matches at the start of the string.
+      // Using === rather than == is essential, otherwise the comparison fails.
       if ($pattern != '' and strpos($current_url, $pattern) === 0) {
         $url_to_highlight = $url;
       }
@@ -176,7 +176,7 @@ function make_icon_link(string $file, string $alt, string $width,
 
 function make_full_menu_bar(): string {
   $output = '';
-  # This assumes that arrays are ordered, which appears to be true.
+  // This assumes that arrays are ordered, which appears to be true.
   $main_links = array(
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
@@ -209,7 +209,7 @@ function make_full_menu_bar(): string {
     $output .= "\n";
     $jewellery_types_links = array(
       '/jewellery/bangles/'    => 'bangles',
-      # '/jewellery/brooches/'   => 'brooches',
+      // '/jewellery/brooches/'   => 'brooches',
       '/jewellery/earrings/'   => 'earrings',
       '/jewellery/necklaces/'  => 'necklaces',
       '/jewellery/rings/'      => 'rings',
@@ -306,7 +306,7 @@ ALL_MESSAGE;
   return '';
 }
 
-/* Get the message for the top of jewellery pages. */
+// Get the message for the top of jewellery pages.
 function get_jewellery_page_message(): string {
   if (is_store_closed()) {
     $store_opening_time_human = store_opening_time_human();
@@ -337,7 +337,7 @@ JEWELLERY_MESSAGE;
 JEWELLERY_MESSAGE;
 }
 
-/* Get the message for the top of store pages. */
+// Get the message for the top of store pages.
 function get_store_page_message(): string {
   $checkout_message = '';
   if (is_current_url('/store/cart/')) {

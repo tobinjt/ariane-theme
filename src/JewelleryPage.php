@@ -1,5 +1,5 @@
 <?php
-/* Support for showing an individual piece of Jewellery.  */
+// Support for showing an individual piece of Jewellery.
 
 /* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
  * is appropriate for the product in the jewellery page.
@@ -71,7 +71,7 @@ function JewelleryPageShortcode(array $atts, string $content,
     array(
       'archived' => 'false',
       'image_id' => null,
-      # TODO: remove limited_to entirely.
+      // TODO: remove limited_to entirely.
       'limited_to' => '0',
       'name' => null,
       'product_id' => null,
@@ -87,7 +87,7 @@ function JewelleryPageShortcode(array $atts, string $content,
   $attrs['height'] = 0;
   $attrs['width'] = 0;
 
-  # Look up the image(s).
+  // Look up the image(s).
   $image_ids = explode(',', $attrs['image_id']);
   $images = array();
   foreach ($image_ids as $image_id) {
@@ -105,7 +105,7 @@ function JewelleryPageShortcode(array $atts, string $content,
     }
   }
 
-  # Change "necklace" to "necklaces".
+  // Change "necklace" to "necklaces".
   if (substr($attrs['type'], -1) != 's') {
     $attrs['type'] .= 's';
   }

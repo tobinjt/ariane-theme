@@ -1,5 +1,5 @@
 <?php
-/* Functions related to the store closing and opening.  */
+// Functions related to the store closing and opening.
 
 global $TIMES;
 $TIMES = array();
@@ -101,7 +101,7 @@ function timestring_to_human(string $timestring): string {
   return strftime('%A %d %B', strtotime($timestring));
 }
 
-/* store_closing_time: when the store closes next. */
+// store_closing_time: when the store closes next.
 function store_closing_time(): string {
   global $TIMES;
   return $TIMES[STORE_CLOSING_TIME];
@@ -111,7 +111,7 @@ function store_closing_time_human(): string {
   return timestring_to_human(store_closing_time());
 }
 
-/* store_opening_time: when the store opens next. */
+// store_opening_time: when the store opens next.
 function store_opening_time(): string {
   global $TIMES;
   return $TIMES[STORE_OPENING_TIME];
@@ -121,25 +121,25 @@ function store_opening_time_human(): string {
   return timestring_to_human(store_opening_time());
 }
 
-/* start_displaying_rds_message: when to start displaying the RDS message. */
+// start_displaying_rds_message: when to start displaying the RDS message.
 function start_displaying_rds_message(): string {
   global $TIMES;
   return $TIMES[START_DISPLAYING_RDS_MESSAGE];
 }
 
-/* stop_displaying_rds_message: when to stop displaying the RDS message. */
+// stop_displaying_rds_message: when to stop displaying the RDS message.
 function stop_displaying_rds_message(): string {
   global $TIMES;
   return $TIMES[STOP_DISPLAYING_RDS_MESSAGE];
 }
 
-/* rds_start_time: when the RDS starts. */
+// rds_start_time: when the RDS starts.
 function rds_start_time(): string {
   global $TIMES;
   return $TIMES[RDS_START_TIME];
 }
 
-/* rds_stop_time: when the RDS stops. */
+// rds_stop_time: when the RDS stops.
 function rds_stop_time(): string {
   global $TIMES;
   return $TIMES[RDS_STOP_TIME];
@@ -225,7 +225,7 @@ function is_store_closed(): bool {
   return is_time_between(store_closing_time(), store_opening_time());
 }
 
-/* clear_all_times: clear all the times for predictable tests. */
+// clear_all_times: clear all the times for predictable tests.
 function clear_all_times() {
   global $TIMES;
   $TIMES = array();
