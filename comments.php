@@ -1,7 +1,7 @@
 <?php
   if (!empty($_SERVER['SCRIPT_FILENAME'])
       && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME'])) {
-    die ('Please do not load this page directly. Thanks!');
+    die('Please do not load this page directly. Thanks!');
   }
 
   if (post_password_required()) {
@@ -12,7 +12,7 @@
 
   if (have_comments()) {
 ?>
-  <h2 id="comments"><?php comments_number('No Responses', 'One Response', '% Responses' );?></h2>
+  <h2 id="comments"><?php comments_number('No Responses', 'One Response', '% Responses');?></h2>
   <div class="navigation">
     <div class="next-posts"><?php previous_comments_link() ?></div>
     <div class="prev-posts"><?php next_comments_link() ?></div>
@@ -36,7 +36,7 @@
 ?>
   <div id="respond">
     <button id="click-to-respond">
-      <?php comment_form_title( 'Leave a Reply', 'Leave a Reply to %s' ); ?>
+      <?php comment_form_title('Leave a Reply', 'Leave a Reply to %s'); ?>
     </button>
     <button id="cancel-comment-form">
       Hide comment form

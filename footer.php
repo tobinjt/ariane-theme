@@ -17,7 +17,7 @@ VALIDATOR;
 ?>
 
 <?php if (is_single()) {
-  include (TEMPLATEPATH . '/footer.js');
+  include(TEMPLATEPATH . '/footer.js');
 } ?>
   </body>
 </html>

@@ -10,8 +10,8 @@
 <?php
     the_content();
     wp_link_pages(array('before' => 'Pages: ', 'next_or_number' => 'number'));
-    the_tags( 'Tags: ', ', ', '');
-    include (TEMPLATEPATH . '/_/inc/meta.php' );
+    the_tags('Tags: ', ', ', '');
+    include(TEMPLATEPATH . '/_/inc/meta.php');
 ?>
         </div>
       </article>
