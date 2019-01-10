@@ -204,4 +204,3 @@ EXPECTED;
     $this->assertEquals($expected, $content);
   }
 }
-?>

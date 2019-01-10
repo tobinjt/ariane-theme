@@ -40,4 +40,3 @@ class Cart66Product {
     $PRICES[$id] = $price;
   }
 }
-?>

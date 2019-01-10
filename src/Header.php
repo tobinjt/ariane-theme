@@ -403,5 +403,3 @@ function get_messages_for_top_of_page(): string {
   }
   return implode("\n", $messages);
 }
-
-?>

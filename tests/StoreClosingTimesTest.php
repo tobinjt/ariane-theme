@@ -82,4 +82,3 @@ class StoreClosingTimesTest extends TestCase {
     $this->assertFalse(is_store_closed());
   }
 }
-?>

@@ -138,4 +138,3 @@ END_OF_OUTPUT;
     $this->assertEquals(json_encode($images), $SLIDER_IMAGES['#slider']);
   }
 }
-?>

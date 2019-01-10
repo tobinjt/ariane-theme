@@ -72,4 +72,3 @@ class UrlsTest extends TestCase {
       get_theme_image_path('asdf.png'));
   }
 }
-?>

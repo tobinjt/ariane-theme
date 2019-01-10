@@ -136,4 +136,3 @@ img.replaceWith(new_img);
 END_OF_JAVASCRIPT;
   echo $output;
 }
-?>

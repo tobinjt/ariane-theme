@@ -475,4 +475,3 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $content);
   }
 }
-?>

@@ -230,4 +230,3 @@ function clear_all_times() {
   global $TIMES;
   $TIMES = array();
 }
-?>

@@ -183,4 +183,3 @@ END_OF_HTML;
   // Shortcodes need to be expanded.
   return do_shortcode($html);
 }
-?>

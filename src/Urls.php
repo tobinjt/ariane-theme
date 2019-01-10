@@ -40,5 +40,3 @@ function is_current_url(string $url): bool {
 function get_theme_image_path(string $file): string {
   return get_bloginfo('template_directory') . '/images/' .  $file;
 }
-
-?>

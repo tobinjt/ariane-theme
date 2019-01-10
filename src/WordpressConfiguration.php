@@ -54,4 +54,3 @@ function HideCookieLawInfoInFooter(): string {
 
 END_OF_CSS;
 }
-?>

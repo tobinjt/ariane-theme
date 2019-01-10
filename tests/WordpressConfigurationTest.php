@@ -26,4 +26,3 @@ class WordpressConfigurationTest extends TestCase {
     $this->assertRegExp('/#cookie-law-info-bar/', $content);
   }
 }
-?>

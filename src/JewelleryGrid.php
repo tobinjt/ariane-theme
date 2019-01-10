@@ -213,5 +213,3 @@ END_OF_HTML;
   $html[] = '';
   return do_shortcode(implode("\n", $html));
 }
-
-?>

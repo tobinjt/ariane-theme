@@ -284,4 +284,3 @@ END_OF_EXPECTED;
     return implode("\n", $new_lines);
   }
 }
-?>

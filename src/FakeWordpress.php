@@ -163,4 +163,3 @@ class WP_Post {
     $this->post_content = $post_content;
   }
 }
-?>
