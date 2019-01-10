@@ -44,7 +44,7 @@ function ShouldRemoveCookieLawInfo(): bool {
  * added to the footer by the plugin.
  */
 function HideCookieLawInfoInFooter(): string {
-  return <<<END_OF_CSS
+  return <<<'END_OF_CSS'
 
 <style>
   #cookie-law-info-bar {

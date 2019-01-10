@@ -16,7 +16,7 @@ class ParseJewelleryGridContentsTest extends TestCase {
   }
 
   public function test_parsing() {
-    $input = <<<END_OF_INPUT
+    $input = <<<'END_OF_INPUT'
 # This comment will be skipped.
 # Format: range|alt|image_id|href|product_id
 # Most basic possible line:
@@ -120,7 +120,7 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     Cart66Product::setPrice(19, 234);
     Cart66Product::setInventoryLevelForProduct(19, 3);
     $content = MakeBuyButtonForJewelleryGrid('19');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
                 <div class="larger-text">
                   €234
                   [add_to_cart item="19" showprice="no" ajax="yes"
@@ -151,14 +151,14 @@ class JewelleryGridShortcodeTest extends TestCase {
     Cart66Product::setPrice(19, 234);
     Cart66Product::setInventoryLevelForProduct(19, 3);
     add_image_info(11, 'grid_size', array('URL', 23, 59));
-    $input = <<<END_OF_INPUT
+    $input = <<<'END_OF_INPUT'
 # Format: range|alt|image_id|href|product_id
 name of the range|this is the alt text|11|linky/|19
 
 END_OF_INPUT;
     $output = JewelleryGridShortcode(
       array('description' => 'DESCRIPTION'), $input, '');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
         <div id="jewellery-grid">
           <div>
             <p class="grey large-text text-centered">DESCRIPTION</p>
@@ -205,7 +205,7 @@ END_OF_EXPECTED;
     add_image_info(13, 'grid_size', array('URLX', 23, 59));
     add_image_info(17, 'grid_size', array('URLY', 29, 61));
     add_image_info(23, 'grid_size', array('URLZ', 31, 67));
-    $input = <<<END_OF_INPUT
+    $input = <<<'END_OF_INPUT'
 # Format: range|alt|image_id|href|product_id
 name of the range|this is the alt text|11|linky/|19
 range range range|alt text for second range|13,17,23|linky/|53
@@ -213,7 +213,7 @@ range range range|alt text for second range|13,17,23|linky/|53
 END_OF_INPUT;
     $output = JewelleryGridShortcode(
       array('description' => 'DESCRIPTION'), $input, '');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
         <div id="jewellery-grid">
           <div>
             <p class="grey large-text text-centered">DESCRIPTION</p>

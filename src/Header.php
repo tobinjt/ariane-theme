@@ -28,7 +28,7 @@ function get_google_analytics_code(): string {
   if (is_dev_website()) {
     return '';
   }
-  $output = <<<END_OF_JAVASCRIPT
+  $output = <<<'END_OF_JAVASCRIPT'
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -341,19 +341,19 @@ JEWELLERY_MESSAGE;
 function get_store_page_message(): string {
   $checkout_message = '';
   if (is_current_url('/store/cart/')) {
-    $checkout_message = <<<CHECKOUT_MESSAGE
+    $checkout_message = <<<'CHECKOUT_MESSAGE'
       To continue, press the <em>Checkout</em> button at the bottom right of the
       page.
 CHECKOUT_MESSAGE;
   }
   if (is_current_url('/store/checkout/')) {
-    $checkout_message = <<<CHECKOUT_MESSAGE
+    $checkout_message = <<<'CHECKOUT_MESSAGE'
       To continue, press the <em>PayPal</em> button at the bottom right of the
       page.
 CHECKOUT_MESSAGE;
   }
   if (is_current_url('/store/express/')) {
-    $checkout_message = <<<CHECKOUT_MESSAGE
+    $checkout_message = <<<'CHECKOUT_MESSAGE'
       To complete your order you <em>must</em> press the <em>Complete Order</em>
       button at the bottom left of the page.
 CHECKOUT_MESSAGE;
@@ -368,7 +368,7 @@ CHECKOUT_MESSAGE;
 CHECKOUT_MESSAGE;
   }
 
-  $checkout_message .= <<<CHECKOUT_MESSAGE
+  $checkout_message .= <<<'CHECKOUT_MESSAGE'
     <div id="store_message">
       <ul class="grey">
         <li>Each piece of jewellery is handmade by Ariane in her studio in

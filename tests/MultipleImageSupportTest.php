@@ -63,7 +63,7 @@ class SmallFunctionsTest extends TestCase {
     $CHANGE_IMAGES = array();
     $CHANGE_IMAGES['foo'] = array(1, 2);
     $CHANGE_IMAGES['bar'] = array('asdf', 'qwerty');
-    $expected = <<<END_OF_OUTPUT
+    $expected = <<<'END_OF_OUTPUT'
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
@@ -91,7 +91,7 @@ END_OF_OUTPUT;
     $SLIDER_IMAGES['#foo'] = json_encode(array(11, 23));
     $SLIDER_IMAGES['#bar'] = json_encode(array('pinky', 'brain'));
     $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
-    $expected = <<<END_OF_OUTPUT
+    $expected = <<<'END_OF_OUTPUT'
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -122,7 +122,7 @@ END_OF_OUTPUT;
     );
     expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     $content = FrontPageSliderSetup($images);
-    $expected = <<<END_OF_OUTPUT
+    $expected = <<<'END_OF_OUTPUT'
 <div id="slider-div">
   <a href="linky" id="slider-link"
     alt="Selection of Ariane's best work">

@@ -79,7 +79,7 @@ function MakeBuyButtonForJewelleryGrid(string $product_id): string {
   // jewellery page.
   // Skip showing cart buttons for everything that's been archived.
   if ($product_id == '-1' || is_archive_page()) {
-    return <<<END_OF_NO_PRODUCT_OR_ARCHIVE
+    return <<<'END_OF_NO_PRODUCT_OR_ARCHIVE'
     <!-- This creates some space underneath. -->
 
 END_OF_NO_PRODUCT_OR_ARCHIVE;
@@ -88,13 +88,13 @@ END_OF_NO_PRODUCT_OR_ARCHIVE;
   $product = new Cart66Product($product_id);
   if (Cart66Product::checkInventoryLevelForProduct($product_id) == 0) {
     if ($product->max_quantity == 1) {
-      return <<<END_OF_SOLD
+      return <<<'END_OF_SOLD'
     Sold
 
 END_OF_SOLD;
     }
 
-    return <<<END_OF_OUT_OF_STOCK
+    return <<<'END_OF_OUT_OF_STOCK'
     This piece is out of stock, please contact Ariane as it's possible this
     item could be made to order.
 
@@ -114,12 +114,12 @@ END_OF_PRICE;
 
 END_OF_BUY;
   } else {
-    $content .= <<<END_OF_CLOSED
+    $content .= <<<'END_OF_CLOSED'
                   (store closed)
 
 END_OF_CLOSED;
   }
-  $content .= <<<END_OF_DIV
+  $content .= <<<'END_OF_DIV'
                 </div>
 
 END_OF_DIV;
@@ -174,13 +174,13 @@ function JewelleryGridShortcode(array $atts, string $content,
               </div>
 
 END_OF_IMAGE_AND_RANGE;
-    $div .= <<<END_OF_OPEN_BUY_DIV
+    $div .= <<<'END_OF_OPEN_BUY_DIV'
               <div class="text-centered left-right-margin top-bottom-margin grey
                 jewellery-text-container">
 
 END_OF_OPEN_BUY_DIV;
     $div .= MakeBuyButtonForJewelleryGrid($data['product_id']);
-    $div .= <<<END_OF_DIV
+    $div .= <<<'END_OF_DIV'
               </div>
             </div>
 END_OF_DIV;
@@ -188,7 +188,7 @@ END_OF_DIV;
   }
 
   $html = array();
-  $html[] = <<<END_OF_HTML
+  $html[] = <<<'END_OF_HTML'
         <div id="jewellery-grid">
 END_OF_HTML;
   if ($description != '') {
@@ -198,11 +198,11 @@ END_OF_HTML;
           </div>
 END_OF_DESCRIPTION;
   }
-  $html[] = <<<END_OF_HTML
+  $html[] = <<<'END_OF_HTML'
           <div id="jewellery-grid-inner" class="flexboxrow">
 END_OF_HTML;
   $html = array_merge($html, $divs);
-  $html[] = <<<END_OF_HTML
+  $html[] = <<<'END_OF_HTML'
           </div>
         </div>
 END_OF_HTML;

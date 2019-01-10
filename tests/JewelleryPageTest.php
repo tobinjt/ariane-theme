@@ -109,7 +109,7 @@ class JewelleryPageShortcodeTest extends TestCase {
     $this->set_up_MakeBuyButton($attrs['product_id'], 123, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
     $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
-    $expected = <<<EXPECTED
+    $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div id="individual-jewellery-div">
     <div width="23" height="59">
@@ -159,7 +159,7 @@ EXPECTED;
     );
     $this->assertEquals($expected_array,
       $CHANGE_IMAGES['#individual-jewellery-image']);
-    $expected = <<<EXPECTED
+    $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div id="individual-jewellery-div">
 

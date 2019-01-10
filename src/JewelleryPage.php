@@ -11,14 +11,14 @@
 function MakeBuyButtonForJewelleryPage(array $attrs): string {
   $product = new Cart66Product($attrs['product_id']);
   if ($product->max_quantity == 1) {
-    return <<<END_OF_HTML
+    return <<<'END_OF_HTML'
         <p>Unfortunately this unique piece of jewellery has been sold.  See
           below for other items in this range or type.</p>
 END_OF_HTML;
   }
 
   if ($attrs['archived'] !== 'false') {
-    return <<<END_OF_HTML
+    return <<<'END_OF_HTML'
         <p>Unfortunately this piece of jewellery is no longer being sold.  See
           below for other items in this range or type.</p>
 END_OF_HTML;
@@ -47,7 +47,7 @@ END_OF_HTML;
     return $content;
   }
 
-  return <<<END_OF_HTML
+  return <<<'END_OF_HTML'
     <p>This piece is out of stock, please contact Ariane as it's possible this
       item could be made to order.  See below for other items in this range or
       type.</p>
@@ -120,7 +120,7 @@ function JewelleryPageShortcode(array $atts, string $content,
     $range_in_piece_name = $attrs['range'] . ' ';
   }
 
-  $html = <<<END_OF_HTML
+  $html = <<<'END_OF_HTML'
 <div class="flexboxrow">
   <div id="individual-jewellery-div">
 
@@ -130,7 +130,7 @@ END_OF_HTML;
     $CHANGE_IMAGES['#individual-jewellery-image'] = $images;
     // TODO: add test that this is called.
     add_action('wp_footer', 'ChangeImagesSetupGeneric');
-    $html .= <<<END_OF_HTML
+    $html .= <<<'END_OF_HTML'
 
     <div>
       <ul>
@@ -147,7 +147,7 @@ END_OF_HTML;
 
 END_OF_HTML;
     }
-    $html .= <<<END_OF_HTML
+    $html .= <<<'END_OF_HTML'
       </ul>
     </div>
 

@@ -51,7 +51,7 @@ function SliderImages(): array {
  * add_action('wp_footer', 'SliderSetupGeneric');
  */
 function SliderSetupGeneric() {
-  $output = <<<END_OF_JAVASCRIPT
+  $output = <<<'END_OF_JAVASCRIPT'
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {

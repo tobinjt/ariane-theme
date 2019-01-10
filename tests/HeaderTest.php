@@ -29,7 +29,7 @@ class LinksToHTMLTest extends TestCase {
       'wibble' => 'make ME lowercase',
     );
     $output = links_to_html($links, 'pinky', 'highlight ME', 8);
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
         <a href="link1">asdf</a>
         <a href="link2">qwerty</a>
         <a href="pinky" class="highlight ME">the brain</a>
@@ -56,7 +56,7 @@ class WrapWithTagTest extends TestCase {
 class MakeMenuBarTest extends TestCase {
   public function test_all() {
     $output = make_menu_bar(array('chunk 1', 'chunk 2'), 'css_tag');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
     <div class="menubar css_tag">
       chunk 1
       chunk 2
@@ -70,7 +70,7 @@ END_OF_EXPECTED;
 class MakeIconLinkTest extends TestCase {
   public function test_all() {
     $output = make_icon_link('icon.png', 'alt text for icon', '7', '11');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
 <img class="greyscale" width="7" height="11" src="DIR/images/icon.png" alt="alt text for icon" />
 END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
@@ -89,7 +89,7 @@ class MakeLinkGroupTest extends TestCase {
       'more classy' => array('mega-url' => 'urly urly urly', 'foo' => 'bar'),
     );
     $output = make_link_group($groups, '5url');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
       <span class="classy">
         <a href="url1/" class="highlight">txet 1knil</a>
         <a href="5url">wibble</a>
@@ -161,7 +161,7 @@ class MakeFullMenuBarTest extends TestCase {
   public function test_no_jewellery() {
     set_url('/care/');
     $output = make_full_menu_bar();
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
     <div class="menubar ">
       <span class="largest-text left-page-links">
         <a href="/">home</a>
@@ -184,7 +184,7 @@ END_OF_EXPECTED;
   public function test_with_jewellery() {
     set_url('/jewellery/care/');
     $output = make_full_menu_bar();
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
     <div class="menubar ">
       <span class="largest-text left-page-links">
         <a href="/">home</a>
@@ -305,7 +305,7 @@ class GetJewelleryPageMessageTest extends TestCase {
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
         Monday 07 January.
@@ -329,7 +329,7 @@ END_OF_EXPECTED;
     set_last_delivery_outside_ireland('2018-12-23 00:00:00 Europe/Dublin');
     set_closing_time('2018-12-27 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
     <p class="text-centered larger-text grey">
       Delivery outside Ireland before December 25th cannot be guaranteed for
       orders placed after Sunday 23 December.
@@ -366,7 +366,7 @@ class GetStorePageMessageTest extends TestCase {
 
   public function test_full_message() {
     set_url('/store/express/');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
     <div class="largest-text highlight bold top-bottom-margin">
       To complete your order you <em>must</em> press the <em>Complete Order</em>
       button at the bottom left of the page.
@@ -405,7 +405,7 @@ class GetMessagesForTopOfPageTest extends TestCase {
 
   public function test_index_page() {
     set_url('/');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
         href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
@@ -421,7 +421,7 @@ END_OF_EXPECTED;
     set_url('/jewellery/sentinel/');
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
         href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
@@ -442,7 +442,7 @@ END_OF_EXPECTED;
     set_url('/store/cart/');
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $expected = <<<END_OF_EXPECTED
+    $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
         href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
