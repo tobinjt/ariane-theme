@@ -1,24 +1,24 @@
 <?php
-  // Requires PHP 7.0 or greater.
-  declare(strict_types=1);
+// Requires PHP 7.0 or greater.
+declare(strict_types=1);
 
-  // TODO: when we're running PHP 7.1 or later use 'void' return type where
-  // appropriate.
+// TODO: when we're running PHP 7.1 or later use 'void' return type where
+// appropriate.
 
-  require_once('src/Header.php');
-  require_once('src/JewelleryGrid.php');
-  require_once('src/JewelleryPage.php');
-  require_once('src/MultipleImageSupport.php');
-  require_once('src/StoreClosingTimes.php');
-  require_once('src/Urls.php');
-  require_once('src/WordpressConfiguration.php');
+require_once('src/Header.php');
+require_once('src/JewelleryGrid.php');
+require_once('src/JewelleryPage.php');
+require_once('src/MultipleImageSupport.php');
+require_once('src/StoreClosingTimes.php');
+require_once('src/Urls.php');
+require_once('src/WordpressConfiguration.php');
 
-  // Send errors to browser on dev site for easier debugging.
-  if (is_dev_website()) {
-    error_reporting(E_ALL);
-    ini_set('display_errors', '1');
-    ini_set('display_startup_errors', '1');
-  }
+// Send errors to browser on dev site for easier debugging.
+if (is_dev_website()) {
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');
+  ini_set('display_startup_errors', '1');
+}
 
 /* FrontPageSliderSetupShortcode: wrap FrontPageSliderSetup to provide a
  * shortcode.  This *must not* be used in the enclosing form.
@@ -39,110 +39,110 @@ function FrontPageSliderSetupShortcode(string $atts, string $content,
 }
 
 
-  // Configure Wordpress.
-  // Remove unnecessary resources that Wordpress or plugins include in every
-  // page.
+// Configure Wordpress.
+// Remove unnecessary resources that Wordpress or plugins include in every
+// page.
 
-  // Disable comment feeds on blog posts.  __return_false is a Wordpress
-  // function that returns false to make filters easier.
-  add_filter('feed_links_show_comments_feed', '__return_false');
+// Disable comment feeds on blog posts.  __return_false is a Wordpress
+// function that returns false to make filters easier.
+add_filter('feed_links_show_comments_feed', '__return_false');
 
-  // Clean up the <head>
-  function removeHeadLinks() {
-    // Remove some links that are unnecessary.
-    remove_action('wp_head', 'rsd_link');
-    remove_action('wp_head', 'wp_generator');
-    remove_action('wp_head', 'wlwmanifest_link');
-    // Remove automatically generated shortlink.
-    remove_action('wp_head', 'wp_shortlink_wp_head');
-    // Disable comment feeds on pages.
-    remove_action('wp_head', 'feed_links_extra', 3);
-    remove_action('wp_head', 'feed_links', 2);
+// Clean up the <head>
+function removeHeadLinks() {
+  // Remove some links that are unnecessary.
+  remove_action('wp_head', 'rsd_link');
+  remove_action('wp_head', 'wp_generator');
+  remove_action('wp_head', 'wlwmanifest_link');
+  // Remove automatically generated shortlink.
+  remove_action('wp_head', 'wp_shortlink_wp_head');
+  // Disable comment feeds on pages.
+  remove_action('wp_head', 'feed_links_extra', 3);
+  remove_action('wp_head', 'feed_links', 2);
+}
+add_action('init', 'removeHeadLinks');
+
+add_filter('script_loader_src', 'remove_script_version', 15, 1);
+add_filter('style_loader_src', 'remove_script_version', 15, 1);
+
+// Stop jquery-migrate being loaded.  jQuery depends on it, so the jQuery deps
+// need to be changed too.
+function blockJqueryMigrate(WP_Scripts $scripts) {
+  $data = $scripts->query('jquery');
+  if (!$data) {
+    return;
   }
-  add_action('init', 'removeHeadLinks');
+  $data->deps = array_diff($data->deps, array('jquery-migrate'));
+}
+add_action('wp_default_scripts', 'blockJqueryMigrate');
 
-  add_filter('script_loader_src', 'remove_script_version', 15, 1);
-  add_filter('style_loader_src', 'remove_script_version', 15, 1);
+// Stop wp-embed being loaded.  I don't know why this has to be triggered in
+// wp_footer.
+function blockWPEmbed() {
+  wp_deregister_script('wp-embed');
+}
+add_action('wp_footer', 'blockWPEmbed');
 
-  // Stop jquery-migrate being loaded.  jQuery depends on it, so the jQuery deps
-  // need to be changed too.
-  function blockJqueryMigrate(WP_Scripts $scripts) {
-    $data = $scripts->query('jquery');
-    if (!$data) {
-      return;
-    }
-    $data->deps = array_diff($data->deps, array('jquery-migrate'));
+// Stop loading emoji stuff.
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+add_filter('emoji_svg_url', '__return_false');
+
+// Stop linking wp-json stuff.
+remove_action('wp_head', 'rest_output_link_wp_head');
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('template_redirect', 'rest_output_link_header');
+
+function MaybeRemoveCookieLawInfoFromHead() {
+  if (!ShouldRemoveCookieLawInfo()) {
+    return;
   }
-  add_action('wp_default_scripts', 'blockJqueryMigrate');
+  // Remove the Javascript and CSS.
+  // To figure out the correct strings in future, add this at the end of
+  // header.php in <pre> tags:
+  //    global $wp_scripts;
+  //    print_r($wp_scripts);
+  // Then search the output for 'cookie-law-info' and look for "handle =
+  // 'foo'", where 'foo' is the string you need.
+  wp_dequeue_style('cookie-law-info');
+  wp_deregister_style('cookie-law-info');
+  wp_dequeue_style('cookie-law-info-gdpr');
+  wp_deregister_style('cookie-law-info-gdpr');
+  wp_dequeue_script('cookie-law-info');
+  wp_deregister_script('cookie-law-info');
+}
+add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
 
-  // Stop wp-embed being loaded.  I don't know why this has to be triggered in
-  // wp_footer.
-  function blockWPEmbed() {
-    wp_deregister_script('wp-embed');
-  }
-  add_action('wp_footer', 'blockWPEmbed');
+// End removing unnecesary resources.
 
-  // Stop loading emoji stuff.
-  remove_action('wp_head', 'print_emoji_detection_script', 7);
-  remove_action('wp_print_styles', 'print_emoji_styles');
-  add_filter('emoji_svg_url', '__return_false');
+// Add shortcodes.
+add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
+add_shortcode('jewellery_page', 'JewelleryPageShortcode');
+add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
 
-  // Stop linking wp-json stuff.
-  remove_action('wp_head', 'rest_output_link_wp_head');
-  remove_action('wp_head', 'wp_oembed_add_discovery_links');
-  remove_action('template_redirect', 'rest_output_link_header');
+// Enable extra image sizes.
+add_image_size('slider_large', 1024, 768);
+add_image_size('slider_small', 512, 384);
+// TODO: should this be larger?
+add_image_size('product_size', 520, 520);
+add_image_size('grid_size', 260, 260);
+// 'thumbnail' size is automatically generated by Wordpress and is used in
+// product pages.
 
-  function MaybeRemoveCookieLawInfoFromHead() {
-    if (!ShouldRemoveCookieLawInfo()) {
-      return;
-    }
-    // Remove the Javascript and CSS.
-    // To figure out the correct strings in future, add this at the end of
-    // header.php in <pre> tags:
-    //    global $wp_scripts;
-    //    print_r($wp_scripts);
-    // Then search the output for 'cookie-law-info' and look for "handle =
-    // 'foo'", where 'foo' is the string you need.
-    wp_dequeue_style('cookie-law-info');
-    wp_deregister_style('cookie-law-info');
-    wp_dequeue_style('cookie-law-info-gdpr');
-    wp_deregister_style('cookie-law-info-gdpr');
-    wp_dequeue_script('cookie-law-info');
-    wp_deregister_script('cookie-law-info');
-  }
-  add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
+// Use my style sheet.
+add_editor_style('style.css');
+// Add RSS links to <head> section.
+// add_theme_support('automatic-feed-links');
 
-  // End removing unnecesary resources.
-
-  // Add shortcodes.
-  add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
-  add_shortcode('jewellery_page', 'JewelleryPageShortcode');
-  add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
-
-  // Enable extra image sizes.
-  add_image_size('slider_large', 1024, 768);
-  add_image_size('slider_small', 512, 384);
-  // TODO: should this be larger?
-  add_image_size('product_size', 520, 520);
-  add_image_size('grid_size', 260, 260);
-  // 'thumbnail' size is automatically generated by Wordpress and is used in
-  // product pages.
-
-  // Use my style sheet.
-  add_editor_style('style.css');
-  // Add RSS links to <head> section.
-  // add_theme_support('automatic-feed-links');
-
-  // Configure opening and closing themes.
-  set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-  set_opening_time('2019-01-05 00:30:00 Europe/Dublin');
-  // TODO: change these times when we know the dates.
-  set_start_displaying_rds_message('2019-11-01 00:30:00 Europe/Dublin');
-  set_stop_displaying_rds_message('2019-12-10 00:30:00 Europe/Dublin');
-  set_rds_start_time('2019-12-01 00:30 Europe/Dublin');
-  set_rds_stop_time('2019-12-05 23:30 Europe/Dublin');
-  set_rds_stand('B15 on the Balcony');
-  set_rds_link('http://www.giftedfair.ie/');
-  set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
-  set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
-  set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
+// Configure opening and closing themes.
+set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
+set_opening_time('2019-01-05 00:30:00 Europe/Dublin');
+// TODO: change these times when we know the dates.
+set_start_displaying_rds_message('2019-11-01 00:30:00 Europe/Dublin');
+set_stop_displaying_rds_message('2019-12-10 00:30:00 Europe/Dublin');
+set_rds_start_time('2019-12-01 00:30 Europe/Dublin');
+set_rds_stop_time('2019-12-05 23:30 Europe/Dublin');
+set_rds_stand('B15 on the Balcony');
+set_rds_link('http://www.giftedfair.ie/');
+set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
+set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
+set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
