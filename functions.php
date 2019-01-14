@@ -20,47 +20,6 @@
     ini_set('display_startup_errors', '1');
   }
 
-  /* StyleWrapShortcode: Wrap a div with a style around content.
-   * This *must* be used in the enclosing form.
-   * TODO: is this used?
-   * Args (names are ugly but Wordpress-standard):
-   *  $atts: an associative array of attributes, or an empty string if no
-   *    attributes are given.
-   *  $content: the enclosed content (if the shortcode is used in its enclosing
-   *    form)
-   *  $tag: the shortcode tag, useful for shared callback functions
-   * Returns:
-   *  string, the HTML to insert in the page (Wordpress does that
-   *    automatically).
-   */
-  function StyleWrapShortcode(array $atts, string $content,
-                              string $tag): string {
-    $attrs = shortcode_atts(
-      array(
-        'class' => '',
-        'id' => '',
-      ),
-      $atts);
-    $div_parts = array('<div');
-    if ($attrs['class'] != '') {
-      $div_parts[] = 'class="' . $attrs['class'] . '"';
-    }
-    if ($attrs['id'] != '') {
-      $div_parts[] = 'id="' . $attrs['id'] . '"';
-    }
-    $div_parts[] = '>';
-    $full_div = implode(' ', $div_parts);
-
-    // Wordpress will sometimes add a </p> after the shortcode.
-    $stripped_content = preg_replace('/^\ *<\/p>/', '', $content);
-    $expanded_content = do_shortcode($stripped_content);
-    return <<<END_OF_DIV
-{$full_div}
-  {$expanded_content}
-</div>
-END_OF_DIV;
-  }
-
 /* FrontPageSliderSetupShortcode: wrap FrontPageSliderSetup to provide a
  * shortcode.  This *must not* be used in the enclosing form.
  * Args (names are ugly but Wordpress-standard):
@@ -159,7 +118,6 @@ function FrontPageSliderSetupShortcode(string $atts, string $content,
   add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
   add_shortcode('jewellery_page', 'JewelleryPageShortcode');
   add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
-  add_shortcode('style_wrap', 'StyleWrapShortcode');
 
   // Enable extra image sizes.
   add_image_size('slider_large', 1024, 768);
