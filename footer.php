@@ -10,9 +10,5 @@
 <?php
   wp_footer();
 ?>
-
-<?php if (is_single()) {
-  include(TEMPLATEPATH . '/footer.js');
-} ?>
   </body>
 </html>
