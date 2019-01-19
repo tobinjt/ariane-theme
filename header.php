@@ -6,7 +6,6 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
-  // TODO: remove search support?
   if (is_search()) {
       echo '<meta name="robots" content="noindex, nofollow" />';
   }
