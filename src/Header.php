@@ -388,7 +388,6 @@ CHECKOUT_MESSAGE;
 
 /* get_messages_for_top_of_page: returns the messages to display at the top of
  * the page.  Not actually used in header.php, but maybe should be.
- * TODO: should this be used in header.php instead of page.php?
  * Returns:
  *  string.
  */
