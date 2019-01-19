@@ -76,7 +76,6 @@ class JewelleryPageShortcodeTest extends TestCase {
     return array(
       'archived' => 'false',
       'image_id' => null,
-      'limited_to' => '0',
       'name' => 'name should be set',
       'product_id' => null,
       'range' => 'range should be set',

@@ -71,8 +71,6 @@ function JewelleryPageShortcode(array $atts, string $content,
     array(
       'archived' => 'false',
       'image_id' => null,
-      // TODO: remove limited_to entirely.
-      'limited_to' => '0',
       'name' => null,
       'product_id' => null,
       'range' => null,
