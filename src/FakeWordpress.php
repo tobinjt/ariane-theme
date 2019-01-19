@@ -138,7 +138,7 @@ function add_image_info(int $image_id, string $size, array $info) {
 class WP_Query {
   public $posts;
   public function __construct($query) {
-    // $query is unused.  TODO: validate?
+    // $query is unused.
     global $QUERY_RESULTS;
     $this->posts = $QUERY_RESULTS;
   }

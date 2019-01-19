@@ -25,7 +25,6 @@ function ParseJewelleryGridContents(string $page_contents): array {
     }
     // Awful hack to work around wordpress turning 276x300 into 276!300, where
     // ! is actually some weird unicode x - this breaks image urls. ARGH.
-    // TODO(johntobin): figure this shit out properly.
     $line = preg_replace('/&#215;/', 'x', $line);
     $csv_data = str_getcsv($line, '|');
     // Skip blank lines.  The CSV parser will return an array with a single

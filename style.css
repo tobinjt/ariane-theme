@@ -101,7 +101,6 @@ button {width: auto; overflow: visible;}
 /* we like off-black for text */
 body, select, input, textarea {color: #333;}
 
-/* TODO(johntobin): is this needed? */
 a:hover {color: #69f;}
 
 /* TODO(johntobin): figure out how much of this is necessary. */

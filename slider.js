@@ -23,8 +23,6 @@
 //    3-7 repeat forever.
 //
 // See http://usejsdoc.org/ for how to write the function docs.
-// TODO: the steps above somewhat duplicate the function documentation,
-// rationalise them.
 
 /**
  * Initialise a SliderConf.
