@@ -126,7 +126,6 @@ END_OF_HTML;
   if (count($images) > 1) {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = $images;
-    // TODO: add test that this is called.
     add_action('wp_footer', 'ChangeImagesSetupGeneric');
     $html .= <<<'END_OF_HTML'
 
