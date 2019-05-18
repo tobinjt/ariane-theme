@@ -1,3 +1,4 @@
+// @flow
 'use strict';
 // Javascript implementing the slider functionality.
 // Flow of control:
