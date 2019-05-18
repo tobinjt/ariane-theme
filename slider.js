@@ -52,8 +52,7 @@ function SliderConf(input_config, images) {
 
   // Derived values.
   // How long between slider rotations.
-  this.rotation_duration = (
-      this.display_duration + (this.fade_duration * 2));
+  this.rotation_duration = this.display_duration + (this.fade_duration * 2);
   this.div_id = this.id_prefix + '-div';
   this.image_id = this.id_prefix + '-image';
   this.link_id = this.id_prefix + '-link';
@@ -88,8 +87,9 @@ Slider.maybe_log = function(config, message) {
   if (config.log_to_console) {
     var date = new Date();
     var diff = date - config.last_log_date;
-    console.log(config.id_prefix + ' ' + date.toString() + ' ' + diff +
-                ' ' + message);
+    console.log(
+      config.id_prefix + ' ' + date.toString() + ' ' + diff + ' ' + message
+    );
   }
 };
 
