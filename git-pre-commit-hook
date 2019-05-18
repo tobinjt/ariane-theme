@@ -2,4 +2,11 @@
 
 set -e -f -u -o pipefail
 
-phpunit --no-coverage
+php_files_being_committed() {
+  git diff --cached --name-only --diff-filter=ACM \
+    | (grep '.php$' || true)
+}
+
+if [[ -n "$(php_files_being_committed)" ]]; then
+  phpunit --no-coverage
+fi
