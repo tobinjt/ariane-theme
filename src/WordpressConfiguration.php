@@ -39,15 +39,15 @@ function ShouldRemoveCookieLawInfo(): bool {
   return $hide;
 }
 
-/* If the Cookie Law Info cookie already exists, remove the Javascript and CSS
- * it wants to load.  Output needs to be inserted in <head> to hide the text
- * added to the footer by the plugin.
+/* Output needs to be inserted in <head> to hide the text added to the footer by
+ * the Cookie Law Info plugin.
  */
 function HideCookieLawInfoInFooter(): string {
   return <<<'END_OF_CSS'
 
 <style>
-  #cookie-law-info-bar {
+  #cookie-law-info-bar, #cookie-law-info-again, .cli-modal-dialog,
+      .cli-modal-backdrop {
     display: none;
   }
 </style>

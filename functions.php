@@ -96,11 +96,16 @@ function MaybeRemoveCookieLawInfoFromHead() {
   if (!ShouldRemoveCookieLawInfo()) {
     return;
   }
-  // Remove the Javascript and CSS.
+  // Remove the Javascript and CSS.  There will still be some Javascript output
+  // directly in the page with the plugin settings, don't worry about that.
   // To figure out the correct strings in future, add this at the end of
-  // header.php in <pre> tags:
-  //    global $wp_scripts;
-  //    print_r($wp_scripts);
+  // header.php:
+  // <pre>
+  // <?php
+  //   global $wp_scripts;
+  //   echo htmlspecialchars(print_r($wp_scripts, true));
+  // ? >
+  // </pre>
   // Then search the output for 'cookie-law-info' and look for "handle =
   // 'foo'", where 'foo' is the string you need.
   wp_dequeue_style('cookie-law-info');
