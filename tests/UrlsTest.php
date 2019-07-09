@@ -5,7 +5,7 @@ require_once('src/TestHelpers.php');
 require_once('src/Urls.php');
 
 class UrlsTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_server_variables();
   }
 

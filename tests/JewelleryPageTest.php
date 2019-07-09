@@ -6,12 +6,12 @@ require_once('src/FakeWordpress.php');
 require_once('src/JewelleryPage.php');
 
 class MakeBuyButtonForJewelleryPageTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 
@@ -62,12 +62,12 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
 }
 
 class JewelleryPageShortcodeTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 

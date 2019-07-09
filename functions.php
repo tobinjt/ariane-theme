@@ -2,9 +2,6 @@
 // Requires PHP 7.0 or greater.
 declare(strict_types=1);
 
-// TODO: when we're running PHP 7.1 or later use 'void' return type where
-// appropriate.
-
 require_once('src/Header.php');
 require_once('src/JewelleryGrid.php');
 require_once('src/JewelleryPage.php');

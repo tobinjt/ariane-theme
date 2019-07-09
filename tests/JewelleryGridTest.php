@@ -7,11 +7,11 @@ require_once('src/TestHelpers.php');
 require_once('src/JewelleryGrid.php');
 
 class ParseJewelleryGridContentsTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 
@@ -63,13 +63,13 @@ END_OF_INPUT;
 }
 
 class MakeBuyButtonForJewelleryGridTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
     clear_server_variables();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 
@@ -133,7 +133,7 @@ END_OF_EXPECTED;
 }
 
 class JewelleryGridShortcodeTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
     clear_server_variables();
@@ -143,7 +143,7 @@ class JewelleryGridShortcodeTest extends TestCase {
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 

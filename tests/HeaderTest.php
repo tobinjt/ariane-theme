@@ -78,7 +78,7 @@ END_OF_EXPECTED;
 }
 
 class MakeLinkGroupTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_server_variables();
   }
 
@@ -104,7 +104,7 @@ END_OF_EXPECTED;
 }
 
 class PickURLToHighlightTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
     clear_server_variables();
   }
@@ -153,7 +153,7 @@ class PickURLToHighlightTest extends TestCase {
 }
 
 class MakeFullMenuBarTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_server_variables();
   }
 
@@ -234,7 +234,7 @@ END_OF_EXPECTED;
 }
 
 class GetTitleTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
   }
 
@@ -266,7 +266,7 @@ class GetTitleTest extends TestCase {
 }
 
 class GetRDSMessageTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_all_times();
   }
 
@@ -296,7 +296,7 @@ class GetRDSMessageTest extends TestCase {
 }
 
 class GetJewelleryPageMessageTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_all_times();
   }
 
@@ -341,7 +341,7 @@ END_OF_EXPECTED;
 }
 
 class GetStorePageMessageTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_server_variables();
   }
 
@@ -388,7 +388,7 @@ END_OF_EXPECTED;
 }
 
 class GetMessagesForTopOfPageTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_all_times();
     clear_server_variables();
 

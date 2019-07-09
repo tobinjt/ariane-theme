@@ -4,11 +4,11 @@ require_once('src/MultipleImageSupport.php');
 require_once('src/FakeWordpress.php');
 
 class SliderImagesTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 
@@ -49,11 +49,11 @@ class SliderImagesTest extends TestCase {
 }
 
 class SmallFunctionsTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_wordpress_testing_state();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     verify_wordpress_testing_state();
   }
 

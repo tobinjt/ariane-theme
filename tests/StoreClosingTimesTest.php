@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 require_once('src/StoreClosingTimes.php');
 
 class StoreClosingTimesTest extends TestCase {
-  public function setUp() {
+  public function setUp(): void {
     clear_all_times();
   }
 
