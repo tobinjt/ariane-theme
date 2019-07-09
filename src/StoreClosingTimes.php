@@ -17,7 +17,7 @@ define('NOW_FOR_TESTING', 100);
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_closing_time(string $timestring) {
+function set_closing_time(string $timestring): void {
   global $TIMES;
   $TIMES[STORE_CLOSING_TIME] = $timestring;
 }
@@ -26,7 +26,7 @@ function set_closing_time(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_opening_time(string $timestring) {
+function set_opening_time(string $timestring): void {
   global $TIMES;
   $TIMES[STORE_OPENING_TIME] = $timestring;
 }
@@ -35,7 +35,7 @@ function set_opening_time(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_last_delivery_outside_ireland(string $timestring) {
+function set_last_delivery_outside_ireland(string $timestring): void {
   global $TIMES;
   $TIMES[LAST_DELIVERY_OUTSIDE_IRELAND] = $timestring;
 }
@@ -44,7 +44,7 @@ function set_last_delivery_outside_ireland(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_store_closing_message_display_date(string $timestring) {
+function set_store_closing_message_display_date(string $timestring): void {
   global $TIMES;
   $TIMES[CLOSING_MESSAGE_DISPLAY_DATE] = $timestring;
 }
@@ -53,7 +53,7 @@ function set_store_closing_message_display_date(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_start_displaying_rds_message(string $timestring) {
+function set_start_displaying_rds_message(string $timestring): void {
   global $TIMES;
   $TIMES[START_DISPLAYING_RDS_MESSAGE] = $timestring;
 }
@@ -62,7 +62,7 @@ function set_start_displaying_rds_message(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_stop_displaying_rds_message(string $timestring) {
+function set_stop_displaying_rds_message(string $timestring): void {
   global $TIMES;
   $TIMES[STOP_DISPLAYING_RDS_MESSAGE] = $timestring;
 }
@@ -71,7 +71,7 @@ function set_stop_displaying_rds_message(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_rds_start_time(string $timestring) {
+function set_rds_start_time(string $timestring): void {
   global $TIMES;
   $TIMES[RDS_START_TIME] = $timestring;
 }
@@ -80,7 +80,7 @@ function set_rds_start_time(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_rds_stop_time(string $timestring) {
+function set_rds_stop_time(string $timestring): void {
   global $TIMES;
   $TIMES[RDS_STOP_TIME] = $timestring;
 }
@@ -89,7 +89,7 @@ function set_rds_stop_time(string $timestring) {
  * Args:
  *  $timestring: a time and date string parsable by strtotime().
  */
-function set_now_for_testing(string $timestring) {
+function set_now_for_testing(string $timestring): void {
   global $TIMES;
   $TIMES[NOW_FOR_TESTING] = $timestring;
 }
@@ -226,7 +226,7 @@ function is_store_closed(): bool {
 }
 
 // clear_all_times: clear all the times for predictable tests.
-function clear_all_times() {
+function clear_all_times(): void {
   global $TIMES;
   $TIMES = array();
 }

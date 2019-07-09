@@ -1,6 +1,6 @@
 <?php
 // Clean up all state set up by tests.
-function clear_cart66_testing_state() {
+function clear_cart66_testing_state(): void {
   global $INVENTORY_LEVEL, $MAX_QUANTITIES, $PRICES;
   $INVENTORY_LEVEL = array();
   $MAX_QUANTITIES = array();
@@ -21,21 +21,21 @@ class Cart66Product {
   }
 
   // Mock functions used by SUT.
-  public static function checkInventoryLevelForProduct(int $id) {
+  public static function checkInventoryLevelForProduct(int $id): int {
     global $INVENTORY_LEVEL;
     return $INVENTORY_LEVEL[$id];
   }
 
   // Helper functions used by tests.
-  public static function setInventoryLevelForProduct(int $id, int $level) {
+  public static function setInventoryLevelForProduct(int $id, int $level): void {
     global $INVENTORY_LEVEL;
     $INVENTORY_LEVEL[$id] = $level;
   }
-  public static function setMaxQuantity(int $id, int $max) {
+  public static function setMaxQuantity(int $id, int $max): void {
     global $MAX_QUANTITIES;
     $MAX_QUANTITIES[$id] = $max;
   }
-  public static function setPrice(int $id, int $price) {
+  public static function setPrice(int $id, int $price): void {
     global $PRICES;
     $PRICES[$id] = $price;
   }

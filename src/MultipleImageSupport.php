@@ -50,7 +50,7 @@ function SliderImages(): array {
  * registering it with:
  * add_action('wp_footer', 'SliderSetupGeneric');
  */
-function SliderSetupGeneric() {
+function SliderSetupGeneric(): void {
   $output = <<<'END_OF_JAVASCRIPT'
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
@@ -113,7 +113,7 @@ END_OF_HTML;
  * called indirectly by Wordpress, by registering it with:
  * add_action('wp_footer', 'ChangeImagesSetupGeneric');
  */
-function ChangeImagesSetupGeneric() {
+function ChangeImagesSetupGeneric(): void {
   global $CHANGE_IMAGES;
   $images = json_encode($CHANGE_IMAGES);
   $output = <<<END_OF_JAVASCRIPT

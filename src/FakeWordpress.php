@@ -1,7 +1,7 @@
 <?php
 
 // Clean up all state set up by tests.
-function clear_wordpress_testing_state() {
+function clear_wordpress_testing_state(): void {
   WP_Query::clear_query_results();
   clear_image_info();
   clear_add_action();
@@ -9,7 +9,7 @@ function clear_wordpress_testing_state() {
 }
 
 // Clean up all state set up by tests.
-function verify_wordpress_testing_state() {
+function verify_wordpress_testing_state(): void {
   verify_add_action();
 }
 
@@ -23,7 +23,7 @@ function do_shortcode(string $content): string {
 }
 
 // Functions about the page state, type of page, etc.
-function clear_page_state() {
+function clear_page_state(): void {
   global $PAGE_STATE;
   $PAGE_STATE = array();
 }
@@ -36,7 +36,7 @@ function is_404(): bool {
   return false;
 }
 
-function set_is_404(bool $is) {
+function set_is_404(bool $is): void {
   global $PAGE_STATE;
   $PAGE_STATE['is_404'] = $is;
 }
@@ -49,7 +49,7 @@ function is_single(): bool {
   return false;
 }
 
-function set_is_single(bool $is) {
+function set_is_single(bool $is): void {
   global $PAGE_STATE;
   $PAGE_STATE['is_single'] = $is;
 }
@@ -62,7 +62,7 @@ function is_page(): bool {
   return false;
 }
 
-function set_is_page(bool $is) {
+function set_is_page(bool $is): void {
   global $PAGE_STATE;
   $PAGE_STATE['is_page'] = $is;
 }
@@ -75,7 +75,7 @@ function wp_title(): string {
   return false;
 }
 
-function set_wp_title(string $title) {
+function set_wp_title(string $title): void {
   global $PAGE_STATE;
   $PAGE_STATE['wp_title'] = $title;
 }
@@ -90,18 +90,18 @@ function get_bloginfo(string $param): string {
 }
 
 // Functions for add_action.
-function clear_add_action() {
+function clear_add_action(): void {
   global $EXPECTED_ADD_ACTION;
   $EXPECTED_ADD_ACTION = array();
 }
 
-function expect_add_action(string $section, string $function, int $num_calls) {
+function expect_add_action(string $section, string $function, int $num_calls): void {
   // $section is unused.
   global $EXPECTED_ADD_ACTION;
   $EXPECTED_ADD_ACTION[$function] = $num_calls;
 }
 
-function add_action(string $section, string $function) {
+function add_action(string $section, string $function): void {
   assert($section == 'wp_footer');
   assert(function_exists($function), $function . ' is not a function');
   global $EXPECTED_ADD_ACTION;
@@ -110,7 +110,7 @@ function add_action(string $section, string $function) {
   $EXPECTED_ADD_ACTION[$function] -= 1;
 }
 
-function verify_add_action() {
+function verify_add_action(): void {
   global $EXPECTED_ADD_ACTION;
   foreach ($EXPECTED_ADD_ACTION as $function => $should_be_zero) {
     assert($should_be_zero == 0,
@@ -124,12 +124,12 @@ function wp_get_attachment_image_src(int $image_id, string $size): array {
   return $IMAGE_INFO[$image_id][$size];
 }
 
-function clear_image_info() {
+function clear_image_info(): void {
   global $IMAGE_INFO;
   $IMAGE_INFO = array();
 }
 
-function add_image_info(int $image_id, string $size, array $info) {
+function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
   $IMAGE_INFO[$image_id][$size] = $info;
 }
@@ -144,12 +144,12 @@ class WP_Query {
   }
 
   // Helper functions for populating $QUERY_RESULTS.
-  public static function clear_query_results() {
+  public static function clear_query_results(): void {
     global $QUERY_RESULTS;
     $QUERY_RESULTS = array();
   }
 
-  public static function add_query_result(WP_Post $result) {
+  public static function add_query_result(WP_Post $result): void {
     global $QUERY_RESULTS;
     $QUERY_RESULTS[] = $result;
   }

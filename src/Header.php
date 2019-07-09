@@ -2,7 +2,7 @@
 // Functions needed by header.php.
 
 // get_title(): return the appropriate title.
-function get_title() {
+function get_title(): string {
   $result = '';
   if (is_404()) {
     $result = 'Not Found - ';
@@ -254,7 +254,7 @@ function rds_stand(): string {
   return $RDS_STAND;
 }
 
-function set_rds_stand(string $stand) {
+function set_rds_stand(string $stand): void {
   global $RDS_STAND;
   $RDS_STAND = $stand;
 }
@@ -265,7 +265,7 @@ function rds_link(): string {
   return $RDS_LINK;
 }
 
-function set_rds_link(string $link) {
+function set_rds_link(string $link): void {
   global $RDS_LINK;
   $RDS_LINK = $link;
 }
@@ -276,7 +276,7 @@ function rds_name(): string {
   return $RDS_NAME;
 }
 
-function set_rds_name(string $name) {
+function set_rds_name(string $name): void {
   global $RDS_NAME;
   $RDS_NAME = $name;
 }
