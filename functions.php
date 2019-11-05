@@ -137,7 +137,7 @@ add_editor_style('style.css');
 // Configure opening and closing themes.
 set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
 set_opening_time('2019-01-05 00:30:00 Europe/Dublin');
-set_start_displaying_rds_message('2019-11-01 00:30:00 Europe/Dublin');
+set_start_displaying_rds_message('2019-11-07 00:30:00 Europe/Dublin');
 set_stop_displaying_rds_message('2019-12-10 00:30:00 Europe/Dublin');
 set_rds_start_time('2019-12-01 00:30 Europe/Dublin');
 set_rds_stop_time('2019-12-05 23:30 Europe/Dublin');
