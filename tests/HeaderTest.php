@@ -273,8 +273,6 @@ class GetRDSMessageTest extends TestCase {
   public function test_get_rds_message() {
     set_start_displaying_rds_message('2018-10-23 00:00:00 Europe/Dublin');
     set_stop_displaying_rds_message('2018-12-27 00:00:00 Europe/Dublin');
-    set_rds_start_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_rds_stop_time(stop_displaying_rds_message());
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
 
     $this->assertEquals('', get_rds_message());
@@ -382,8 +380,6 @@ class GetMessagesForTopOfPageTest extends TestCase {
 
     set_start_displaying_rds_message('2018-10-23 00:00:00 Europe/Dublin');
     set_stop_displaying_rds_message('2018-12-27 00:00:00 Europe/Dublin');
-    set_rds_start_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_rds_stop_time(stop_displaying_rds_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
   }
 

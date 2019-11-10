@@ -139,7 +139,5 @@ set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
 set_opening_time('2019-01-05 00:30:00 Europe/Dublin');
 set_start_displaying_rds_message('2019-12-14 00:30:00 Europe/Dublin');
 set_stop_displaying_rds_message('2019-12-10 00:30:00 Europe/Dublin');
-set_rds_start_time('2019-12-01 00:30 Europe/Dublin');
-set_rds_stop_time('2019-12-05 23:30 Europe/Dublin');
 set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
 set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
