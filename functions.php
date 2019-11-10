@@ -135,11 +135,11 @@ add_editor_style('style.css');
 // add_theme_support('automatic-feed-links');
 
 // Configure opening and closing themes.
-set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-set_opening_time('2019-01-05 00:30:00 Europe/Dublin');
-set_start_displaying_banner_message('2019-12-14 00:30:00 Europe/Dublin');
-set_stop_displaying_banner_message('2019-12-10 00:30:00 Europe/Dublin');
-set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
+set_closing_time('2019-12-13 18:30:00 Europe/Dublin');
+set_opening_time('2020-01-06 00:30:00 Europe/Dublin');
+set_start_displaying_banner_message('2019-11-10 00:30:00 Europe/Dublin');
+set_stop_displaying_banner_message('2019-12-09 00:30:00 Europe/Dublin');
+set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');
 set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
 $rds_banner = <<<RDS_BANNER
         Ariane will be at <a class="external-link"
@@ -148,8 +148,8 @@ $rds_banner = <<<RDS_BANNER
         Please visit us at stand XXX, we'd love to see you!
 RDS_BANNER;
 $non_rds_banner = <<<NON_RDS_BANNER
-        Ariane will <i>not</i> be at Gifted - The Contemporary Craft &amp;\
-        Design Fair in the RDS this year, she's taking a break.  Her work is
-        still available to purchase from this website.
+        Ariane will <i>not</i> be at Gifted in the RDS this year, she's taking a
+        break.  Her work is still available to purchase from this website, and
+        she can be contacted at ariane @ arianetobin.ie.
 NON_RDS_BANNER;
 set_banner_message($non_rds_banner);
