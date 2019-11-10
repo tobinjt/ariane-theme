@@ -274,10 +274,11 @@ class GetBannerMessageTest extends TestCase {
     set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
     set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
+    set_banner_message('BANNER MESSAGE');
 
     $this->assertEquals('', get_banner_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $this->assertRegExp('/Ariane will be at/', get_banner_message());
+    $this->assertRegExp('/BANNER MESSAGE/', get_banner_message());
   }
 }
 
@@ -381,16 +382,14 @@ class GetMessagesForTopOfPageTest extends TestCase {
     set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
     set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    set_banner_message('BANNER MESSAGE');
   }
 
   public function test_index_page() {
     set_url('/');
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
-        Design Fair</a> from XXX to XXX.
-        Please visit us at stand XXX, we'd love to see you!
+        BANNER MESSAGE
       </p>
 
 END_OF_EXPECTED;
@@ -404,10 +403,7 @@ END_OF_EXPECTED;
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
-        Design Fair</a> from XXX to XXX.
-        Please visit us at stand XXX, we'd love to see you!
+        BANNER MESSAGE
       </p>
 
       <p class="text-centered larger-text grey">
@@ -426,10 +422,7 @@ END_OF_EXPECTED;
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
-        Design Fair</a> from XXX to XXX.
-        Please visit us at stand XXX, we'd love to see you!
+        BANNER MESSAGE
       </p>
 
       <p class="text-centered larger-text grey">

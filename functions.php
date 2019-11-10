@@ -141,3 +141,15 @@ set_start_displaying_banner_message('2019-12-14 00:30:00 Europe/Dublin');
 set_stop_displaying_banner_message('2019-12-10 00:30:00 Europe/Dublin');
 set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
 set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
+$rds_banner = <<<RDS_BANNER
+        Ariane will be at <a class="external-link"
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
+        Design Fair</a> from XXX to XXX.
+        Please visit us at stand XXX, we'd love to see you!
+RDS_BANNER;
+$non_rds_banner = <<<NON_RDS_BANNER
+        Ariane will <i>not</i> be at Gifted - The Contemporary Craft &amp;\
+        Design Fair in the RDS this year, she's taking a break.  Her work is
+        still available to purchase from this website.
+NON_RDS_BANNER;
+set_banner_message($non_rds_banner);

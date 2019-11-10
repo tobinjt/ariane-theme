@@ -256,17 +256,20 @@ function make_full_menu_bar(): string {
 function get_banner_message(): string {
   if (is_time_between(start_displaying_banner_message(),
     stop_displaying_banner_message())) {
-    return <<<ALL_MESSAGE
+      global $BANNER_MESSAGE;
+      return <<<BANNER_MESSAGE
       <p class="text-centered larger-text grey">
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
-        Design Fair</a> from XXX to XXX.
-        Please visit us at stand XXX, we'd love to see you!
+        {$BANNER_MESSAGE}
       </p>
 
-ALL_MESSAGE;
+BANNER_MESSAGE;
   }
   return '';
+}
+
+function set_banner_message(string $banner_message): void {
+  global $BANNER_MESSAGE;
+  $BANNER_MESSAGE = $banner_message;
 }
 
 // Get the message for the top of jewellery pages.
