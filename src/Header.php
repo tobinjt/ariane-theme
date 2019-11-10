@@ -248,14 +248,14 @@ function make_full_menu_bar(): string {
   return $output;
 }
 
-/* get_rds_message: return the message to display about the RDS, or an empty
- * string if it's not the right time of year.
+/* get_banner_message: return the message to display about the banner, or an
+ * empty string if it's not the right time of year.
  * Returns:
  *  string.
  */
-function get_rds_message(): string {
-  if (is_time_between(start_displaying_rds_message(),
-    stop_displaying_rds_message())) {
+function get_banner_message(): string {
+  if (is_time_between(start_displaying_banner_message(),
+    stop_displaying_banner_message())) {
     return <<<ALL_MESSAGE
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
@@ -356,7 +356,7 @@ CHECKOUT_MESSAGE;
  */
 function get_messages_for_top_of_page(): string {
   $messages = array();
-  $messages[] = get_rds_message();
+  $messages[] = get_banner_message();
   if (is_store_page()) {
     $messages[] = get_jewellery_page_message();
     $messages[] = get_store_page_message();

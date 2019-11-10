@@ -16,12 +16,12 @@ class StoreClosingTimesTest extends TestCase {
     $this->assertEquals('qwerty', $TIMES[STORE_OPENING_TIME]);
     $this->assertEquals('qwerty', store_opening_time());
 
-    set_start_displaying_rds_message('pinky');
-    $this->assertEquals('pinky', $TIMES[START_DISPLAYING_RDS_MESSAGE]);
-    $this->assertEquals('pinky', start_displaying_rds_message());
-    set_stop_displaying_rds_message('the brain');
-    $this->assertEquals('the brain', $TIMES[STOP_DISPLAYING_RDS_MESSAGE]);
-    $this->assertEquals('the brain', stop_displaying_rds_message());
+    set_start_displaying_banner_message('pinky');
+    $this->assertEquals('pinky', $TIMES[START_DISPLAYING_BANNER_MESSAGE]);
+    $this->assertEquals('pinky', start_displaying_banner_message());
+    set_stop_displaying_banner_message('the brain');
+    $this->assertEquals('the brain', $TIMES[STOP_DISPLAYING_BANNER_MESSAGE]);
+    $this->assertEquals('the brain', stop_displaying_banner_message());
 
     set_last_delivery_outside_ireland('wasd');
     $this->assertEquals('wasd', $TIMES[LAST_DELIVERY_OUTSIDE_IRELAND]);

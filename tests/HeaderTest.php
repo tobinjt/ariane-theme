@@ -265,19 +265,19 @@ class GetTitleTest extends TestCase {
   }
 }
 
-class GetRDSMessageTest extends TestCase {
+class GetBannerMessageTest extends TestCase {
   public function setUp(): void {
     clear_all_times();
   }
 
-  public function test_get_rds_message() {
-    set_start_displaying_rds_message('2018-10-23 00:00:00 Europe/Dublin');
-    set_stop_displaying_rds_message('2018-12-27 00:00:00 Europe/Dublin');
+  public function test_get_banner_message() {
+    set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
+    set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
 
-    $this->assertEquals('', get_rds_message());
+    $this->assertEquals('', get_banner_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $this->assertRegExp('/Ariane will be at/', get_rds_message());
+    $this->assertRegExp('/Ariane will be at/', get_banner_message());
   }
 }
 
@@ -378,8 +378,8 @@ class GetMessagesForTopOfPageTest extends TestCase {
     clear_all_times();
     clear_server_variables();
 
-    set_start_displaying_rds_message('2018-10-23 00:00:00 Europe/Dublin');
-    set_stop_displaying_rds_message('2018-12-27 00:00:00 Europe/Dublin');
+    set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
+    set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
   }
 
