@@ -276,22 +276,10 @@ class GetRDSMessageTest extends TestCase {
     set_rds_start_time('2018-12-23 00:00:00 Europe/Dublin');
     set_rds_stop_time(stop_displaying_rds_message());
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
-    set_rds_stand('B15 on the Balcony');
-    set_rds_link('http://www.giftedfair.ie/');
-    set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
 
     $this->assertEquals('', get_rds_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $message = get_rds_message();
-    $regexes = array(
-      'Ariane will be at',
-      rds_start_time_human(),
-      rds_stand(),
-      rds_name(),
-    );
-    foreach ($regexes as $regex) {
-      $this->assertRegExp('/' . $regex . '/', $message);
-    }
+    $this->assertRegExp('/Ariane will be at/', get_rds_message());
   }
 }
 
@@ -397,9 +385,6 @@ class GetMessagesForTopOfPageTest extends TestCase {
     set_rds_start_time('2018-12-23 00:00:00 Europe/Dublin');
     set_rds_stop_time(stop_displaying_rds_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    set_rds_stand('B15 on the Balcony');
-    set_rds_link('http://www.giftedfair.ie/');
-    set_rds_name('Gifted - The Contemporary Craft &amp; Design Fair');
   }
 
   public function test_index_page() {
@@ -407,8 +392,9 @@ class GetMessagesForTopOfPageTest extends TestCase {
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
-        Please visit us at stand B15 on the Balcony, we'd love to see you!
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
+        Design Fair</a> from XXX to XXX.
+        Please visit us at stand XXX, we'd love to see you!
       </p>
 
 END_OF_EXPECTED;
@@ -423,8 +409,9 @@ END_OF_EXPECTED;
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
-        Please visit us at stand B15 on the Balcony, we'd love to see you!
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
+        Design Fair</a> from XXX to XXX.
+        Please visit us at stand XXX, we'd love to see you!
       </p>
 
       <p class="text-centered larger-text grey">
@@ -444,8 +431,9 @@ END_OF_EXPECTED;
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp; Design Fair</a> from Sunday 23 December to Thursday 27 December.
-        Please visit us at stand B15 on the Balcony, we'd love to see you!
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
+        Design Fair</a> from XXX to XXX.
+        Please visit us at stand XXX, we'd love to see you!
       </p>
 
       <p class="text-centered larger-text grey">

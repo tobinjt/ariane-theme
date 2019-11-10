@@ -248,39 +248,6 @@ function make_full_menu_bar(): string {
   return $output;
 }
 
-// Stand we're in at the craft fair.
-function rds_stand(): string {
-  global $RDS_STAND;
-  return $RDS_STAND;
-}
-
-function set_rds_stand(string $stand): void {
-  global $RDS_STAND;
-  $RDS_STAND = $stand;
-}
-
-// Link to the craft fair.
-function rds_link(): string {
-  global $RDS_LINK;
-  return $RDS_LINK;
-}
-
-function set_rds_link(string $link): void {
-  global $RDS_LINK;
-  $RDS_LINK = $link;
-}
-
-// Name of the craft fair.
-function rds_name(): string {
-  global $RDS_NAME;
-  return $RDS_NAME;
-}
-
-function set_rds_name(string $name): void {
-  global $RDS_NAME;
-  $RDS_NAME = $name;
-}
-
 /* get_rds_message: return the message to display about the RDS, or an empty
  * string if it's not the right time of year.
  * Returns:
@@ -289,16 +256,12 @@ function set_rds_name(string $name): void {
 function get_rds_message(): string {
   if (is_time_between(start_displaying_rds_message(),
     stop_displaying_rds_message())) {
-    $rds_start = rds_start_time_human();
-    $rds_stop = rds_stop_time_human();
-    $rds_stand = rds_stand();
-    $rds_link = rds_link();
-    $rds_name = rds_name();
     return <<<ALL_MESSAGE
       <p class="text-centered larger-text grey">
         Ariane will be at <a class="external-link"
-        href="{$rds_link}">{$rds_name}</a> from {$rds_start} to {$rds_stop}.
-        Please visit us at stand {$rds_stand}, we'd love to see you!
+        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
+        Design Fair</a> from XXX to XXX.
+        Please visit us at stand XXX, we'd love to see you!
       </p>
 
 ALL_MESSAGE;
