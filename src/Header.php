@@ -279,7 +279,8 @@ function get_jewellery_page_message(): string {
     return <<<JEWELLERY_MESSAGE
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        {$store_opening_time_human}.
+        {$store_opening_time_human}.  <br />Wishing everyone a Merry Christmas
+        and a Happy New Year!
       </p>
 
 JEWELLERY_MESSAGE;

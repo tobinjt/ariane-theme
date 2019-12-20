@@ -135,6 +135,8 @@ add_editor_style('style.css');
 // add_theme_support('automatic-feed-links');
 
 // Configure opening and closing themes.
+// NOTE: check the messages are appropriate, e.g. the closing message wishes
+// people a Merry Christmas.
 set_closing_time('2019-12-13 18:30:00 Europe/Dublin');
 set_opening_time('2020-01-06 00:30:00 Europe/Dublin');
 set_start_displaying_banner_message('2019-11-10 00:30:00 Europe/Dublin');

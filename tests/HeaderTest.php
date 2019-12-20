@@ -294,7 +294,8 @@ class GetJewelleryPageMessageTest extends TestCase {
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        Monday 07 January.
+        Monday 07 January.  <br />Wishing everyone a Merry Christmas
+        and a Happy New Year!
       </p>
 
 END_OF_EXPECTED;
@@ -408,7 +409,8 @@ END_OF_EXPECTED;
 
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        Monday 07 January.
+        Monday 07 January.  <br />Wishing everyone a Merry Christmas
+        and a Happy New Year!
       </p>
 
 END_OF_EXPECTED;
@@ -427,7 +429,8 @@ END_OF_EXPECTED;
 
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        Monday 07 January.
+        Monday 07 January.  <br />Wishing everyone a Merry Christmas
+        and a Happy New Year!
       </p>
 
     <div class="largest-text highlight bold top-bottom-margin">
