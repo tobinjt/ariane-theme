@@ -17,7 +17,12 @@
       "https://www.arianetobin.ie/wp-includes/css/dist/block-library/style.min.css",
       "https://www.arianetobin.ie/wp-includes/js/jquery/jquery.js"
     ],
-    "comment": "No cookies"
+    "comment": "No cookies",
+    "optional_resources": [
+      "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/facebook.png",
+      "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/pinterest.png",
+      "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/twitter.png"
+    ]
   },
   {
     "url": "https://www.arianetobin.ie/",
@@ -37,6 +42,11 @@
     "cookies": {
       "viewed_cookie_policy": "yes"
     },
-    "comment": "With cookie-law cookie"
+    "comment": "With cookie-law cookie",
+    "optional_resources": [
+      "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/facebook.png",
+      "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/pinterest.png",
+      "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/twitter.png"
+    ]
   }
 ]
