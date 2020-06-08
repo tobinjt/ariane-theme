@@ -1,4 +1,9 @@
 <?php
+// Extras needed by PHPLint.
+/*. int[int] .*/ $INVENTORY_LEVEL = array();
+/*. int[int] .*/ $MAX_QUANTITIES = array();
+/*. int[int] .*/ $PRICES = array();
+
 // Clean up all state set up by tests.
 function clear_cart66_testing_state(): void {
   global $INVENTORY_LEVEL, $MAX_QUANTITIES, $PRICES;

@@ -1,6 +1,11 @@
 <?php
 // Support for showing an individual piece of Jewellery.
 
+// Extras needed by PHPLint.
+/*. require_module 'core'; .*/
+require_once(__DIR__ . '/StoreClosingTimes.php');
+/*. string[int][string] .*/ $CHANGE_IMAGES = array();
+
 /* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
  * is appropriate for the product in the jewellery page.
  * Args:

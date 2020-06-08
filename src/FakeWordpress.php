@@ -1,4 +1,12 @@
 <?php
+// Extras needed by PHPLint.
+/*. require_module 'array'; .*/
+/*. require_module 'core'; .*/
+/*. require_module 'phpinfo'; .*/
+/*. int[int] .*/ $QUERY_RESULTS = array();
+/*. int[int] .*/ $EXPECTED_ADD_ACTION = array();
+/*. int[int] .*/ $IMAGE_INFO = array();
+/*. bool[string] .*/ $PAGE_STATE = array();
 
 // Clean up all state set up by tests.
 function clear_wordpress_testing_state(): void {

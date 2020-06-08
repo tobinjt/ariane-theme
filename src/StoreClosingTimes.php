@@ -1,6 +1,10 @@
 <?php
 // Functions related to the store closing and opening.
 
+// Extras needed by PHPLint.
+/*. require_module 'core'; .*/
+/*. string[int] .*/ $TIMES = array();
+
 global $TIMES;
 $TIMES = array();
 define('STORE_CLOSING_TIME', 0);

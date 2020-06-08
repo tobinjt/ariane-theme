@@ -1,6 +1,14 @@
 <?php
 // Support for multiple images in a page: sliders and manually changed.
 
+// Extras needed by PHPLint.
+/*. require_module 'core'; .*/
+/*. require_module 'json'; .*/
+/*. require_module 'pcre'; .*/
+require_once(__DIR__ . '/Urls.php');
+/*. string[int][string] .*/ $CHANGE_IMAGES = array();
+/*. string[int][string] .*/ $SLIDER_IMAGES = array();
+
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.
  */

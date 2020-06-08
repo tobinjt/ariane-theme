@@ -1,6 +1,12 @@
 <?php
 // Functions needed by header.php.
 
+// Extras needed by PHPLint.
+/*. require_module 'core'; .*/
+require_once(__DIR__ . '/StoreClosingTimes.php');
+require_once(__DIR__ . '/Urls.php');
+$BANNER_MESSAGE = '';
+
 // get_title(): return the appropriate title.
 function get_title(): string {
   $result = '';
