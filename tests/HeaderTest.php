@@ -14,8 +14,8 @@ class GetGoogleAnalyticsCodeTest extends TestCase {
   public function test_prod() {
     $_SERVER['SERVER_NAME'] = 'www.arianetobin.ie';
     $content = get_google_analytics_code();
-    $this->assertRegExp('/UA-21043347-2/', $content);
-    $this->assertRegExp('/analytics.js/', $content);
+    $this->assertMatchesRegularExpression('/UA-21043347-2/', $content);
+    $this->assertMatchesRegularExpression('/analytics.js/', $content);
   }
 }
 
@@ -278,7 +278,7 @@ class GetBannerMessageTest extends TestCase {
 
     $this->assertEquals('', get_banner_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $this->assertRegExp('/BANNER MESSAGE/', get_banner_message());
+    $this->assertMatchesRegularExpression('/BANNER MESSAGE/', get_banner_message());
   }
 }
 
@@ -335,19 +335,19 @@ class GetStorePageMessageTest extends TestCase {
 
   public function test_cart() {
     set_url('/store/cart/');
-    $this->assertRegExp('/press the <em>Checkout<\/em> button/',
+    $this->assertMatchesRegularExpression('/press the <em>Checkout<\/em> button/',
       get_store_page_message());
   }
 
   public function test_checkout() {
     set_url('/store/checkout/');
-    $this->assertRegExp('/press the <em>PayPal<\/em> button/',
+    $this->assertMatchesRegularExpression('/press the <em>PayPal<\/em> button/',
       get_store_page_message());
   }
 
   public function test_express() {
     set_url('/store/express/');
-    $this->assertRegExp('/press the <em>Complete Order<\/em>/',
+    $this->assertMatchesRegularExpression('/press the <em>Complete Order<\/em>/',
       get_store_page_message());
   }
 

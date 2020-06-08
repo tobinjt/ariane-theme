@@ -19,13 +19,13 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $attrs = ['product_id' => 7];
     Cart66Product::setMaxQuantity($attrs['product_id'], 1);
     $content = MakeBuyButtonForJewelleryPage($attrs);
-    $this->assertRegExp('/unique piece of jewellery has been sold./', $content);
+    $this->assertMatchesRegularExpression('/unique piece of jewellery has been sold./', $content);
   }
 
   public function test_archived() {
     $attrs = ['product_id' => 11, 'archived' => 'yes'];
     $content = MakeBuyButtonForJewelleryPage($attrs);
-    $this->assertRegExp('/piece of jewellery is no longer being sold/',
+    $this->assertMatchesRegularExpression('/piece of jewellery is no longer being sold/',
       $content);
   }
 
@@ -33,7 +33,7 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $attrs = ['product_id' => 13, 'archived' => 'false'];
     Cart66Product::setInventoryLevelForProduct($attrs['product_id'], 0);
     $content = MakeBuyButtonForJewelleryPage($attrs);
-    $this->assertRegExp('/This piece is out of stock/', $content);
+    $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
   }
 
   public function test_has_stock_store_closed() {
@@ -44,8 +44,8 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     Cart66Product::setInventoryLevelForProduct($attrs['product_id'], 2);
     Cart66Product::setPrice($attrs['product_id'], 135);
     $content = MakeBuyButtonForJewelleryPage($attrs);
-    $this->assertRegExp('/The store is currently closed/', $content);
-    $this->assertRegExp('/Price: €135/', $content);
+    $this->assertMatchesRegularExpression('/The store is currently closed/', $content);
+    $this->assertMatchesRegularExpression('/Price: €135/', $content);
   }
 
   public function test_has_stock_store_open() {
@@ -56,8 +56,8 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     Cart66Product::setPrice($attrs['product_id'], 234);
     Cart66Product::setInventoryLevelForProduct($attrs['product_id'], 3);
     $content = MakeBuyButtonForJewelleryPage($attrs);
-    $this->assertRegExp('/add_to_cart item="19" showprice="no"/', $content);
-    $this->assertRegExp('/Price: €234/', $content);
+    $this->assertMatchesRegularExpression('/add_to_cart item="19" showprice="no"/', $content);
+    $this->assertMatchesRegularExpression('/Price: €234/', $content);
   }
 }
 
@@ -95,7 +95,7 @@ class JewelleryPageShortcodeTest extends TestCase {
 
   public function test_missing_attr() {
     $content = JewelleryPageShortcode([], '', '');
-    $this->assertRegExp('/jewellery_page: empty attribute/', $content);
+    $this->assertMatchesRegularExpression('/jewellery_page: empty attribute/', $content);
   }
 
   public function test_single_image() {

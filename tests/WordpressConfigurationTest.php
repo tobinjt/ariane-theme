@@ -22,7 +22,7 @@ class WordpressConfigurationTest extends TestCase {
 
   public function test_HideCookieLawInfoInFooter() {
     $content = HideCookieLawInfoInFooter();
-    $this->assertRegExp('/display: none/', $content);
-    $this->assertRegExp('/#cookie-law-info-bar/', $content);
+    $this->assertMatchesRegularExpression('/display: none/', $content);
+    $this->assertMatchesRegularExpression('/#cookie-law-info-bar/', $content);
   }
 }

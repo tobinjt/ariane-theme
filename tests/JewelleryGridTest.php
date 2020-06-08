@@ -76,13 +76,13 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
   public function test_negative_product_id() {
     set_url('/jewellery/foo/');
     $content = MakeBuyButtonForJewelleryGrid('-1');
-    $this->assertRegExp('/This creates some space underneath./', $content);
+    $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
   }
 
   public function test_archived() {
     set_url('/jewellery/archive/');
     $content = MakeBuyButtonForJewelleryGrid('11');
-    $this->assertRegExp('/This creates some space underneath./', $content);
+    $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
   }
 
   public function test_max_quantity() {
@@ -97,7 +97,7 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     set_url('/jewellery/foo/');
     Cart66Product::setInventoryLevelForProduct(13, 0);
     $content = MakeBuyButtonForJewelleryGrid('13');
-    $this->assertRegExp('/This piece is out of stock/', $content);
+    $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
   }
 
   public function test_has_stock_store_closed() {
@@ -108,8 +108,8 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     Cart66Product::setInventoryLevelForProduct(17, 2);
     Cart66Product::setPrice(17, 135);
     $content = MakeBuyButtonForJewelleryGrid('17');
-    $this->assertRegExp('/\(store closed\)/', $content);
-    $this->assertRegExp('/€135/', $content);
+    $this->assertMatchesRegularExpression('/\(store closed\)/', $content);
+    $this->assertMatchesRegularExpression('/€135/', $content);
   }
 
   public function test_has_stock_store_open() {
