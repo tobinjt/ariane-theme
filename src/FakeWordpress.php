@@ -9,6 +9,7 @@
 /*. bool[string] .*/ $PAGE_STATE = array();
 
 // Clean up all state set up by tests.
+// phplint: /*. void .*/ function clear_wordpress_testing_state() {}
 function clear_wordpress_testing_state(): void {
   WP_Query::clear_query_results();
   clear_image_info();
@@ -17,25 +18,30 @@ function clear_wordpress_testing_state(): void {
 }
 
 // Clean up all state set up by tests.
+// phplint: /*. void .*/ function verify_wordpress_testing_state() {}
 function verify_wordpress_testing_state(): void {
   verify_add_action();
 }
 
 // Wordpress functions we need to fake.
+// phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}
 function shortcode_atts(array $array1, array $array2): array {
   return array_merge($array1, $array2);
 }
 
+// phplint: /*. string .*/ function do_shortcode(/*. string .*/ $content) {}
 function do_shortcode(string $content): string {
   return $content;
 }
 
 // Functions about the page state, type of page, etc.
+// phplint: /*. void .*/ function clear_page_state() {}
 function clear_page_state(): void {
   global $PAGE_STATE;
   $PAGE_STATE = array();
 }
 
+// phplint: /*. bool .*/ function is_404() {}
 function is_404(): bool {
   global $PAGE_STATE;
   if (isset($PAGE_STATE['is_404'])) {
@@ -44,11 +50,13 @@ function is_404(): bool {
   return false;
 }
 
+// phplint: /*. bool .*/ function set_is_404(/*. bool .*/ $is) {}
 function set_is_404(bool $is): void {
   global $PAGE_STATE;
   $PAGE_STATE['is_404'] = $is;
 }
 
+// phplint: /*. bool .*/ function is_single() {}
 function is_single(): bool {
   global $PAGE_STATE;
   if (isset($PAGE_STATE['is_single'])) {
@@ -57,11 +65,13 @@ function is_single(): bool {
   return false;
 }
 
+// phplint: /*. void .*/ function set_is_single(/*. bool .*/ $is) {}
 function set_is_single(bool $is): void {
   global $PAGE_STATE;
   $PAGE_STATE['is_single'] = $is;
 }
 
+// phplint: /*. bool .*/ function is_page() {}
 function is_page(): bool {
   global $PAGE_STATE;
   if (isset($PAGE_STATE['is_page'])) {
@@ -70,11 +80,13 @@ function is_page(): bool {
   return false;
 }
 
+// phplint: /*. void .*/ function set_is_page(/*. bool .*/ $is) {}
 function set_is_page(bool $is): void {
   global $PAGE_STATE;
   $PAGE_STATE['is_page'] = $is;
 }
 
+// phplint: /*. string .*/ function wp_title() {}
 function wp_title(): string {
   global $PAGE_STATE;
   if (isset($PAGE_STATE['wp_title'])) {
@@ -83,11 +95,13 @@ function wp_title(): string {
   return false;
 }
 
+// phplint: /*. void .*/ function set_wp_title(/*. string .*/ $title) {}
 function set_wp_title(string $title): void {
   global $PAGE_STATE;
   $PAGE_STATE['wp_title'] = $title;
 }
 
+// phplint: /*. string .*/ function get_bloginfo(/*. string .*/ $param) {}
 function get_bloginfo(string $param): string {
   $values = array(
     'name' => 'BLOG NAME',
@@ -98,17 +112,20 @@ function get_bloginfo(string $param): string {
 }
 
 // Functions for add_action.
+// phplint: /*. void .*/ function clear_add_action() {}
 function clear_add_action(): void {
   global $EXPECTED_ADD_ACTION;
   $EXPECTED_ADD_ACTION = array();
 }
 
+// phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $function, /*. int .*/ $num_calls) {}
 function expect_add_action(string $section, string $function, int $num_calls): void {
   // $section is unused.
   global $EXPECTED_ADD_ACTION;
   $EXPECTED_ADD_ACTION[$function] = $num_calls;
 }
 
+// phplint: /*. void .*/ function add_action(/*. string .*/ $section, /*. string .*/ $function) {}
 function add_action(string $section, string $function): void {
   assert($section == 'wp_footer');
   assert(function_exists($function), $function . ' is not a function');
@@ -118,6 +135,7 @@ function add_action(string $section, string $function): void {
   $EXPECTED_ADD_ACTION[$function] -= 1;
 }
 
+// phplint: /*. void .*/ function verify_add_action() {}
 function verify_add_action(): void {
   global $EXPECTED_ADD_ACTION;
   foreach ($EXPECTED_ADD_ACTION as $function => $should_be_zero) {
@@ -127,16 +145,19 @@ function verify_add_action(): void {
 }
 
 // Functions for wp_get_attachment_image_src.
+// phplint: /*. array .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];
 }
 
+// phplint: /*. void .*/ function clear_image_info() {}
 function clear_image_info(): void {
   global $IMAGE_INFO;
   $IMAGE_INFO = array();
 }
 
+// phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
   $IMAGE_INFO[$image_id][$size] = $info;

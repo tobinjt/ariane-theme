@@ -3,6 +3,7 @@
 
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
+/*. require_module 'wordpress'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
 $BANNER_MESSAGE = '';
