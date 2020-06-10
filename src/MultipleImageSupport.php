@@ -70,9 +70,9 @@ END_OF_JAVASCRIPT;
   foreach ($SLIDER_IMAGES as $id_prefix => $images) {
     $images = trim($images);
     $output .= <<<END_OF_JAVASCRIPT
-  Slider.initialise({'id_prefix': '{$id_prefix}',
-                     'log_to_console': {$is_dev_website}},
-                    {$images});
+  Slider.initialise({'id_prefix': '$id_prefix',
+                     'log_to_console': $is_dev_website},
+                    $images);
 
 END_OF_JAVASCRIPT;
   }
@@ -81,7 +81,7 @@ END_OF_JAVASCRIPT;
 });
 </script>
 <!-- Include the rest of the Javascript. -->
-<script type="text/javascript" src="{$template_directory}/slider.js"></script>
+<script type="text/javascript" src="$template_directory/slider.js"></script>
 <!-- End of SliderSetup. -->
 
 END_OF_JAVASCRIPT;
@@ -128,7 +128,7 @@ function ChangeImagesSetupGeneric(): void {
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
-var images = {$images};
+var images = $images;
 // Construct a new image and swap it in, otherwise it flashes awkwardly - the
 // old image resizes and then the new image is displayed.
 var img = jQuery(id);

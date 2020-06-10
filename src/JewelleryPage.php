@@ -32,7 +32,7 @@ END_OF_HTML;
   if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
     $price = intval($product->price);
     $content = <<<END_OF_HTML
-    <p>Price: €{$price}.</p>
+    <p>Price: €$price.</p>
 
 END_OF_HTML;
     if (!is_store_closed()) {
@@ -45,7 +45,7 @@ END_OF_HTML;
       $store_opening_time_human = store_opening_time_human();
       $content .= <<<END_OF_HTML
       The store is currently closed, it will open again on
-      {$store_opening_time_human}.
+      $store_opening_time_human.
 
 END_OF_HTML;
     }
@@ -143,8 +143,8 @@ END_OF_HTML;
       $image_info = wp_get_attachment_image_src($image_id, 'thumbnail');
       $html .= <<<END_OF_HTML
         <li><img src="{$image_info[0]}"
-                 alt="{$range_in_piece_name}{$attrs['name']}"
-                 onclick="change_image({$i}, '#individual-jewellery-image')"
+                 alt="$range_in_piece_name{$attrs['name']}"
+                 onclick="change_image($i, '#individual-jewellery-image')"
                  width="{$image_info[1]}" height="{$image_info[2]}" /> </li>
 
 END_OF_HTML;
@@ -160,14 +160,14 @@ END_OF_HTML;
   $html .= <<<END_OF_HTML
     <div width="{$attrs['width']}" height="${attrs['height']}">
       <img id="individual-jewellery-image"
-        alt="{$range_in_piece_name}{$attrs['name']}"
+        alt="$range_in_piece_name{$attrs['name']}"
         src="{$images[0]['src']}"
         width="{$images[0]['width']}" height="{$images[0]['height']}" />
     </div>
   </div>
   <div id="individual-jewellery-description">
-    <p class="highlight larger-text">{$range_in_piece_name}{$attrs['name']}</p>
-    <p>{$content}</p>
+    <p class="highlight larger-text">$range_in_piece_name{$attrs['name']}</p>
+    <p>$content</p>
 
 END_OF_HTML;
 

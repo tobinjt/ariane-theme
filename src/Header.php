@@ -71,7 +71,7 @@ function links_to_html(array $links, string $url_to_highlight,
     }
     $text = strtolower($text);
     $output[] = <<<END_OF_LINK
-{$spaces}<a href="{$url}"{$extra_class}>{$text}</a>
+$spaces<a href="$url"$extra_class>$text</a>
 END_OF_LINK;
   }
   return implode("\n", $output);
@@ -93,9 +93,9 @@ function wrap_with_tag(string $tag, string $class, string $html,
   $html = ltrim($html);
   $spaces = str_repeat(' ', $indent);
   return <<<END_OF_TAG
-{$spaces}<{$tag} class="{$class}">
-{$spaces}  {$html}
-{$spaces}</{$tag}>
+$spaces<$tag class="$class">
+$spaces  $html
+$spaces</$tag>
 END_OF_TAG;
 }
 
@@ -266,7 +266,7 @@ function get_banner_message(): string {
       global $BANNER_MESSAGE;
       return <<<BANNER_MESSAGE
       <p class="text-centered larger-text grey">
-        {$BANNER_MESSAGE}
+        $BANNER_MESSAGE
       </p>
 
 BANNER_MESSAGE;
@@ -286,7 +286,7 @@ function get_jewellery_page_message(): string {
     return <<<JEWELLERY_MESSAGE
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        {$store_opening_time_human}.  <br />Wishing everyone a Merry Christmas
+        $store_opening_time_human.  <br />Wishing everyone a Merry Christmas
         and a Happy New Year!
       </p>
 
@@ -304,9 +304,9 @@ JEWELLERY_MESSAGE;
   return <<<JEWELLERY_MESSAGE
     <p class="text-centered larger-text grey">
       Delivery outside Ireland before December 25th cannot be guaranteed for
-      orders placed after {$last}.
-      The store will be closing on {$store_closing_time_human}.
-      Ariane will return to the workshop on {$store_opening_time_human}.
+      orders placed after $last.
+      The store will be closing on $store_closing_time_human.
+      Ariane will return to the workshop on $store_opening_time_human.
     </p>
 JEWELLERY_MESSAGE;
 }
@@ -336,7 +336,7 @@ CHECKOUT_MESSAGE;
     $checkout_message = ltrim($checkout_message);
     $checkout_message = <<<CHECKOUT_MESSAGE
     <div class="largest-text highlight bold top-bottom-margin">
-      {$checkout_message}
+      $checkout_message
     </div>
 
 CHECKOUT_MESSAGE;

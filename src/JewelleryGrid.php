@@ -111,12 +111,12 @@ END_OF_OUT_OF_STOCK;
   $price = intval($product->price);
   $content = <<<END_OF_PRICE
                 <div class="larger-text">
-                  €{$price}
+                  €$price
 
 END_OF_PRICE;
   if (!is_store_closed()) {
     $content .= <<<END_OF_BUY
-                  [add_to_cart item="{$product_id}" showprice="no" ajax="yes"
+                  [add_to_cart item="$product_id" showprice="no" ajax="yes"
                      text="Add to basket" style="display: inline;"]
 
 END_OF_BUY;
@@ -173,7 +173,7 @@ function JewelleryGridShortcode(array $atts, string $content,
                 <a href="{$data['href']}">
                   <img src="{$image['src']}" alt="{$data['alt']}"
                     width="{$image['width']}" height="{$image['height']}"
-                    class="aligncenter block" id="{$id}-image"/>
+                    class="aligncenter block" id="$id-image"/>
                 </a>
               </div>
               <div class="larger-text text-centered left-right-margin grey">
@@ -201,7 +201,7 @@ END_OF_HTML;
   if ($description != '') {
     $html[] = <<<END_OF_DESCRIPTION
           <div>
-            <p class="grey large-text text-centered">{$description}</p>
+            <p class="grey large-text text-centered">$description</p>
           </div>
 END_OF_DESCRIPTION;
   }
