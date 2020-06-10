@@ -36,8 +36,9 @@ END_OF_HTML;
 
 END_OF_HTML;
     if (!is_store_closed()) {
+      $product_id = $attrs['product_id'];
       $content .= <<<END_OF_HTML
-    [add_to_cart item="{$attrs['product_id']}" showprice="no" ajax="yes"
+    [add_to_cart item="$product_id" showprice="no" ajax="yes"
        text="Add to basket"]
 
 END_OF_HTML;
@@ -141,11 +142,15 @@ END_OF_HTML;
 
     foreach ($image_ids as $i => $image_id) {
       $image_info = wp_get_attachment_image_src($image_id, 'thumbnail');
+      $src = $image_info[0];
+      $name = $attrs['name'];
+      $width = $image_info[1];
+      $height = $image_info[2];
       $html .= <<<END_OF_HTML
-        <li><img src="{$image_info[0]}"
-                 alt="$range_in_piece_name{$attrs['name']}"
+        <li><img src="$src"
+                 alt="$range_in_piece_name$name"
                  onclick="change_image($i, '#individual-jewellery-image')"
-                 width="{$image_info[1]}" height="{$image_info[2]}" /> </li>
+                 width="$width" height="$height" /> </li>
 
 END_OF_HTML;
     }
@@ -157,26 +162,34 @@ END_OF_HTML;
 END_OF_HTML;
   }
 
+  $div_width = $attrs['width'];
+  $div_height = $attrs['height'];
+  $name = $attrs['name'];
+  $src = $images[0]['src'];
+  $width = $images[0]['width'];
+  $height = $images[0]['height'];
   $html .= <<<END_OF_HTML
-    <div width="{$attrs['width']}" height="${attrs['height']}">
+    <div width="$div_width" height="$div_height">
       <img id="individual-jewellery-image"
-        alt="$range_in_piece_name{$attrs['name']}"
-        src="{$images[0]['src']}"
-        width="{$images[0]['width']}" height="{$images[0]['height']}" />
+        alt="$range_in_piece_name$name"
+        src="$src"
+        width="$width" height="$height" />
     </div>
   </div>
   <div id="individual-jewellery-description">
-    <p class="highlight larger-text">$range_in_piece_name{$attrs['name']}</p>
+    <p class="highlight larger-text">$range_in_piece_name$name</p>
     <p>$content</p>
 
 END_OF_HTML;
 
   $html .= MakeBuyButtonForJewelleryPage($attrs);
 
+  $range = $attrs['range'];
+  $type = $attrs['type'];
   $html .= <<<END_OF_HTML
 
-    <p>See other items in this range: <a href="/jewellery/{$attrs['range']}/">{$attrs['range']}</a></p>
-    <p>See other: <a href="/jewellery/{$attrs['type']}/">{$attrs['type']}</a></p>
+    <p>See other items in this range: <a href="/jewellery/$range/">$range</a></p>
+    <p>See other: <a href="/jewellery/$type/">$type</a></p>
     <p>See the items in <a href="/store/cart/">your basket</a></p>
   </div>
 </div>

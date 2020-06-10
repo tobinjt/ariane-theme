@@ -40,13 +40,17 @@ function SliderImages(): array {
     if (preg_match('/^\s*slider\s+([^ ]+)\s*$/', $post->post_content, $matches)) {
       $image_large = wp_get_attachment_image_src($post->ID, 'slider_large');
       $image_small = wp_get_attachment_image_src($post->ID, 'slider_small');
+      $lh = $image_large[0];
+      $lw_w = $image_large[1] . 'w';
+      $lw_px = $image_large[1] . 'px';
+      $sh = $image_small[0];
+      $sw_w = $image_small[1] . 'w';
+      $sw_px = $image_small[1] . 'px';
       $images[] = array(
         'src' => $image_large[0],
         'href' => $matches[1],
-        'srcset' => ("{$image_large[0]} {$image_large[1]}w,"
-                     . " {$image_small[0]} {$image_small[1]}w"),
-        'sizes' => ("(max-width: 799px) {$image_small[1]}px,"
-                    . " {$image_large[1]}px"),
+        'srcset' => "$lh $lw_w, $sh $sw_w",
+        'sizes' => "(max-width: 799px) $sw_px, $lw_px",
       );
     }
   }
@@ -101,14 +105,18 @@ function FrontPageSliderSetup(array $images): string {
   global $SLIDER_IMAGES;
   $SLIDER_IMAGES['#slider'] = json_encode($images);
   $image = $images[0];
+  $href = $image['href'];
+  $src = $image['src'];
+  $srcset = $image['srcset'];
+  $sizes = $image['sizes'];
   $html = <<<END_OF_HTML
 <div id="slider-div">
-  <a href="{$image['href']}" id="slider-link"
+  <a href="$href" id="slider-link"
     alt="Selection of Ariane's best work">
-    <img id="slider-image" src="{$image['src']}"
+    <img id="slider-image" src="$src"
       alt="Selection of Ariane's best work"
-      srcset="{$image['srcset']}"
-      sizes="{$image['sizes']}" />
+      srcset="$srcset"
+      sizes="$sizes" />
   </a>
 </div>
 

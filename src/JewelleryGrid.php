@@ -167,17 +167,23 @@ function JewelleryGridShortcode(array $atts, string $content,
       $slider_needed = true;
     }
 
+    $href = $data['href'];
+    $src = $image['src'];
+    $alt = $data['alt'];
+    $width = $image['width'];
+    $height = $image['height'];
+    $range = $data['range'];
     $div = <<<END_OF_IMAGE_AND_RANGE
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
-                <a href="{$data['href']}">
-                  <img src="{$image['src']}" alt="{$data['alt']}"
-                    width="{$image['width']}" height="{$image['height']}"
+                <a href="$href">
+                  <img src="$src" alt="$alt"
+                    width="$width" height="$height"
                     class="aligncenter block" id="$id-image"/>
                 </a>
               </div>
               <div class="larger-text text-centered left-right-margin grey">
-                <a href="{$data['href']}">{$data['range']}</a>
+                <a href="$href">$range</a>
               </div>
 
 END_OF_IMAGE_AND_RANGE;
