@@ -4,24 +4,10 @@
 /*. require_module 'core'; .*/
 /*. require_module 'phpinfo'; .*/
 /*. int[int] .*/ $QUERY_RESULTS = array();
-/*. int[int] .*/ $EXPECTED_ADD_ACTION = array();
+/*. int[string] .*/ $EXPECTED_ADD_ACTION = array();
 /*. int[int] .*/ $IMAGE_INFO = array();
-/*. bool[string] .*/ $PAGE_STATE = array();
-
-// Clean up all state set up by tests.
-// phplint: /*. void .*/ function clear_wordpress_testing_state() {}
-function clear_wordpress_testing_state(): void {
-  WP_Query::clear_query_results();
-  clear_image_info();
-  clear_add_action();
-  clear_page_state();
-}
-
-// Clean up all state set up by tests.
-// phplint: /*. void .*/ function verify_wordpress_testing_state() {}
-function verify_wordpress_testing_state(): void {
-  verify_add_action();
-}
+/*. bool[string] .*/ $PAGE_STATE_BOOL = array();
+/*. string[string] .*/ $PAGE_STATE_STRING = array();
 
 // Wordpress functions we need to fake.
 // phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}
@@ -37,68 +23,68 @@ function do_shortcode(string $content): string {
 // Functions about the page state, type of page, etc.
 // phplint: /*. void .*/ function clear_page_state() {}
 function clear_page_state(): void {
-  global $PAGE_STATE;
-  $PAGE_STATE = array();
+  global $PAGE_STATE_BOOL;
+  $PAGE_STATE_BOOL = array();
 }
 
 // phplint: /*. bool .*/ function is_404() {}
 function is_404(): bool {
-  global $PAGE_STATE;
-  if (isset($PAGE_STATE['is_404'])) {
-    return $PAGE_STATE['is_404'];
+  global $PAGE_STATE_BOOL;
+  if (isset($PAGE_STATE_BOOL['is_404'])) {
+    return $PAGE_STATE_BOOL['is_404'];
   }
   return false;
 }
 
 // phplint: /*. bool .*/ function set_is_404(/*. bool .*/ $is) {}
 function set_is_404(bool $is): void {
-  global $PAGE_STATE;
-  $PAGE_STATE['is_404'] = $is;
+  global $PAGE_STATE_BOOL;
+  $PAGE_STATE_BOOL['is_404'] = $is;
 }
 
 // phplint: /*. bool .*/ function is_single() {}
 function is_single(): bool {
-  global $PAGE_STATE;
-  if (isset($PAGE_STATE['is_single'])) {
-    return $PAGE_STATE['is_single'];
+  global $PAGE_STATE_BOOL;
+  if (isset($PAGE_STATE_BOOL['is_single'])) {
+    return $PAGE_STATE_BOOL['is_single'];
   }
   return false;
 }
 
 // phplint: /*. void .*/ function set_is_single(/*. bool .*/ $is) {}
 function set_is_single(bool $is): void {
-  global $PAGE_STATE;
-  $PAGE_STATE['is_single'] = $is;
+  global $PAGE_STATE_BOOL;
+  $PAGE_STATE_BOOL['is_single'] = $is;
 }
 
 // phplint: /*. bool .*/ function is_page() {}
 function is_page(): bool {
-  global $PAGE_STATE;
-  if (isset($PAGE_STATE['is_page'])) {
-    return $PAGE_STATE['is_page'];
+  global $PAGE_STATE_BOOL;
+  if (isset($PAGE_STATE_BOOL['is_page'])) {
+    return $PAGE_STATE_BOOL['is_page'];
   }
   return false;
 }
 
 // phplint: /*. void .*/ function set_is_page(/*. bool .*/ $is) {}
 function set_is_page(bool $is): void {
-  global $PAGE_STATE;
-  $PAGE_STATE['is_page'] = $is;
+  global $PAGE_STATE_BOOL;
+  $PAGE_STATE_BOOL['is_page'] = $is;
 }
 
 // phplint: /*. string .*/ function wp_title() {}
 function wp_title(): string {
-  global $PAGE_STATE;
-  if (isset($PAGE_STATE['wp_title'])) {
-    return $PAGE_STATE['wp_title'];
+  global $PAGE_STATE_STRING;
+  if (isset($PAGE_STATE_STRING['wp_title'])) {
+    return $PAGE_STATE_STRING['wp_title'];
   }
-  return false;
+  return '';
 }
 
 // phplint: /*. void .*/ function set_wp_title(/*. string .*/ $title) {}
 function set_wp_title(string $title): void {
-  global $PAGE_STATE;
-  $PAGE_STATE['wp_title'] = $title;
+  global $PAGE_STATE_STRING;
+  $PAGE_STATE_STRING['wp_title'] = $title;
 }
 
 // phplint: /*. string .*/ function get_bloginfo(/*. string .*/ $param) {}
@@ -118,29 +104,30 @@ function clear_add_action(): void {
   $EXPECTED_ADD_ACTION = array();
 }
 
-// phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $function, /*. int .*/ $num_calls) {}
-function expect_add_action(string $section, string $function, int $num_calls): void {
+// phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $func, /*. int .*/ $num_calls) {}
+function expect_add_action(string $section, string $func, int $num_calls): void {
   // $section is unused.
   global $EXPECTED_ADD_ACTION;
-  $EXPECTED_ADD_ACTION[$function] = $num_calls;
+  $EXPECTED_ADD_ACTION[$func] = $num_calls;
 }
 
-// phplint: /*. void .*/ function add_action(/*. string .*/ $section, /*. string .*/ $function) {}
-function add_action(string $section, string $function): void {
-  assert($section == 'wp_footer');
-  assert(function_exists($function), $function . ' is not a function');
+// phplint: /*. void .*/ function add_action(/*. string .*/ $section, /*. string .*/ $func) {}
+function add_action(string $section, string $func): void {
+  assert($section === 'wp_footer');
+  assert(function_exists($func), new Exception($func . ' is not a function'));
   global $EXPECTED_ADD_ACTION;
-  assert(array_key_exists($function, $EXPECTED_ADD_ACTION),
-    $function . ' was not registered with expect_add_action');
-  $EXPECTED_ADD_ACTION[$function] -= 1;
+  assert(array_key_exists($func, $EXPECTED_ADD_ACTION),
+    new Exception($func . ' was not registered with expect_add_action'));
+  $EXPECTED_ADD_ACTION[$func] -= 1;
 }
 
 // phplint: /*. void .*/ function verify_add_action() {}
 function verify_add_action(): void {
   global $EXPECTED_ADD_ACTION;
-  foreach ($EXPECTED_ADD_ACTION as $function => $should_be_zero) {
+  foreach ($EXPECTED_ADD_ACTION as $func => $should_be_zero) {
     assert($should_be_zero == 0,
-      'Non-zero remaining calls (' . $should_be_zero . ') for ' . $function);
+      new Exception(
+        'Non-zero remaining calls (' . $should_be_zero . ') for ' . $func));
   }
 }
 
@@ -161,6 +148,21 @@ function clear_image_info(): void {
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
   $IMAGE_INFO[$image_id][$size] = $info;
+}
+
+// Clean up all state set up by tests.
+// phplint: /*. void .*/ function clear_wordpress_testing_state() {}
+function clear_wordpress_testing_state(): void {
+  WP_Query::clear_query_results();
+  clear_image_info();
+  clear_add_action();
+  clear_page_state();
+}
+
+// Verify all state set up by tests.
+// phplint: /*. void .*/ function verify_wordpress_testing_state() {}
+function verify_wordpress_testing_state(): void {
+  verify_add_action();
 }
 
 // Fake WP_Query.
