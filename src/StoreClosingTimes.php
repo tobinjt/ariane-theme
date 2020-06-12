@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // Functions related to the store closing and opening.
 
 // Extras needed by PHPLint.

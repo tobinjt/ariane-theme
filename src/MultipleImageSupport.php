@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // Support for multiple images in a page: sliders and manually changed.
 
 // Extras needed by PHPLint.

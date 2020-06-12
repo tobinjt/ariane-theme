@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
+
 // Support for showing an individual piece of Jewellery.
 
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
+/*. require_module 'wordpress'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
 /*. string[int][string] .*/ $CHANGE_IMAGES = array();
 
@@ -92,10 +95,11 @@ function JewelleryPageShortcode(array $atts, string $content,
   $attrs['width'] = 0;
 
   // Look up the image(s).
-  $image_ids = explode(',', $attrs['image_id']);
+  $image_ids = explode(',', strval($attrs['image_id']));
   $images = array();
   foreach ($image_ids as $image_id) {
-    $image_info = wp_get_attachment_image_src($image_id, 'product_size');
+    $image_id_int = intval($image_id);
+    $image_info = wp_get_attachment_image_src($image_id_int, 'product_size');
     $images[] = array(
       'src' => $image_info[0],
       'width' => $image_info[1],
@@ -141,7 +145,8 @@ END_OF_HTML;
 END_OF_HTML;
 
     foreach ($image_ids as $i => $image_id) {
-      $image_info = wp_get_attachment_image_src($image_id, 'thumbnail');
+      $image_id_int = intval($image_id);
+      $image_info = wp_get_attachment_image_src($image_id_int, 'thumbnail');
       $src = $image_info[0];
       $name = $attrs['name'];
       $width = $image_info[1];

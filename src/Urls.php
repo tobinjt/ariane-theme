@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // URL-related functions.
 
 // Extras needed by PHPLint.

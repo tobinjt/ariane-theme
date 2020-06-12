@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /* Functions to help with configuring Wordpress.  Doesn't have any functions
  * that just call Wordpress functions because they aren't really testable.
  */

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // Extras needed by PHPLint.
 /*. int[int] .*/ $INVENTORY_LEVEL = array();
 /*. int[int] .*/ $MAX_QUANTITIES = array();

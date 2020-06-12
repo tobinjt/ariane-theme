@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // Functions needed by header.php.
 
 // Extras needed by PHPLint.
@@ -172,8 +174,8 @@ function make_menu_bar(array $menu_chunks, string $css_tags): string {
   return $html . "\n";
 }
 
-function make_icon_link(string $file, string $alt, string $width,
-                        string $height): string {
+function make_icon_link(string $file, string $alt, int $width,
+                        int $height): string {
   return '<img class="greyscale"' .
     ' width="' . $width . '"' .
     ' height="' . $height . '"' .

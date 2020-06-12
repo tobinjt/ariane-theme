@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // Support for Jewellery grids showing multiple products.
 
 // Extras needed by PHPLint.
@@ -58,10 +60,11 @@ function ParseJewelleryGridContents(string $page_contents): array {
     if (substr($data['href'], -1) != '/') {
       $data['href'] .= '/';
     }
-    $image_ids = explode(',', $data['image_id']);
+    $image_ids = explode(',', strval($data['image_id']));
     $slider_images = array();
     foreach ($image_ids as $image_id) {
-      $image_info = wp_get_attachment_image_src($image_id, 'grid_size');
+      $image_id_int = intval($image_id);
+      $image_info = wp_get_attachment_image_src($image_id_int, 'grid_size');
       $slider_images[] = array(
         'src' => $image_info[0],
         'width' => $image_info[1],
@@ -92,8 +95,9 @@ function MakeBuyButtonForJewelleryGrid(string $product_id): string {
 END_OF_NO_PRODUCT_OR_ARCHIVE;
   }
 
-  $product = new Cart66Product($product_id);
-  if (Cart66Product::checkInventoryLevelForProduct($product_id) == 0) {
+  $product_id_int = intval($product_id);
+  $product = new Cart66Product($product_id_int);
+  if (Cart66Product::checkInventoryLevelForProduct($product_id_int) == 0) {
     if ($product->max_quantity == 1) {
       return <<<'END_OF_SOLD'
     Sold
