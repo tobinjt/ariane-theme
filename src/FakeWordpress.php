@@ -74,8 +74,8 @@ function set_is_page(bool $is): void {
   $PAGE_STATE_BOOL['is_page'] = $is;
 }
 
-// phplint: /*. string .*/ function wp_title() {}
-function wp_title(): string {
+// phplint: /*. string .*/ function wp_title(/*. string .*/ $sep, /*. bool .*/ $display) {}
+function wp_title(string $sep, bool $display): string {
   global $PAGE_STATE_STRING;
   if (isset($PAGE_STATE_STRING['wp_title'])) {
     return $PAGE_STATE_STRING['wp_title'];

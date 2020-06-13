@@ -7,7 +7,6 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. string[int] .*/ $TIMES = array();
 
-global $TIMES;
 $TIMES = array();
 define('STORE_CLOSING_TIME', 0);
 define('STORE_OPENING_TIME', 1);

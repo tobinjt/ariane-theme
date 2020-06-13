@@ -114,7 +114,7 @@ function JewelleryPageShortcode(array $atts, string $content,
   }
 
   // Change "necklace" to "necklaces".
-  if (substr($attrs['type'], -1) != 's') {
+  if (substr($attrs['type'], -1) !== 's') {
     $attrs['type'] .= 's';
   }
   // Wordpress puts <br /> at the start and end of the content.

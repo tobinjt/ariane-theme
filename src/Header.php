@@ -18,7 +18,7 @@ function get_title(): string {
   } elseif (is_single() || is_page()) {
     // is_single() is true for blog posts.
     $title = wp_title('', false);
-    if ($title != '') {
+    if ($title !== '') {
       $result = $title . ' - ';
     } else {
       // No much else we can do here :(
@@ -52,9 +52,9 @@ END_OF_JAVASCRIPT;
   return $output;
 }
 
-/* links_to_html: converts an array of links into HTML with a tags.
+/** links_to_html: converts an array of links into HTML with a tags.
  * Args:
- *  $links: array(url => text).
+ *  $links array of links mapping url to text.
  *  $url_to_highlight: the url to highlight as the current URL.
  *  $highlight_class: the value of the class attribute of the highlighted URL.
  *  $indent: the number of spaces to indent with.
@@ -84,18 +84,18 @@ END_OF_LINK;
  * you wrap more than once.
  * Args:
  *  $tag: the tag to wrap around the HTML.
- *  $class: the CSS class for the tag.
+ *  $cls: the CSS class for the tag.
  *  $html: the HTML to wrap the tag around.
  *  $indent: the number of spaces to indent with.
  * Returns:
  *  string.
  */
-function wrap_with_tag(string $tag, string $class, string $html,
+function wrap_with_tag(string $tag, string $cls, string $html,
   int $indent): string {
   $html = ltrim($html);
   $spaces = str_repeat(' ', $indent);
   return <<<END_OF_TAG
-$spaces<$tag class="$class">
+$spaces<$tag class="$cls">
 $spaces  $html
 $spaces</$tag>
 END_OF_TAG;
@@ -120,7 +120,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
   foreach ($groups as $links) {
     foreach ($links as $url => $text) {
       $pattern = rtrim($url, '/');
-      if ($pattern == $current_url) {
+      if ($pattern === $current_url) {
         return $url;
       }
       if (is_store_page() and strpos($url, '/store') === 0) {
@@ -131,7 +131,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
       // This assumes that if the URLs overlap the most specific will be last.
       // We look for matches at the start of the string.
       // Using === rather than == is essential, otherwise the comparison fails.
-      if ($pattern != '' and strpos($current_url, $pattern) === 0) {
+      if ($pattern !== '' and strpos($current_url, $pattern) === 0) {
         $url_to_highlight = $url;
       }
     }
@@ -150,9 +150,9 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
 function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
   $output = array();
-  foreach ($groups as $class => $links) {
+  foreach ($groups as $cls => $links) {
     $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
-    $output[] = wrap_with_tag('span', $class, $html_links, 6);
+    $output[] = wrap_with_tag('span', $cls, $html_links, 6);
   }
   return implode("\n", $output);
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 // Support for Jewellery grids showing multiple products.
 
 // Extras needed by PHPLint.
+/*. require_module 'array'; .*/
 /*. require_module 'core'; .*/
+/*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
@@ -39,7 +41,7 @@ function ParseJewelleryGridContents(string $page_contents): array {
     $csv_data = str_getcsv($line, '|');
     // Skip blank lines.  The CSV parser will return an array with a single
     // element when given a blank line.
-    if (count($csv_data) == 1) {
+    if (count($csv_data) === 1) {
       continue;
     }
     // Line format:
@@ -57,7 +59,7 @@ function ParseJewelleryGridContents(string $page_contents): array {
       'href'       => $csv_data[3],
       'product_id' => $csv_data[4],
     );
-    if (substr($data['href'], -1) != '/') {
+    if (substr($data['href'], -1) !== '/') {
       $data['href'] .= '/';
     }
     $image_ids = explode(',', strval($data['image_id']));
@@ -88,7 +90,7 @@ function MakeBuyButtonForJewelleryGrid(string $product_id): string {
   // -1 means there isn't a product to sell, and that happens on the main
   // jewellery page.
   // Skip showing cart buttons for everything that's been archived.
-  if ($product_id == '-1' || is_archive_page()) {
+  if ($product_id === '-1' || is_archive_page()) {
     return <<<'END_OF_NO_PRODUCT_OR_ARCHIVE'
     <!-- This creates some space underneath. -->
 
@@ -97,8 +99,8 @@ END_OF_NO_PRODUCT_OR_ARCHIVE;
 
   $product_id_int = intval($product_id);
   $product = new Cart66Product($product_id_int);
-  if (Cart66Product::checkInventoryLevelForProduct($product_id_int) == 0) {
-    if ($product->max_quantity == 1) {
+  if (Cart66Product::checkInventoryLevelForProduct($product_id_int) === 0) {
+    if ($product->max_quantity === 1) {
       return <<<'END_OF_SOLD'
     Sold
 
@@ -208,7 +210,7 @@ END_OF_DIV;
   $html[] = <<<'END_OF_HTML'
         <div id="jewellery-grid">
 END_OF_HTML;
-  if ($description != '') {
+  if ($description !== '') {
     $html[] = <<<END_OF_DESCRIPTION
           <div>
             <p class="grey large-text text-centered">$description</p>

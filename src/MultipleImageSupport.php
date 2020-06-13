@@ -14,12 +14,10 @@ require_once(__DIR__ . '/Urls.php');
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.
  */
-global $SLIDER_IMAGES;
 $SLIDER_IMAGES = array();
 /* Used to collect change images configs and set them up.  Maps ID => raw
  * image info.
  */
-global $CHANGE_IMAGES;
 $CHANGE_IMAGES = array();
 
 /* SliderImages: Dynamically build the Javascript array of images when
@@ -39,7 +37,7 @@ function SliderImages(): array {
   $images = array();
   foreach ($media_query->posts as $post) {
     $matches = array();
-    if (preg_match('/^\s*slider\s+([^ ]+)\s*$/', $post->post_content, $matches)) {
+    if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches)) {
       $image_large = wp_get_attachment_image_src($post->ID, 'slider_large');
       $image_small = wp_get_attachment_image_src($post->ID, 'slider_small');
       $lh = $image_large[0];

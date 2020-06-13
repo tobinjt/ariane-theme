@@ -12,7 +12,7 @@ function get_hostname(): string {
 }
 
 function is_dev_website(): bool {
-  return get_hostname() == 'dev.arianetobin.ie';
+  return get_hostname() === 'dev.arianetobin.ie';
 }
 
 /* get_current_url: returns the local portion of the URL, i.e. no hostname,
