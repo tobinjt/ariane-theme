@@ -25,4 +25,5 @@ set -f
  printf "?>\\n"
 ) > "${MODULES_DIR}/wordpress.php"
 
-phpl --modules-path "${MODULES_DIR}" --print-file-name --print-line-numbers "$@"
+phpl --modules-path "${MODULES_DIR}" --print-file-name --print-line-numbers \
+  --no-ascii-ext-check "$@"
