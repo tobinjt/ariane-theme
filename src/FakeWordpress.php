@@ -5,11 +5,45 @@ declare(strict_types=1);
 /*. require_module 'array'; .*/
 /*. require_module 'core'; .*/
 /*. require_module 'phpinfo'; .*/
-/*. int[int] .*/ $QUERY_RESULTS = array();
+// $QUERY_RESULTS is declared after class WP_Post.
 /*. int[string] .*/ $EXPECTED_ADD_ACTION = array();
-/*. int[int] .*/ $IMAGE_INFO = array();
+/*. string[int][string][int] .*/ $IMAGE_INFO = array();
 /*. bool[string] .*/ $PAGE_STATE_BOOL = array();
 /*. string[string] .*/ $PAGE_STATE_STRING = array();
+
+// Fake WP_Post.
+class WP_Post {
+  public $ID = 0;
+  public $post_content = '';
+  public function __construct(int $ID, string $post_content) {
+    $this->ID = $ID;
+    $this->post_content = $post_content;
+  }
+}
+
+// Needs to be declared after class WP_Post.
+/*. WP_Post[int] .*/ $QUERY_RESULTS = array();
+
+// Fake WP_Query.
+class WP_Query {
+  public $posts = array();
+  public function __construct(array $query) {
+    // $query is unused.
+    global $QUERY_RESULTS;
+    $this->posts = $QUERY_RESULTS;
+  }
+
+  // Helper functions for populating $QUERY_RESULTS.
+  public static function clear_query_results(): void {
+    global $QUERY_RESULTS;
+    $QUERY_RESULTS = array();
+  }
+
+  public static function add_query_result(WP_Post $result): void {
+    global $QUERY_RESULTS;
+    $QUERY_RESULTS[] = $result;
+  }
+}
 
 // Wordpress functions we need to fake.
 // phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}
@@ -149,6 +183,13 @@ function clear_image_info(): void {
 // phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
+  // This lint error is unavoidable.  PHP doesn't support more tightly typed
+  // arrays.  PHPLint suggests removing the PHP type entirely and relying on
+  // PHPLint type annotations, but I refuse to lose the native PHP type
+  // checking.  If I use PHPLint type annotations to specify the more specific
+  // type then PHPLint will complain about that.  PHPLint doesn't support
+  // suppressing warnings, so there's no way to avoid an error of some sort, I'm
+  // going with the simplest approach and living with the useless error.
   $IMAGE_INFO[$image_id][$size] = $info;
 }
 
@@ -165,34 +206,4 @@ function clear_wordpress_testing_state(): void {
 // phplint: /*. void .*/ function verify_wordpress_testing_state() {}
 function verify_wordpress_testing_state(): void {
   verify_add_action();
-}
-
-// Fake WP_Query.
-class WP_Query {
-  public $posts;
-  public function __construct($query) {
-    // $query is unused.
-    global $QUERY_RESULTS;
-    $this->posts = $QUERY_RESULTS;
-  }
-
-  // Helper functions for populating $QUERY_RESULTS.
-  public static function clear_query_results(): void {
-    global $QUERY_RESULTS;
-    $QUERY_RESULTS = array();
-  }
-
-  public static function add_query_result(WP_Post $result): void {
-    global $QUERY_RESULTS;
-    $QUERY_RESULTS[] = $result;
-  }
-}
-
-class WP_Post {
-  public $ID;
-  public $post_content;
-  public function __construct(int $ID, string $post_content) {
-    $this->ID = $ID;
-    $this->post_content = $post_content;
-  }
 }
