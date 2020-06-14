@@ -64,16 +64,18 @@ END_OF_JAVASCRIPT;
 function links_to_html(array $links, string $url_to_highlight,
                        string $highlight_class, int $indent): string {
   $spaces = str_repeat(' ', $indent);
-  $output = array();
+  /*. string[int] .*/ $output = array();
   foreach ($links as $url => $text) {
-    if ($url == $url_to_highlight) {
+    $url_str = strval($url);
+    $text_str = strval($text);
+    if ($url_str == $url_to_highlight) {
       $extra_class = ' class="' . $highlight_class . '"';
     } else {
       $extra_class = '';
     }
-    $text = strtolower($text);
+    $text_str = strtolower($text_str);
     $output[] = <<<END_OF_LINK
-$spaces<a href="$url"$extra_class>$text</a>
+$spaces<a href="$url_str"$extra_class>$text_str</a>
 END_OF_LINK;
   }
   return implode("\n", $output);
@@ -149,7 +151,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
  */
 function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
-  $output = array();
+  /*. string[int] .*/ $output = array();
   foreach ($groups as $cls => $links) {
     $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
     $output[] = wrap_with_tag('span', $cls, $html_links, 6);
@@ -368,7 +370,7 @@ CHECKOUT_MESSAGE;
  *  string.
  */
 function get_messages_for_top_of_page(): string {
-  $messages = array();
+  /*. string[int] .*/ $messages = array();
   $messages[] = get_banner_message();
   if (is_store_page()) {
     $messages[] = get_jewellery_page_message();
