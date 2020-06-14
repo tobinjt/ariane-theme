@@ -7,7 +7,7 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'wordpress'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
-/*. string[int][string] .*/ $CHANGE_IMAGES = array();
+/*. array[string][int][string]int .*/ $CHANGE_IMAGES = array();
 
 /* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
  * is appropriate for the product in the jewellery page.
@@ -39,7 +39,7 @@ END_OF_HTML;
 
 END_OF_HTML;
     if (!is_store_closed()) {
-      $product_id = $attrs['product_id'];
+      $product_id = strval($attrs['product_id']);
       $content .= <<<END_OF_HTML
     [add_to_cart item="$product_id" showprice="no" ajax="yes"
        text="Add to basket"]
@@ -88,7 +88,8 @@ function JewelleryPageShortcode(array $atts, string $content,
     $atts);
   foreach ($attrs as $key => $value) {
     if (is_null($value)) {
-      return '<h1>jewellery_page: empty attribute: ' . $key . '</h1>' . "\n";
+      return '<h1>jewellery_page: empty attribute: ' . strval($key) . '</h1>'
+        . "\n";
     }
   }
   $attrs['height'] = 0;
@@ -96,7 +97,7 @@ function JewelleryPageShortcode(array $atts, string $content,
 
   // Look up the image(s).
   $image_ids = explode(',', strval($attrs['image_id']));
-  $images = array();
+  /*. array[int][string]int .*/ $images = array();
   foreach ($image_ids as $image_id) {
     $image_id_int = intval($image_id);
     $image_info = wp_get_attachment_image_src($image_id_int, 'product_size');
@@ -105,27 +106,27 @@ function JewelleryPageShortcode(array $atts, string $content,
       'width' => $image_info[1],
       'height' => $image_info[2],
     );
-    if ($image_info[1] > $attrs['width']) {
+    if ($image_info[1] > intval($attrs['width'])) {
       $attrs['width'] = $image_info[1];
     }
-    if ($image_info[2] > $attrs['height']) {
+    if ($image_info[2] > intval($attrs['height'])) {
       $attrs['height'] = $image_info[2];
     }
   }
 
   // Change "necklace" to "necklaces".
-  if (substr($attrs['type'], -1) !== 's') {
-    $attrs['type'] .= 's';
+  if (substr(strval($attrs['type']), -1) !== 's') {
+    $attrs['type'] = strval($attrs['type']) . 's';
   }
   // Wordpress puts <br /> at the start and end of the content.
-  $content = str_replace('<br />', '', $content);
+  $content = strval(str_replace('<br />', '', $content));
 
   // Don't make the range part of the name for some ranges.
   $blacklisted_ranges = array('archive', 'singles');
   if (in_array($attrs['range'], $blacklisted_ranges)) {
     $range_in_piece_name = '';
   } else {
-    $range_in_piece_name = $attrs['range'] . ' ';
+    $range_in_piece_name = strval($attrs['range']) . ' ';
   }
 
   $html = <<<'END_OF_HTML'
@@ -147,10 +148,10 @@ END_OF_HTML;
     foreach ($image_ids as $i => $image_id) {
       $image_id_int = intval($image_id);
       $image_info = wp_get_attachment_image_src($image_id_int, 'thumbnail');
-      $src = $image_info[0];
-      $name = $attrs['name'];
-      $width = $image_info[1];
-      $height = $image_info[2];
+      $src = strval($image_info[0]);
+      $name = strval($attrs['name']);
+      $width = strval($image_info[1]);
+      $height = strval($image_info[2]);
       $html .= <<<END_OF_HTML
         <li><img src="$src"
                  alt="$range_in_piece_name$name"
@@ -167,12 +168,12 @@ END_OF_HTML;
 END_OF_HTML;
   }
 
-  $div_width = $attrs['width'];
-  $div_height = $attrs['height'];
-  $name = $attrs['name'];
-  $src = $images[0]['src'];
-  $width = $images[0]['width'];
-  $height = $images[0]['height'];
+  $div_width = strval($attrs['width']);
+  $div_height = strval($attrs['height']);
+  $name = strval($attrs['name']);
+  $src = strval($images[0]['src']);
+  $width = strval($images[0]['width']);
+  $height = strval($images[0]['height']);
   $html .= <<<END_OF_HTML
     <div width="$div_width" height="$div_height">
       <img id="individual-jewellery-image"
@@ -189,8 +190,8 @@ END_OF_HTML;
 
   $html .= MakeBuyButtonForJewelleryPage($attrs);
 
-  $range = $attrs['range'];
-  $type = $attrs['type'];
+  $range = strval($attrs['range']);
+  $type = strval($attrs['type']);
   $html .= <<<END_OF_HTML
 
     <p>See other items in this range: <a href="/jewellery/$range/">$range</a></p>

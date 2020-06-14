@@ -168,7 +168,7 @@ function verify_add_action(): void {
 }
 
 // Functions for wp_get_attachment_image_src.
-// phplint: /*. array .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
+// phplint: /*. int[int] .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];
