@@ -9,7 +9,7 @@ declare(strict_types=1);
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/Urls.php');
 /*. array[int][string]string .*/ $CHANGE_IMAGES = array();
-/*. array[int][string]string .*/ $SLIDER_IMAGES = array();
+/*. array[string]string .*/ $SLIDER_IMAGES = array();
 
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.
@@ -34,10 +34,10 @@ function SliderImages(): array {
       's'              => 'slider',
     )
   );
-  $images = array();
+  /*. array[int][string]string .*/ $images = array();
   foreach ($media_query->posts as $post) {
-    $matches = array();
-    if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches)) {
+    /*. array[int]mixed .*/ $matches = array();
+    if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches) === 1) {
       $image_large = wp_get_attachment_image_src($post->ID, 'slider_large');
       $image_small = wp_get_attachment_image_src($post->ID, 'slider_small');
       $lh = $image_large[0];
@@ -47,8 +47,8 @@ function SliderImages(): array {
       $sw_w = $image_small[1] . 'w';
       $sw_px = $image_small[1] . 'px';
       $images[] = array(
-        'src' => $image_large[0],
-        'href' => $matches[1],
+        'src' => strval($image_large[0]),
+        'href' => strval($matches[1]),
         'srcset' => "$lh $lw_w, $sh $sw_w",
         'sizes' => "(max-width: 799px) $sw_px, $lw_px",
       );
