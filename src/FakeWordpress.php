@@ -6,10 +6,10 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'phpinfo'; .*/
 // $QUERY_RESULTS is declared after class WP_Post.
-/*. int[string] .*/ $EXPECTED_ADD_ACTION = array();
-/*. string[int][string][int] .*/ $IMAGE_INFO = array();
-/*. bool[string] .*/ $PAGE_STATE_BOOL = array();
-/*. string[string] .*/ $PAGE_STATE_STRING = array();
+/*. array[string]int .*/ $EXPECTED_ADD_ACTION = array();
+/*. array[int][string][int]string .*/ $IMAGE_INFO = array();
+/*. array[string]bool .*/ $PAGE_STATE_BOOL = array();
+/*. array[string]string .*/ $PAGE_STATE_STRING = array();
 
 // Fake WP_Post.
 class WP_Post {
@@ -22,7 +22,7 @@ class WP_Post {
 }
 
 // Needs to be declared after class WP_Post.
-/*. WP_Post[int] .*/ $QUERY_RESULTS = array();
+/*. array[int]WP_Post .*/ $QUERY_RESULTS = array();
 
 // Fake WP_Query.
 class WP_Query {
@@ -168,7 +168,7 @@ function verify_add_action(): void {
 }
 
 // Functions for wp_get_attachment_image_src.
-// phplint: /*. int[int] .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
+// phplint: /*. array[int]int .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];

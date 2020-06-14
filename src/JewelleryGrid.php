@@ -10,8 +10,8 @@ declare(strict_types=1);
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
-/*. string[int][string] .*/ $CHANGE_IMAGES = array();
-/*. string[string] .*/ $SLIDER_IMAGES = array();
+/*. array[int][string]string .*/ $CHANGE_IMAGES = array();
+/*. array[string]string .*/ $SLIDER_IMAGES = array();
 
 /* ParseJewelleryGridContents: turn the CSV from page contents into a data
  * structure.

@@ -8,8 +8,8 @@ declare(strict_types=1);
 /*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/Urls.php');
-/*. string[int][string] .*/ $CHANGE_IMAGES = array();
-/*. string[int][string] .*/ $SLIDER_IMAGES = array();
+/*. array[int][string]string .*/ $CHANGE_IMAGES = array();
+/*. array[int][string]string .*/ $SLIDER_IMAGES = array();
 
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.

@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 // Extras needed by PHPLint.
-/*. int[int] .*/ $INVENTORY_LEVEL = array();
-/*. int[int] .*/ $MAX_QUANTITIES = array();
-/*. int[int] .*/ $PRICES = array();
+/*. array[int]int .*/ $INVENTORY_LEVEL = array();
+/*. array[int]int .*/ $MAX_QUANTITIES = array();
+/*. array[int]int .*/ $PRICES = array();
 
 // Clean up all state set up by tests.
 function clear_cart66_testing_state(): void {

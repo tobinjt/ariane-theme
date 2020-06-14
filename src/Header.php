@@ -64,7 +64,7 @@ END_OF_JAVASCRIPT;
 function links_to_html(array $links, string $url_to_highlight,
                        string $highlight_class, int $indent): string {
   $spaces = str_repeat(' ', $indent);
-  /*. string[int] .*/ $output = array();
+  /*. array[int]string .*/ $output = array();
   foreach ($links as $url => $text) {
     $url_str = strval($url);
     $text_str = strval($text);
@@ -151,7 +151,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
  */
 function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
-  /*. string[int] .*/ $output = array();
+  /*. array[int]string .*/ $output = array();
   foreach ($groups as $cls => $links) {
     $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
     $output[] = wrap_with_tag('span', $cls, $html_links, 6);
@@ -370,7 +370,7 @@ CHECKOUT_MESSAGE;
  *  string.
  */
 function get_messages_for_top_of_page(): string {
-  /*. string[int] .*/ $messages = array();
+  /*. array[int]string .*/ $messages = array();
   $messages[] = get_banner_message();
   if (is_store_page()) {
     $messages[] = get_jewellery_page_message();

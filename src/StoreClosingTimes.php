@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
-/*. string[int] .*/ $TIMES = array();
+/*. array[int]string .*/ $TIMES = array();
 
 $TIMES = array();
 define('STORE_CLOSING_TIME', 0);
