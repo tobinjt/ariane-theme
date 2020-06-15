@@ -12,6 +12,8 @@ declare(strict_types=1);
 /*. array[string]string .*/ $PAGE_STATE_STRING = array();
 require_once(__DIR__ . '/Cast.php');
 
+// BEGIN PHPLINT
+
 // Fake WP_Post.
 class WP_Post {
   public $ID = 0;
@@ -45,6 +47,8 @@ class WP_Query {
     $QUERY_RESULTS[] = $result;
   }
 }
+
+// END PHPLINT
 
 // Wordpress functions we need to fake.
 // phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}

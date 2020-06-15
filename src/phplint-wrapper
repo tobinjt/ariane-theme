@@ -23,7 +23,10 @@ set -f
 ln -s "${PWD}/FakeCart66.php" "${MODULES_DIR}/fakecart66.php"
 
 (printf "<?php\\n";
- sed -n -e '/phplint.*function/ s/.*phplint: //p' "${FAKE_WORDPRESS}";
+ sed -n \
+   -e '/phplint.*function/ s/.*phplint: //p' \
+   -e '/BEGIN PHPLINT/,/END PHPLINT/ p' \
+   "${FAKE_WORDPRESS}";
  printf "?>\\n"
 ) > "${MODULES_DIR}/wordpress.php"
 
