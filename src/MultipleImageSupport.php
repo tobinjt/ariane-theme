@@ -104,7 +104,12 @@ END_OF_JAVASCRIPT;
 function FrontPageSliderSetup(array $images): string {
   add_action('wp_footer', 'SliderSetupGeneric');
   global $SLIDER_IMAGES;
-  $SLIDER_IMAGES['#slider'] = json_encode($images);
+  try {
+    $SLIDER_IMAGES['#slider'] = json_encode($images);
+  }
+  catch (JsonException $e) {
+    error_log("JSON encoding failed! $e");
+  }
   $image = cast('array[string]string', $images[0]);
   $href = $image['href'];
   $src = $image['src'];
@@ -132,7 +137,12 @@ END_OF_HTML;
  */
 function ChangeImagesSetupGeneric(): void {
   global $CHANGE_IMAGES;
-  $images = json_encode($CHANGE_IMAGES);
+  try {
+    $images = json_encode($CHANGE_IMAGES);
+  }
+  catch (JsonException $e) {
+    error_log("JSON encoding failed! $e");
+  }
   $output = <<<END_OF_JAVASCRIPT
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">

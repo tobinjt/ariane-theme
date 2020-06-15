@@ -173,7 +173,12 @@ function JewelleryGridShortcode(array $atts, string $content,
     $id = 'item-' . $i;
     if (count($data['images']) > 1) {
       global $SLIDER_IMAGES;
-      $SLIDER_IMAGES['#' . $id] = json_encode($data['images']);
+      try {
+        $SLIDER_IMAGES['#' . $id] = json_encode($data['images']);
+      }
+      catch (JsonException $e) {
+        error_log("JSON encoding failed! $e");
+      }
       $slider_needed = true;
     }
 
