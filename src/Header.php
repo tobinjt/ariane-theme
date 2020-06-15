@@ -69,7 +69,7 @@ function links_to_html(array $links, string $url_to_highlight,
   foreach ($links as $url => $text) {
     $url_str = strval($url);
     $text_str = strval($text);
-    if ($url_str == $url_to_highlight) {
+    if ($url_str === $url_to_highlight) {
       $extra_class = ' class="' . $highlight_class . '"';
     } else {
       $extra_class = '';
