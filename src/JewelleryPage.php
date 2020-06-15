@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
+/*. require_module 'fakecart66'; .*/
 /*. require_module 'wordpress'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
 /*. array[string][int][string]int .*/ $CHANGE_IMAGES = array();

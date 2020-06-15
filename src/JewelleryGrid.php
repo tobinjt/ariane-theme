@@ -6,6 +6,7 @@ declare(strict_types=1);
 // Extras needed by PHPLint.
 /*. require_module 'array'; .*/
 /*. require_module 'core'; .*/
+/*. require_module 'fakecart66'; .*/
 /*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/Cast.php');

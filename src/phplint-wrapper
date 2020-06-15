@@ -20,6 +20,8 @@ rm "${MODULES_DIR}"/*
 ln -s /usr/local/Cellar/phplint/*/libexec/modules/*.php "${MODULES_DIR}"
 set -f
 
+ln -s "${PWD}/FakeCart66.php" "${MODULES_DIR}/fakecart66.php"
+
 (printf "<?php\\n";
  sed -n -e '/phplint.*function/ s/.*phplint: //p' "${FAKE_WORDPRESS}";
  printf "?>\\n"
