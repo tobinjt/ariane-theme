@@ -8,6 +8,7 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
+require_once(__DIR__ . '/Cast.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
 /*. array[int][string]string .*/ $CHANGE_IMAGES = array();
@@ -22,9 +23,10 @@ require_once(__DIR__ . '/Urls.php');
  * Returns:
  *  array, data structure to process.
  */
+// TODO: define a class to hold this data in a structured way?
 function ParseJewelleryGridContents(string $page_contents): array {
   $lines = str_getcsv($page_contents, "\n");
-  $ranges = array();
+  /*. array[int][string]string .*/ $ranges = array();
   foreach ($lines as $line) {
     $line = trim($line);
     // Wordpress puts <br /> and </p> and other shite at the end of some
@@ -153,19 +155,19 @@ END_OF_DIV;
  */
 function JewelleryGridShortcode(array $atts, string $content,
                                 string $tag): string {
-  $attrs = shortcode_atts(
+  $attrs = cast('array[string]string', shortcode_atts(
     array(
       'description' => '',
     ),
-    $atts);
+    $atts));
 
   $description = $attrs['description'];
-  $ranges = ParseJewelleryGridContents($content);
+  $ranges = cast('array[int][string]string', ParseJewelleryGridContents($content));
   // Turn the data structure into <divs>s.
   $divs = array();
   $slider_needed = false;
   foreach ($ranges as $i => $data) {
-    $image = $data['images'][0];
+    $image = cast('array[string]string', $data['images'][0]);
     $id = 'item-' . $i;
     if (count($data['images']) > 1) {
       global $SLIDER_IMAGES;
@@ -206,7 +208,7 @@ END_OF_DIV;
     $divs[] = $div;
   }
 
-  $html = array();
+  /*. array[int]string .*/ $html = array();
   $html[] = <<<'END_OF_HTML'
         <div id="jewellery-grid">
 END_OF_HTML;
@@ -220,7 +222,7 @@ END_OF_DESCRIPTION;
   $html[] = <<<'END_OF_HTML'
           <div id="jewellery-grid-inner" class="flexboxrow">
 END_OF_HTML;
-  $html = array_merge($html, $divs);
+  $html = cast('array[int]string', array_merge($html, $divs));
   $html[] = <<<'END_OF_HTML'
           </div>
         </div>

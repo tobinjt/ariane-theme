@@ -6,6 +6,7 @@ declare(strict_types=1);
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
 /*. require_module 'wordpress'; .*/
+require_once(__DIR__ . '/Cast.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
 $BANNER_MESSAGE = '';
@@ -120,7 +121,8 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
   $current_url = rtrim(get_current_url(), '/');
   $url_to_highlight = $default_url;
   foreach ($groups as $links) {
-    foreach ($links as $url => $text) {
+    $lnks = cast('array[string]string', $links);
+    foreach ($lnks as $url => $text) {
       $pattern = rtrim($url, '/');
       if ($pattern === $current_url) {
         return $url;
@@ -153,8 +155,9 @@ function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
   /*. array[int]string .*/ $output = array();
   foreach ($groups as $cls => $links) {
-    $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
-    $output[] = wrap_with_tag('span', $cls, $html_links, 6);
+    $lnks = cast('array[string]string', $links);
+    $html_links = links_to_html($lnks, $url_to_highlight, 'highlight', 8);
+    $output[] = wrap_with_tag('span', strval($cls), $html_links, 6);
   }
   return implode("\n", $output);
 }
@@ -168,10 +171,11 @@ function make_link_group(array $groups, string $default_url): string {
  *  string.
  */
 function make_menu_bar(array $menu_chunks, string $css_tags): string {
+  $menu_chunks_cast = cast('array[int]string', $menu_chunks);
   $html = wrap_with_tag(
     'div',
     'menubar ' . $css_tags,
-    implode("\n      ", $menu_chunks),
+    implode("\n      ", $menu_chunks_cast),
     4);
   return $html . "\n";
 }

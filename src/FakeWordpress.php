@@ -10,6 +10,7 @@ declare(strict_types=1);
 /*. array[int][string][int]string .*/ $IMAGE_INFO = array();
 /*. array[string]bool .*/ $PAGE_STATE_BOOL = array();
 /*. array[string]string .*/ $PAGE_STATE_STRING = array();
+require_once(__DIR__ . '/Cast.php');
 
 // Fake WP_Post.
 class WP_Post {
@@ -183,14 +184,7 @@ function clear_image_info(): void {
 // phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
-  // This lint error is unavoidable.  PHP doesn't support more tightly typed
-  // arrays.  PHPLint suggests removing the PHP type entirely and relying on
-  // PHPLint type annotations, but I refuse to lose the native PHP type
-  // checking.  If I use PHPLint type annotations to specify the more specific
-  // type then PHPLint will complain about that.  PHPLint doesn't support
-  // suppressing warnings, so there's no way to avoid an error of some sort, I'm
-  // going with the simplest approach and living with the useless error.
-  $IMAGE_INFO[$image_id][$size] = $info;
+  $IMAGE_INFO[$image_id][$size] = cast('array[int]string', $info);
 }
 
 // Clean up all state set up by tests.

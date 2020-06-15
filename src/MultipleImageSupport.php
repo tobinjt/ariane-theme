@@ -7,6 +7,7 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
+require_once(__DIR__ . '/Cast.php');
 require_once(__DIR__ . '/Urls.php');
 /*. array[int][string]string .*/ $CHANGE_IMAGES = array();
 /*. array[string]string .*/ $SLIDER_IMAGES = array();
@@ -104,7 +105,7 @@ function FrontPageSliderSetup(array $images): string {
   add_action('wp_footer', 'SliderSetupGeneric');
   global $SLIDER_IMAGES;
   $SLIDER_IMAGES['#slider'] = json_encode($images);
-  $image = $images[0];
+  $image = cast('array[string]string', $images[0]);
   $href = $image['href'];
   $src = $image['src'];
   $srcset = $image['srcset'];
