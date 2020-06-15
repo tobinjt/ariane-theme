@@ -6,6 +6,7 @@
  */
 
 function cast(string $unused, /*. mixed .*/ $value) {
+  $unused .= 'make the linter happy.';
   return $value;
 }
 

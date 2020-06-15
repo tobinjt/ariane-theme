@@ -8,7 +8,7 @@ declare(strict_types=1);
 /*. require_module 'fakecart66'; .*/
 /*. require_module 'wordpress'; .*/
 require_once(__DIR__ . '/StoreClosingTimes.php');
-/*. array[string][int][string]int .*/ $CHANGE_IMAGES = array();
+/*. array[string][int][string]string .*/ $CHANGE_IMAGES = array();
 
 /* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
  * is appropriate for the product in the jewellery page.
@@ -18,7 +18,7 @@ require_once(__DIR__ . '/StoreClosingTimes.php');
  *  string, HTML to insert in page.
  */
 function MakeBuyButtonForJewelleryPage(array $attrs): string {
-  $product = new Cart66Product($attrs['product_id']);
+  $product = new Cart66Product(intval($attrs['product_id']));
   if ($product->max_quantity == 1) {
     return <<<'END_OF_HTML'
         <p>Unfortunately this unique piece of jewellery has been sold.  See
@@ -33,7 +33,7 @@ END_OF_HTML;
 END_OF_HTML;
   }
 
-  if (Cart66Product::checkInventoryLevelForProduct($attrs['product_id']) > 0) {
+  if (Cart66Product::checkInventoryLevelForProduct(intval($attrs['product_id'])) > 0) {
     $price = intval($product->price);
     $content = <<<END_OF_HTML
     <p>Price: €$price.</p>
@@ -77,6 +77,7 @@ END_OF_HTML;
  */
 function JewelleryPageShortcode(array $atts, string $content,
                                 string $tag): string {
+  $tag .= 'make the linter happy.';
   $attrs = shortcode_atts(
     array(
       'archived' => 'false',
@@ -98,7 +99,7 @@ function JewelleryPageShortcode(array $atts, string $content,
 
   // Look up the image(s).
   $image_ids = explode(',', strval($attrs['image_id']));
-  /*. array[int][string]int .*/ $images = array();
+  /*. array[int][string]string .*/ $images = array();
   foreach ($image_ids as $image_id) {
     $image_id_int = intval($image_id);
     $image_info = wp_get_attachment_image_src($image_id_int, 'product_size');
@@ -107,10 +108,10 @@ function JewelleryPageShortcode(array $atts, string $content,
       'width' => $image_info[1],
       'height' => $image_info[2],
     );
-    if ($image_info[1] > intval($attrs['width'])) {
+    if (intval($image_info[1]) > intval($attrs['width'])) {
       $attrs['width'] = $image_info[1];
     }
-    if ($image_info[2] > intval($attrs['height'])) {
+    if (intval($image_info[2]) > intval($attrs['height'])) {
       $attrs['height'] = $image_info[2];
     }
   }

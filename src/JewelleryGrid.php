@@ -66,7 +66,7 @@ function ParseJewelleryGridContents(string $page_contents): array {
       $data['href'] .= '/';
     }
     $image_ids = explode(',', strval($data['image_id']));
-    $slider_images = array();
+    /*. array[int][string]string .*/ $slider_images = array();
     foreach ($image_ids as $image_id) {
       $image_id_int = intval($image_id);
       $image_info = wp_get_attachment_image_src($image_id_int, 'grid_size');
@@ -156,6 +156,7 @@ END_OF_DIV;
  */
 function JewelleryGridShortcode(array $atts, string $content,
                                 string $tag): string {
+  $tag .= 'make the linter happy.';
   $attrs = cast('array[string]string', shortcode_atts(
     array(
       'description' => '',
@@ -165,7 +166,7 @@ function JewelleryGridShortcode(array $atts, string $content,
   $description = $attrs['description'];
   $ranges = cast('array[int][string]string', ParseJewelleryGridContents($content));
   // Turn the data structure into <divs>s.
-  $divs = array();
+  /*. array[int]string .*/ $divs = array();
   $slider_needed = false;
   foreach ($ranges as $i => $data) {
     $image = cast('array[string]string', $data['images'][0]);

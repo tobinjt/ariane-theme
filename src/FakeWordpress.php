@@ -29,9 +29,10 @@ class WP_Post {
 
 // Fake WP_Query.
 class WP_Query {
-  public $posts = array();
+  public /*. array[int]WP_Post .*/ $posts = array();
   public function __construct(array $query) {
     // $query is unused.
+    $query[] = 'make the linter happy.';
     global $QUERY_RESULTS;
     $this->posts = $QUERY_RESULTS;
   }
@@ -115,6 +116,11 @@ function set_is_page(bool $is): void {
 
 // phplint: /*. string .*/ function wp_title(/*. string .*/ $sep, /*. bool .*/ $display) {}
 function wp_title(string $sep, bool $display): string {
+  if ($display) {
+    $sep .= 'make the linter happy.';
+  } else {
+    $sep .= 'make the linter happy.';
+  }
   global $PAGE_STATE_STRING;
   if (isset($PAGE_STATE_STRING['wp_title'])) {
     return $PAGE_STATE_STRING['wp_title'];
@@ -148,6 +154,7 @@ function clear_add_action(): void {
 // phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $func, /*. int .*/ $num_calls) {}
 function expect_add_action(string $section, string $func, int $num_calls): void {
   // $section is unused.
+  $section .= 'make the linter happy.';
   global $EXPECTED_ADD_ACTION;
   $EXPECTED_ADD_ACTION[$func] = $num_calls;
 }
@@ -173,7 +180,7 @@ function verify_add_action(): void {
 }
 
 // Functions for wp_get_attachment_image_src.
-// phplint: /*. array[int]int .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
+// phplint: /*. array[int]string .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];
