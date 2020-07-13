@@ -132,11 +132,6 @@ p {
   margin-bottom: 1em;
 }
 
-/* Make text in blog paragraphs bigger. */
-.entry p {
-  font-size: 14px;
-}
-
 /* Links should be grey and not underlined. */
 #page-wrap a {
   color: #95959C;
