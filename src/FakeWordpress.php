@@ -7,7 +7,7 @@ declare(strict_types=1);
 /*. require_module 'phpinfo'; .*/
 // $QUERY_RESULTS is declared after class WP_Post.
 /*. array[string]int .*/ $EXPECTED_ADD_ACTION = array();
-/*. array[int][string][int]string .*/ $IMAGE_INFO = array();
+/*. array[int][string][int]int .*/ $IMAGE_INFO = array();
 /*. array[string]bool .*/ $PAGE_STATE_BOOL = array();
 /*. array[string]string .*/ $PAGE_STATE_STRING = array();
 require_once(__DIR__ . '/Cast.php');
@@ -180,7 +180,7 @@ function verify_add_action(): void {
 }
 
 // Functions for wp_get_attachment_image_src.
-// phplint: /*. array[int]string .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
+// phplint: /*. array[int]int .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];
@@ -195,7 +195,7 @@ function clear_image_info(): void {
 // phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
-  $IMAGE_INFO[$image_id][$size] = cast('array[int]string', $info);
+  $IMAGE_INFO[$image_id][$size] = cast('array[int]int', $info);
 }
 
 // Clean up all state set up by tests.
