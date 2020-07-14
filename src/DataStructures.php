@@ -23,3 +23,30 @@ class WPImageInfo {
     $this->height_str = strval($this->height_int);
   }
 }
+
+/* Represents a single entry from a Jewellery Grid. */
+class JewelleryGridEntry {
+  public $range = '';
+  public $alt = '';
+  public $image_ids = array(0);
+  public $page_url = '';
+  public $product_id = 0;
+  public $images = array();
+
+  public function __construct(string $range, string $alt, string $image_ids,
+    string $page_url, int $product_id) {
+    $this->range = $range;
+    $this->alt = $alt;
+    $this->page_url = $page_url;
+    $this->product_id = $product_id;
+    $this->image_ids = array();
+
+    $ids = explode(',', $image_ids);
+    foreach ($ids as $i => $id) {
+      $this->image_ids[] = intval($id);
+      $this->images[] = new WPImageInfo($this->image_ids[-1], 'grid_size');
+    }
+  }
+}
+
+?>
