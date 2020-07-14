@@ -20,43 +20,33 @@ class ParseJewelleryGridContentsTest extends TestCase {
 # This comment will be skipped.
 # Format: range|alt|image_id|href|product_id
 # Most basic possible line:
-name of the range|this is the alt text|11|linky/|7
+name of the range 1|this is the alt text 1|11|linky/|7
 # Add weird HTML stuff.
-<pre>name of the range|this is the alt text|11|linky/|7</pre>
+<pre>name of the range 2|this is the alt text 2|11|linky/|8</pre>
 # Extra spaces don't matter.
-        name of the range|this is the alt text|11|linky/|7
+        name of the range 3|this is the alt text 3|11|linky/|9
 # No product ID.
-name of the range|this is the alt text|11|linky/
+name of the range 4|this is the alt text 4|11|linky/
 # Handle empty line.
 
 # Missing trailing slash on link gets added.
-name of the range|this is the alt text|11|linky|7
+name of the range 5|this is the alt text 5|11|linky|11
 
 END_OF_INPUT;
-    // Most basic possible line:
+
     add_image_info(11, 'grid_size', array('URL', 23, 59));
     $expected = array(
-      array(
-        'range' => 'name of the range',
-        'alt' => 'this is the alt text',
-        'image_id' => '11',
-        'href' => 'linky/',
-        'product_id' => '7',
-        'images' => array(
-          array(
-            'src' => 'URL',
-            'width' => 23,
-            'height' => 59,
-          ),
-        ),
-      ),
+      new JewelleryGridEntry('name of the range 1',
+        'this is the alt text 1', '11', 'linky/', '7'),
+      new JewelleryGridEntry('name of the range 2',
+        'this is the alt text 2', '11', 'linky/', '8'),
+      new JewelleryGridEntry('name of the range 3',
+        'this is the alt text 3', '11', 'linky/', '9'),
+      new JewelleryGridEntry('name of the range 4',
+        'this is the alt text 4', '11', 'linky/', '-1'),
+      new JewelleryGridEntry('name of the range 5',
+        'this is the alt text 5', '11', 'linky/', '11'),
     );
-    // The lines should all parse the same as the first, or have minor changes.
-    $expected[] = $expected[0];
-    $expected[] = $expected[0];
-    $expected[] = $expected[0];
-    $expected[3]['product_id'] = -1;
-    $expected[] = $expected[0];
     $actual = ParseJewelleryGridContents($input);
     $this->assertEquals($expected, $actual);
   }

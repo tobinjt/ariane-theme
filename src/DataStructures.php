@@ -18,7 +18,7 @@ class WPImageInfo {
     $image_info = wp_get_attachment_image_src($attachment_id, $size);
     $this->url = strval($image_info[0]);
     $this->width_int = $image_info[1];
-    $this->height_int = $image_info[1];
+    $this->height_int = $image_info[2];
     $this->width_str = strval($this->width_int);
     $this->height_str = strval($this->height_int);
   }
@@ -30,21 +30,29 @@ class JewelleryGridEntry {
   public $alt = '';
   public $image_ids = array(0);
   public $page_url = '';
-  public $product_id = 0;
-  public $images = array();
+  public $product_id = '';
+  public /*. array[int]WPImageInfo .*/ $images = array();
 
   public function __construct(string $range, string $alt, string $image_ids,
-    string $page_url, int $product_id) {
+    string $page_url, string $product_id) {
     $this->range = $range;
     $this->alt = $alt;
     $this->page_url = $page_url;
     $this->product_id = $product_id;
     $this->image_ids = array();
+    $this->images = array();
+
+    if (substr($this->page_url, -1) !== '/') {
+      $this->page_url .= '/';
+    }
 
     $ids = explode(',', $image_ids);
-    foreach ($ids as $i => $id) {
-      $this->image_ids[] = intval($id);
-      $this->images[] = new WPImageInfo($this->image_ids[-1], 'grid_size');
+    foreach ($ids as $i => $id_str) {
+      $id_int = intval($id_str);
+      if ($id_int !== -1) {
+        $this->image_ids[] = $id_int;
+        $this->images[] = new WPImageInfo($id_int, 'grid_size');
+      }
     }
   }
 }

@@ -10,6 +10,7 @@ declare(strict_types=1);
 /*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/Cast.php');
+require_once(__DIR__ . '/DataStructures.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
 /*. array[int][string]string .*/ $CHANGE_IMAGES = array();
@@ -27,7 +28,7 @@ require_once(__DIR__ . '/Urls.php');
 // TODO: define a class to hold this data in a structured way?
 function ParseJewelleryGridContents(string $page_contents): array {
   $lines = str_getcsv($page_contents, "\n");
-  /*. array[int][string]string .*/ $ranges = array();
+  /*. array[int]JewelleryGridEntry .*/ $ranges = array();
   foreach ($lines as $line) {
     $line = trim($line);
     // Wordpress puts <br /> and </p> and other shite at the end of some
@@ -48,36 +49,15 @@ function ParseJewelleryGridContents(string $page_contents): array {
       continue;
     }
     // Line format:
-    // * Short description|Image description|Image ID|Link to page|Product ID
+    // * Range name|Image description|Image ID(s)|Link to page|Product ID
     // * The top-level jewellery page links to ranges rather than products, so
     //   we can't include purchasing.  We use -1 to indicate that there isn't a
     //   product to offer, and that's checked for later.
     if (count($csv_data) < 5) {
       $csv_data[] = '-1';
     }
-    $data = array(
-      'range'      => $csv_data[0],
-      'alt'        => $csv_data[1],
-      'image_id'   => $csv_data[2],
-      'href'       => $csv_data[3],
-      'product_id' => $csv_data[4],
-    );
-    if (substr($data['href'], -1) !== '/') {
-      $data['href'] .= '/';
-    }
-    $image_ids = explode(',', strval($data['image_id']));
-    /*. array[int][string]string .*/ $slider_images = array();
-    foreach ($image_ids as $image_id) {
-      $image_id_int = intval($image_id);
-      $image_info = wp_get_attachment_image_src($image_id_int, 'grid_size');
-      $slider_images[] = array(
-        'src' => $image_info[0],
-        'width' => $image_info[1],
-        'height' => $image_info[2],
-      );
-    }
-    $data['images'] = $slider_images;
-    $ranges[] = $data;
+    $ranges[] = new JewelleryGridEntry($csv_data[0], $csv_data[1], $csv_data[2],
+      $csv_data[3], $csv_data[4]);
   }
   return $ranges;
 }
@@ -164,17 +144,27 @@ function JewelleryGridShortcode(array $atts, string $content,
     $atts));
 
   $description = $attrs['description'];
-  $ranges = cast('array[int][string]string', ParseJewelleryGridContents($content));
+  $ranges = cast('array[int]JewelleryGridEntry',
+    ParseJewelleryGridContents($content));
   // Turn the data structure into <divs>s.
   /*. array[int]string .*/ $divs = array();
   $slider_needed = false;
-  foreach ($ranges as $i => $data) {
-    $image = cast('array[string]string', $data['images'][0]);
+  foreach ($ranges as $i => $entry) {
     $id = 'item-' . $i;
-    if (count($data['images']) > 1) {
+    if (count($entry->images) > 1) {
       global $SLIDER_IMAGES;
       try {
-        $SLIDER_IMAGES['#' . $id] = json_encode($data['images']);
+        # TODO FIXME
+        # This needs to stay backwards compatible with slider.js.
+        $data = array();
+        foreach ($entry->images as $i => $image) {
+          $data[] = array(
+            'src' => $image->url,
+            'width' => $image->width_int,
+            'height' => $image->height_int,
+          );
+        }
+        $SLIDER_IMAGES['#' . $id] = json_encode($data);
       }
       catch (JsonException $e) {
         error_log("JSON encoding failed! $e");
@@ -182,12 +172,12 @@ function JewelleryGridShortcode(array $atts, string $content,
       $slider_needed = true;
     }
 
-    $href = $data['href'];
-    $src = $image['src'];
-    $alt = $data['alt'];
-    $width = $image['width'];
-    $height = $image['height'];
-    $range = $data['range'];
+    $href = $entry->page_url;
+    $src = $entry->images[0]->url;
+    $alt = $entry->alt;
+    $width = $entry->images[0]->width_str;
+    $height = $entry->images[0]->height_str;
+    $range = $entry->range;
     $div = <<<END_OF_IMAGE_AND_RANGE
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
@@ -207,7 +197,7 @@ END_OF_IMAGE_AND_RANGE;
                 jewellery-text-container">
 
 END_OF_OPEN_BUY_DIV;
-    $div .= MakeBuyButtonForJewelleryGrid($data['product_id']);
+    $div .= MakeBuyButtonForJewelleryGrid($entry->product_id);
     $div .= <<<'END_OF_DIV'
               </div>
             </div>
