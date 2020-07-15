@@ -7,11 +7,11 @@ require_once(__DIR__ . '/Cast.php');
 
 /* Wrap wp_get_attachment_image_src() to return an object. */
 class WPImageInfo {
-  public string $url = '';
-  public int $height_int = 0;
-  public string $height_str = '';
-  public int $width_int = 0;
-  public string $width_str = '';
+  public $url = '';
+  public $height_int = 0;
+  public $height_str = '';
+  public $width_int = 0;
+  public $width_str = '';
 
   public function __construct(int $attachment_id, string $size) {
     // $image_info is an array of [url (str), width (int), height (int)].
@@ -26,13 +26,12 @@ class WPImageInfo {
 
 /* Represents a single entry from a Jewellery Grid. */
 class JewelleryGridEntry {
-  public string $range = '';
-  public string $alt = '';
-  public array $image_ids = array(0);
-  public string $page_url = '';
+  public $range = '';
+  public $alt = '';
+  public $image_ids = array(0);
+  public $page_url = '';
   // TODO: should $product_id be an int?
-  public string $product_id = '';
-  // Sadly PHPLint cannot parse the combination of PHP type and PHPLint type :(
+  public $product_id = '';
   public /*. array[int]WPImageInfo .*/ $images = array();
 
   public function __construct(string $range, string $alt, string $image_ids,
@@ -61,20 +60,19 @@ class JewelleryGridEntry {
 
 /* Represents a Jewellery Page. */
 class JewelleryPage {
-  public string $name = '';
+  public $name = '';
   // TODO: should $product_id be an int?
-  public string $product_id = '';
-  public string $range = '';
-  public string $type = '';
-  public bool $archived = false;
+  public $product_id = '';
+  public $range = '';
+  public $type = '';
+  public $archived = false;
 
-  public array $image_ids = array(0);
-  // Sadly PHPLint cannot parse the combination of PHP type and PHPLint type :(
+  public $image_ids = array(0);
   public /*. array[int]WPImageInfo .*/ $images = array();
-  public int $height_int = 0;
-  public string $height_str = '';
-  public int $width_int = 0;
-  public string $width_str = '';
+  public $height_int = 0;
+  public $height_str = '';
+  public $width_int = 0;
+  public $width_str = '';
 
   public function __construct(string $name, string $product_id, string $range,
     string $type, string $image_ids, bool $archived) {
