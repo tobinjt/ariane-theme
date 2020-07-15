@@ -59,4 +59,54 @@ class JewelleryGridEntry {
   }
 }
 
+/* Represents a Jewellery Page. */
+class JewelleryPage {
+  public string $name = '';
+  // TODO: should $product_id be an int?
+  public string $product_id = '';
+  public string $range = '';
+  public string $type = '';
+  public bool $archived = false;
+
+  public array $image_ids = array(0);
+  // Sadly PHPLint cannot parse the combination of PHP type and PHPLint type :(
+  public /*. array[int]WPImageInfo .*/ $images = array();
+  public int $height_int = 0;
+  public string $height_str = '';
+  public int $width_int = 0;
+  public string $width_str = '';
+
+  public function __construct(string $name, string $product_id, string $range,
+    string $type, string $image_ids, bool $archived) {
+    $this->name = $name;
+    $this->product_id = $product_id;
+    $this->range = $range;
+    $this->type = $type;
+    $this->archived = $archived;
+    $this->image_ids = array();
+    $this->images = array();
+
+    // Change "necklace" to "necklaces".
+    if (substr($this->type, -1) !== 's') {
+      $this->type .= 's';
+    }
+
+    $ids = explode(',', $image_ids);
+    foreach ($ids as $id_str) {
+      $id_int = intval($id_str);
+      $this->image_ids[] = $id_int;
+      $image = new WPImageInfo($id_int, 'product_size');
+      $this->images[] = $image;
+      if ($image->width_int > $this->width_int) {
+        $this->width_int = $image->width_int;
+      }
+      if ($image->height_int > $this->height_int) {
+        $this->height_int = $image->height_int;
+      }
+    }
+    $this->width_str = strval($this->width_int);
+    $this->height_str = strval($this->height_int);
+  }
+}
+
 ?>
