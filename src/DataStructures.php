@@ -7,11 +7,11 @@ require_once(__DIR__ . '/Cast.php');
 
 /* Wrap wp_get_attachment_image_src() to return an object. */
 class WPImageInfo {
-  public $url = '';
-  public $height_int = 0;
-  public $height_str = '';
-  public $width_int = 0;
-  public $width_str = '';
+  public string $url = '';
+  public int $height_int = 0;
+  public string $height_str = '';
+  public int $width_int = 0;
+  public string $width_str = '';
 
   public function __construct(int $attachment_id, string $size) {
     // $image_info is an array of [url (str), width (int), height (int)].
@@ -26,11 +26,13 @@ class WPImageInfo {
 
 /* Represents a single entry from a Jewellery Grid. */
 class JewelleryGridEntry {
-  public $range = '';
-  public $alt = '';
-  public $image_ids = array(0);
-  public $page_url = '';
-  public $product_id = '';
+  public string $range = '';
+  public string $alt = '';
+  public array $image_ids = array(0);
+  public string $page_url = '';
+  // TODO: should $product_id be an int?
+  public string $product_id = '';
+  // Sadly PHPLint cannot parse the combination of PHP type and PHPLint type :(
   public /*. array[int]WPImageInfo .*/ $images = array();
 
   public function __construct(string $range, string $alt, string $image_ids,
@@ -47,7 +49,7 @@ class JewelleryGridEntry {
     }
 
     $ids = explode(',', $image_ids);
-    foreach ($ids as $i => $id_str) {
+    foreach ($ids as $id_str) {
       $id_int = intval($id_str);
       if ($id_int !== -1) {
         $this->image_ids[] = $id_int;
