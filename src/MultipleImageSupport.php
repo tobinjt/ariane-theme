@@ -39,19 +39,21 @@ function SliderImages(): array {
   foreach ($media_query->posts as $post) {
     /*. array[int]mixed .*/ $matches = array();
     if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches) === 1) {
-      $image_large = wp_get_attachment_image_src($post->ID, 'slider_large');
-      $image_small = wp_get_attachment_image_src($post->ID, 'slider_small');
-      $lh = $image_large[0];
-      $lw_w = $image_large[1] . 'w';
-      $lw_px = $image_large[1] . 'px';
-      $sh = $image_small[0];
-      $sw_w = $image_small[1] . 'w';
-      $sw_px = $image_small[1] . 'px';
+      $image_large = new WPImageInfo($post->ID, 'slider_large');
+      $image_small = new WPImageInfo($post->ID, 'slider_small');
+      // All the intermediate variables are due to PHPLint parsing restrictions,
+      // particularly it's impossible to use {$width}px or similar.
+      $l_url = $image_large->url;
+      $l_w_w = $image_large->width_str . 'w';
+      $l_w_px = $image_large->width_str . 'px';
+      $s_url = $image_small->url;
+      $s_w_w = $image_small->width_str . 'w';
+      $s_w_px = $image_small->width_str . 'px';
       $images[] = array(
-        'src' => strval($image_large[0]),
+        'src' => $image_large->url,
         'href' => strval($matches[1]),
-        'srcset' => "$lh $lw_w, $sh $sw_w",
-        'sizes' => "(max-width: 799px) $sw_px, $lw_px",
+        'srcset' => "$l_url $l_w_w, $s_url $s_w_w",
+        'sizes' => "(max-width: 799px) $s_w_px, $l_w_px",
       );
     }
   }
