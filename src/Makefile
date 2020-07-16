@@ -1,3 +1,5 @@
+.SILENT: lint
+
 lint:
 	for file in *.php; do \
 		./phplint-wrapper "$${file}" \
