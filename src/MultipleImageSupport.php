@@ -132,12 +132,7 @@ END_OF_HTML;
  */
 function ChangeImagesSetupGeneric(): void {
   global $CHANGE_IMAGES;
-  try {
-    $images = json_encode($CHANGE_IMAGES);
-  }
-  catch (JsonException $e) {
-    error_log("JSON encoding failed! $e");
-  }
+  $images = json_encode_wrapper($CHANGE_IMAGES);
   $output = <<<END_OF_JAVASCRIPT
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
