@@ -24,7 +24,6 @@ require_once(__DIR__ . '/Urls.php');
  * Returns:
  *  array, data structure to process.
  */
-// TODO: define a class to hold this data in a structured way?
 function ParseJewelleryGridContents(string $page_contents): array {
   $lines = str_getcsv($page_contents, "\n");
   /*. array[int]JewelleryGridEntry .*/ $ranges = array();
@@ -96,7 +95,7 @@ END_OF_SOLD;
 END_OF_OUT_OF_STOCK;
   }
 
-  $price = intval($product->price);
+  $price = $product->price;
   $content = <<<END_OF_PRICE
                 <div class="larger-text">
                   €$price

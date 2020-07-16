@@ -35,7 +35,7 @@ END_OF_HTML;
   }
 
   if (Cart66Product::checkInventoryLevelForProduct(intval($attrs['product_id'])) > 0) {
-    $price = intval($product->price);
+    $price = $product->price;
     $content = <<<END_OF_HTML
     <p>Price: €$price.</p>
 
@@ -91,8 +91,7 @@ function JewelleryPageShortcode(array $atts, string $content,
     $atts));
   foreach ($attrs as $key => $value) {
     if ($value === '') {
-      return '<h1>jewellery_page: empty attribute: ' . strval($key) . '</h1>'
-        . "\n";
+      return "<h1>jewellery_page: empty attribute: $key </h1>\n";
     }
   }
 
@@ -170,6 +169,8 @@ END_OF_HTML;
 
 END_OF_HTML;
 
+  // TODO: Stop passing $attrs; overwrite $attrs with garbage so any further
+  // usage will make tests fail.
   $html .= MakeBuyButtonForJewelleryPage($attrs);
 
   $range = $jewellery_page->range;

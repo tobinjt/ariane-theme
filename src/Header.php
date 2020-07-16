@@ -65,18 +65,17 @@ END_OF_JAVASCRIPT;
 function links_to_html(array $links, string $url_to_highlight,
                        string $highlight_class, int $indent): string {
   $spaces = str_repeat(' ', $indent);
+  $links_cast = cast('array[string]string', $links);
   /*. array[int]string .*/ $output = array();
-  foreach ($links as $url => $text) {
-    $url_str = strval($url);
-    $text_str = strval($text);
-    if ($url_str === $url_to_highlight) {
+  foreach ($links_cast as $url => $text) {
+    if ($url === $url_to_highlight) {
       $extra_class = ' class="' . $highlight_class . '"';
     } else {
       $extra_class = '';
     }
-    $text_str = strtolower($text_str);
+    $text = strtolower($text);
     $output[] = <<<END_OF_LINK
-$spaces<a href="$url_str"$extra_class>$text_str</a>
+$spaces<a href="$url"$extra_class>$text</a>
 END_OF_LINK;
   }
   return implode("\n", $output);
@@ -154,11 +153,11 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
  */
 function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
+  $groups_cast = cast('array[string][string]string', $groups);
   /*. array[int]string .*/ $output = array();
-  foreach ($groups as $cls => $links) {
-    $lnks = cast('array[string]string', $links);
-    $html_links = links_to_html($lnks, $url_to_highlight, 'highlight', 8);
-    $output[] = wrap_with_tag('span', strval($cls), $html_links, 6);
+  foreach ($groups_cast as $cls => $links) {
+    $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
+    $output[] = wrap_with_tag('span', $cls, $html_links, 6);
   }
   return implode("\n", $output);
 }
@@ -172,11 +171,10 @@ function make_link_group(array $groups, string $default_url): string {
  *  string.
  */
 function make_menu_bar(array $menu_chunks, string $css_tags): string {
-  $menu_chunks_cast = cast('array[int]string', $menu_chunks);
   $html = wrap_with_tag(
     'div',
     'menubar ' . $css_tags,
-    implode("\n      ", $menu_chunks_cast),
+    implode("\n      ", cast('array[int]string', $menu_chunks)),
     4);
   return $html . "\n";
 }

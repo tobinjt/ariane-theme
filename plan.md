@@ -1,8 +1,8 @@
 Plan for website:
 
 *   Classes rather than arrays:
-    *   Wrap wp_get_attachment_image_src() to return an object.
-    *   ParseJewelleryGridContents needs to return an array of objects.
+    *   Change $SLIDER_IMAGES etc.
+    *   product_id should be an int everywhere.
     *   Look at any remaining places I use cast(), intval(), or strval().
 
 *   Replace Cart66 with Shopify
