@@ -24,7 +24,7 @@ class WPImageInfo {
     $this->height_str = strval($this->height_int);
   }
 
-  public function image_to_data() {
+  public function image_to_data(): array {
     # TODO FIXME
     # This needs to stay backwards compatible with slider.js.
     return array(
@@ -39,7 +39,7 @@ class WPImageInfo {
 function images_to_data(array $images): array {
   # TODO FIXME
   # This needs to stay backwards compatible with slider.js.
-  $data = array();
+  /*. array[int]mixed .*/ $data = array();
   foreach (cast('array[int]WPImageInfo', $images) as $image) {
     $data[] = $image->image_to_data();
   }

@@ -117,8 +117,10 @@ function set_is_page(bool $is): void {
 // phplint: /*. string .*/ function wp_title(/*. string .*/ $sep, /*. bool .*/ $display) {}
 function wp_title(string $sep, bool $display): string {
   $sep .= 'make the linter happy.';
-  // $display is always false, but explicitly set it to make the linter happy.
-  $display = false;
+  // $display is otherwise unused, so use it to make the linter happy.
+  if (! $display) {
+    $display = false;
+  }
   global $PAGE_STATE_STRING;
   if (isset($PAGE_STATE_STRING['wp_title'])) {
     return $PAGE_STATE_STRING['wp_title'];

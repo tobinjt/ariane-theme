@@ -31,7 +31,7 @@ function SliderImages(): array {
     array(
       'post_type'      => 'attachment',
       'post_status'    => 'any',
-      'posts_per_page' => -1,
+      'posts_per_page' => '-1',
       's'              => 'slider',
     )
   );
