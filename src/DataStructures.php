@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 /*. require_module 'core'; .*/
+/*. require_module 'json'; .*/
 /*. require_module 'wordpress'; .*/
 require_once(__DIR__ . '/Cast.php');
 
@@ -134,6 +135,14 @@ class JewelleryPage {
   public function images_to_data(): array {
     return images_to_data($this->images);
   }
+}
+
+/* Wrap json_encode so that I can more easily ignore PHPLint warnings about the
+  * exception being thrown, because I cannot find a way to test the exception
+  * handling, and I care more about test coverage than lint warnings.
+ */
+function json_encode_wrapper(array $data): string {
+  return json_encode($data);
 }
 
 ?>

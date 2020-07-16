@@ -7,7 +7,6 @@ declare(strict_types=1);
 /*. require_module 'array'; .*/
 /*. require_module 'core'; .*/
 /*. require_module 'fakecart66'; .*/
-/*. require_module 'json'; .*/
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/Cast.php');
 require_once(__DIR__ . '/DataStructures.php');
@@ -153,12 +152,7 @@ function JewelleryGridShortcode(array $atts, string $content,
     $id = 'item-' . $i;
     if (count($entry->images) > 1) {
       global $SLIDER_IMAGES;
-      try {
-        $SLIDER_IMAGES['#' . $id] = json_encode($entry->images_to_data());
-      }
-      catch (JsonException $e) {
-        error_log("JSON encoding failed! $e");
-      }
+      $SLIDER_IMAGES['#' . $id] = json_encode_wrapper($entry->images_to_data());
       $slider_needed = true;
     }
 
