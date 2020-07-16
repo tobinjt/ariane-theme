@@ -7,4 +7,4 @@ lint:
 	done
 
 test:
-	(cd .. && phpunit)
+	(cd .. && phpunit --coverage-html "${HOME}/tmp/coverage")
