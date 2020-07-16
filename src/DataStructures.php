@@ -22,6 +22,27 @@ class WPImageInfo {
     $this->width_str = strval($this->width_int);
     $this->height_str = strval($this->height_int);
   }
+
+  public function image_to_data() {
+    # TODO FIXME
+    # This needs to stay backwards compatible with slider.js.
+    return array(
+      'src' => $this->url,
+      'width' => $this->width_int,
+      'height' => $this->height_int,
+    );
+  }
+}
+
+/* Convert an array of WPImageInfo to an array compatible with slider.js. */
+function images_to_data(array $images): array {
+  # TODO FIXME
+  # This needs to stay backwards compatible with slider.js.
+  $data = array();
+  foreach (cast('array[int]WPImageInfo', $images) as $image) {
+    $data[] = $image->image_to_data();
+  }
+  return $data;
 }
 
 /* Represents a single entry from a Jewellery Grid. */
@@ -55,6 +76,10 @@ class JewelleryGridEntry {
         $this->images[] = new WPImageInfo($id_int, 'grid_size');
       }
     }
+  }
+
+  public function images_to_data(): array {
+    return images_to_data($this->images);
   }
 }
 
@@ -104,6 +129,10 @@ class JewelleryPage {
     }
     $this->width_str = strval($this->width_int);
     $this->height_str = strval($this->height_int);
+  }
+
+  public function images_to_data(): array {
+    return images_to_data($this->images);
   }
 }
 

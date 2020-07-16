@@ -102,8 +102,8 @@ class JewelleryPageShortcodeTest extends TestCase {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
-    $attrs['image_id'] = 3;
-    $attrs['product_id'] = 7;
+    $attrs['image_id'] = '3';
+    $attrs['product_id'] = '7';
     add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
     $this->set_up_MakeBuyButton($attrs['product_id'], 123, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
@@ -140,7 +140,7 @@ EXPECTED;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3,79,37';
-    $attrs['product_id'] = 7;
+    $attrs['product_id'] = '7';
     $attrs['range'] = 'singles';  // Test that range isn't included for singles.
     expect_add_action('wp_footer', 'ChangeImagesSetupGeneric', 1);
     add_image_info(3, 'product_size', array('URL', 23, 59));

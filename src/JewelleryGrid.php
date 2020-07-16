@@ -154,17 +154,7 @@ function JewelleryGridShortcode(array $atts, string $content,
     if (count($entry->images) > 1) {
       global $SLIDER_IMAGES;
       try {
-        # TODO FIXME
-        # This needs to stay backwards compatible with slider.js.
-        $data = array();
-        foreach ($entry->images as $i => $image) {
-          $data[] = array(
-            'src' => $image->url,
-            'width' => $image->width_int,
-            'height' => $image->height_int,
-          );
-        }
-        $SLIDER_IMAGES['#' . $id] = json_encode($data);
+        $SLIDER_IMAGES['#' . $id] = json_encode($entry->images_to_data());
       }
       catch (JsonException $e) {
         error_log("JSON encoding failed! $e");
