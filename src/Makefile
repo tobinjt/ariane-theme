@@ -4,7 +4,10 @@ lint:
 			| grep ^= \
 			| grep -v -F -e '?:?:' \
 				-e 'notice: throwing JsonException' || true; \
-	done
+	done \
+		| sed -e 's/^==== //' \
+		| natural_sort \
+		| uniq
 
 test:
 	(cd .. && phpunit --coverage-html "${HOME}/tmp/coverage")
