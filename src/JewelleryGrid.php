@@ -141,6 +141,7 @@ function JewelleryGridShortcode(array $atts, string $content,
     $atts));
 
   $description = $attrs['description'];
+  $attrs = array('do not use' => 'dollar_attrs');
   $ranges = cast('array[int]JewelleryGridEntry',
     ParseJewelleryGridContents($content));
   // Turn the data structure into <divs>s.

@@ -2,7 +2,6 @@ Plan for website:
 
 *   Classes rather than arrays:
     *   Change $SLIDER_IMAGES etc.
-    *   Look at any remaining places I use cast(), intval(), or strval().
 
 *   Replace Cart66 with Shopify
     *   https://www.shopify.com/lite
