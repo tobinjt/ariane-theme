@@ -37,15 +37,15 @@ END_OF_INPUT;
     add_image_info(11, 'grid_size', array('URL', 23, 59));
     $expected = array(
       new JewelleryGridEntry('name of the range 1',
-        'this is the alt text 1', '11', 'linky/', '7'),
+        'this is the alt text 1', '11', 'linky/', 7),
       new JewelleryGridEntry('name of the range 2',
-        'this is the alt text 2', '11', 'linky/', '8'),
+        'this is the alt text 2', '11', 'linky/', 8),
       new JewelleryGridEntry('name of the range 3',
-        'this is the alt text 3', '11', 'linky/', '9'),
+        'this is the alt text 3', '11', 'linky/', 9),
       new JewelleryGridEntry('name of the range 4',
-        'this is the alt text 4', '11', 'linky/', '-1'),
+        'this is the alt text 4', '11', 'linky/', -1),
       new JewelleryGridEntry('name of the range 5',
-        'this is the alt text 5', '11', 'linky/', '11'),
+        'this is the alt text 5', '11', 'linky/', 11),
     );
     $actual = ParseJewelleryGridContents($input);
     $this->assertEquals($expected, $actual);

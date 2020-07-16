@@ -55,32 +55,31 @@ function ParseJewelleryGridContents(string $page_contents): array {
       $csv_data[] = '-1';
     }
     $ranges[] = new JewelleryGridEntry($csv_data[0], $csv_data[1], $csv_data[2],
-      $csv_data[3], $csv_data[4]);
+      $csv_data[3], intval($csv_data[4]));
   }
   return $ranges;
 }
 
-/* MakeBuyButtonForJewelleryGrid: make a buy botton or a message or whatever
+/* MakeBuyButtonForJewelleryGrid: make a buy button or a message or whatever
  * is appropriate for the product in the jewellery grid.
  * Args:
  *  $product_id: id of the product in Cart66.
  * Returns:
  *  string, HTML to insert in page.
  */
-function MakeBuyButtonForJewelleryGrid(string $product_id): string {
+function MakeBuyButtonForJewelleryGrid(int $product_id): string {
   // -1 means there isn't a product to sell, and that happens on the main
   // jewellery page.
   // Skip showing cart buttons for everything that's been archived.
-  if ($product_id === '-1' || is_archive_page()) {
+  if ($product_id === -1 || is_archive_page()) {
     return <<<'END_OF_NO_PRODUCT_OR_ARCHIVE'
     <!-- This creates some space underneath. -->
 
 END_OF_NO_PRODUCT_OR_ARCHIVE;
   }
 
-  $product_id_int = intval($product_id);
-  $product = new Cart66Product($product_id_int);
-  if (Cart66Product::checkInventoryLevelForProduct($product_id_int) === 0) {
+  $product = new Cart66Product($product_id);
+  if (Cart66Product::checkInventoryLevelForProduct($product_id) === 0) {
     if ($product->max_quantity === 1) {
       return <<<'END_OF_SOLD'
     Sold

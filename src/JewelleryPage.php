@@ -11,15 +11,15 @@ require_once(__DIR__ . '/DataStructures.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 /*. array[string][int][string]string .*/ $CHANGE_IMAGES = array();
 
-/* MakeBuyButtonForJewelleryPage: make a buy botton or a message or whatever
+/* MakeBuyButtonForJewelleryPage: make a buy button or a message or whatever
  * is appropriate for the product in the jewellery page.
  * Args:
- *  $attrs: the attributes of the product.
+ *  $jewellery_page: the product.
  * Returns:
  *  string, HTML to insert in page.
  */
-function MakeBuyButtonForJewelleryPage(array $attrs): string {
-  $product = new Cart66Product(intval($attrs['product_id']));
+function MakeBuyButtonForJewelleryPage(JewelleryPage $jewellery_page): string {
+  $product = new Cart66Product($jewellery_page->product_id);
   if ($product->max_quantity == 1) {
     return <<<'END_OF_HTML'
         <p>Unfortunately this unique piece of jewellery has been sold.  See
@@ -27,21 +27,21 @@ function MakeBuyButtonForJewelleryPage(array $attrs): string {
 END_OF_HTML;
   }
 
-  if ($attrs['archived'] !== 'false') {
+  if ($jewellery_page->archived) {
     return <<<'END_OF_HTML'
         <p>Unfortunately this piece of jewellery is no longer being sold.  See
           below for other items in this range or type.</p>
 END_OF_HTML;
   }
 
-  if (Cart66Product::checkInventoryLevelForProduct(intval($attrs['product_id'])) > 0) {
+  if (Cart66Product::checkInventoryLevelForProduct($jewellery_page->product_id) > 0) {
     $price = $product->price;
     $content = <<<END_OF_HTML
     <p>Price: €$price.</p>
 
 END_OF_HTML;
     if (!is_store_closed()) {
-      $product_id = strval($attrs['product_id']);
+      $product_id = $jewellery_page->product_id;
       $content .= <<<END_OF_HTML
     [add_to_cart item="$product_id" showprice="no" ajax="yes"
        text="Add to basket"]
@@ -95,9 +95,10 @@ function JewelleryPageShortcode(array $atts, string $content,
     }
   }
 
-  $jewellery_page = new JewelleryPage($attrs['name'], $attrs['product_id'],
-    $attrs['range'], $attrs['type'], $attrs['image_id'],
-    $attrs['archived'] !== 'false');
+  $jewellery_page = new JewelleryPage($attrs['name'],
+    intval($attrs['product_id']), $attrs['range'], $attrs['type'],
+    $attrs['image_id'], $attrs['archived'] !== 'false');
+  $attrs = array('do not use' => 'dollar_attrs');
 
   // Wordpress puts <br /> at the start and end of the content.
   $content = strval(str_replace('<br />', '', $content));
@@ -169,9 +170,7 @@ END_OF_HTML;
 
 END_OF_HTML;
 
-  // TODO: Stop passing $attrs; overwrite $attrs with garbage so any further
-  // usage will make tests fail.
-  $html .= MakeBuyButtonForJewelleryPage($attrs);
+  $html .= MakeBuyButtonForJewelleryPage($jewellery_page);
 
   $range = $jewellery_page->range;
   $type = $jewellery_page->type;

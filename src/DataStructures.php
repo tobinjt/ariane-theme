@@ -52,12 +52,11 @@ class JewelleryGridEntry {
   public $alt = '';
   public $image_ids = array(0);
   public $page_url = '';
-  // TODO: should $product_id be an int?
-  public $product_id = '';
+  public $product_id = 0;
   public /*. array[int]WPImageInfo .*/ $images = array();
 
   public function __construct(string $range, string $alt, string $image_ids,
-    string $page_url, string $product_id) {
+    string $page_url, int $product_id) {
     $this->range = $range;
     $this->alt = $alt;
     $this->page_url = $page_url;
@@ -87,8 +86,7 @@ class JewelleryGridEntry {
 /* Represents a Jewellery Page. */
 class JewelleryPage {
   public $name = '';
-  // TODO: should $product_id be an int?
-  public $product_id = '';
+  public $product_id = 0;
   public $range = '';
   public $type = '';
   public $archived = false;
@@ -100,7 +98,7 @@ class JewelleryPage {
   public $width_int = 0;
   public $width_str = '';
 
-  public function __construct(string $name, string $product_id, string $range,
+  public function __construct(string $name, int $product_id, string $range,
     string $type, string $image_ids, bool $archived) {
     $this->name = $name;
     $this->product_id = $product_id;
@@ -118,6 +116,10 @@ class JewelleryPage {
     $ids = explode(',', $image_ids);
     foreach ($ids as $id_str) {
       $id_int = intval($id_str);
+      if ($id_int === -1) {
+        // Skip this, it's not a real image ID.  Mostly used in testing.
+        continue;
+      }
       $this->image_ids[] = $id_int;
       $image = new WPImageInfo($id_int, 'product_size');
       $this->images[] = $image;

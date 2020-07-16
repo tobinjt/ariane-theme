@@ -16,23 +16,26 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
   }
 
   public function test_max_quantity() {
-    $attrs = ['product_id' => 7];
-    Cart66Product::setMaxQuantity($attrs['product_id'], 1);
-    $content = MakeBuyButtonForJewelleryPage($attrs);
+    $jewellery_page = new JewelleryPage('test name', 7, 'test range',
+      'test type', '-1', false);
+    Cart66Product::setMaxQuantity($jewellery_page->product_id, 1);
+    $content = MakeBuyButtonForJewelleryPage($jewellery_page);
     $this->assertMatchesRegularExpression('/unique piece of jewellery has been sold./', $content);
   }
 
   public function test_archived() {
-    $attrs = ['product_id' => 11, 'archived' => 'yes'];
-    $content = MakeBuyButtonForJewelleryPage($attrs);
+    $jewellery_page = new JewelleryPage('test name', 11, 'test range',
+      'test type', '-1', true);
+    $content = MakeBuyButtonForJewelleryPage($jewellery_page);
     $this->assertMatchesRegularExpression('/piece of jewellery is no longer being sold/',
       $content);
   }
 
   public function test_no_stock() {
-    $attrs = ['product_id' => 13, 'archived' => 'false'];
-    Cart66Product::setInventoryLevelForProduct($attrs['product_id'], 0);
-    $content = MakeBuyButtonForJewelleryPage($attrs);
+    $jewellery_page = new JewelleryPage('test name', 13, 'test range',
+      'test type', '-1', false);
+    Cart66Product::setInventoryLevelForProduct($jewellery_page->product_id, 0);
+    $content = MakeBuyButtonForJewelleryPage($jewellery_page);
     $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
   }
 
@@ -40,10 +43,11 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $attrs = ['product_id' => 17, 'archived' => 'false'];
-    Cart66Product::setInventoryLevelForProduct($attrs['product_id'], 2);
-    Cart66Product::setPrice($attrs['product_id'], 135);
-    $content = MakeBuyButtonForJewelleryPage($attrs);
+    $jewellery_page = new JewelleryPage('test name', 17, 'test range',
+      'test type', '-1', false);
+    Cart66Product::setInventoryLevelForProduct($jewellery_page->product_id, 2);
+    Cart66Product::setPrice($jewellery_page->product_id, 135);
+    $content = MakeBuyButtonForJewelleryPage($jewellery_page);
     $this->assertMatchesRegularExpression('/The store is currently closed/', $content);
     $this->assertMatchesRegularExpression('/Price: €135/', $content);
   }
@@ -52,10 +56,11 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
-    $attrs = ['product_id' => 19, 'archived' => 'false'];
-    Cart66Product::setPrice($attrs['product_id'], 234);
-    Cart66Product::setInventoryLevelForProduct($attrs['product_id'], 3);
-    $content = MakeBuyButtonForJewelleryPage($attrs);
+    $jewellery_page = new JewelleryPage('test name', 19, 'test range',
+      'test type', '-1', false);
+    Cart66Product::setPrice($jewellery_page->product_id, 234);
+    Cart66Product::setInventoryLevelForProduct($jewellery_page->product_id, 3);
+    $content = MakeBuyButtonForJewelleryPage($jewellery_page);
     $this->assertMatchesRegularExpression('/add_to_cart item="19" showprice="no"/', $content);
     $this->assertMatchesRegularExpression('/Price: €234/', $content);
   }
