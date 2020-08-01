@@ -4,7 +4,6 @@
     "resources": [
       "https://www.arianetobin.ie/wp-content/plugins/cart66/cart66_enhanced.css",
       "https://www.arianetobin.ie/wp-content/plugins/cart66/images/cart66_admin_button.png",
-      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js+jquery.selectBox.js",
       "https://www.arianetobin.ie/wp-content/plugins/cookie-law-info/public/css/cookie-law-info-gdpr.css",
       "https://www.arianetobin.ie/wp-content/plugins/cookie-law-info/public/css/cookie-law-info-public.css",
       "https://www.arianetobin.ie/wp-content/plugins/cookie-law-info/public/js/cookie-law-info-public.js",
@@ -19,6 +18,9 @@
     ],
     "comment": "No cookies",
     "optional_resources": [
+      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js",
+      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js+jquery.selectBox.js",
+      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/jquery.selectBox.js",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/facebook.png",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/pinterest.png",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/twitter.png"
@@ -29,7 +31,6 @@
     "resources": [
       "https://www.arianetobin.ie/wp-content/plugins/cart66/cart66_enhanced.css",
       "https://www.arianetobin.ie/wp-content/plugins/cart66/images/cart66_admin_button.png",
-      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js+jquery.selectBox.js",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon.ico",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/new-logo-optimised.jpg",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/slider.js",
@@ -44,6 +45,9 @@
     },
     "comment": "With cookie-law cookie",
     "optional_resources": [
+      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js",
+      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js+jquery.selectBox.js",
+      "https://www.arianetobin.ie/wp-content/plugins/cart66/js/jquery.selectBox.js",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/facebook.png",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/pinterest.png",
       "https://www.arianetobin.ie/wp-content/themes/ariane-theme/images/twitter.png"
