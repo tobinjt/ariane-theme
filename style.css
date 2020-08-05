@@ -471,6 +471,10 @@ img:hover {
   height: 260px;
 }
 
+.Cart66OutOfStock {
+  color: unset !important;
+}
+
 /**
  * Checkout page.
  */
