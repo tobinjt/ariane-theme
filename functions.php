@@ -114,7 +114,14 @@ function MaybeRemoveCookieLawInfoFromHead() {
 }
 add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
 
-// End removing unnecesary resources.
+// Remove Gutenberg editor CSS that isn't needed.
+function remove_wp_block_library_css(){
+  wp_dequeue_style( 'wp-block-library' );
+  wp_dequeue_style( 'wp-block-library-theme' );
+}
+add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100 );
+
+// End removing unnecessary resources.
 
 // Add shortcodes.
 add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
