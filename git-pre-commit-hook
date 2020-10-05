@@ -16,3 +16,8 @@ if [[ -n "$(php_files_being_committed)" ]]; then
     phpunit --no-coverage
   fi
 fi
+
+# Ensure the two configs are in sync.
+diff -u check_website_resources-dev.json \
+  <(sed -e 's/www.arianetobin.ie/dev.arianetobin.ie/' \
+      check_website_resources.json)
