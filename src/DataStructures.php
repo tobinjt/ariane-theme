@@ -25,8 +25,7 @@ class WPImageInfo {
   }
 
   public function image_to_data(): array {
-    # TODO FIXME
-    # This needs to stay backwards compatible with slider.js.
+    # This needs to stay compatible with slider.js.
     return array(
       'src' => $this->url,
       'width' => $this->width_int,
@@ -37,8 +36,7 @@ class WPImageInfo {
 
 /* Convert an array of WPImageInfo to an array compatible with slider.js. */
 function images_to_data(array $images): array {
-  # TODO FIXME
-  # This needs to stay backwards compatible with slider.js.
+  # This needs to stay compatible with slider.js.
   /*. array[int]mixed .*/ $data = array();
   foreach (cast('array[int]WPImageInfo', $images) as $image) {
     $data[] = $image->image_to_data();
