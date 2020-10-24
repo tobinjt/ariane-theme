@@ -336,43 +336,39 @@ class GetStorePageMessageTest extends TestCase {
 
   public function test_cart() {
     set_url('/store/cart/');
-    $this->assertMatchesRegularExpression('/press the <em>Checkout<\/em> button/',
+    $this->assertStringContainsString('press the <em>Checkout</em> button',
       get_store_page_message());
   }
 
   public function test_checkout() {
     set_url('/store/checkout/');
-    $this->assertMatchesRegularExpression('/press the <em>PayPal<\/em> button/',
+    $this->assertStringContainsString('press the <em>PayPal</em> button',
       get_store_page_message());
   }
 
   public function test_express() {
     set_url('/store/express/');
-    $this->assertMatchesRegularExpression('/press the <em>Complete Order<\/em>/',
+    $this->assertStringContainsString('press the <em>Complete Order</em>',
       get_store_page_message());
   }
 
   public function test_full_message() {
     set_url('/store/express/');
-    $expected = <<<'END_OF_EXPECTED'
-    <div class="largest-text highlight bold top-bottom-margin">
-      To complete your order you <em>must</em> press the <em>Complete Order</em>
-      button at the bottom left of the page.
-    </div>
-    <div id="store_message">
-      <ul class="grey">
-        <li>Each piece of jewellery is handmade by Ariane in her studio in
-            Carlow, as a result there is normally a two week lead time on all
-            orders.</li>
-        <li>Free registered shipping to Ireland, EU, and USA on all orders over
-            €50.</li>
-        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
-        <li>All taxes and duties are the responsibility of the buyer.</li>
-      </ul>
-    </div>
+    $expected = array(
+      '<div class="largest-text highlight bold top-bottom-margin">',
+      'To complete your order you <em>must</em> press the',
+      '<div id="store_message">',
+      '<ul class="grey">',
+      '<li>Each piece of jewellery is handmade by Ariane in her studio',
+      '<li>Free registered shipping on all orders.</li>',
+      '<li>Given the difficulties of international shipping during the Covid-19',
+      '<li>All taxes and duties are the responsibility of the buyer.</li>',
+    );
 
-END_OF_EXPECTED;
-    $this->assertEquals($expected, get_store_page_message());
+    $message = get_store_page_message();
+    foreach ($expected as $exp) {
+      $this->assertStringContainsString($exp, $message);
+    }
   }
 }
 
@@ -433,25 +429,8 @@ END_OF_EXPECTED;
         Monday 07 January.  <br />Wishing everyone a Merry Christmas
         and a Happy New Year!
       </p>
-
-    <div class="largest-text highlight bold top-bottom-margin">
-      To continue, press the <em>Checkout</em> button at the bottom right of the
-      page.
-    </div>
-    <div id="store_message">
-      <ul class="grey">
-        <li>Each piece of jewellery is handmade by Ariane in her studio in
-            Carlow, as a result there is normally a two week lead time on all
-            orders.</li>
-        <li>Free registered shipping to Ireland, EU, and USA on all orders over
-            €50.</li>
-        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
-        <li>All taxes and duties are the responsibility of the buyer.</li>
-      </ul>
-    </div>
-
 END_OF_EXPECTED;
     $content = get_messages_for_top_of_page();
-    $this->assertEquals($expected, $content);
+    $this->assertStringContainsString($expected, $content);
   }
 }
