@@ -354,10 +354,13 @@ CHECKOUT_MESSAGE;
         <li>Each piece of jewellery is handmade by Ariane in her studio in
             Carlow, as a result there is normally a two week lead time on all
             orders.</li>
-        <li>Free registered shipping to Ireland, EU, and USA on all orders over
-            €50.</li>
-        <li>Free unregistered shipping to Ireland on all orders under €50.</li>
-        <li>All taxes and duties are the responsibility of the buyer.</li>
+        <li>Free registered shipping on all orders.</li>
+        <li>Given the difficulties of international shipping during the Covid-19
+            pandemic we are not shipping outside Ireland at this time.</li>
+        <!-- <li>Free registered shipping to Ireland, EU, and USA on all orders over -->
+            <!-- €50.</li> -->
+        <!-- <li>Free unregistered shipping to Ireland on all orders under €50.</li> -->
+        <!-- <li>All taxes and duties are the responsibility of the buyer.</li> -->
       </ul>
     </div>
 
