@@ -59,7 +59,8 @@ Create a new page for the range, making it a child of jewellery.
 
 Copy another range's contents and edit appropriately.
 
-Add the new range to the top level jewellery page and add it in `header.php`.
+Add the new range to the top level jewellery page and add it in
+`src/Header.php`.
 
 ## How do I rename a product?
 

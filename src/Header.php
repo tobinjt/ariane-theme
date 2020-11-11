@@ -243,6 +243,7 @@ function make_full_menu_bar(): string {
       '/jewellery/cellule/'    => 'cellule',
       '/jewellery/confluence/' => 'confluence',
       '/jewellery/dabble/'     => 'dabble',
+      '/jewellery/ellipse/'    => 'ellipse',
       '/jewellery/halo/'       => 'halo',
       '/jewellery/laria/'      => 'laria',
       '/jewellery/pod/'        => 'pod',
