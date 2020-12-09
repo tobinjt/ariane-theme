@@ -147,8 +147,8 @@ add_editor_style('style.css');
 // Configure opening and closing themes.
 // NOTE: check the messages are appropriate, e.g. the closing message wishes
 // people a Merry Christmas.
-set_closing_time('2019-12-13 18:30:00 Europe/Dublin');
-set_opening_time('2020-01-06 00:30:00 Europe/Dublin');
+set_closing_time('2020-12-14 18:30:00 Europe/Dublin');
+set_opening_time('2021-01-05 00:30:00 Europe/Dublin');
 set_start_displaying_banner_message('2019-11-10 00:30:00 Europe/Dublin');
 set_stop_displaying_banner_message('2019-12-09 00:30:00 Europe/Dublin');
 set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');

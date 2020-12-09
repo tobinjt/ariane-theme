@@ -310,9 +310,10 @@ JEWELLERY_MESSAGE;
   $store_opening_time_human = store_opening_time_human();
   return <<<JEWELLERY_MESSAGE
     <p class="text-centered larger-text grey">
-      Delivery outside Ireland before December 25th cannot be guaranteed for
-      orders placed after $last.
-      The store will be closing on $store_closing_time_human.
+      <!-- Delivery outside Ireland before December 25th cannot be guaranteed for
+      orders placed after $last. -->
+      The store will be closing on $store_closing_time_human to ensure delivery
+      of all orders before Christmas.
       Ariane will return to the workshop on $store_opening_time_human.
     </p>
 JEWELLERY_MESSAGE;
