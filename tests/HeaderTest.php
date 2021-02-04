@@ -172,7 +172,6 @@ class MakeFullMenuBarTest extends TestCase {
       </span>
       <span class="float-right">
         <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
-        <a href="https://twitter.com/#!/ArianeTobin"><img class="greyscale" width="20" height="20" src="dir/images/twitter.png" alt="twitter icon" /></a>
         <a href="https://pinterest.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/pinterest.png" alt="pinterest icon" /></a>
       </span>
     </div>
@@ -195,7 +194,6 @@ END_OF_EXPECTED;
       </span>
       <span class="float-right">
         <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
-        <a href="https://twitter.com/#!/ArianeTobin"><img class="greyscale" width="20" height="20" src="dir/images/twitter.png" alt="twitter icon" /></a>
         <a href="https://pinterest.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/pinterest.png" alt="pinterest icon" /></a>
       </span>
     </div>
