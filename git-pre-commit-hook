@@ -2,12 +2,12 @@
 
 set -e -f -u -o pipefail
 
-php_files_being_committed() {
+files_being_committed_includes() {
   git diff --cached --name-only --diff-filter=ACM \
-    | (grep '.php$' || true)
+    | (grep "$@" || true)
 }
 
-if [[ -n "$(php_files_being_committed)" ]]; then
+if [[ -n "$(files_being_committed_includes '.php$')" ]]; then
   # "PHPUnit 7.5.6 by Sebastian Bergmann and contributors." -> 7
   version="$(phpunit --version | awk '{sub("\\..*", "", $2); print $2}')"
   if [[ "${version}" -ge 9 ]]; then
@@ -17,7 +17,10 @@ if [[ -n "$(php_files_being_committed)" ]]; then
   fi
 fi
 
-# Ensure the two configs are in sync.
-diff -u check_website_resources-dev.json \
-  <(sed -e 's/www.arianetobin.ie/dev.arianetobin.ie/' \
-      check_website_resources.json)
+if [[ -n "$(files_being_committed_includes '.json$')" ]]; then
+  # Ensure the two configs are in sync.
+  diff -u check_website_resources-dev.json \
+    <(sed -e 's/www.arianetobin.ie/dev.arianetobin.ie/' \
+        check_website_resources.json)
+  check_website_resources -- *.json
+fi
