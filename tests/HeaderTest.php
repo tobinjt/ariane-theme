@@ -220,6 +220,7 @@ END_OF_EXPECTED;
         <a href="/jewellery/cellule/">cellule</a>
         <a href="/jewellery/confluence/">confluence</a>
         <a href="/jewellery/dabble/">dabble</a>
+        <a href="/jewellery/ellipse/">ellipse</a>
         <a href="/jewellery/halo/">halo</a>
         <a href="/jewellery/laria/">laria</a>
         <a href="/jewellery/pod/">pod</a>
@@ -319,9 +320,10 @@ END_OF_EXPECTED;
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     $expected = <<<'END_OF_EXPECTED'
     <p class="text-centered larger-text grey">
-      Delivery outside Ireland before December 25th cannot be guaranteed for
-      orders placed after Sunday 23 December.
-      The store will be closing on Thursday 27 December.
+      <!-- Delivery outside Ireland before December 25th cannot be guaranteed for
+      orders placed after Sunday 23 December. -->
+      The store will be closing on Thursday 27 December to ensure delivery
+      of all orders before Christmas.
       Ariane will return to the workshop on Monday 07 January.
     </p>
 END_OF_EXPECTED;
