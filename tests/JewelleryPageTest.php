@@ -140,6 +140,43 @@ EXPECTED;
     $this->assertEquals($expected, $content);
   }
 
+  public function test_no_price() {
+    // This tests that "Price on request" is displayed and the add to cart
+    // button is not displayed.
+    global $CHANGE_IMAGES;
+    $CHANGE_IMAGES['#individual-jewellery-image'] = null;
+    $attrs = $this->get_attrs();
+    $attrs['image_id'] = '3';
+    $attrs['product_id'] = '7';
+    add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
+    $this->set_up_MakeBuyButton($attrs['product_id'], 0, 11);
+    $content = JewelleryPageShortcode($attrs, 'description of piece', '');
+    $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
+    $expected = <<<'EXPECTED'
+<div class="flexboxrow">
+  <div id="individual-jewellery-div">
+    <div width="23" height="59">
+      <img id="individual-jewellery-image"
+        alt="range should be set name should be set"
+        src="URL"
+        width="23" height="59" />
+    </div>
+  </div>
+  <div id="individual-jewellery-description">
+    <p class="highlight larger-text">range should be set name should be set</p>
+    <p>description of piece</p>
+    <p>Price on request.</p>
+
+    <p>See other items in this range: <a href="/jewellery/range should be set/">range should be set</a></p>
+    <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
+    <p>See the items in <a href="/store/cart/">your basket</a></p>
+  </div>
+</div>
+
+EXPECTED;
+    $this->assertEquals($expected, $content);
+  }
+
   public function test_multiple_images() {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;

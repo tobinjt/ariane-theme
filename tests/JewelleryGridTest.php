@@ -265,6 +265,52 @@ END_OF_EXPECTED;
     $this->assertEquals($expected_slider, $SLIDER_IMAGES);
   }
 
+  public function test_no_price() {
+    // This tests that "Price on request" is displayed and the add to cart
+    // button is not displayed.
+    Cart66Product::setPrice(19, 0);
+    Cart66Product::setInventoryLevelForProduct(19, 3);
+    add_image_info(11, 'grid_size', array('URL', 23, 59));
+    $input = <<<'END_OF_INPUT'
+# Format: range|alt|image_id|href|product_id
+name of the range|this is the alt text|11|linky/|19
+
+END_OF_INPUT;
+    $output = JewelleryGridShortcode(
+      array('description' => 'DESCRIPTION'), $input, '');
+    $expected = <<<'END_OF_EXPECTED'
+        <div id="jewellery-grid">
+          <div>
+            <p class="grey large-text text-centered">DESCRIPTION</p>
+          </div>
+          <div id="jewellery-grid-inner" class="flexboxrow">
+            <div class="aligncenter jewellery-block">
+              <div class="jewellery-picture-container">
+                <a href="linky/">
+                  <img src="URL" alt="this is the alt text"
+                    width="23" height="59"
+                    class="aligncenter block" id="item-0-image"/>
+                </a>
+              </div>
+              <div class="larger-text text-centered left-right-margin grey">
+                <a href="linky/">name of the range</a>
+              </div>
+              <div class="text-centered left-right-margin top-bottom-margin grey
+                jewellery-text-container">
+                <div class="larger-text">
+                  Price on request.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+END_OF_EXPECTED;
+    $output = $this->add_numbers($output);
+    $expected = $this->add_numbers($expected);
+    $this->assertEquals($expected, $output);
+  }
+
   public function add_numbers(string $content): string {
     $lines = explode("\n", $content);
     $new_lines = array();

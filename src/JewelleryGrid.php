@@ -95,22 +95,32 @@ END_OF_OUT_OF_STOCK;
   }
 
   $price = $product->price;
-  $content = <<<END_OF_PRICE
+  $content = <<<END_OF_DIV_TAG
                 <div class="larger-text">
+
+END_OF_DIV_TAG;
+  if ($price > 0) {
+    $content .= <<<END_OF_PRICE
                   €$price
 
 END_OF_PRICE;
   if (!is_store_closed()) {
-    $content .= <<<END_OF_BUY
+      $content .= <<<END_OF_BUY
                   [add_to_cart item="$product_id" showprice="no" ajax="yes"
                      text="Add to basket" style="display: inline;"]
 
 END_OF_BUY;
-  } else {
-    $content .= <<<'END_OF_CLOSED'
+    } else {
+      $content .= <<<'END_OF_CLOSED'
                   (store closed)
 
 END_OF_CLOSED;
+    }
+  } else {
+    $content .= <<<END_OF_PRICE
+                  Price on request.
+
+END_OF_PRICE;
   }
   $content .= <<<'END_OF_DIV'
                 </div>

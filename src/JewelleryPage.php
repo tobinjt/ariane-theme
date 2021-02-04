@@ -43,6 +43,13 @@ END_OF_HTML;
   }
 
   $price = $product->price;
+  if ($price <= 0) {
+    return <<<'END_OF_HTML'
+    <p>Price on request.</p>
+
+END_OF_HTML;
+  }
+
   $content = <<<END_OF_HTML
     <p>Price: €$price.</p>
 
