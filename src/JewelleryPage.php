@@ -34,35 +34,35 @@ END_OF_HTML;
 END_OF_HTML;
   }
 
-  if (Cart66Product::checkInventoryLevelForProduct($jewellery_page->product_id) > 0) {
-    $price = $product->price;
-    $content = <<<END_OF_HTML
-    <p>Price: €$price.</p>
-
-END_OF_HTML;
-    if (!is_store_closed()) {
-      $product_id = $jewellery_page->product_id;
-      $content .= <<<END_OF_HTML
-    [add_to_cart item="$product_id" showprice="no" ajax="yes"
-       text="Add to basket"]
-
-END_OF_HTML;
-    } else {
-      $store_opening_time_human = store_opening_time_human();
-      $content .= <<<END_OF_HTML
-      The store is currently closed, it will open again on
-      $store_opening_time_human.
-
-END_OF_HTML;
-    }
-    return $content;
-  }
-
-  return <<<'END_OF_HTML'
+  if (Cart66Product::checkInventoryLevelForProduct($jewellery_page->product_id) <= 0) {
+    return <<<'END_OF_HTML'
     <p>This piece is out of stock, please contact Ariane as it's possible this
       item could be made to order.  See below for other items in this range or
       type.</p>
 END_OF_HTML;
+  }
+
+  $price = $product->price;
+  $content = <<<END_OF_HTML
+    <p>Price: €$price.</p>
+
+END_OF_HTML;
+  if (!is_store_closed()) {
+    $product_id = $jewellery_page->product_id;
+    $content .= <<<END_OF_HTML
+    [add_to_cart item="$product_id" showprice="no" ajax="yes"
+       text="Add to basket"]
+
+END_OF_HTML;
+  } else {
+    $store_opening_time_human = store_opening_time_human();
+    $content .= <<<END_OF_HTML
+      The store is currently closed, it will open again on
+      $store_opening_time_human.
+
+END_OF_HTML;
+  }
+  return $content;
 }
 
 /* JewelleryPageShortcode: create a jewellery page.
