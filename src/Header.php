@@ -200,9 +200,9 @@ function make_full_menu_bar(): string {
   );
   $icon_links = array(
     'https://www.facebook.com/ArianeTobinJewellery'
-      => make_icon_link('facebook.png',    'Facebook icon',    20, 20),
-    'https://pinterest.com/arianetobin/'
-      => make_icon_link('pinterest.png',   'Pinterest icon',   20, 20),
+      => make_icon_link('facebook.png', 'Facebook icon', 20, 20),
+    'https://www.instagram.com/arianetobin/'
+      => make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20),
   );
   $output .= make_menu_bar([
     make_link_group(
