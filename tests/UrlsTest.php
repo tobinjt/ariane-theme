@@ -26,15 +26,6 @@ class UrlsTest extends TestCase {
     $this->assertEquals('foo', get_current_url());
   }
 
-  public function test_is_front_page() {
-    set_url('foo');
-    $this->assertFalse(is_front_page());
-    set_url('/');
-    $this->assertTrue(is_front_page());
-    set_url('/jewellery/qwerty/');
-    $this->assertFalse(is_front_page());
-  }
-
   public function test_is_jewellery_page() {
     set_url('foo');
     $this->assertFalse(is_jewellery_page());
