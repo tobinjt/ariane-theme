@@ -22,6 +22,11 @@ function get_current_url(): string {
   return $_SERVER['REQUEST_URI'];
 }
 
+// is_front_page: is the current page the front page?
+function is_front_page(): bool {
+  return get_current_url() === '/';
+}
+
 // is_jewellery_page: is the current page a jewellery page?
 function is_jewellery_page(): bool {
   return (strpos(get_current_url(), '/jewellery') === 0);
