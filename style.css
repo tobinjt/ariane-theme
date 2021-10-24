@@ -1,4 +1,4 @@
-/*csslint order-alphabetical: false, important: false, ids: false, unique-headings: false*/
+/*csslint important: false, ids: false, unique-headings: false*/
 /* We disable unique-headings because we have defaults for headings and then
  * more specific styling for headings.*/
 /*
@@ -28,15 +28,17 @@ Version: 1
 -------------------------------------------------------------------------------*/
 
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
+  background: transparent;
   border: 0;
   font-size: 100%;
+  margin: 0;
+  padding: 0;
   vertical-align: baseline;
-  background: transparent;
 }
 
-article, aside, figure, footer, header, hgroup, nav, section {display: block;}
+article, aside, figure, footer, header, hgroup, nav, section {
+  display: block;
+}
 
 /* Responsive images and other embedded objects
   Note: keeping IMG here will cause problems if you're using foreground images
@@ -48,12 +50,26 @@ img, object, embed {
   max-width: 100%;
 }
 
-a {margin: 0; padding: 0; vertical-align: baseline; background: transparent;}
+a {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
 
 /* tables still need cellspacing="0" in the markup */
-table {border-collapse: collapse; border-spacing: 0;}
-th {font-weight: bold; vertical-align: bottom;}
-td {font-weight: normal; vertical-align: top;}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th {
+  font-weight: bold;
+  vertical-align: bottom;
+}
+td {
+  font-weight: normal;
+  vertical-align: top;
+}
 
 pre {
   white-space: pre; /* CSS2 */
@@ -62,44 +78,73 @@ pre {
   word-wrap: break-word; /* IE */
 }
 
-table {font-size: inherit;}
+table {
+  font-size: inherit;
+}
 
-small {font-size: 85%;}
+small {
+  font-size: 85%;
+}
 
-strong, th {font-weight: bold;}
+strong, th {
+  font-weight: bold;
+}
 
-td, td img {vertical-align: top;}
+td, td img {
+  vertical-align: top;
+}
 
 /* Make sure sup and sub don't screw with your line-heights
   gist.github.com/413930 */
-sub, sup {font-size: 75%; line-height: 0; position: relative;}
-sup {top: -0.5em;}
-sub {bottom: -0.25em;}
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
 
 /* standardize any monospaced elements */
-pre, code, kbd, samp {font-family: monospace, sans-serif;}
+pre, code, kbd, samp {
+  font-family: monospace, sans-serif;
+}
 
 /* hand cursor on clickable elements */
 .clickable,
 label,
 input[type=button],
 input[type=submit],
-button {cursor: pointer;}
+button {
+  cursor: pointer;
+}
 
 /* Webkit browsers add a 2px margin outside the chrome of form elements */
-button, input, select, textarea {margin: 0;}
+button, input, select, textarea {
+  margin: 0;
+}
 
 /* make buttons play nice in IE */
-button {width: auto; overflow: visible;}
+button {
+  width: auto;
+  overflow: visible;
+}
 
 
 /* Ok, this is where the fun starts.
 -------------------------------------------------------------------------------*/
 
 /* we like off-black for text */
-body, select, input, textarea {color: #333;}
+body, select, input, textarea {
+  color: #333;
+}
 
-a:hover {color: #69f;}
+a:hover {
+  color: #69f;
+}
 
 /**
  * Classes automatically used by Wordpress.
