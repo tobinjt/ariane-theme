@@ -10,7 +10,6 @@
 ?>
       <article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
         <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-        <?php include(TEMPLATEPATH . '/meta.php'); ?>
         <div class="entry">
           <?php the_content(); ?>
         </div>

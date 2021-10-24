@@ -11,7 +11,6 @@
     the_content();
     wp_link_pages(array('before' => 'Pages: ', 'next_or_number' => 'number'));
     the_tags('Tags: ', ', ', '');
-    include(TEMPLATEPATH . '/meta.php');
 ?>
         </div>
       </article>
