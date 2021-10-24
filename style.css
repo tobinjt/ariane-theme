@@ -333,17 +333,17 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-/**
- * The main page slider.
- **/
-#slider-div {
+/* A single jewellery image. */
+.individual-jewellery-image {
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Must be kept in sync with #individual-jewellery-image */
-#slider-image {
-  display: block;
+/**
+ * The main page slider.
+ **/
+#slider-div {
   margin-left: auto;
   margin-right: auto;
 }
@@ -371,19 +371,11 @@ h1 {
   max-width: 29em;
 }
 
-/* Must be kept in sync with #slider-image */
-#individual-jewellery-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 
 /**
  * The Jewellery grid.
  **/
 #jewellery-grid-inner {
-  /* border: 1em solid black; */
   /* This forces the grid to be below the description rather than beside it. */
   clear: both;
 }
