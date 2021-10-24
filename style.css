@@ -1,4 +1,6 @@
-/*csslint order-alphabetical: false, outline-none: false, important: false, ids: false, unique-headings: false*/
+/*csslint order-alphabetical: false, important: false, ids: false, unique-headings: false*/
+/* We disable unique-headings because we have defaults for headings and then
+ * more specific styling for headings.*/
 /*
 Theme Name: Ariane's theme.
 Theme URI: https://github.com/tobinjt/ariane-theme
@@ -29,7 +31,6 @@ html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquot
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
@@ -62,10 +63,6 @@ pre {
 }
 
 table {font-size: inherit;}
-
-/* Accessible focus treatment
-  people.opera.com/patrickl/experiments/keyboard/test */
-a:hover, a:active {outline: none;}
 
 small {font-size: 85%;}
 
