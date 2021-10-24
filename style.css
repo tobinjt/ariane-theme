@@ -174,21 +174,11 @@ p {
     font-size: 0.9em;
   }
 }
-.left-align {
-  text-align: left;
-}
 .text-centered {
   text-align: center;
 }
 .float-right {
   float: right;
-}
-.no-margin {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.no-bottom-margin {
-  margin-bottom: 0;
 }
 .left-right-margin {
   margin-left: 0.5em !important;
@@ -265,9 +255,6 @@ p {
 
 .left-page-links > a {
   margin-right: 0.6em;
-}
-.right-page-links > a {
-  margin-left: 0.6em;
 }
 
 /* Make the icons grey until hovered over. */
