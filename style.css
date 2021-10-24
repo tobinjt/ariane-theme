@@ -228,10 +228,6 @@ p {
   margin-bottom: 1em;
 }
 
-#title-text {
-  text-align: center;
-}
-
 @media (min-height: 700px) {
   #title-name {
     font-size: 5.0em;
@@ -428,11 +424,6 @@ img:hover {
   display: inline;
   list-style-type: none;
 }
-#individual-jewellery-piece {
-  /* border: 1em solid black; */
-  border-collapse: collapse;
-  border-spacing: 0;
-}
 
 #individual-jewellery-description {
   max-width: 29em;
@@ -500,6 +491,8 @@ li {
 
 /**
  * The about page.
+ * The ID #about-page is used in the page text in Wordpress, that's why it
+ * doesn't show up in searches within the theme.
  **/
 #about-page {
   /* We don't want really long lines of text across the page.  */
