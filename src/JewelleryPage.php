@@ -166,7 +166,7 @@ END_OF_HTML;
   $html .= <<<END_OF_HTML
     <div width="$div_width" height="$div_height">
       <img id="individual-jewellery-image"
-        class="individual-jewellery-image aligncenter"
+        class="block aligncenter"
         alt="$range_in_piece_name$name"
         src="$src"
         width="$width" height="$height" />

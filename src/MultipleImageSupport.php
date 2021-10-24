@@ -117,7 +117,7 @@ function FrontPageSliderSetup(array $images): string {
   <a href="$href" id="slider-link"
     alt="Selection of Ariane's best work">
     <img id="slider-image" src="$src"
-      class="individual-jewellery-image aligncenter"
+      class="block aligncenter"
       alt="Selection of Ariane's best work"
       srcset="$srcset"
       sizes="$sizes" />

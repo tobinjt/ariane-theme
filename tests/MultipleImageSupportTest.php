@@ -126,7 +126,7 @@ END_OF_OUTPUT;
   <a href="linky" id="slider-link"
     alt="Selection of Ariane's best work">
     <img id="slider-image" src="jpg"
-      class="individual-jewellery-image aligncenter"
+      class="block aligncenter"
       alt="Selection of Ariane's best work"
       srcset="foo"
       sizes="bar" />

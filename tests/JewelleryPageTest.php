@@ -118,7 +118,7 @@ class JewelleryPageShortcodeTest extends TestCase {
   <div class="individual-jewellery-div">
     <div width="23" height="59">
       <img id="individual-jewellery-image"
-        class="individual-jewellery-image aligncenter"
+        class="block aligncenter"
         alt="range should be set name should be set"
         src="URL"
         width="23" height="59" />
@@ -158,7 +158,7 @@ EXPECTED;
   <div class="individual-jewellery-div">
     <div width="23" height="59">
       <img id="individual-jewellery-image"
-        class="individual-jewellery-image aligncenter"
+        class="block aligncenter"
         alt="range should be set name should be set"
         src="URL"
         width="23" height="59" />
@@ -225,7 +225,7 @@ EXPECTED;
 
     <div width="47" height="97">
       <img id="individual-jewellery-image"
-        class="individual-jewellery-image aligncenter"
+        class="block aligncenter"
         alt="name should be set"
         src="URL"
         width="23" height="59" />

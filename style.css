@@ -245,6 +245,7 @@ img:hover {
  **/
 .copyright {
   clear: both;
+  list-style-type: none;
   margin-top: 3em;
   text-align: center;
   width: 100%;
@@ -253,7 +254,6 @@ img:hover {
 @media (min-width: 800px) {
   .copyright li {
     display: inline;
-    list-style-type: none;
     margin-left: 4em;
     margin-right: 4em;
   }
@@ -262,7 +262,6 @@ img:hover {
 @media (max-width: 799px) {
   .copyright li {
     display: block;
-    list-style-type: none;
   }
 }
 
@@ -277,11 +276,6 @@ h2 {
   font-size: 1.3em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
-}
-
-/* A single jewellery image. */
-.individual-jewellery-image {
-  display: block;
 }
 
 /**
