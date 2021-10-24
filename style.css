@@ -143,26 +143,26 @@ a:hover {
  **/
 /* Captions under photos. */
 .wp-caption-text {
+  margin-right: 1em;
   margin-top: 0.5em;
   text-align: center;
-  margin-right: 1em;
 }
 
 /**
  * Additions for Ariane's theme.
  **/
 #page-wrap {
-  max-width: 70em;
-  /* top right bottom left */
-  margin: 1em auto 1em auto;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
+  /* top right bottom left */
+  margin: 1em auto 1em auto;
+  max-width: 70em;
 }
 
 /* Add space back around paragraphs. */
 p {
-  margin-top: 1em;
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 /* Links should be grey and not underlined. */
@@ -219,8 +219,8 @@ p {
   margin-right: 0.5em !important;
 }
 .top-bottom-margin {
-  margin-top: 0.5em !important;
   margin-bottom: 0.5em !important;
+  margin-top: 0.5em !important;
 }
 .bottom-margin {
   margin-bottom: 0.5em !important;
@@ -248,8 +248,8 @@ p {
  * Header.
  **/
 #header {
-  margin-top: 1em;
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 @media (min-height: 700px) {
@@ -282,9 +282,9 @@ p {
 
 /* The menubar. */
 .menubar {
-  width: 100%;
   clear: both;
   margin-bottom: 0.5em;
+  width: 100%;
 }
 
 .left-page-links > a {
@@ -309,10 +309,10 @@ img:hover {
  * Footer.
  **/
 .copyright {
+  clear: both;
   margin-top: 3em;
   text-align: center;
   width: 100%;
-  clear: both;
 }
 
 @media (min-width: 800px) {
@@ -340,8 +340,8 @@ img:hover {
 
 h2 {
   font-size: 1.3em;
-  margin-top: 0.5em;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 
 /**
@@ -357,13 +357,13 @@ h1 {
 }
 
 #main-content-post .meta  {
-  margin-top: 1em;
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 #main-content-post .postmetadata  {
-  margin-top: 1em;
   margin-bottom: 2em;
+  margin-top: 1em;
 }
 
 /**
@@ -376,9 +376,9 @@ h1 {
 
 /* Must be kept in sync with #individual-jewellery-image */
 #slider-image {
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  display: block;
 }
 
 /**
@@ -400,15 +400,15 @@ h1 {
 }
 
 #individual-jewellery-description {
-  max-width: 29em;
   margin-left: 0.5em;
+  max-width: 29em;
 }
 
 /* Must be kept in sync with #slider-image */
 #individual-jewellery-image {
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  display: block;
 }
 
 
@@ -421,8 +421,8 @@ h1 {
   clear: both;
 }
 #jewellery-grid p {
-  margin-top: 0;
   margin-bottom: 1em;
+  margin-top: 0;
 }
 
 .jewellery-text-container {
@@ -430,8 +430,8 @@ h1 {
 }
 
 .jewellery-picture-container {
-  width: 260px;
   height: 260px;
+  width: 260px;
 }
 
 .Cart66OutOfStock {
@@ -446,12 +446,12 @@ h1 {
  * be white.
  */
 .Cart66ButtonPrimary {
-  color: #FFFFFF !important;
   background-color: #4D4E53 !important;
+  color: #FFFFFF !important;
 }
 .Cart66ButtonSecondary {
-  color: #FFFFFF !important;
   background-color: #4D4E53 !important;
+  color: #FFFFFF !important;
 }
 #store_message {
   padding-top: 1em;
@@ -470,9 +470,9 @@ li {
  **/
 #about-page {
   /* We don't want really long lines of text across the page.  */
-  max-width: 35em;
   margin-left: auto;
   margin-right: auto;
+  max-width: 35em;
   /* Add a little separation from the screen edges on mobile.  */
   padding-left: 1em;
   padding-right: 1em;
