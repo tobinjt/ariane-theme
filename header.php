@@ -43,7 +43,7 @@
   <div id="page-wrap">
     <header id="header">
       <div id="title">
-        <a href="/" id="title-logo">
+        <a href="/">
           <!-- When mod_pagespeed compresses the logo it creates shadowy boxes
                around the letters and it looks ugly, so disable it.
                I tried optimising the logo with ImageMagick but it was fuzzy so

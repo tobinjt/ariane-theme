@@ -1,4 +1,4 @@
-/*csslint important: false, ids: false, unique-headings: false*/
+/*csslint important: false, unique-headings: false*/
 /* We disable unique-headings because we have defaults for headings and then
  * more specific styling for headings.*/
 /*
@@ -166,7 +166,7 @@ p {
 }
 
 /* Links should be grey and not underlined. */
-#page-wrap a {
+a {
   color: #95959C;
   text-decoration: none;
 }
@@ -253,28 +253,12 @@ p {
 }
 
 @media (min-height: 700px) {
-  #title-name {
-    font-size: 5.0em;
-  }
-
-  #title-craft {
-    font-size: 3.5em;
-  }
-
   #title {
     margin-bottom: 2em;
   }
 }
 
 @media (max-height: 699px) {
-  #title-name {
-    font-size: 3.0em;
-  }
-
-  #title-craft {
-    font-size: 1.5em;
-  }
-
   #title {
     margin-bottom: 1em;
   }
