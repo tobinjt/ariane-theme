@@ -113,11 +113,11 @@ function FrontPageSliderSetup(array $images): string {
   $srcset = $image['srcset'];
   $sizes = $image['sizes'];
   $html = <<<END_OF_HTML
-<div id="slider-div">
+<div id="slider-div" class="aligncenter">
   <a href="$href" id="slider-link"
     alt="Selection of Ariane's best work">
     <img id="slider-image" src="$src"
-      class="individual-jewellery-image"
+      class="individual-jewellery-image aligncenter"
       alt="Selection of Ariane's best work"
       srcset="$srcset"
       sizes="$sizes" />

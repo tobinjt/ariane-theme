@@ -122,11 +122,11 @@ END_OF_OUTPUT;
     expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     $content = FrontPageSliderSetup($images);
     $expected = <<<'END_OF_OUTPUT'
-<div id="slider-div">
+<div id="slider-div" class="aligncenter">
   <a href="linky" id="slider-link"
     alt="Selection of Ariane's best work">
     <img id="slider-image" src="jpg"
-      class="individual-jewellery-image"
+      class="individual-jewellery-image aligncenter"
       alt="Selection of Ariane's best work"
       srcset="foo"
       sizes="bar" />

@@ -336,16 +336,6 @@ h1 {
 /* A single jewellery image. */
 .individual-jewellery-image {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/**
- * The main page slider.
- **/
-#slider-div {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /**
@@ -424,10 +414,10 @@ li {
 
 /**
  * The about page.
- * The ID #about-page is used in the page text in Wordpress, that's why it
+ * class="about-page" is used in the page text in Wordpress, that's why it
  * doesn't show up in searches within the theme.
  **/
-#about-page {
+.about-page {
   /* We don't want really long lines of text across the page.  */
   margin-left: auto;
   margin-right: auto;
@@ -437,6 +427,6 @@ li {
   padding-right: 1em;
 }
 
-#about-page p {
+.about-page p {
   margin-bottom: 2.0em;
 }
