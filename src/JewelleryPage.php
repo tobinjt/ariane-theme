@@ -120,7 +120,7 @@ function JewelleryPageShortcode(array $atts, string $content,
 
   $html = <<<'END_OF_HTML'
 <div class="flexboxrow">
-  <div id="individual-jewellery-div">
+  <div class="individual-jewellery-div">
 
 END_OF_HTML;
   if (count($jewellery_page->images) > 1) {
@@ -171,7 +171,7 @@ END_OF_HTML;
         width="$width" height="$height" />
     </div>
   </div>
-  <div id="individual-jewellery-description">
+  <div class="individual-jewellery-description">
     <p class="highlight larger-text">$range_in_piece_name$name</p>
     <p>$content</p>
 

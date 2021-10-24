@@ -40,9 +40,9 @@
 <body <?php body_class(); ?>>
 <?php echo get_google_analytics_code(); ?>
 
-  <div id="page-wrap">
-    <header id="header">
-      <div id="title">
+  <div class="page-wrap">
+    <header>
+      <div class="title">
         <a href="/">
           <!-- When mod_pagespeed compresses the logo it creates shadowy boxes
                around the letters and it looks ugly, so disable it.

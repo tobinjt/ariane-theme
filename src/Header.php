@@ -345,7 +345,7 @@ CHECKOUT_MESSAGE;
   }
 
   $checkout_message .= <<<'CHECKOUT_MESSAGE'
-    <div id="store_message">
+    <div class="store_message">
       <ul class="grey">
         <li>Each piece of jewellery is handmade by Ariane in her studio in
             Carlow, as a result there is normally a two week lead time on all

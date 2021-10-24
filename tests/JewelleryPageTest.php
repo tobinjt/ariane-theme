@@ -115,7 +115,7 @@ class JewelleryPageShortcodeTest extends TestCase {
     $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
-  <div id="individual-jewellery-div">
+  <div class="individual-jewellery-div">
     <div width="23" height="59">
       <img id="individual-jewellery-image"
         alt="range should be set name should be set"
@@ -123,7 +123,7 @@ class JewelleryPageShortcodeTest extends TestCase {
         width="23" height="59" />
     </div>
   </div>
-  <div id="individual-jewellery-description">
+  <div class="individual-jewellery-description">
     <p class="highlight larger-text">range should be set name should be set</p>
     <p>description of piece</p>
     <p>Price: €123.</p>
@@ -154,7 +154,7 @@ EXPECTED;
     $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
-  <div id="individual-jewellery-div">
+  <div class="individual-jewellery-div">
     <div width="23" height="59">
       <img id="individual-jewellery-image"
         alt="range should be set name should be set"
@@ -162,7 +162,7 @@ EXPECTED;
         width="23" height="59" />
     </div>
   </div>
-  <div id="individual-jewellery-description">
+  <div class="individual-jewellery-description">
     <p class="highlight larger-text">range should be set name should be set</p>
     <p>description of piece</p>
     <p>Price on request.</p>
@@ -202,7 +202,7 @@ EXPECTED;
       $CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
-  <div id="individual-jewellery-div">
+  <div class="individual-jewellery-div">
 
     <div>
       <ul>
@@ -228,7 +228,7 @@ EXPECTED;
         width="23" height="59" />
     </div>
   </div>
-  <div id="individual-jewellery-description">
+  <div class="individual-jewellery-description">
     <p class="highlight larger-text">name should be set</p>
     <p> asdf</p>
     <p>Price: €543.</p>

@@ -1,6 +1,5 @@
 <?php get_header(); ?>
-  <div id="main-content-page">
-    <main>
+  <main>
 <?php
   echo get_messages_for_top_of_page();
   if (is_jewellery_page()) {
@@ -21,7 +20,6 @@
     echo '      </div>', "\n";
   }
 ?>
-    </main>
-  </div>
+  </main>
 
 <?php get_footer(); ?>

@@ -151,7 +151,7 @@ a:hover {
 /**
  * Additions for Ariane's theme.
  **/
-#page-wrap {
+.page-wrap {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
   /* top right bottom left */
@@ -247,19 +247,19 @@ a {
 /**
  * Header.
  **/
-#header {
+header {
   margin-bottom: 1em;
   margin-top: 1em;
 }
 
 @media (min-height: 700px) {
-  #title {
+  .title {
     margin-bottom: 2em;
   }
 }
 
 @media (max-height: 699px) {
-  #title {
+  .title {
     margin-bottom: 1em;
   }
 }
@@ -318,7 +318,7 @@ img:hover {
 /**
  * A single page.
  **/
-#main-content-page {
+main {
   line-height: 1.5;
 }
 
@@ -355,18 +355,18 @@ h1 {
 /**
  * An individual piece of jewellery.
  */
-#individual-jewellery-div {
+.individual-jewellery-div {
   /* Keep everything to the left so they don't move around when different size
    * images are displayed. */
   margin-right: auto;
 }
 
-#individual-jewellery-div li {
+.individual-jewellery-div li {
   display: inline;
   list-style-type: none;
 }
 
-#individual-jewellery-description {
+.individual-jewellery-description {
   margin-left: 0.5em;
   max-width: 29em;
 }
@@ -420,7 +420,7 @@ h1 {
   background-color: #4D4E53 !important;
   color: #FFFFFF !important;
 }
-#store_message {
+.store_message {
   padding-top: 1em;
 }
 

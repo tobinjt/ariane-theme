@@ -357,7 +357,7 @@ class GetStorePageMessageTest extends TestCase {
     $expected = array(
       '<div class="largest-text highlight bold top-bottom-margin">',
       'To complete your order you <em>must</em> press the',
-      '<div id="store_message">',
+      '<div class="store_message">',
       '<ul class="grey">',
       '<li>Each piece of jewellery is handmade by Ariane in her studio',
       '<li>Free registered shipping on all orders.</li>',
