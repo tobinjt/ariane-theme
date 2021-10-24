@@ -30,9 +30,6 @@
   <title><?php echo get_title(); ?></title>
 
 <?php
-  if (is_single()) {
-    wp_enqueue_script('comment-reply');
-  }
   wp_head();
   if (ShouldRemoveCookieLawInfo()) {
     echo HideCookieLawInfoInFooter();
