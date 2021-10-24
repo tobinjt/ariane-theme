@@ -328,26 +328,9 @@ h2 {
   margin-top: 0.5em;
 }
 
-/**
- * A single blog post.
- **/
-#main-content-post article {
-  margin-bottom: 3.0em;
-}
-
 h1 {
   font-size: 1.3em;
   margin-bottom: 0.5em;
-}
-
-#main-content-post .meta  {
-  margin-bottom: 1em;
-  margin-top: 1em;
-}
-
-#main-content-post .postmetadata  {
-  margin-bottom: 2em;
-  margin-top: 1em;
 }
 
 /**
