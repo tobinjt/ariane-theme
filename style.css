@@ -1,4 +1,4 @@
-/*csslint order-alphabetical: false, outline-none: false, important: false, ids: false*/
+/*csslint order-alphabetical: false, outline-none: false, important: false, ids: false, unique-headings: false*/
 /*
 Theme Name: Ariane's theme.
 Theme URI: https://github.com/tobinjt/ariane-theme
@@ -119,10 +119,8 @@ a:hover {color: #69f;}
  **/
 #page-wrap {
   max-width: 70em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: auto;
-  margin-right: auto;
+  /* top right bottom left */
+  margin: 1em auto 1em auto;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
