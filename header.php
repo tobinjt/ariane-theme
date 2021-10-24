@@ -5,11 +5,6 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<?php
-  if (is_search()) {
-      echo '<meta name="robots" content="noindex, nofollow" />';
-  }
-?>
   <meta name="description" content="<?php bloginfo('description'); ?>">
   <meta name="author" content="Ariane Tobin">
   <!-- Dublin Core Metadata : http://dublincore.org/ -->
