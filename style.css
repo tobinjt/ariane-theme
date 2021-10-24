@@ -1,4 +1,4 @@
-/*csslint important: false, unique-headings: false*/
+/*csslint ids: false, unique-headings: false*/
 /* We disable unique-headings because we have defaults for headings and then
  * more specific styling for headings.*/
 /*
@@ -45,7 +45,7 @@ article, aside, figure, footer, header, hgroup, nav, section {
   as sprites, like, say for Google Maps custom placemarkers.
   There has been a report of problems with standard Google maps as well, but we
   haven't been able to duplicate or diagnose the issue. */
-img, object, embed {
+img {
   max-height: 100%;
   max-width: 100%;
 }
@@ -57,59 +57,8 @@ a {
   vertical-align: baseline;
 }
 
-/* tables still need cellspacing="0" in the markup */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-th {
+strong {
   font-weight: bold;
-  vertical-align: bottom;
-}
-td {
-  font-weight: normal;
-  vertical-align: top;
-}
-
-pre {
-  white-space: pre; /* CSS2 */
-  white-space: pre-wrap; /* CSS 2.1 */
-  white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-}
-
-table {
-  font-size: inherit;
-}
-
-small {
-  font-size: 85%;
-}
-
-strong, th {
-  font-weight: bold;
-}
-
-td, td img {
-  vertical-align: top;
-}
-
-/* Make sure sup and sub don't screw with your line-heights
-  gist.github.com/413930 */
-sub, sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-
-/* standardize any monospaced elements */
-pre, code, kbd, samp {
-  font-family: monospace, sans-serif;
 }
 
 /* hand cursor on clickable elements */
@@ -122,7 +71,8 @@ button {
 }
 
 /* Webkit browsers add a 2px margin outside the chrome of form elements */
-button, input, select, textarea {
+button,
+input {
   margin: 0;
 }
 
@@ -130,7 +80,8 @@ button, input, select, textarea {
 -------------------------------------------------------------------------------*/
 
 /* we like off-black for text */
-body, select, input, textarea {
+body,
+input {
   color: #333;
 }
 
@@ -326,11 +277,6 @@ h2 {
   font-size: 1.3em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
-}
-
-h1 {
-  font-size: 1.3em;
-  margin-bottom: 0.5em;
 }
 
 /* A single jewellery image. */
