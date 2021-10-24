@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <div id="main-content-blog">
+    <div>
 <?php
   if (!have_posts()) {
     echo '      <h2>Not Found</h2>', "\n";

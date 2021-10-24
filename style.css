@@ -311,23 +311,6 @@ img:hover {
 }
 
 /**
- * The list of blog posts.
- **/
-#main-content-blog h2 {
-  font-size: 1.3em;
-  margin-bottom: 0.5em;
-}
-
-#main-content-blog footer.meta  {
-  margin-bottom: 1em;
-}
-
-#main-content-blog footer.postmetadata  {
-  margin-top: 1em;
-  margin-bottom: 2em;
-}
-
-/**
  * A single blog post.
  **/
 #main-content-post article {
@@ -339,12 +322,12 @@ img:hover {
   margin-bottom: 0.5em;
 }
 
-#main-content-post footer.meta  {
+#main-content-post .meta  {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-#main-content-post footer.postmetadata  {
+#main-content-post .postmetadata  {
   margin-top: 1em;
   margin-bottom: 2em;
 }
