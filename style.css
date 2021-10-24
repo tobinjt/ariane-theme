@@ -75,7 +75,6 @@ pre {
   white-space: pre; /* CSS2 */
   white-space: pre-wrap; /* CSS 2.1 */
   white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-  word-wrap: break-word; /* IE */
 }
 
 table {
@@ -126,13 +125,6 @@ button {
 button, input, select, textarea {
   margin: 0;
 }
-
-/* make buttons play nice in IE */
-button {
-  width: auto;
-  overflow: visible;
-}
-
 
 /* Ok, this is where the fun starts.
 -------------------------------------------------------------------------------*/
