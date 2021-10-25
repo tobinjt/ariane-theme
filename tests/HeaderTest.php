@@ -355,7 +355,7 @@ class GetStorePageMessageTest extends TestCase {
   public function test_full_message() {
     set_url('/store/express/');
     $expected = array(
-      '<div class="largest-text highlight bold top-bottom-margin">',
+      '<strong class="largest-text highlight top-bottom-margin">',
       'To complete your order you <em>must</em> press the',
       '<div class="store_message">',
       '<ul class="grey">',

@@ -337,9 +337,9 @@ CHECKOUT_MESSAGE;
   if ($checkout_message !== '') {
     $checkout_message = ltrim($checkout_message);
     $checkout_message = <<<CHECKOUT_MESSAGE
-    <div class="largest-text highlight bold top-bottom-margin">
+    <strong class="largest-text highlight top-bottom-margin">
       $checkout_message
-    </div>
+    </strong>
 
 CHECKOUT_MESSAGE;
   }

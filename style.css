@@ -130,10 +130,6 @@ a {
   /* Add !important so that this overrides other styles. */
   color: #4D4E53 !important;
 }
-.bold {
-  /* Add !important so that this overrides other styles. */
-  font-weight: bold !important;
-}
 
 /* Use smaller text on smaller devices so that we get more content on the
  * screen. */
