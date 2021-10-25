@@ -34,6 +34,22 @@
   if (ShouldRemoveCookieLawInfo()) {
     echo HideCookieLawInfoInFooter();
   }
+  if (is_store_page()) {
+?>
+  <style>
+  /* Some of the buttons aren't buttons, they're links that look like buttons.
+   * All the links are grey, but that looks bad in the button, so we force it to
+   * be white.
+   */
+  .Cart66ButtonPrimary {
+    background-color: #4D4E53;
+  }
+  .Cart66ButtonSecondary {
+    background-color: #4D4E53;
+  }
+  </style>
+<?php
+  }
 ?>
 </head>
 
