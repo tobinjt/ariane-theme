@@ -324,6 +324,16 @@ h2 {
 /**
  * Checkout page.
  */
+/* Some of the buttons aren't buttons, they're links that look like buttons.
+ * All the links are grey, but that looks bad in the button, so we force it to
+ * be white.
+ */
+.Cart66ButtonPrimary {
+  background-color: #4D4E53 !important;
+}
+.Cart66ButtonSecondary {
+  background-color: #4D4E53 !important;
+}
 .store_message {
   padding-top: 1em;
 }
