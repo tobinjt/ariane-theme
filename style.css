@@ -185,7 +185,7 @@ a {
 }
 /* Make external links underlined so they stand out in paragraphs. */
 .external-link {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
 
 /**
@@ -317,6 +317,7 @@ h2 {
 }
 
 .Cart66OutOfStock {
+  /* Using !important to override Cart66 CSS. */
   color: unset !important;
 }
 
@@ -329,11 +330,9 @@ h2 {
  */
 .Cart66ButtonPrimary {
   background-color: #4D4E53 !important;
-  color: #FFFFFF !important;
 }
 .Cart66ButtonSecondary {
   background-color: #4D4E53 !important;
-  color: #FFFFFF !important;
 }
 .store_message {
   padding-top: 1em;
