@@ -128,7 +128,7 @@ a {
 }
 .highlight {
   /* Add !important so that this overrides other styles. */
-  color: #4D4E53 !important;
+  color: #4D4E53;
 }
 
 /* Use smaller text on smaller devices so that we get more content on the
@@ -162,15 +162,12 @@ a {
   float: right;
 }
 .left-right-margin {
-  margin-left: 0.5em !important;
-  margin-right: 0.5em !important;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 .top-bottom-margin {
-  margin-bottom: 0.5em !important;
-  margin-top: 0.5em !important;
-}
-.bottom-margin {
-  margin-bottom: 0.5em !important;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 .aligncenter {
   margin-left: auto;

@@ -198,7 +198,7 @@ END_OF_EXPECTED;
       </span>
     </div>
 
-    <div class="menubar larger-text bottom-margin">
+    <div class="menubar larger-text">
       <span class="left-page-links">
         <a href="/jewellery/bangles/">bangles</a>
         <a href="/jewellery/earrings/">earrings</a>
@@ -210,7 +210,7 @@ END_OF_EXPECTED;
       </span>
     </div>
 
-    <div class="menubar larger-text bottom-margin">
+    <div class="menubar larger-text">
       <span class="left-page-links">
         <a href="/jewellery/amble/">amble</a>
         <a href="/jewellery/botanical/">botanical</a>

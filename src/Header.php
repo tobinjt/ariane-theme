@@ -227,7 +227,7 @@ function make_full_menu_bar(): string {
       ltrim(wrap_with_tag('span', 'float-right grey',
         'Free delivery on all orders to Ireland', 6)),
       ],
-      'larger-text bottom-margin');
+      'larger-text');
     $output .= "\n";
 
     $jewellery_ranges_links = array(
@@ -250,7 +250,7 @@ function make_full_menu_bar(): string {
       make_link_group(
         array('left-page-links' => $jewellery_ranges_links), '/jewellery/'),
       ],
-      'larger-text bottom-margin');
+      'larger-text');
   }
 
   return $output;
