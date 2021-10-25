@@ -149,11 +149,11 @@ END_OF_INPUT;
     $output = JewelleryGridShortcode(
       array('description' => 'DESCRIPTION'), $input, '');
     $expected = <<<'END_OF_EXPECTED'
-        <div id="jewellery-grid">
+        <div class="jewellery-grid">
           <div>
             <p class="grey large-text text-centered">DESCRIPTION</p>
           </div>
-          <div id="jewellery-grid-inner" class="flexboxrow">
+          <div class="flexboxrow jewellery-grid-inner">
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="linky/">
@@ -204,11 +204,11 @@ END_OF_INPUT;
     $output = JewelleryGridShortcode(
       array('description' => 'DESCRIPTION'), $input, '');
     $expected = <<<'END_OF_EXPECTED'
-        <div id="jewellery-grid">
+        <div class="jewellery-grid">
           <div>
             <p class="grey large-text text-centered">DESCRIPTION</p>
           </div>
-          <div id="jewellery-grid-inner" class="flexboxrow">
+          <div class="flexboxrow jewellery-grid-inner">
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="linky/">
@@ -279,11 +279,11 @@ END_OF_INPUT;
     $output = JewelleryGridShortcode(
       array('description' => 'DESCRIPTION'), $input, '');
     $expected = <<<'END_OF_EXPECTED'
-        <div id="jewellery-grid">
+        <div class="jewellery-grid">
           <div>
             <p class="grey large-text text-centered">DESCRIPTION</p>
           </div>
-          <div id="jewellery-grid-inner" class="flexboxrow">
+          <div class="flexboxrow jewellery-grid-inner">
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="linky/">

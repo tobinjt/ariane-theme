@@ -200,7 +200,7 @@ END_OF_DIV;
 
   /*. array[int]string .*/ $html = array();
   $html[] = <<<'END_OF_HTML'
-        <div id="jewellery-grid">
+        <div class="jewellery-grid">
 END_OF_HTML;
   if ($description !== '') {
     $html[] = <<<END_OF_DESCRIPTION
@@ -210,7 +210,7 @@ END_OF_HTML;
 END_OF_DESCRIPTION;
   }
   $html[] = <<<'END_OF_HTML'
-          <div id="jewellery-grid-inner" class="flexboxrow">
+          <div class="flexboxrow jewellery-grid-inner">
 END_OF_HTML;
   $html = cast('array[int]string', array_merge($html, $divs));
   $html[] = <<<'END_OF_HTML'

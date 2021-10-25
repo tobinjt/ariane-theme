@@ -1,4 +1,4 @@
-/*csslint ids: false, unique-headings: false*/
+/*csslint unique-headings: false*/
 /* We disable unique-headings because we have defaults for headings and then
  * more specific styling for headings.*/
 /*
@@ -298,11 +298,11 @@ h2 {
 /**
  * The Jewellery grid.
  **/
-#jewellery-grid-inner {
+.jewellery-grid-inner {
   /* This forces the grid to be below the description rather than beside it. */
   clear: both;
 }
-#jewellery-grid p {
+.jewellery-grid p {
   margin-bottom: 1em;
   margin-top: 0;
 }
