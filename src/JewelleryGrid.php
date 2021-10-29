@@ -89,8 +89,8 @@ END_OF_SOLD;
     }
 
     return <<<'END_OF_OUT_OF_STOCK'
-    This piece is out of stock, please contact Ariane as it's possible this
-    item could be made to order.
+    This piece is out of stock.  <!--, please contact Ariane as it's possible
+    this item could be made to order.-->
 
 END_OF_OUT_OF_STOCK;
   }

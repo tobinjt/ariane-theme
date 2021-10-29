@@ -36,9 +36,9 @@ END_OF_HTML;
 
   if (Cart66Product::checkInventoryLevelForProduct($jewellery_page->product_id) <= 0) {
     return <<<'END_OF_HTML'
-    <p>This piece is out of stock, please contact Ariane as it's possible this
-      item could be made to order.  See below for other items in this range or
-      type.</p>
+    <p>This piece is out of stock. <!--, please contact Ariane as it's possible
+      this item could be made to order.-->  See below for other items in this
+      range or type.</p>
 END_OF_HTML;
   }
 
