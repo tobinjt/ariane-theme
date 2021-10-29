@@ -15,6 +15,9 @@ if (is_dev_website()) {
   error_reporting(E_ALL);
   ini_set('display_errors', '1');
   ini_set('display_startup_errors', '1');
+  // Turn on Cart66 debug logging; this needs a world-writable file named
+  // log.txt in the Cart66 plugin directory.
+  define('CART66_DEBUG', true);
 }
 
 /* FrontPageSliderSetupShortcode: wrap FrontPageSliderSetup to provide a
