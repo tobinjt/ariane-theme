@@ -79,7 +79,8 @@ END_OF_NO_PRODUCT_OR_ARCHIVE;
   }
 
   $product = new Cart66Product($product_id);
-  if (Cart66Product::checkInventoryLevelForProduct($product_id) === 0) {
+  $quantity = intval(Cart66Product::checkInventoryLevelForProduct($product_id));
+  if ($quantity === 0) {
     if ($product->max_quantity === 1) {
       return <<<'END_OF_SOLD'
     Sold
@@ -104,7 +105,7 @@ END_OF_DIV_TAG;
                   €$price
 
 END_OF_PRICE;
-  if (!is_store_closed()) {
+    if (!is_store_closed()) {
       $content .= <<<END_OF_BUY
                   [add_to_cart item="$product_id" showprice="no" ajax="yes"
                      text="Add to basket" style="display: inline;"]
