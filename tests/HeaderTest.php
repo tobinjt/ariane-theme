@@ -322,7 +322,7 @@ END_OF_EXPECTED;
       orders placed after Sunday 23 December. -->
       The store will be closing on Thursday 27 December to ensure delivery
       of all orders before Christmas.
-      Ariane will return to the workshop on Monday 07 January.
+      <!-- Ariane will return to the workshop on Monday 07 January. -->
     </p>
 END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());

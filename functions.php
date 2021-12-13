@@ -151,8 +151,8 @@ add_editor_style('style.css');
 // Configure opening and closing themes.
 // NOTE: check the messages are appropriate, e.g. the closing message wishes
 // people a Merry Christmas.
-set_closing_time('2020-12-14 18:30:00 Europe/Dublin');
-set_opening_time('2021-01-05 00:30:00 Europe/Dublin');
+set_closing_time('2021-12-14 18:30:00 Europe/Dublin');
+set_opening_time('2022-01-05 00:30:00 Europe/Dublin');
 set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
 set_stop_displaying_banner_message('2023-02-01 00:30:00 Europe/Dublin');
 set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');
@@ -170,7 +170,6 @@ $non_rds_banner = <<<NON_RDS_BANNER
 NON_RDS_BANNER;
 $maternity_leave_banner1 = <<<MATERNITY_LEAVE_BANNER
         Ariane is now fully booked for commissions for Christmas 2021.
-        The shop is still open for items that are in stock.  Thanks!
 MATERNITY_LEAVE_BANNER;
 $maternity_leave_banner2 = <<<MATERNITY_LEAVE_BANNER
         Ariane is on sabbatical and is not accepting commissions until early

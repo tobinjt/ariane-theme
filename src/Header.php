@@ -308,7 +308,7 @@ JEWELLERY_MESSAGE;
       orders placed after $last. -->
       The store will be closing on $store_closing_time_human to ensure delivery
       of all orders before Christmas.
-      Ariane will return to the workshop on $store_opening_time_human.
+      <!-- Ariane will return to the workshop on $store_opening_time_human. -->
     </p>
 JEWELLERY_MESSAGE;
 }
