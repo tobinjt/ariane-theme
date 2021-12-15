@@ -327,6 +327,14 @@ END_OF_EXPECTED;
 END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());
   }
+
+  public function test_store_closed_and_message_disabled() {
+    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
+    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
+    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
+    set_show_store_closing_message('Disabled for testing');
+    $this->assertEquals('', get_jewellery_page_message());
+  }
 }
 
 class GetStorePageMessageTest extends TestCase {

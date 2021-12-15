@@ -7,13 +7,13 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. array[int]string .*/ $TIMES = array();
 
-$TIMES = array();
 define('STORE_CLOSING_TIME', 0);
 define('STORE_OPENING_TIME', 1);
 define('LAST_DELIVERY_OUTSIDE_IRELAND', 2);
 define('CLOSING_MESSAGE_DISPLAY_DATE', 3);
 define('START_DISPLAYING_BANNER_MESSAGE', 4);
 define('STOP_DISPLAYING_BANNER_MESSAGE', 5);
+define('SHOW_STORE_CLOSING_MESSAGE', 6);
 define('NOW_FOR_TESTING', 100);
 
 /* Set the closing time of the store.
@@ -68,6 +68,15 @@ function set_start_displaying_banner_message(string $timestring): void {
 function set_stop_displaying_banner_message(string $timestring): void {
   global $TIMES;
   $TIMES[STOP_DISPLAYING_BANNER_MESSAGE] = $timestring;
+}
+
+/* Set whether to display the store closing message.
+ * Args:
+ *  disabled: if non-empty the store closing message will not be displayed.
+ */
+function set_show_store_closing_message(string $disabled): void {
+  global $TIMES;
+  $TIMES[SHOW_STORE_CLOSING_MESSAGE] = $disabled;
 }
 
 /* Set the time returned by now() for testing purposes.
@@ -188,6 +197,17 @@ function is_time_between(string $start_time_string,
  */
 function is_store_closed(): bool {
   return is_time_between(store_closing_time(), store_opening_time());
+}
+
+/* show_store_closing_message: whether to show the store closing message.
+ */
+function show_store_closing_message(): bool {
+  global $TIMES;
+  if (! isset($TIMES[SHOW_STORE_CLOSING_MESSAGE])) {
+    // Default to displaying the message unless otherwise configured.
+    return true;
+  }
+  return $TIMES[SHOW_STORE_CLOSING_MESSAGE] === '';
 }
 
 // clear_all_times: clear all the times for predictable tests.

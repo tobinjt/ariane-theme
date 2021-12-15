@@ -282,6 +282,10 @@ function set_banner_message(string $banner_message): void {
 
 // Get the message for the top of jewellery pages.
 function get_jewellery_page_message(): string {
+  if (! show_store_closing_message()) {
+    return '';
+  }
+
   if (is_store_closed()) {
     $store_opening_time_human = store_opening_time_human();
     return <<<JEWELLERY_MESSAGE

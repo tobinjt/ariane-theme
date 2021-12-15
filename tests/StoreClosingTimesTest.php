@@ -70,4 +70,13 @@ class StoreClosingTimesTest extends TestCase {
     set_opening_time('2018-12-24 00:00:00 Europe/Dublin');
     $this->assertFalse(is_store_closed());
   }
+
+  public function test_show_store_closing_message() {
+    clear_all_times();
+    $this->assertEquals(true, show_store_closing_message());
+    set_show_store_closing_message('');
+    $this->assertEquals(true, show_store_closing_message());
+    set_show_store_closing_message('Disabled for testing');
+    $this->assertEquals(false, show_store_closing_message());
+  }
 }
