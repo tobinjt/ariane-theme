@@ -175,4 +175,10 @@ $maternity_leave_banner2 = <<<MATERNITY_LEAVE_BANNER
         Ariane is on sabbatical and is not accepting commissions until early
         2023.  The shop is still open for items that are in stock.  Thanks!
 MATERNITY_LEAVE_BANNER;
-set_banner_message($maternity_leave_banner1);
+$maternity_leave_banner3 = <<<MATERNITY_LEAVE_BANNER
+        The store is now closed for Christmas.  I want to thank all of my
+        customers for all of your support this year and I wish you and your
+        families a Happy Christmas and hopefully a better 2022.
+MATERNITY_LEAVE_BANNER;
+set_banner_message($maternity_leave_banner3);
+set_show_store_closing_message('Disabled for maternity leave');
