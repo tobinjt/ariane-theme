@@ -16,8 +16,8 @@ require_once(__DIR__ . '/Cast.php');
 
 // Fake WP_Post.
 class WP_Post {
-  public $ID = 0;
-  public $post_content = '';
+  public int $ID = 0;
+  public string $post_content = '';
   public function __construct(int $ID, string $post_content) {
     $this->ID = $ID;
     $this->post_content = $post_content;

@@ -5,7 +5,7 @@
 * implementation.
  */
 
-function cast(string $unused, /*. mixed .*/ $value) {
+function cast(string $unused, mixed $value): mixed {
   $unused .= 'make the linter happy.';
   return $value;
 }

@@ -15,8 +15,8 @@ function clear_cart66_testing_state(): void {
 }
 
 class Cart66Product {
-  public $max_quantity = 0;
-  public $price = 0;
+  public int $max_quantity = 0;
+  public int $price = 0;
   function __construct(int $id) {
     global $MAX_QUANTITIES, $PRICES;
     if (isset($MAX_QUANTITIES[$id])) {

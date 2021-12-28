@@ -8,11 +8,11 @@ require_once(__DIR__ . '/Cast.php');
 
 /* Wrap wp_get_attachment_image_src() to return an object. */
 class WPImageInfo {
-  public $url = '';
-  public $height_int = 0;
-  public $height_str = '';
-  public $width_int = 0;
-  public $width_str = '';
+  public string $url = '';
+  public int $height_int = 0;
+  public string $height_str = '';
+  public int $width_int = 0;
+  public string $width_str = '';
 
   public function __construct(int $attachment_id, string $size) {
     // $image_info is an array of [url (str), width (int), height (int)].
@@ -46,12 +46,12 @@ function images_to_data(array $images): array {
 
 /* Represents a single entry from a Jewellery Grid. */
 class JewelleryGridEntry {
-  public $range = '';
-  public $alt = '';
-  public $image_ids = array(0);
-  public $page_url = '';
-  public $product_id = 0;
-  public /*. array[int]WPImageInfo .*/ $images = array();
+  public string $range = '';
+  public string $alt = '';
+  public array $image_ids = array(0);
+  public string $page_url = '';
+  public int $product_id = 0;
+  public /*. array[int]WPImageInfo .*/ array $images = array();
 
   public function __construct(string $range, string $alt, string $image_ids,
     string $page_url, int $product_id) {
@@ -83,18 +83,18 @@ class JewelleryGridEntry {
 
 /* Represents a Jewellery Page. */
 class JewelleryPage {
-  public $name = '';
-  public $product_id = 0;
-  public $range = '';
-  public $type = '';
-  public $archived = false;
+  public string $name = '';
+  public int $product_id = 0;
+  public string $range = '';
+  public string $type = '';
+  public bool $archived = false;
 
   public $image_ids = array(0);
   public /*. array[int]WPImageInfo .*/ $images = array();
-  public $height_int = 0;
-  public $height_str = '';
-  public $width_int = 0;
-  public $width_str = '';
+  public int $height_int = 0;
+  public string $height_str = '';
+  public int $width_int = 0;
+  public string $width_str = '';
 
   public function __construct(string $name, int $product_id, string $range,
     string $type, string $image_ids, bool $archived) {
