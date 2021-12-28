@@ -8,13 +8,7 @@ files_being_committed_includes() {
 }
 
 if [[ -n "$(files_being_committed_includes '.php$')" ]]; then
-  # "PHPUnit 7.5.6 by Sebastian Bergmann and contributors." -> 7
-  version="$(phpunit --version | awk '{sub("\\..*", "", $2); print $2}')"
-  if [[ "${version}" -ge 9 ]]; then
-    # PHPUnit isn't backwards-compatible so I can't run the tests on earlier
-    # versions :(
-    phpunit --no-coverage
-  fi
+  phpunit --no-coverage
 fi
 
 if [[ -n "$(files_being_committed_includes '.json$')" ]]; then
