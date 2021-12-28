@@ -29,7 +29,12 @@ class WP_Post {
 
 // Fake WP_Query.
 class WP_Query {
-  public /*. array[int]WP_Post .*/ $posts = array();
+  /** @var array<int, WP_Post> */
+  public /*. array[int]WP_Post .*/ array $posts = array();
+
+  /**
+   * @param array<mixed> $query
+   */
   public function __construct(array $query) {
     // $query is unused.
     $query[] = 'make the linter happy.';
@@ -53,6 +58,11 @@ class WP_Query {
 
 // Wordpress functions we need to fake.
 // phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}
+/**
+ * @param array<mixed> $array1
+ * @param array<mixed> $array2
+ * @return array<mixed>
+ */
 function shortcode_atts(array $array1, array $array2): array {
   return array_merge($array1, $array2);
 }
@@ -181,6 +191,9 @@ function verify_add_action(): void {
 
 // Functions for wp_get_attachment_image_src.
 // phplint: /*. array[int]int .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
+/**
+ * @return array<int, int>
+ */
 function wp_get_attachment_image_src(int $image_id, string $size): array {
   global $IMAGE_INFO;
   return $IMAGE_INFO[$image_id][$size];
@@ -193,6 +206,9 @@ function clear_image_info(): void {
 }
 
 // phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
+/**
+ * @param array<int, int> $info
+ */
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
   $IMAGE_INFO[$image_id][$size] = cast('array[int]int', $info);

@@ -26,6 +26,9 @@ $CHANGE_IMAGES = array();
  * Returns:
  *  array of image information, needs to be passed to json_encode().
  */
+/**
+ * @return array<array<string, string>>
+ */
 function SliderImages(): array {
   $media_query = new WP_Query(
     array(
@@ -102,6 +105,9 @@ END_OF_JAVASCRIPT;
  * Returns:
  *  string, the HTML to insert in the page (Wordpress does that
  *    automatically).
+ */
+/**
+ * @param array<array<string, string>> $images
  */
 function FrontPageSliderSetup(array $images): string {
   add_action('wp_footer', 'SliderSetupGeneric');

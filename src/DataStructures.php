@@ -24,6 +24,9 @@ class WPImageInfo {
     $this->height_str = strval($this->height_int);
   }
 
+  /**
+   * @return array{'src': string, 'width': int, 'height': int}
+   */
   public function image_to_data(): array {
     # This needs to stay compatible with slider.js.
     return array(
@@ -35,6 +38,10 @@ class WPImageInfo {
 }
 
 /* Convert an array of WPImageInfo to an array compatible with slider.js. */
+/**
+ * @param array<int, WPImageInfo> $images
+ * @return array<int, array{'src': string, 'width': int, 'height': int}>
+ */
 function images_to_data(array $images): array {
   # This needs to stay compatible with slider.js.
   /*. array[int]mixed .*/ $data = array();
@@ -48,9 +55,11 @@ function images_to_data(array $images): array {
 class JewelleryGridEntry {
   public string $range = '';
   public string $alt = '';
+  /** @var array<int> */
   public array $image_ids = array(0);
   public string $page_url = '';
   public int $product_id = 0;
+  /** @var array<int, WPImageInfo> */
   public /*. array[int]WPImageInfo .*/ array $images = array();
 
   public function __construct(string $range, string $alt, string $image_ids,
@@ -76,6 +85,9 @@ class JewelleryGridEntry {
     }
   }
 
+  /**
+   * @return array<int, array{'src': string, 'width': int, 'height': int}>
+   */
   public function images_to_data(): array {
     return images_to_data($this->images);
   }
@@ -89,8 +101,10 @@ class JewelleryPage {
   public string $type = '';
   public bool $archived = false;
 
-  public $image_ids = array(0);
-  public /*. array[int]WPImageInfo .*/ $images = array();
+  /** @var array<int> */
+  public array $image_ids = array(0);
+  /** @var array<int, WPImageInfo> */
+  public /*. array[int]WPImageInfo .*/ array $images = array();
   public int $height_int = 0;
   public string $height_str = '';
   public int $width_int = 0;
@@ -132,6 +146,9 @@ class JewelleryPage {
     $this->height_str = strval($this->height_int);
   }
 
+  /**
+   * @return array<int, array{'src': string, 'width': int, 'height': int}>
+   */
   public function images_to_data(): array {
     return images_to_data($this->images);
   }
@@ -141,6 +158,8 @@ class JewelleryPage {
   * exception being thrown, because I cannot find a way to test the exception
   * handling, and I care more about test coverage than lint warnings.
  */
+/**
+ * @param array<mixed> $data */
 function json_encode_wrapper(array $data): string {
   return json_encode($data);
 }

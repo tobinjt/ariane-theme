@@ -61,6 +61,9 @@ END_OF_JAVASCRIPT;
  * Returns:
  *  string.
  */
+/**
+ * @param array<string> $links
+ */
 function links_to_html(array $links, string $url_to_highlight,
                        string $highlight_class, int $indent): string {
   $spaces = str_repeat(' ', $indent);
@@ -110,6 +113,9 @@ END_OF_TAG;
  * Returns:
  *  string, URL to highlight.
  */
+/**
+ * @param array<string, array<string, string>> $groups
+ */
 function pick_url_to_highlight(array $groups, string $default_url): string {
   if (is_404()) {
     // Don't highlight any link for error pages
@@ -150,6 +156,9 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
  * Returns:
  *  string.
  */
+/**
+ * @param array<string, array<string, string>> $groups
+ */
 function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
   $groups_cast = cast('array[string][string]string', $groups);
@@ -168,6 +177,9 @@ function make_link_group(array $groups, string $default_url): string {
  *       'menubar' will always be present in the tags.
  * Returns:
  *  string.
+ */
+/**
+ * @param array<string> $menu_chunks
  */
 function make_menu_bar(array $menu_chunks, string $css_tags): string {
   $html = wrap_with_tag(

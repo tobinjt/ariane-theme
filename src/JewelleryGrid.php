@@ -24,6 +24,9 @@ require_once(__DIR__ . '/Urls.php');
  * Returns:
  *  array, data structure to process.
  */
+/**
+ * @return array<JewelleryGridEntry>
+ */
 function ParseJewelleryGridContents(string $page_contents): array {
   $lines = str_getcsv($page_contents, "\n");
   /*. array[int]JewelleryGridEntry .*/ $ranges = array();
@@ -141,6 +144,9 @@ END_OF_DIV;
  *  $tag: unused.
  * Returns:
  *  string, the HTML to insert in the page (Wordpress does that automatically).
+ */
+/**
+ * @param array<string, string> $atts
  */
 function JewelleryGridShortcode(array $atts, string $content,
                                 string $tag): string {

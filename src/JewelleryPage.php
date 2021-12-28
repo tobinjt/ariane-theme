@@ -83,6 +83,9 @@ END_OF_HTML;
  *  string, the HTML to insert in the page (Wordpress does that
  *    automatically).
  */
+/**
+ * @param array<string, string> $atts
+ */
 function JewelleryPageShortcode(array $atts, string $content,
                                 string $tag): string {
   $tag .= 'make the linter happy.';
