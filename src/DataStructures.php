@@ -161,7 +161,15 @@ class JewelleryPage {
 /**
  * @param array<mixed> $data */
 function json_encode_wrapper(array $data): string {
-  return json_encode($data);
+  $result = json_encode($data);
+  // TODO(johntobin): How do I test this?  Maybe I can create a recursive data
+  // structure that cannot be encoded?
+  if (is_bool($result)) {
+    // Return an empty string rather than false on failure; this should never
+    // arise in real use, but PHPStan warns about it.
+    return '';
+  }
+  return $result;
 }
 
 ?>

@@ -92,7 +92,13 @@ function set_now_for_testing(string $timestring): void {
  * readable string for display on the website.
  */
 function timestring_to_human(string $timestring): string {
-  return strftime('%A %d %B', strtotime($timestring));
+  $timestamp = strtotime($timestring);
+  // Return an error message rather than false on failure; this should never
+  // arise in real use, but PHPStan warns about it.
+  if (is_bool($timestamp)) {
+    return 'SOMETHING WENT TERRIBLY WRONG CONVERTING "' . $timestring . '"';
+  }
+  return date('l d F', $timestamp);
 }
 
 // store_closing_time: when the store closes next.

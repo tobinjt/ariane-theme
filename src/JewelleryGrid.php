@@ -15,6 +15,18 @@ require_once(__DIR__ . '/Urls.php');
 /*. array[int][string]string .*/ $CHANGE_IMAGES = array();
 /*. array[string]string .*/ $SLIDER_IMAGES = array();
 
+// Return the original string if an error occurs.  Unlikely to happen in
+// practice, but PHPStan warns about it.
+function safe_preg_replace(
+  string $pattern, string $replacement, string $subject): string {
+  $result = preg_replace($pattern, $replacement, $subject);
+  // TODO(johntobin): How can I test this?
+  if (is_null($result)) {
+    return $subject;
+  }
+  return $result;
+}
+
 /* ParseJewelleryGridContents: turn the CSV from page contents into a data
  * structure.
  * Args:
@@ -34,15 +46,15 @@ function ParseJewelleryGridContents(string $page_contents): array {
     $line = trim($line);
     // Wordpress puts <br /> and </p> and other shite at the end of some
     // lines, so remove all tags from the start and end of each line.
-    $line = preg_replace('/^<[^<]+>/', '', $line);
-    $line = preg_replace('/<[^<]+>$/', '', $line);
+    $line = safe_preg_replace('/^<[^<]+>/', '', $line);
+    $line = safe_preg_replace('/<[^<]+>$/', '', $line);
     $line = trim($line);
     if (strpos($line, '#') === 0) {
       continue;
     }
     // Awful hack to work around wordpress turning 276x300 into 276!300, where
     // ! is actually some weird unicode x - this breaks image urls. ARGH.
-    $line = preg_replace('/&#215;/', 'x', $line);
+    $line = safe_preg_replace('/&#215;/', 'x', $line);
     $csv_data = str_getcsv($line, '|');
     // Skip blank lines.  The CSV parser will return an array with a single
     // element when given a blank line.

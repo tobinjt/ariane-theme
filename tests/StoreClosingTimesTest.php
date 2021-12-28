@@ -41,6 +41,9 @@ class StoreClosingTimesTest extends TestCase {
     $this->assertEquals('Monday 07 January', store_opening_time_human());
     $this->assertEquals('Tuesday 11 December',
       last_day_for_delivery_outside_ireland_human());
+    $this->assertMatchesRegularExpression(
+      '/SOMETHING WENT TERRIBLY WRONG CONVERTING/',
+      timestring_to_human('this is not a valid date string'));
   }
 
   public function test_time_comparisons() {

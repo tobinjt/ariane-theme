@@ -1,5 +1,5 @@
 parameters:
-  level: 6
+  level: 8
   paths:
     - src
     # Deliberately not including tests/ because PHPStan can't find PHPUnit
