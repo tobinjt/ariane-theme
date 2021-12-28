@@ -7,10 +7,6 @@ files_being_committed_includes() {
     | (grep "$@" || true)
 }
 
-if [[ -n "$(files_being_committed_includes '.php$')" ]]; then
-  phpunit --no-coverage
-fi
-
 if [[ -n "$(files_being_committed_includes '.json$')" ]]; then
   # Ensure the two configs are in sync.
   diff -u check_website_resources-dev.json \

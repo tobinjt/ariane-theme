@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e -f -u -o pipefail
+
+phpunit --no-coverage >& /dev/null || phpunit --no-coverage
