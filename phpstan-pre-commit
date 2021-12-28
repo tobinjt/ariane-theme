@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e -f -u -o pipefail
+
+# phpstan isn't installed everywhere.
+if type phpstan >& /dev/null; then
+  phpstan analyse
+fi

@@ -1,0 +1,6 @@
+parameters:
+  level: 5
+  paths:
+    - src
+    # Deliberately not including tests/ because PHPStan can't find PHPUnit
+    # classes.

@@ -16,6 +16,12 @@ repos:
     language: script
     types: [php]
     entry: php-l-pre-commit
+  - id: phpstan
+    name: Run `phpstan`
+    language: script
+    pass_filenames: false
+    types: [php]
+    entry: phpstan-pre-commit
   - id: phpunit
     name: Run `phpunit`
     language: script

@@ -4,6 +4,8 @@ set -e -f -u -o pipefail
 
 exit_status=0
 for file in "$@"; do
-  (php -l "${file}" | grep -v 'No syntax errors detected in') || exit_status=1
+  # First run: discard output so 'No syntax errors detected in' isn't displayed.
+  # Second run: don't discard output so that errors are displayed.
+  php -l "${file}" >& /dev/null || php -l "${file}" || exit_status=1
 done
 exit "${exit_status}"
