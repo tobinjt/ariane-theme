@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e -f -u -o pipefail
+
+exit_status=0
+for file in "$@"; do
+  (php -l "${file}" | grep -v 'No syntax errors detected in') || exit_status=1
+done
+exit "${exit_status}"
