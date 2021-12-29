@@ -16,11 +16,11 @@ require_once(__DIR__ . '/Urls.php');
 /*. array[string]string .*/ $SLIDER_IMAGES = array();
 
 // Return the original string if an error occurs.  Unlikely to happen in
-// practice, but PHPStan warns about it.
+// practice, but PHPStan warns about it.  I cannot find any way to for
+// preg_replace to return null, so that branch is untested :(
 function safe_preg_replace(
   string $pattern, string $replacement, string $subject): string {
   $result = preg_replace($pattern, $replacement, $subject);
-  // TODO(johntobin): How can I test this?
   if (is_null($result)) {
     return $subject;
   }
