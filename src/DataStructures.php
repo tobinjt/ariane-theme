@@ -167,7 +167,7 @@ function json_encode_wrapper(array $data): string {
   if (is_bool($result)) {
     // Return an empty string rather than false on failure; this should never
     // arise in real use, but PHPStan warns about it.
-    return '';
+    return 'JSON_ENCODE FAILED!';
   }
   return $result;
 }
