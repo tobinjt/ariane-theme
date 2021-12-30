@@ -6,7 +6,6 @@ declare(strict_types=1);
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
 /*. require_module 'wordpress'; .*/
-require_once(__DIR__ . '/Cast.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
 $BANNER_MESSAGE = '';
@@ -67,9 +66,8 @@ END_OF_JAVASCRIPT;
 function links_to_html(array $links, string $url_to_highlight,
                        string $highlight_class, int $indent): string {
   $spaces = str_repeat(' ', $indent);
-  $links_cast = cast('array[string]string', $links);
   /*. array[int]string .*/ $output = array();
-  foreach ($links_cast as $url => $text) {
+  foreach ($links as $url => $text) {
     if ($url === $url_to_highlight) {
       $extra_class = ' class="' . $highlight_class . '"';
     } else {
@@ -125,8 +123,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
   $current_url = rtrim(get_current_url(), '/');
   $url_to_highlight = $default_url;
   foreach ($groups as $links) {
-    $lnks = cast('array[string]string', $links);
-    foreach ($lnks as $url => $text) {
+    foreach ($links as $url => $text) {
       $text .= 'make the linter happy.';
       $pattern = rtrim($url, '/');
       if ($pattern === $current_url) {
@@ -161,9 +158,8 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
  */
 function make_link_group(array $groups, string $default_url): string {
   $url_to_highlight = pick_url_to_highlight($groups, $default_url);
-  $groups_cast = cast('array[string][string]string', $groups);
   /*. array[int]string .*/ $output = array();
-  foreach ($groups_cast as $cls => $links) {
+  foreach ($groups as $cls => $links) {
     $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
     $output[] = wrap_with_tag('span', $cls, $html_links, 6);
   }
@@ -185,7 +181,7 @@ function make_menu_bar(array $menu_chunks, string $css_tags): string {
   $html = wrap_with_tag(
     'div',
     'menubar ' . $css_tags,
-    implode("\n      ", cast('array[int]string', $menu_chunks)),
+    implode("\n      ", $menu_chunks),
     4);
   return $html . "\n";
 }

@@ -8,7 +8,6 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'fakecart66'; .*/
 /*. require_module 'pcre'; .*/
-require_once(__DIR__ . '/Cast.php');
 require_once(__DIR__ . '/DataStructures.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
@@ -163,16 +162,15 @@ END_OF_DIV;
 function JewelleryGridShortcode(array $atts, string $content,
                                 string $tag): string {
   $tag .= 'make the linter happy.';
-  $attrs = cast('array[string]string', shortcode_atts(
+  $attrs = shortcode_atts(
     array(
       'description' => '',
     ),
-    $atts));
+    $atts);
 
   $description = $attrs['description'];
   $attrs = array('do not use' => 'dollar_attrs');
-  $ranges = cast('array[int]JewelleryGridEntry',
-    ParseJewelleryGridContents($content));
+  $ranges = ParseJewelleryGridContents($content);
   // Turn the data structure into <divs>s.
   /*. array[int]string .*/ $divs = array();
   $slider_needed = false;
@@ -231,7 +229,7 @@ END_OF_DESCRIPTION;
   $html[] = <<<'END_OF_HTML'
           <div class="flexboxrow jewellery-grid-inner">
 END_OF_HTML;
-  $html = cast('array[int]string', array_merge($html, $divs));
+  $html = array_merge($html, $divs);
   $html[] = <<<'END_OF_HTML'
           </div>
         </div>

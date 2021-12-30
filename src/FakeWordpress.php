@@ -10,7 +10,6 @@ declare(strict_types=1);
 /*. array[int][string][int]int .*/ $IMAGE_INFO = array();
 /*. array[string]bool .*/ $PAGE_STATE_BOOL = array();
 /*. array[string]string .*/ $PAGE_STATE_STRING = array();
-require_once(__DIR__ . '/Cast.php');
 
 // BEGIN PHPLINT
 
@@ -211,7 +210,7 @@ function clear_image_info(): void {
  */
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
-  $IMAGE_INFO[$image_id][$size] = cast('array[int]int', $info);
+  $IMAGE_INFO[$image_id][$size] = $info;
 }
 
 // Clean up all state set up by tests.

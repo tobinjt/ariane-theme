@@ -89,7 +89,7 @@ END_OF_HTML;
 function JewelleryPageShortcode(array $atts, string $content,
                                 string $tag): string {
   $tag .= 'make the linter happy.';
-  $attrs = cast('array[string]string', shortcode_atts(
+  $attrs = shortcode_atts(
     array(
       'archived' => 'false',
       'image_id' => '',
@@ -98,7 +98,7 @@ function JewelleryPageShortcode(array $atts, string $content,
       'range' => '',
       'type' => '',
     ),
-    $atts));
+    $atts);
   foreach ($attrs as $key => $value) {
     if ($value === '') {
       return "<h1>jewellery_page: empty attribute: $key </h1>\n";
@@ -128,8 +128,8 @@ function JewelleryPageShortcode(array $atts, string $content,
 END_OF_HTML;
   if (count($jewellery_page->images) > 1) {
     global $CHANGE_IMAGES;
-    $CHANGE_IMAGES['#individual-jewellery-image'] = cast(
-      'array[int][string]string', $jewellery_page->images_to_data());
+    $CHANGE_IMAGES['#individual-jewellery-image'] =
+      $jewellery_page->images_to_data();
     add_action('wp_footer', 'ChangeImagesSetupGeneric');
     $html .= <<<'END_OF_HTML'
 

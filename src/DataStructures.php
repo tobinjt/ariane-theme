@@ -4,7 +4,6 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'json'; .*/
 /*. require_module 'wordpress'; .*/
-require_once(__DIR__ . '/Cast.php');
 
 /* Wrap wp_get_attachment_image_src() to return an object. */
 class WPImageInfo {
@@ -45,7 +44,7 @@ class WPImageInfo {
 function images_to_data(array $images): array {
   # This needs to stay compatible with slider.js.
   /*. array[int]mixed .*/ $data = array();
-  foreach (cast('array[int]WPImageInfo', $images) as $image) {
+  foreach ($images as $image) {
     $data[] = $image->image_to_data();
   }
   return $data;
