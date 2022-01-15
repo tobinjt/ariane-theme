@@ -294,7 +294,7 @@ class GetJewelleryPageMessageTest extends TestCase {
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        Monday 07 January.  <br />Wishing everyone a Merry Christmas
+        Monday 07 January 2019.  <br />Wishing everyone a Merry Christmas
         and a Happy New Year!
       </p>
 
@@ -319,10 +319,10 @@ END_OF_EXPECTED;
     $expected = <<<'END_OF_EXPECTED'
     <p class="text-centered larger-text grey">
       <!-- Delivery outside Ireland before December 25th cannot be guaranteed for
-      orders placed after Sunday 23 December. -->
-      The store will be closing on Thursday 27 December to ensure delivery
+      orders placed after Sunday 23 December 2018. -->
+      The store will be closing on Thursday 27 December 2018 to ensure delivery
       of all orders before Christmas.
-      <!-- Ariane will return to the workshop on Monday 07 January. -->
+      <!-- Ariane will return to the workshop on Monday 07 January 2019. -->
     </p>
 END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());
@@ -414,7 +414,7 @@ END_OF_EXPECTED;
 
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        Monday 07 January.  <br />Wishing everyone a Merry Christmas
+        Monday 07 January 2019.  <br />Wishing everyone a Merry Christmas
         and a Happy New Year!
       </p>
 
@@ -434,7 +434,7 @@ END_OF_EXPECTED;
 
       <p class="text-centered larger-text grey">
         The store is now closed, and Ariane will return to the workshop
-        Monday 07 January.  <br />Wishing everyone a Merry Christmas
+        Monday 07 January 2019.  <br />Wishing everyone a Merry Christmas
         and a Happy New Year!
       </p>
 END_OF_EXPECTED;

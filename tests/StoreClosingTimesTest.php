@@ -32,14 +32,14 @@ class StoreClosingTimesTest extends TestCase {
   }
 
   public function test_timestring_to_human() {
-    $this->assertEquals('Tuesday 25 December',
+    $this->assertEquals('Tuesday 25 December 2018',
       timestring_to_human('2018-12-25 18:30:00 Europe/Dublin'));
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
-    $this->assertEquals('Monday 17 December', store_closing_time_human());
-    $this->assertEquals('Monday 07 January', store_opening_time_human());
-    $this->assertEquals('Tuesday 11 December',
+    $this->assertEquals('Monday 17 December 2018', store_closing_time_human());
+    $this->assertEquals('Monday 07 January 2019', store_opening_time_human());
+    $this->assertEquals('Tuesday 11 December 2018',
       last_day_for_delivery_outside_ireland_human());
     $this->assertMatchesRegularExpression(
       '/SOMETHING WENT TERRIBLY WRONG CONVERTING/',

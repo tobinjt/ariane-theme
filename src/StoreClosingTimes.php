@@ -98,7 +98,7 @@ function timestring_to_human(string $timestring): string {
   if (is_bool($timestamp)) {
     return 'SOMETHING WENT TERRIBLY WRONG CONVERTING "' . $timestring . '"';
   }
-  return date('l d F', $timestamp);
+  return date('l d F Y', $timestamp);
 }
 
 // store_closing_time: when the store closes next.
