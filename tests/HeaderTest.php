@@ -14,7 +14,7 @@ class GetGoogleAnalyticsCodeTest extends TestCase {
   public function test_prod() {
     $_SERVER['SERVER_NAME'] = 'www.arianetobin.ie';
     $content = get_google_analytics_code();
-    $this->assertMatchesRegularExpression('/UA-21043347-2/', $content);
+    $this->assertMatchesRegularExpression('/G-5GXZQT5D22/', $content);
     $this->assertMatchesRegularExpression('/www.googletagmanager.com/',
       $content);
   }

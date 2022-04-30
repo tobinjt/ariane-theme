@@ -39,13 +39,13 @@ function get_google_analytics_code(): string {
   }
   $output = <<<'END_OF_JAVASCRIPT'
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21043347-2"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5GXZQT5D22"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-21043347-2');
+  gtag('config', 'G-5GXZQT5D22');
 </script>
 END_OF_JAVASCRIPT;
   return $output;
