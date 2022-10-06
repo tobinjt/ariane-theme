@@ -4,9 +4,9 @@
     "resources": [
       "https://dev.arianetobin.ie/wp-content/plugins/cart66/cart66_enhanced.css",
       "https://dev.arianetobin.ie/wp-content/plugins/cart66/images/cart66_admin_button.png",
-      "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/public/css/cookie-law-info-gdpr.css",
-      "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/public/css/cookie-law-info-public.css",
-      "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/public/js/cookie-law-info-public.js",
+      "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-gdpr.css",
+      "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-public.css",
+      "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/legacy/public/js/cookie-law-info-public.js",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon.ico",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/new-logo.jpg",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/slider.js",
