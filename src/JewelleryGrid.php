@@ -42,7 +42,7 @@ function ParseJewelleryGridContents(string $page_contents): array {
   $lines = str_getcsv($page_contents, "\n");
   /*. array[int]JewelleryGridEntry .*/ $ranges = array();
   foreach ($lines as $line) {
-    $line = trim($line);
+    $line = trim(strval($line));
     // Wordpress puts <br /> and </p> and other shite at the end of some
     // lines, so remove all tags from the start and end of each line.
     $line = safe_preg_replace('/^<[^<]+>/', '', $line);
@@ -68,8 +68,9 @@ function ParseJewelleryGridContents(string $page_contents): array {
     if (count($csv_data) < 5) {
       $csv_data[] = '-1';
     }
-    $ranges[] = new JewelleryGridEntry($csv_data[0], $csv_data[1], $csv_data[2],
-      $csv_data[3], intval($csv_data[4]));
+    $ranges[] = new JewelleryGridEntry(strval($csv_data[0]),
+      strval($csv_data[1]), strval($csv_data[2]), strval($csv_data[3]),
+      intval($csv_data[4]));
   }
   return $ranges;
 }
