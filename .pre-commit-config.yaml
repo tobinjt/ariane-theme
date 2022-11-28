@@ -1,40 +1,40 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.3.0
-  hooks:
-  - id: check-json
-  - id: check-merge-conflict
-  - id: check-symlinks
-  - id: check-vcs-permalinks
-  - id: end-of-file-fixer
-  - id: trailing-whitespace
-- repo: local
-  hooks:
-  - id: phplint
-    name: Run `php -l`
-    language: script
-    types: [php]
-    entry: php-l-pre-commit
-  - id: phpstan
-    name: Run `phpstan`
-    language: script
-    pass_filenames: false
-    types: [php]
-    entry: phpstan-pre-commit
-  - id: phpunit
-    name: Run `phpunit`
-    language: script
-    types: [php]
-    pass_filenames: false
-    entry: phpunit-pre-commit
-  - id: check_website_resources
-    name: Checks for check_website_resources configs.
-    description: >-
-      Check that dev and www configs are in sync.
-      Run check_website_resources.
-    language: script
-    files: check_website_resources.*.json
-    pass_filenames: false
-    entry: check_website_resources-pre-commit
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-vcs-permalinks
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: phplint
+        name: Run `php -l`
+        language: script
+        types: [php]
+        entry: php-l-pre-commit
+      - id: phpstan
+        name: Run `phpstan`
+        language: script
+        pass_filenames: false
+        types: [php]
+        entry: phpstan-pre-commit
+      - id: phpunit
+        name: Run `phpunit`
+        language: script
+        types: [php]
+        pass_filenames: false
+        entry: phpunit-pre-commit
+      - id: check_website_resources
+        name: Checks for check_website_resources configs.
+        description: >-
+          Check that dev and www configs are in sync.
+          Run check_website_resources.
+        language: script
+        files: check_website_resources.*.json
+        pass_filenames: false
+        entry: check_website_resources-pre-commit
