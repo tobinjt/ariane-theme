@@ -120,10 +120,16 @@ add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
 
 // Remove Gutenberg editor CSS that isn't needed.
 function remove_wp_block_library_css(){
-  wp_dequeue_style( 'wp-block-library' );
-  wp_dequeue_style( 'wp-block-library-theme' );
+  wp_dequeue_style('wp-block-library');
+  wp_dequeue_style('wp-block-library-theme');
 }
 add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100 );
+
+// Remove classic theme CSS that isn't needed.
+function remove_classic_themes_css(){
+  wp_dequeue_style('classic-theme-styles');
+}
+add_action( 'wp_enqueue_scripts', 'remove_classic_themes_css', 100 );
 
 // End removing unnecessary resources.
 
