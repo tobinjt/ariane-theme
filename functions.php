@@ -160,7 +160,7 @@ add_editor_style('style.css');
 set_closing_time('2021-12-14 18:30:00 Europe/Dublin');
 set_opening_time('2023-01-05 00:30:00 Europe/Dublin');
 set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
-set_stop_displaying_banner_message('2023-02-01 00:30:00 Europe/Dublin');
+set_stop_displaying_banner_message('2026-02-01 00:30:00 Europe/Dublin');
 set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');
 set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
 $rds_banner = <<<RDS_BANNER
@@ -174,17 +174,14 @@ $non_rds_banner = <<<NON_RDS_BANNER
         break.  Her work is still available to purchase from this website, and
         she can be contacted at ariane @ arianetobin.ie.
 NON_RDS_BANNER;
-$maternity_leave_banner1 = <<<MATERNITY_LEAVE_BANNER
-        Ariane is now fully booked for commissions for Christmas 2021.
-MATERNITY_LEAVE_BANNER;
-$maternity_leave_banner2 = <<<MATERNITY_LEAVE_BANNER
+$maternity_leave_banner = <<<MATERNITY_LEAVE_BANNER
         Ariane is on sabbatical and is not accepting commissions or selling from
-        the website until early 2023.  Thanks!
+        the website.  Thanks!
 MATERNITY_LEAVE_BANNER;
 $maternity_leave_banner3 = <<<MATERNITY_LEAVE_BANNER
         The store is now closed for Christmas.  I want to thank all of my
         customers for all of your support this year and I wish you and your
         families a Happy Christmas and hopefully a better 2022.
 MATERNITY_LEAVE_BANNER;
-set_banner_message($maternity_leave_banner2);
+set_banner_message($maternity_leave_banner);
 set_show_store_closing_message('Disabled for maternity leave');
