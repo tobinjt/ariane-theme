@@ -15,7 +15,7 @@ class ParseJewelleryGridContentsTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function test_parsing() {
+  public function test_parsing(): void {
     $input = <<<'END_OF_INPUT'
 # This comment will be skipped.
 # Format: range|alt|image_id|href|product_id
@@ -63,19 +63,19 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function test_negative_product_id() {
+  public function test_negative_product_id(): void {
     set_url('/jewellery/foo/');
     $content = MakeBuyButtonForJewelleryGrid('-1');
     $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
   }
 
-  public function test_archived() {
+  public function test_archived(): void {
     set_url('/jewellery/archive/');
     $content = MakeBuyButtonForJewelleryGrid('11');
     $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
   }
 
-  public function test_max_quantity() {
+  public function test_max_quantity(): void {
     set_url('/jewellery/foo/');
     Cart66Product::setMaxQuantity(7, 1);
     Cart66Product::setInventoryLevelForProduct(7, 0);
@@ -83,14 +83,14 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     $this->assertEquals("    Sold\n", $content);
   }
 
-  public function test_no_stock() {
+  public function test_no_stock(): void {
     set_url('/jewellery/foo/');
     Cart66Product::setInventoryLevelForProduct(13, 0);
     $content = MakeBuyButtonForJewelleryGrid('13');
     $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
   }
 
-  public function test_has_stock_store_closed() {
+  public function test_has_stock_store_closed(): void {
     set_url('/jewellery/foo/');
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
@@ -102,7 +102,7 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
     $this->assertMatchesRegularExpression('/€135/', $content);
   }
 
-  public function test_has_stock_store_open() {
+  public function test_has_stock_store_open(): void {
     set_url('/jewellery/foo/');
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
@@ -137,7 +137,7 @@ class JewelleryGridShortcodeTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function test_single_images() {
+  public function test_single_images(): void {
     Cart66Product::setPrice(19, 234);
     Cart66Product::setInventoryLevelForProduct(19, 3);
     add_image_info(11, 'grid_size', array('URL', 23, 59));
@@ -183,7 +183,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
 
-  public function test_multiple_images_and_pieces() {
+  public function test_multiple_images_and_pieces(): void {
     expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     // First range.
     Cart66Product::setPrice(19, 234);
@@ -265,7 +265,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected_slider, $SLIDER_IMAGES);
   }
 
-  public function test_no_price() {
+  public function test_no_price(): void {
     // This tests that "Price on request" is displayed and the add to cart
     // button is not displayed.
     Cart66Product::setPrice(19, 0);

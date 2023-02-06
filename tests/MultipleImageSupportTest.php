@@ -12,14 +12,14 @@ class SliderImagesTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function test_no_images() {
+  public function test_no_images(): void {
     $non_slider_post = new WP_Post(3, 'qwerty');
     WP_Query::add_query_result($non_slider_post);
     $images = SliderImages();
     $this->assertEmpty($images);
   }
 
-  public function test_two_images() {
+  public function test_two_images(): void {
     $p1 = new WP_Post(5, ' slider URL_FOR_PAGE ');
     $p2 = new WP_Post(7, 'slider URL_FOR_PAGE2');
     WP_Query::add_query_result($p1);
@@ -57,7 +57,7 @@ class SmallFunctionsTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function test_ChangeImagesSetupGeneric() {
+  public function test_ChangeImagesSetupGeneric(): void {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES = array();
     $CHANGE_IMAGES['foo'] = array(1, 2);
@@ -65,7 +65,7 @@ class SmallFunctionsTest extends TestCase {
     $expected = <<<'END_OF_OUTPUT'
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
-function change_image(i, id) {
+function change_image(i, id): void {
 var images = {"foo":[1,2],"bar":["asdf","qwerty"]};
 // Construct a new image and swap it in, otherwise it flashes awkwardly - the
 // old image resizes and then the new image is displayed.
@@ -84,7 +84,7 @@ END_OF_OUTPUT;
     ChangeImagesSetupGeneric();
   }
 
-  public function test_SliderSetupGeneric() {
+  public function test_SliderSetupGeneric(): void {
     global $SLIDER_IMAGES;
     $SLIDER_IMAGES = array();
     $SLIDER_IMAGES['#foo'] = json_encode(array(11, 23));
@@ -93,7 +93,7 @@ END_OF_OUTPUT;
     $expected = <<<'END_OF_OUTPUT'
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
-jQuery(document).ready(function() {
+jQuery(document).ready(function(): void {
   Slider.initialise({'id_prefix': '#foo',
                      'log_to_console': true},
                     [11,23]);
@@ -111,7 +111,7 @@ END_OF_OUTPUT;
     SliderSetupGeneric();
   }
 
-  public function test_FrontPageSliderSetup() {
+  public function test_FrontPageSliderSetup(): void {
     global $SLIDER_IMAGES;
     $SLIDER_IMAGES = array();
     $images = array(

@@ -3,13 +3,13 @@ use PHPUnit\Framework\TestCase;
 require_once('src/WordpressConfiguration.php');
 
 class WordpressConfigurationTest extends TestCase {
-  public function test_remove_script_version() {
+  public function test_remove_script_version(): void {
     $this->assertEquals('foo', remove_script_version('foo'));
     $this->assertEquals('bar', remove_script_version('bar?baz'));
     $this->assertEquals('bar', remove_script_version('bar?baz?quux'));
   }
 
-  public function test_ShouldRemoveCookieLawInfo() {
+  public function test_ShouldRemoveCookieLawInfo(): void {
     $this->assertFalse(ShouldRemoveCookieLawInfo());
     $_SERVER['HTTP_USER_AGENT'] = 'Chrome';
     $this->assertFalse(ShouldRemoveCookieLawInfo());
@@ -20,7 +20,7 @@ class WordpressConfigurationTest extends TestCase {
     $this->assertTrue(ShouldRemoveCookieLawInfo());
   }
 
-  public function test_HideCookieLawInfoInFooter() {
+  public function test_HideCookieLawInfoInFooter(): void {
     $content = HideCookieLawInfoInFooter();
     $this->assertMatchesRegularExpression('/display: none/', $content);
     $this->assertMatchesRegularExpression('/#cookie-law-info-bar/', $content);

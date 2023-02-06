@@ -15,7 +15,7 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
-  public function test_max_quantity() {
+  public function test_max_quantity(): void {
     $jewellery_page = new JewelleryPage('test name', 7, 'test range',
       'test type', '-1', false);
     Cart66Product::setMaxQuantity($jewellery_page->product_id, 1);
@@ -23,7 +23,7 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $this->assertMatchesRegularExpression('/unique piece of jewellery has been sold./', $content);
   }
 
-  public function test_archived() {
+  public function test_archived(): void {
     $jewellery_page = new JewelleryPage('test name', 11, 'test range',
       'test type', '-1', true);
     $content = MakeBuyButtonForJewelleryPage($jewellery_page);
@@ -31,7 +31,7 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
       $content);
   }
 
-  public function test_no_stock() {
+  public function test_no_stock(): void {
     $jewellery_page = new JewelleryPage('test name', 13, 'test range',
       'test type', '-1', false);
     Cart66Product::setInventoryLevelForProduct($jewellery_page->product_id, 0);
@@ -39,7 +39,7 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
   }
 
-  public function test_has_stock_store_closed() {
+  public function test_has_stock_store_closed(): void {
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
@@ -52,7 +52,7 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $this->assertMatchesRegularExpression('/Price: €135/', $content);
   }
 
-  public function test_has_stock_store_open() {
+  public function test_has_stock_store_open(): void {
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
@@ -98,12 +98,12 @@ class JewelleryPageShortcodeTest extends TestCase {
     Cart66Product::setMaxQuantity($product_id, 17);
   }
 
-  public function test_missing_attr() {
+  public function test_missing_attr(): void {
     $content = JewelleryPageShortcode([], '', '');
     $this->assertMatchesRegularExpression('/jewellery_page: empty attribute/', $content);
   }
 
-  public function test_single_image() {
+  public function test_single_image(): void {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
@@ -141,7 +141,7 @@ EXPECTED;
     $this->assertEquals($expected, $content);
   }
 
-  public function test_no_price() {
+  public function test_no_price(): void {
     // This tests that "Price on request" is displayed and the add to cart
     // button is not displayed.
     global $CHANGE_IMAGES;
@@ -179,7 +179,7 @@ EXPECTED;
     $this->assertEquals($expected, $content);
   }
 
-  public function test_multiple_images() {
+  public function test_multiple_images(): void {
     global $CHANGE_IMAGES;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();

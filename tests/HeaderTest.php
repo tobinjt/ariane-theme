@@ -6,12 +6,12 @@ require_once('src/TestHelpers.php');
 require_once('src/Header.php');
 
 class GetGoogleAnalyticsCodeTest extends TestCase {
-  public function test_dev() {
+  public function test_dev(): void {
     $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
     $this->assertEquals('', get_google_analytics_code());
   }
 
-  public function test_prod() {
+  public function test_prod(): void {
     $_SERVER['SERVER_NAME'] = 'www.arianetobin.ie';
     $content = get_google_analytics_code();
     $this->assertMatchesRegularExpression('/G-5GXZQT5D22/', $content);
@@ -21,7 +21,7 @@ class GetGoogleAnalyticsCodeTest extends TestCase {
 }
 
 class LinksToHTMLTest extends TestCase {
-  public function test_all() {
+  public function test_all(): void {
     $links = array(
       'link1' => 'asdf',
       'link2' => 'qwerty',
@@ -42,7 +42,7 @@ END_OF_EXPECTED;
 }
 
 class WrapWithTagTest extends TestCase {
-  public function test_all() {
+  public function test_all(): void {
     $output = wrap_with_tag('the tag', 'the class',
       '  leading spaces are stripped, trailing are not ', 4);
     $expected = implode("\n", array(
@@ -55,7 +55,7 @@ class WrapWithTagTest extends TestCase {
 }
 
 class MakeMenuBarTest extends TestCase {
-  public function test_all() {
+  public function test_all(): void {
     $output = make_menu_bar(array('chunk 1', 'chunk 2'), 'css_tag');
     $expected = <<<'END_OF_EXPECTED'
     <div class="menubar css_tag">
@@ -69,7 +69,7 @@ END_OF_EXPECTED;
 }
 
 class MakeIconLinkTest extends TestCase {
-  public function test_all() {
+  public function test_all(): void {
     $output = make_icon_link('icon.png', 'alt text for icon', '7', '11');
     $expected = <<<'END_OF_EXPECTED'
 <img class="greyscale" width="7" height="11" src="DIR/images/icon.png" alt="alt text for icon" />
@@ -83,7 +83,7 @@ class MakeLinkGroupTest extends TestCase {
     clear_server_variables();
   }
 
-  public function test_simple() {
+  public function test_simple(): void {
     set_url('url1/');
     $groups = array(
       'classy' => array('url1/' => 'txet 1knil', '5url' => 'wibble'),
@@ -110,13 +110,13 @@ class PickURLToHighlightTest extends TestCase {
     clear_server_variables();
   }
 
-  public function test_404() {
+  public function test_404(): void {
     set_is_404(true);
     $output = pick_url_to_highlight(array(), 'zxcv');
     $this->assertEquals('/qwertyasdf', $output);
   }
 
-  public function test_store_page() {
+  public function test_store_page(): void {
     set_url('/store/wibble');
     $groups = array(
       'main' => array('/care/' => 'care', '/store/basket' => 'basket'),
@@ -126,7 +126,7 @@ class PickURLToHighlightTest extends TestCase {
     $this->assertEquals('/store/basket', $output);
   }
 
-  public function test_last_match_wins() {
+  public function test_last_match_wins(): void {
     set_url('/jewellery/wave/ring');
     $groups = array(
       'main' => array('/jewellery' => 'jewellery', '/jewellery/wave' => 'wave'),
@@ -142,7 +142,7 @@ class PickURLToHighlightTest extends TestCase {
     $this->assertEquals('/jewellery', $output);
   }
 
-  public function test_default_if_no_match() {
+  public function test_default_if_no_match(): void {
     set_url('/wibble/');
     $groups = array(
       'main' => array('/care/' => 'care', '/store/basket' => 'basket'),
@@ -158,7 +158,7 @@ class MakeFullMenuBarTest extends TestCase {
     clear_server_variables();
   }
 
-  public function test_no_jewellery() {
+  public function test_no_jewellery(): void {
     set_url('/care/');
     $output = make_full_menu_bar();
     $expected = <<<'END_OF_EXPECTED'
@@ -180,7 +180,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
 
-  public function test_with_jewellery() {
+  public function test_with_jewellery(): void {
     set_url('/jewellery/care/');
     $output = make_full_menu_bar();
     $expected = <<<'END_OF_EXPECTED'
@@ -238,27 +238,27 @@ class GetTitleTest extends TestCase {
     clear_wordpress_testing_state();
   }
 
-  public function test_404() {
+  public function test_404(): void {
     set_is_404(true);
     $this->assertEquals('Not Found - BLOG NAME', get_title());
   }
 
-  public function test_not_a_page() {
+  public function test_not_a_page(): void {
     $this->assertEquals('BLOG NAME', get_title());
   }
 
-  public function test_page_without_title() {
+  public function test_page_without_title(): void {
     set_is_page(true);
     $this->assertEquals('BLOG NAME - BLOG NAME', get_title());
   }
 
-  public function test_page_with_title() {
+  public function test_page_with_title(): void {
     set_is_page(true);
     set_wp_title('PAGE TITLE');
     $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
   }
 
-  public function test_post_with_title() {
+  public function test_post_with_title(): void {
     set_is_single(true);
     set_wp_title('PAGE TITLE');
     $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
@@ -270,7 +270,7 @@ class GetBannerMessageTest extends TestCase {
     clear_all_times();
   }
 
-  public function test_get_banner_message() {
+  public function test_get_banner_message(): void {
     set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
     set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
@@ -287,7 +287,7 @@ class GetJewelleryPageMessageTest extends TestCase {
     clear_all_times();
   }
 
-  public function test_store_closed() {
+  public function test_store_closed(): void {
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
@@ -302,7 +302,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());
   }
 
-  public function test_no_message() {
+  public function test_no_message(): void {
     set_now_for_testing('2018-12-15 00:00:00 Europe/Dublin');
     set_store_closing_message_display_date('2018-12-22 18:30:00 Europe/Dublin');
     set_closing_time('2018-12-27 18:30:00 Europe/Dublin');
@@ -310,7 +310,7 @@ END_OF_EXPECTED;
     $this->assertEquals('', get_jewellery_page_message());
   }
 
-  public function test_last_delivery_warning() {
+  public function test_last_delivery_warning(): void {
     set_store_closing_message_display_date('2018-12-18 18:30:00 Europe/Dublin');
     set_now_for_testing('2018-12-22 00:00:00 Europe/Dublin');
     set_last_delivery_outside_ireland('2018-12-23 00:00:00 Europe/Dublin');
@@ -328,7 +328,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, get_jewellery_page_message());
   }
 
-  public function test_store_closed_and_message_disabled() {
+  public function test_store_closed_and_message_disabled(): void {
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
@@ -342,25 +342,25 @@ class GetStorePageMessageTest extends TestCase {
     clear_server_variables();
   }
 
-  public function test_cart() {
+  public function test_cart(): void {
     set_url('/store/cart/');
     $this->assertStringContainsString('press the <em>Checkout</em> button',
       get_store_page_message());
   }
 
-  public function test_checkout() {
+  public function test_checkout(): void {
     set_url('/store/checkout/');
     $this->assertStringContainsString('press the <em>PayPal</em> button',
       get_store_page_message());
   }
 
-  public function test_express() {
+  public function test_express(): void {
     set_url('/store/express/');
     $this->assertStringContainsString('press the <em>Complete Order</em>',
       get_store_page_message());
   }
 
-  public function test_full_message() {
+  public function test_full_message(): void {
     set_url('/store/express/');
     $expected = array(
       '<strong class="largest-text highlight top-bottom-margin">',
@@ -391,7 +391,7 @@ class GetMessagesForTopOfPageTest extends TestCase {
     set_banner_message('BANNER MESSAGE');
   }
 
-  public function test_index_page() {
+  public function test_index_page(): void {
     set_url('/');
     $expected = <<<'END_OF_EXPECTED'
       <p class="text-centered larger-text grey">
@@ -403,7 +403,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $content);
   }
 
-  public function test_jewellery_page() {
+  public function test_jewellery_page(): void {
     set_url('/jewellery/sentinel/');
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
@@ -423,7 +423,7 @@ END_OF_EXPECTED;
     $this->assertEquals($expected, $content);
   }
 
-  public function test_store_page() {
+  public function test_store_page(): void {
     set_url('/store/cart/');
     set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
     set_opening_time('2019-01-07 00:30:00 Europe/Dublin');

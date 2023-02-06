@@ -6,7 +6,7 @@ require_once('src/DataStructures.php');
 // because if there isn't something using a piece of code it should be deleted.
 // This file covers some code that exists to keep linters etc happy.
 class DataStructuresTest extends TestCase {
-  public function test_json_encode_wrapper() {
+  public function test_json_encode_wrapper(): void {
     $this->assertEquals('["foo"]', json_encode_wrapper(array('foo')));
     $input = array(7, array('foo' => 'bar', 'baz' => 'quux'));
     $this->assertEquals(

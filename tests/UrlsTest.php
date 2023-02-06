@@ -9,24 +9,24 @@ class UrlsTest extends TestCase {
     clear_server_variables();
   }
 
-  public function test_get_hostname() {
+  public function test_get_hostname(): void {
     set_hostname('foo');
     $this->assertEquals('foo', get_hostname());
   }
 
-  public function test_is_dev_website() {
+  public function test_is_dev_website(): void {
     set_hostname('foo');
     $this->assertFalse(is_dev_website());
     set_hostname('dev.arianetobin.ie');
     $this->assertTrue(is_dev_website());
   }
 
-  public function test_get_current_url() {
+  public function test_get_current_url(): void {
     set_url('foo');
     $this->assertEquals('foo', get_current_url());
   }
 
-  public function test_is_jewellery_page() {
+  public function test_is_jewellery_page(): void {
     set_url('foo');
     $this->assertFalse(is_jewellery_page());
     set_url('/jewellery/');
@@ -35,7 +35,7 @@ class UrlsTest extends TestCase {
     $this->assertTrue(is_jewellery_page());
   }
 
-  public function test_is_store_page() {
+  public function test_is_store_page(): void {
     set_url('foo');
     $this->assertFalse(is_store_page());
     set_url('/store/');
@@ -44,7 +44,7 @@ class UrlsTest extends TestCase {
     $this->assertTrue(is_store_page());
   }
 
-  public function test_is_archive_page() {
+  public function test_is_archive_page(): void {
     set_url('foo');
     $this->assertFalse(is_archive_page());
     set_url('/archive/');
@@ -55,7 +55,7 @@ class UrlsTest extends TestCase {
     $this->assertTrue(is_archive_page());
   }
 
-  public function test_is_current_url() {
+  public function test_is_current_url(): void {
     set_url('foo');
     $this->assertFalse(is_current_url('bar'));
     set_url('/archive/');
@@ -67,7 +67,7 @@ class UrlsTest extends TestCase {
     $this->assertFalse(is_current_url('/jewellery/archive/'));
   }
 
-  public function test_get_theme_image_path() {
+  public function test_get_theme_image_path(): void {
     $this->assertEquals('DIR/images/asdf.png',
       get_theme_image_path('asdf.png'));
   }
