@@ -62,12 +62,19 @@ END_OF_HTML;
 
 END_OF_HTML;
   } else {
-    $store_opening_time_human = store_opening_time_human();
-    $content .= <<<END_OF_HTML
-      The store is currently closed, it will open again on
-      $store_opening_time_human.
+    if (store_opening_time() == '') {
+      $content .= <<<END_OF_HTML
+        The store is currently closed.
 
-END_OF_HTML;
+  END_OF_HTML;
+    } else {
+      $store_opening_time_human = store_opening_time_human();
+      $content .= <<<END_OF_HTML
+        The store is currently closed, it will open again on
+        $store_opening_time_human.
+
+  END_OF_HTML;
+    }
   }
   return $content;
 }

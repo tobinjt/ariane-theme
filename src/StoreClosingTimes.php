@@ -195,7 +195,7 @@ function is_time_before(string $time_string): bool {
 function is_time_between(string $start_time_string,
                          string $end_time_string): bool {
   return (is_time_after($start_time_string)
-          && is_time_before($end_time_string));
+          && ($end_time_string === '' || is_time_before($end_time_string)));
 }
 
 /* is_store_closed: is the store currently closed?  Uses store_closing_time()
