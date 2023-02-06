@@ -1,3 +1,17 @@
+## How do I set the banner message?
+
+- Edit `functions.php`.
+- Call `set_banner_message()` with the message you want to show.
+- Call `set_start_displaying_banner_message()` and
+  `set_stop_displaying_banner_message()` with banner start and stop dates.
+
+## How do I set the banner message?
+
+- Edit `functions.php`.
+- Call `set_show_store_closing_message()` with the message you want to show.
+- Call `set_closing_time()` and `set_opening_time()` with banner start and stop
+  dates.
+
 ## How are images included in the slider?
 
 The image description needs to start with `slider `, and be followed by a URL;
