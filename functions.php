@@ -158,9 +158,9 @@ add_editor_style('style.css');
 // NOTE: check the messages are appropriate, e.g. the closing message wishes
 // people a Merry Christmas.
 set_closing_time('2021-12-14 18:30:00 Europe/Dublin');
-set_opening_time('2026-02-01 00:30:00 Europe/Dublin');
+set_opening_time('');
 set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
-set_stop_displaying_banner_message('2026-02-01 00:30:00 Europe/Dublin');
+set_stop_displaying_banner_message('');
 set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');
 set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
 $rds_banner = <<<RDS_BANNER
