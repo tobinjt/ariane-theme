@@ -158,7 +158,7 @@ add_editor_style('style.css');
 // NOTE: check the messages are appropriate, e.g. the closing message wishes
 // people a Merry Christmas.
 set_closing_time('2021-12-14 18:30:00 Europe/Dublin');
-set_opening_time('2023-01-05 00:30:00 Europe/Dublin');
+set_opening_time('2026-02-01 00:30:00 Europe/Dublin');
 set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
 set_stop_displaying_banner_message('2026-02-01 00:30:00 Europe/Dublin');
 set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');
@@ -184,4 +184,4 @@ $maternity_leave_banner3 = <<<MATERNITY_LEAVE_BANNER
         families a Happy Christmas and hopefully a better 2022.
 MATERNITY_LEAVE_BANNER;
 set_banner_message($maternity_leave_banner);
-set_show_store_closing_message('Disabled for maternity leave');
+set_show_store_closing_message('Ariane is on sabbatical');
