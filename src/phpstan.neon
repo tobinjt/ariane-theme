@@ -1,9 +1,0 @@
-# This is ~duplicated in ../phpstan.neon, because otherwise phpstan invoked by
-# syntastic only processes a single file and doesn't find functions defined in
-# other files.
-parameters:
-  level: 8
-  paths:
-    - .
-    # Deliberately not including tests/ because PHPStan can't find PHPUnit
-    # classes.
