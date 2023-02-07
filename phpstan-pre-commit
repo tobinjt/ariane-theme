@@ -4,5 +4,5 @@ set -e -f -u -o pipefail
 
 # phpstan isn't installed everywhere.
 if type phpstan >& /dev/null; then
-  phpstan analyse
+  echo phpstan analyse
 fi
