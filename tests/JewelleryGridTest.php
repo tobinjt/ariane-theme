@@ -59,13 +59,13 @@ END_OF_INPUT;
 
   public function test_negative_product_id(): void {
     set_url('/jewellery/foo/');
-    $content = MakeBuyButtonForJewelleryGrid('-1');
+    $content = MakeBuyButtonForJewelleryGrid(-1);
     $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
   }
 
   public function test_archived(): void {
     set_url('/jewellery/archive/');
-    $content = MakeBuyButtonForJewelleryGrid('11');
+    $content = MakeBuyButtonForJewelleryGrid(11);
     $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
   }
 
@@ -73,14 +73,14 @@ END_OF_INPUT;
     set_url('/jewellery/foo/');
     Cart66Product::setMaxQuantity(7, 1);
     Cart66Product::setInventoryLevelForProduct(7, 0);
-    $content = MakeBuyButtonForJewelleryGrid('7');
+    $content = MakeBuyButtonForJewelleryGrid(7);
     $this->assertEquals("    Sold\n", $content);
   }
 
   public function test_no_stock(): void {
     set_url('/jewellery/foo/');
     Cart66Product::setInventoryLevelForProduct(13, 0);
-    $content = MakeBuyButtonForJewelleryGrid('13');
+    $content = MakeBuyButtonForJewelleryGrid(13);
     $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
   }
 
@@ -91,7 +91,7 @@ END_OF_INPUT;
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
     Cart66Product::setInventoryLevelForProduct(17, 2);
     Cart66Product::setPrice(17, 135);
-    $content = MakeBuyButtonForJewelleryGrid('17');
+    $content = MakeBuyButtonForJewelleryGrid(17);
     $this->assertMatchesRegularExpression('/\(store closed\)/', $content);
     $this->assertMatchesRegularExpression('/€135/', $content);
   }
@@ -103,7 +103,7 @@ END_OF_INPUT;
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
     Cart66Product::setPrice(19, 234);
     Cart66Product::setInventoryLevelForProduct(19, 3);
-    $content = MakeBuyButtonForJewelleryGrid('19');
+    $content = MakeBuyButtonForJewelleryGrid(19);
     $expected = <<<'END_OF_EXPECTED'
                 <div class="larger-text">
                   €234

@@ -79,7 +79,7 @@ class JewelleryPageTest extends TestCase {
   }
 
   public function set_up_MakeBuyButton(int $product_id, int $price,
-    int $stock_level) {
+    int $stock_level): void {
     set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
     set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
@@ -98,7 +98,7 @@ class JewelleryPageTest extends TestCase {
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3';
-    $attrs['product_id'] = '7';
+    $attrs['product_id'] = 7;
     add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
     $this->set_up_MakeBuyButton($attrs['product_id'], 123, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
@@ -138,7 +138,7 @@ EXPECTED;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3';
-    $attrs['product_id'] = '7';
+    $attrs['product_id'] = 7;
     add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
     $this->set_up_MakeBuyButton($attrs['product_id'], 0, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');

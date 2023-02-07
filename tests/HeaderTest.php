@@ -73,7 +73,7 @@ END_OF_EXPECTED;
   }
 
   public function test_make_icon_link(): void {
-    $output = make_icon_link('icon.png', 'alt text for icon', '7', '11');
+    $output = make_icon_link('icon.png', 'alt text for icon', 7, 11);
     $expected = <<<'END_OF_EXPECTED'
 <img class="greyscale" width="7" height="11" src="DIR/images/icon.png" alt="alt text for icon" />
 END_OF_EXPECTED;
