@@ -6,9 +6,15 @@ require_once('src/FakeWordpress.php');
 require_once('src/TestHelpers.php');
 require_once('src/JewelleryGrid.php');
 
-class ParseJewelleryGridContentsTest extends TestCase {
+class JewelleryGridTest extends TestCase {
   public function setUp(): void {
+    clear_cart66_testing_state();
+    clear_server_variables();
     clear_wordpress_testing_state();
+    set_url('/jewellery/foo/');
+    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
+    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
+    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
   }
 
   public function tearDown(): void {
@@ -49,18 +55,6 @@ END_OF_INPUT;
     );
     $actual = ParseJewelleryGridContents($input);
     $this->assertEquals($expected, $actual);
-  }
-}
-
-class MakeBuyButtonForJewelleryGridTest extends TestCase {
-  public function setUp(): void {
-    clear_wordpress_testing_state();
-    clear_cart66_testing_state();
-    clear_server_variables();
-  }
-
-  public function tearDown(): void {
-    verify_wordpress_testing_state();
   }
 
   public function test_negative_product_id(): void {
@@ -119,22 +113,6 @@ class MakeBuyButtonForJewelleryGridTest extends TestCase {
 
 END_OF_EXPECTED;
     $this->assertEquals($expected, $content);
-  }
-}
-
-class JewelleryGridShortcodeTest extends TestCase {
-  public function setUp(): void {
-    clear_wordpress_testing_state();
-    clear_cart66_testing_state();
-    clear_server_variables();
-    set_url('/jewellery/foo/');
-    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
-    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
-  }
-
-  public function tearDown(): void {
-    verify_wordpress_testing_state();
   }
 
   public function test_single_images(): void {
