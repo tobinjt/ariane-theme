@@ -9,6 +9,7 @@ class HeaderTest extends TestCase {
   public function setUp(): void {
     clear_all_times();
     clear_server_variables();
+    clear_wordpress_testing_state();
 
     set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
     set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
