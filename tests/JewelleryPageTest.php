@@ -5,10 +5,11 @@ require_once('src/FakeCart66.php');
 require_once('src/FakeWordpress.php');
 require_once('src/JewelleryPage.php');
 
-class MakeBuyButtonForJewelleryPageTest extends TestCase {
+class JewelleryPageTest extends TestCase {
   public function setUp(): void {
     clear_wordpress_testing_state();
     clear_cart66_testing_state();
+
   }
 
   public function tearDown(): void {
@@ -63,17 +64,6 @@ class MakeBuyButtonForJewelleryPageTest extends TestCase {
     $content = MakeBuyButtonForJewelleryPage($jewellery_page);
     $this->assertMatchesRegularExpression('/add_to_cart item="19" showprice="no"/', $content);
     $this->assertMatchesRegularExpression('/Price: €234/', $content);
-  }
-}
-
-class JewelleryPageShortcodeTest extends TestCase {
-  public function setUp(): void {
-    clear_wordpress_testing_state();
-    clear_cart66_testing_state();
-  }
-
-  public function tearDown(): void {
-    verify_wordpress_testing_state();
   }
 
   // Get a reasonable set of attrs to pass to JewelleryPageShortcode.
