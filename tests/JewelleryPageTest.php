@@ -67,12 +67,15 @@ class JewelleryPageTest extends TestCase {
   }
 
   // Get a reasonable set of attrs to pass to JewelleryPageShortcode.
+  /**
+   * @return array<string, string>
+   */
   public function get_attrs(): array {
     return array(
       'archived' => 'false',
-      'image_id' => null,
+      'image_id' => '-1',
       'name' => 'name should be set',
-      'product_id' => null,
+      'product_id' => '-1',
       'range' => 'range should be set',
       'type' => 'type should be set',
     );
@@ -98,9 +101,9 @@ class JewelleryPageTest extends TestCase {
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3';
-    $attrs['product_id'] = 7;
-    add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
-    $this->set_up_MakeBuyButton($attrs['product_id'], 123, 11);
+    $attrs['product_id'] = '7';
+    add_image_info(intval($attrs['image_id']), 'product_size', array('URL', 23, 59));
+    $this->set_up_MakeBuyButton(intval($attrs['product_id']), 123, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
     $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<'EXPECTED'
@@ -138,9 +141,9 @@ EXPECTED;
     $CHANGE_IMAGES['#individual-jewellery-image'] = null;
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3';
-    $attrs['product_id'] = 7;
-    add_image_info($attrs['image_id'], 'product_size', array('URL', 23, 59));
-    $this->set_up_MakeBuyButton($attrs['product_id'], 0, 11);
+    $attrs['product_id'] = '7';
+    add_image_info(intval($attrs['image_id']), 'product_size', array('URL', 23, 59));
+    $this->set_up_MakeBuyButton(intval($attrs['product_id']), 0, 11);
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
     $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
     $expected = <<<'EXPECTED'
@@ -183,7 +186,7 @@ EXPECTED;
     add_image_info(3, 'thumbnail', array('thumb', 25, 57));
     add_image_info(79, 'thumbnail', array('thumb2', 44, 80));
     add_image_info(37, 'thumbnail', array('thumb3', 51, 93));
-    $this->set_up_MakeBuyButton($attrs['product_id'], 543, 15);
+    $this->set_up_MakeBuyButton(intval($attrs['product_id']), 543, 15);
     $content = JewelleryPageShortcode($attrs, '<br /> asdf', '');
     $expected_array = array(
       array('src' => 'URL', 'width' => 23, 'height' => 59),

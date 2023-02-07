@@ -103,11 +103,10 @@ END_OF_OUTPUT;
 
   public function test_FrontPageSliderSetup(): void {
     global $SLIDER_IMAGES;
-    $SLIDER_IMAGES = array();
+    $SLIDER_IMAGES = array('#slider' => 'appease the linter');
     $images = array(
       array('href' => 'linky', 'src' => 'jpg', 'srcset' => 'foo',
         'sizes' => 'bar'),
-      array(1, 2, 3, 4),
     );
     expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     $content = FrontPageSliderSetup($images);
