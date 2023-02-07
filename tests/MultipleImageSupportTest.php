@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 require_once('src/MultipleImageSupport.php');
 require_once('src/FakeWordpress.php');
 
-class SliderImagesTest extends TestCase {
+class MultipleImageSupportTest extends TestCase {
   public function setUp(): void {
     clear_wordpress_testing_state();
   }
@@ -46,16 +46,6 @@ class SliderImagesTest extends TestCase {
     $this->assertEquals($expected[0]['srcset'], $images[0]['srcset']);
     $this->assertEquals($expected, $images);
   }
-}
-
-class SmallFunctionsTest extends TestCase {
-  public function setUp(): void {
-    clear_wordpress_testing_state();
-  }
-
-  public function tearDown(): void {
-    verify_wordpress_testing_state();
-  }
 
   public function test_ChangeImagesSetupGeneric(): void {
     global $CHANGE_IMAGES;
@@ -65,7 +55,7 @@ class SmallFunctionsTest extends TestCase {
     $expected = <<<'END_OF_OUTPUT'
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
-function change_image(i, id): void {
+function change_image(i, id) {
 var images = {"foo":[1,2],"bar":["asdf","qwerty"]};
 // Construct a new image and swap it in, otherwise it flashes awkwardly - the
 // old image resizes and then the new image is displayed.
@@ -93,7 +83,7 @@ END_OF_OUTPUT;
     $expected = <<<'END_OF_OUTPUT'
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
-jQuery(document).ready(function(): void {
+jQuery(document).ready(function() {
   Slider.initialise({'id_prefix': '#foo',
                      'log_to_console': true},
                     [11,23]);
