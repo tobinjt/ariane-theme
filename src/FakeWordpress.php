@@ -206,7 +206,7 @@ function clear_image_info(): void {
 
 // phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
 /**
- * @param array<int, int> $info
+ * @param array<int, int|string> $info
  */
 function add_image_info(int $image_id, string $size, array $info): void {
   global $IMAGE_INFO;
