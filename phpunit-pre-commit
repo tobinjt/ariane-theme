@@ -2,4 +2,4 @@
 
 set -e -f -u -o pipefail
 
-true phpunit --no-coverage >& /dev/null || phpunit --no-coverage
+phpunit --no-coverage >& /dev/null || phpunit --no-coverage
