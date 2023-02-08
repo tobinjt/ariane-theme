@@ -1,2 +1,3 @@
 phplint-modules
+phpunit.xml
 vendor

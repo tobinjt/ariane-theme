@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" bootstrap="" backupGlobals="false" beStrictAboutOutputDuringTests="true" beStrictAboutTestsThatDoNotTestAnything="true" cacheDirectory=".phpunit.cache" beStrictAboutCoverageMetadata="true">
+  <coverage>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <report>
+      <html outputDirectory="coverage" lowUpperBound="90" highLowerBound="91"/>
+    </report>
+  </coverage>
+  <testsuite name="Ariane theme tests">
+    <directory suffix="Test.php">tests</directory>
+  </testsuite>
+  <logging/>
+</phpunit>
