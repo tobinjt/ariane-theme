@@ -33,7 +33,7 @@ if (is_dev_website()) {
  *  string, the HTML to insert in the page (Wordpress does that
  *    automatically).
  */
-function FrontPageSliderSetupShortcode(string $atts, string $content,
+function FrontPageSliderSetupShortcode(array $atts, string $content,
                                        string $tag): string {
   $images = SliderImages();
   return FrontPageSliderSetup($images);
