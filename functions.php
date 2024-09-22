@@ -15,10 +15,6 @@ if (is_dev_website()) {
   error_reporting(E_ALL);
   ini_set('display_errors', '1');
   ini_set('display_startup_errors', '1');
-  // Turn on Cart66 debug logging; this needs a world-writable file named
-  // log.txt in the Cart66 plugin directory.
-  // Causes a nasty warning at the top of the page :(
-  // define('CART66_DEBUG', true);
 }
 
 /* FrontPageSliderSetupShortcode: wrap FrontPageSliderSetup to provide a
@@ -154,15 +150,8 @@ add_editor_style('style.css');
 // Add RSS links to <head> section.
 // add_theme_support('automatic-feed-links');
 
-// Configure opening and closing themes.
-// NOTE: check the messages are appropriate, e.g. the closing message wishes
-// people a Merry Christmas.
-set_closing_time('2021-12-14 18:30:00 Europe/Dublin');
-set_opening_time('');
 set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
 set_stop_displaying_banner_message('');
-set_last_delivery_outside_ireland('2019-12-11 18:30:00 Europe/Dublin');
-set_store_closing_message_display_date('2018-12-01 01:30:00 Europe/Dublin');
 $rds_banner = <<<RDS_BANNER
         Ariane will be at <a class="external-link"
         href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
@@ -184,4 +173,3 @@ $maternity_leave_banner3 = <<<MATERNITY_LEAVE_BANNER
         families a Happy Christmas and hopefully a better 2022.
 MATERNITY_LEAVE_BANNER;
 set_banner_message($maternity_leave_banner);
-set_show_store_closing_message('Ariane is on sabbatical');

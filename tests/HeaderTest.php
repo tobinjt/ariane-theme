@@ -106,16 +106,6 @@ END_OF_EXPECTED;
     $this->assertEquals('/qwertyasdf', $output);
   }
 
-  public function test_pick_url_to_highlight_store_page(): void {
-    set_url('/store/wibble');
-    $groups = array(
-      'main' => array('/care/' => 'care', '/store/basket' => 'basket'),
-      'foo' => array('/qwerty/' => 'qwerty', '/bar/' => 'bar'),
-    );
-    $output = pick_url_to_highlight($groups, '/default_url/');
-    $this->assertEquals('/store/basket', $output);
-  }
-
   public function test_pick_url_to_highlight_last_match_wins(): void {
     set_url('/jewellery/wave/ring');
     $groups = array(
@@ -135,7 +125,7 @@ END_OF_EXPECTED;
   public function test_pick_url_to_highlight_default_if_no_match(): void {
     set_url('/wibble/');
     $groups = array(
-      'main' => array('/care/' => 'care', '/store/basket' => 'basket'),
+      'main' => array('/care/' => 'care'),
       'foo' => array('/qwerty/' => 'qwerty', '/bar/' => 'bar'),
     );
     $output = pick_url_to_highlight($groups, '/default_url/');
@@ -152,7 +142,6 @@ END_OF_EXPECTED;
         <a href="/jewellery/">jewellery</a>
         <a href="/care/" class="highlight">care</a>
         <a href="/about/">about</a>
-        <a href="/store/cart/">basket</a>
       </span>
       <span class="float-right">
         <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
@@ -174,7 +163,6 @@ END_OF_EXPECTED;
         <a href="/jewellery/" class="highlight">jewellery</a>
         <a href="/care/">care</a>
         <a href="/about/">about</a>
-        <a href="/store/cart/">basket</a>
       </span>
       <span class="float-right">
         <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
@@ -251,142 +239,5 @@ END_OF_EXPECTED;
     $this->assertEquals('', get_banner_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
     $this->assertMatchesRegularExpression('/BANNER MESSAGE/', get_banner_message());
-  }
-
-  public function test_get_jewellery_page_message_store_closed(): void {
-    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $expected = <<<'END_OF_EXPECTED'
-      <p class="text-centered larger-text grey">
-        The store is now closed, and Ariane will return to the workshop
-        Monday 07 January 2019.  <br />Wishing everyone a Merry Christmas
-        and a Happy New Year!
-      </p>
-
-END_OF_EXPECTED;
-    $this->assertEquals($expected, get_jewellery_page_message());
-  }
-
-  public function test_get_jewellery_page_message_no_message(): void {
-    set_now_for_testing('2018-12-15 00:00:00 Europe/Dublin');
-    set_store_closing_message_display_date('2018-12-22 18:30:00 Europe/Dublin');
-    set_closing_time('2018-12-27 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $this->assertEquals('', get_jewellery_page_message());
-  }
-
-  public function test_get_jewellery_page_message_last_delivery_warning(): void {
-    set_store_closing_message_display_date('2018-12-18 18:30:00 Europe/Dublin');
-    set_now_for_testing('2018-12-22 00:00:00 Europe/Dublin');
-    set_last_delivery_outside_ireland('2018-12-23 00:00:00 Europe/Dublin');
-    set_closing_time('2018-12-27 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $expected = <<<'END_OF_EXPECTED'
-    <p class="text-centered larger-text grey">
-      <!-- Delivery outside Ireland before December 25th cannot be guaranteed for
-      orders placed after Sunday 23 December 2018. -->
-      The store will be closing on Thursday 27 December 2018 to ensure delivery
-      of all orders before Christmas.
-      <!-- Ariane will return to the workshop on Monday 07 January 2019. -->
-    </p>
-END_OF_EXPECTED;
-    $this->assertEquals($expected, get_jewellery_page_message());
-  }
-
-  public function test_get_jewellery_page_message_store_closed_and_message_disabled(): void {
-    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    set_show_store_closing_message('Disabled for testing');
-    $this->assertEquals('', get_jewellery_page_message());
-  }
-
-  public function test_get_store_page_message_cart(): void {
-    set_url('/store/cart/');
-    $this->assertStringContainsString('press the <em>Checkout</em> button',
-      get_store_page_message());
-  }
-
-  public function test_get_store_page_message_checkout(): void {
-    set_url('/store/checkout/');
-    $this->assertStringContainsString('press the <em>PayPal</em> button',
-      get_store_page_message());
-  }
-
-  public function test_get_store_page_message_express(): void {
-    set_url('/store/express/');
-    $this->assertStringContainsString('press the <em>Complete Order</em>',
-      get_store_page_message());
-  }
-
-  public function test_get_store_page_message_full_message(): void {
-    set_url('/store/express/');
-    $expected = array(
-      '<strong class="largest-text highlight top-bottom-margin">',
-      'To complete your order you <em>must</em> press the',
-      '<div class="store_message">',
-      '<ul class="grey">',
-      '<li>Each piece of jewellery is handmade by Ariane in her studio',
-      '<li>Free registered shipping on all orders.</li>',
-      '<li>Given the difficulties of international shipping during the Covid-19',
-      '<li>All taxes and duties are the responsibility of the buyer.</li>',
-    );
-
-    $message = get_store_page_message();
-    foreach ($expected as $exp) {
-      $this->assertStringContainsString($exp, $message);
-    }
-  }
-
-  public function test_get_messages_for_top_of_page_index_page(): void {
-    set_url('/');
-    $expected = <<<'END_OF_EXPECTED'
-      <p class="text-centered larger-text grey">
-        BANNER MESSAGE
-      </p>
-
-END_OF_EXPECTED;
-    $content = get_messages_for_top_of_page();
-    $this->assertEquals($expected, $content);
-  }
-
-  public function test_get_messages_for_top_of_page_jewellery_page(): void {
-    set_url('/jewellery/sentinel/');
-    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $expected = <<<'END_OF_EXPECTED'
-      <p class="text-centered larger-text grey">
-        BANNER MESSAGE
-      </p>
-
-      <p class="text-centered larger-text grey">
-        The store is now closed, and Ariane will return to the workshop
-        Monday 07 January 2019.  <br />Wishing everyone a Merry Christmas
-        and a Happy New Year!
-      </p>
-
-END_OF_EXPECTED;
-    $content = get_messages_for_top_of_page();
-    $this->assertEquals($expected, $content);
-  }
-
-  public function test_get_messages_for_top_of_page_store_page(): void {
-    set_url('/store/cart/');
-    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    $expected = <<<'END_OF_EXPECTED'
-      <p class="text-centered larger-text grey">
-        BANNER MESSAGE
-      </p>
-
-      <p class="text-centered larger-text grey">
-        The store is now closed, and Ariane will return to the workshop
-        Monday 07 January 2019.  <br />Wishing everyone a Merry Christmas
-        and a Happy New Year!
-      </p>
-END_OF_EXPECTED;
-    $content = get_messages_for_top_of_page();
-    $this->assertStringContainsString($expected, $content);
   }
 }

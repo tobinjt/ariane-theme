@@ -9,12 +9,6 @@ class StoreClosingTimesTest extends TestCase {
 
   public function test_setting_and_getting_times(): void {
     global $TIMES;
-    set_closing_time('asdf');
-    $this->assertEquals('asdf', $TIMES[STORE_CLOSING_TIME]);
-    $this->assertEquals('asdf', store_closing_time());
-    set_opening_time('qwerty');
-    $this->assertEquals('qwerty', $TIMES[STORE_OPENING_TIME]);
-    $this->assertEquals('qwerty', store_opening_time());
 
     set_start_displaying_banner_message('pinky');
     $this->assertEquals('pinky', $TIMES[START_DISPLAYING_BANNER_MESSAGE]);
@@ -22,25 +16,11 @@ class StoreClosingTimesTest extends TestCase {
     set_stop_displaying_banner_message('the brain');
     $this->assertEquals('the brain', $TIMES[STOP_DISPLAYING_BANNER_MESSAGE]);
     $this->assertEquals('the brain', stop_displaying_banner_message());
-
-    set_last_delivery_outside_ireland('wasd');
-    $this->assertEquals('wasd', $TIMES[LAST_DELIVERY_OUTSIDE_IRELAND]);
-    $this->assertEquals('wasd', last_day_for_delivery_outside_ireland());
-    set_store_closing_message_display_date('zxcv');
-    $this->assertEquals('zxcv', $TIMES[CLOSING_MESSAGE_DISPLAY_DATE]);
-    $this->assertEquals('zxcv', store_closing_message_display_date());
   }
 
   public function test_timestring_to_human(): void {
     $this->assertEquals('Tuesday 25 December 2018',
       timestring_to_human('2018-12-25 18:30:00 Europe/Dublin'));
-    set_closing_time('2018-12-17 18:30:00 Europe/Dublin');
-    set_opening_time('2019-01-07 00:30:00 Europe/Dublin');
-    set_last_delivery_outside_ireland('2018-12-11 18:30:00 Europe/Dublin');
-    $this->assertEquals('Monday 17 December 2018', store_closing_time_human());
-    $this->assertEquals('Monday 07 January 2019', store_opening_time_human());
-    $this->assertEquals('Tuesday 11 December 2018',
-      last_day_for_delivery_outside_ireland_human());
     $this->assertMatchesRegularExpression(
       '/SOMETHING WENT TERRIBLY WRONG CONVERTING/',
       timestring_to_human('this is not a valid date string'));
@@ -65,21 +45,5 @@ class StoreClosingTimesTest extends TestCase {
       '2018-12-23 00:00:00 Europe/Dublin'));
     $this->assertFalse(is_time_between('2017-12-23 00:00:00 Europe/Dublin',
       '2017-12-27 00:00:00 Europe/Dublin'));
-
-    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
-    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $this->assertTrue(is_store_closed());
-    set_opening_time('2018-12-24 00:00:00 Europe/Dublin');
-    $this->assertFalse(is_store_closed());
-  }
-
-  public function test_show_store_closing_message(): void {
-    clear_all_times();
-    $this->assertEquals(true, show_store_closing_message());
-    set_show_store_closing_message('');
-    $this->assertEquals(true, show_store_closing_message());
-    set_show_store_closing_message('Disabled for testing');
-    $this->assertEquals(false, show_store_closing_message());
   }
 }

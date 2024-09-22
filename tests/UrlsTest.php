@@ -35,26 +35,6 @@ class UrlsTest extends TestCase {
     $this->assertTrue(is_jewellery_page());
   }
 
-  public function test_is_store_page(): void {
-    set_url('foo');
-    $this->assertFalse(is_store_page());
-    set_url('/store/');
-    $this->assertTrue(is_store_page());
-    set_url('/store/qwerty/');
-    $this->assertTrue(is_store_page());
-  }
-
-  public function test_is_archive_page(): void {
-    set_url('foo');
-    $this->assertFalse(is_archive_page());
-    set_url('/archive/');
-    $this->assertFalse(is_archive_page());
-    set_url('/jewellery/archive/');
-    $this->assertTrue(is_archive_page());
-    set_url('/jewellery/archive/qwerty/');
-    $this->assertTrue(is_archive_page());
-  }
-
   public function test_is_current_url(): void {
     set_url('foo');
     $this->assertFalse(is_current_url('bar'));

@@ -1,7 +1,7 @@
 <?php get_header(); ?>
   <main>
 <?php
-  echo get_messages_for_top_of_page();
+  echo get_banner_message();
   if (is_jewellery_page()) {
     echo '      <div id="jewellery-page">', "\n";
     echo '        <br id="add-extra-space-before-description"/>', "\n";

@@ -7,50 +7,9 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. array[int]string .*/ $TIMES = array();
 
-define('STORE_CLOSING_TIME', 0);
-define('STORE_OPENING_TIME', 1);
-define('LAST_DELIVERY_OUTSIDE_IRELAND', 2);
-define('CLOSING_MESSAGE_DISPLAY_DATE', 3);
-define('START_DISPLAYING_BANNER_MESSAGE', 4);
-define('STOP_DISPLAYING_BANNER_MESSAGE', 5);
-define('SHOW_STORE_CLOSING_MESSAGE', 6);
+define('START_DISPLAYING_BANNER_MESSAGE', 0);
+define('STOP_DISPLAYING_BANNER_MESSAGE', 1);
 define('NOW_FOR_TESTING', 100);
-
-/* Set the closing time of the store.
- * Args:
- *  $timestring: a time and date string parsable by strtotime().
- */
-function set_closing_time(string $timestring): void {
-  global $TIMES;
-  $TIMES[STORE_CLOSING_TIME] = $timestring;
-}
-
-/* Set the opening time of the store.
- * Args:
- *  $timestring: a time and date string parsable by strtotime().
- */
-function set_opening_time(string $timestring): void {
-  global $TIMES;
-  $TIMES[STORE_OPENING_TIME] = $timestring;
-}
-
-/* Set the last delivery time for orders outside Ireland.
- * Args:
- *  $timestring: a time and date string parsable by strtotime().
- */
-function set_last_delivery_outside_ireland(string $timestring): void {
-  global $TIMES;
-  $TIMES[LAST_DELIVERY_OUTSIDE_IRELAND] = $timestring;
-}
-
-/* Set the time to start displaying the store closing message.
- * Args:
- *  $timestring: a time and date string parsable by strtotime().
- */
-function set_store_closing_message_display_date(string $timestring): void {
-  global $TIMES;
-  $TIMES[CLOSING_MESSAGE_DISPLAY_DATE] = $timestring;
-}
 
 /* Set the time to start displaying the BANNER message.
  * Args:
@@ -68,15 +27,6 @@ function set_start_displaying_banner_message(string $timestring): void {
 function set_stop_displaying_banner_message(string $timestring): void {
   global $TIMES;
   $TIMES[STOP_DISPLAYING_BANNER_MESSAGE] = $timestring;
-}
-
-/* Set whether to display the store closing message.
- * Args:
- *  disabled: if non-empty the store closing message will not be displayed.
- */
-function set_show_store_closing_message(string $disabled): void {
-  global $TIMES;
-  $TIMES[SHOW_STORE_CLOSING_MESSAGE] = $disabled;
 }
 
 /* Set the time returned by now() for testing purposes.
@@ -101,26 +51,6 @@ function timestring_to_human(string $timestring): string {
   return date('l d F Y', $timestamp);
 }
 
-// store_closing_time: when the store closes next.
-function store_closing_time(): string {
-  global $TIMES;
-  return $TIMES[STORE_CLOSING_TIME];
-}
-
-function store_closing_time_human(): string {
-  return timestring_to_human(store_closing_time());
-}
-
-// store_opening_time: when the store opens next.
-function store_opening_time(): string {
-  global $TIMES;
-  return $TIMES[STORE_OPENING_TIME];
-}
-
-function store_opening_time_human(): string {
-  return timestring_to_human(store_opening_time());
-}
-
 // start_displaying_banner_message: when to start displaying the BANNER message.
 function start_displaying_banner_message(): string {
   global $TIMES;
@@ -131,26 +61,6 @@ function start_displaying_banner_message(): string {
 function stop_displaying_banner_message(): string {
   global $TIMES;
   return $TIMES[STOP_DISPLAYING_BANNER_MESSAGE];
-}
-
-/* last_day_for_delivery_outside_ireland: time after which deliveries outside
- * Ireland are not guaranteed.
- */
-function last_day_for_delivery_outside_ireland(): string {
-  global $TIMES;
-  return $TIMES[LAST_DELIVERY_OUTSIDE_IRELAND];
-}
-
-function last_day_for_delivery_outside_ireland_human(): string {
-  return timestring_to_human(last_day_for_delivery_outside_ireland());
-}
-
-/* store_closing_message_display_date: date to start displaying the store
- * closing message.
- */
-function store_closing_message_display_date(): string {
-  global $TIMES;
-  return $TIMES[CLOSING_MESSAGE_DISPLAY_DATE];
 }
 
 /* now: returns current time or fake time for testing.
@@ -196,24 +106,6 @@ function is_time_between(string $start_time_string,
                          string $end_time_string): bool {
   return (is_time_after($start_time_string)
           && ($end_time_string === '' || is_time_before($end_time_string)));
-}
-
-/* is_store_closed: is the store currently closed?  Uses store_closing_time()
- * and store_opening_time().
- */
-function is_store_closed(): bool {
-  return is_time_between(store_closing_time(), store_opening_time());
-}
-
-/* show_store_closing_message: whether to show the store closing message.
- */
-function show_store_closing_message(): bool {
-  global $TIMES;
-  if (! isset($TIMES[SHOW_STORE_CLOSING_MESSAGE])) {
-    // Default to displaying the message unless otherwise configured.
-    return true;
-  }
-  return $TIMES[SHOW_STORE_CLOSING_MESSAGE] === '';
 }
 
 // clear_all_times: clear all the times for predictable tests.

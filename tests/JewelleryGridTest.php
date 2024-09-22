@@ -1,19 +1,15 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/StoreClosingTimes.php');
-require_once('src/FakeCart66.php');
 require_once('src/FakeWordpress.php');
 require_once('src/TestHelpers.php');
 require_once('src/JewelleryGrid.php');
 
 class JewelleryGridTest extends TestCase {
   public function setUp(): void {
-    clear_cart66_testing_state();
     clear_server_variables();
     clear_wordpress_testing_state();
     set_url('/jewellery/foo/');
-    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
     set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
   }
 
@@ -57,67 +53,7 @@ END_OF_INPUT;
     $this->assertEquals($expected, $actual);
   }
 
-  public function test_negative_product_id(): void {
-    set_url('/jewellery/foo/');
-    $content = MakeBuyButtonForJewelleryGrid(-1);
-    $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
-  }
-
-  public function test_archived(): void {
-    set_url('/jewellery/archive/');
-    $content = MakeBuyButtonForJewelleryGrid(11);
-    $this->assertMatchesRegularExpression('/This creates some space underneath./', $content);
-  }
-
-  public function test_max_quantity(): void {
-    set_url('/jewellery/foo/');
-    Cart66Product::setMaxQuantity(7, 1);
-    Cart66Product::setInventoryLevelForProduct(7, 0);
-    $content = MakeBuyButtonForJewelleryGrid(7);
-    $this->assertEquals("    Sold\n", $content);
-  }
-
-  public function test_no_stock(): void {
-    set_url('/jewellery/foo/');
-    Cart66Product::setInventoryLevelForProduct(13, 0);
-    $content = MakeBuyButtonForJewelleryGrid(13);
-    $this->assertMatchesRegularExpression('/This piece is out of stock/', $content);
-  }
-
-  public function test_has_stock_store_closed(): void {
-    set_url('/jewellery/foo/');
-    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
-    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    Cart66Product::setInventoryLevelForProduct(17, 2);
-    Cart66Product::setPrice(17, 135);
-    $content = MakeBuyButtonForJewelleryGrid(17);
-    $this->assertMatchesRegularExpression('/\(store closed\)/', $content);
-    $this->assertMatchesRegularExpression('/€135/', $content);
-  }
-
-  public function test_has_stock_store_open(): void {
-    set_url('/jewellery/foo/');
-    set_closing_time('2018-12-23 00:00:00 Europe/Dublin');
-    set_opening_time('2018-12-27 00:00:00 Europe/Dublin');
-    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
-    Cart66Product::setPrice(19, 234);
-    Cart66Product::setInventoryLevelForProduct(19, 3);
-    $content = MakeBuyButtonForJewelleryGrid(19);
-    $expected = <<<'END_OF_EXPECTED'
-                <div class="larger-text">
-                  €234
-                  [add_to_cart item="19" showprice="no" ajax="yes"
-                     text="Add to basket" style="display: inline;"]
-                </div>
-
-END_OF_EXPECTED;
-    $this->assertEquals($expected, $content);
-  }
-
   public function test_single_images(): void {
-    Cart66Product::setPrice(19, 234);
-    Cart66Product::setInventoryLevelForProduct(19, 3);
     add_image_info(11, 'grid_size', array('URL', 23, 59));
     $input = <<<'END_OF_INPUT'
 # Format: range|alt|image_id|href|product_id
@@ -143,14 +79,6 @@ END_OF_INPUT;
               <div class="larger-text text-centered left-right-margin grey">
                 <a href="linky/">name of the range</a>
               </div>
-              <div class="text-centered left-right-margin top-bottom-margin grey
-                jewellery-text-container">
-                <div class="larger-text">
-                  €234
-                  [add_to_cart item="19" showprice="no" ajax="yes"
-                     text="Add to basket" style="display: inline;"]
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -164,12 +92,8 @@ END_OF_EXPECTED;
   public function test_multiple_images_and_pieces(): void {
     expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
     // First range.
-    Cart66Product::setPrice(19, 234);
-    Cart66Product::setInventoryLevelForProduct(19, 3);
     add_image_info(11, 'grid_size', array('URL', 23, 59));
     // Second range.
-    Cart66Product::setPrice(53, 321);
-    Cart66Product::setInventoryLevelForProduct(53, 41);
     add_image_info(13, 'grid_size', array('URLX', 23, 59));
     add_image_info(17, 'grid_size', array('URLY', 29, 61));
     add_image_info(23, 'grid_size', array('URLZ', 31, 67));
@@ -198,14 +122,6 @@ END_OF_INPUT;
               <div class="larger-text text-centered left-right-margin grey">
                 <a href="linky/">name of the range</a>
               </div>
-              <div class="text-centered left-right-margin top-bottom-margin grey
-                jewellery-text-container">
-                <div class="larger-text">
-                  €234
-                  [add_to_cart item="19" showprice="no" ajax="yes"
-                     text="Add to basket" style="display: inline;"]
-                </div>
-              </div>
             </div>
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
@@ -217,14 +133,6 @@ END_OF_INPUT;
               </div>
               <div class="larger-text text-centered left-right-margin grey">
                 <a href="linky/">range range range</a>
-              </div>
-              <div class="text-centered left-right-margin top-bottom-margin grey
-                jewellery-text-container">
-                <div class="larger-text">
-                  €321
-                  [add_to_cart item="53" showprice="no" ajax="yes"
-                     text="Add to basket" style="display: inline;"]
-                </div>
               </div>
             </div>
           </div>
@@ -241,52 +149,6 @@ END_OF_EXPECTED;
     );
     global $SLIDER_IMAGES;
     $this->assertEquals($expected_slider, $SLIDER_IMAGES);
-  }
-
-  public function test_no_price(): void {
-    // This tests that "Price on request" is displayed and the add to cart
-    // button is not displayed.
-    Cart66Product::setPrice(19, 0);
-    Cart66Product::setInventoryLevelForProduct(19, 3);
-    add_image_info(11, 'grid_size', array('URL', 23, 59));
-    $input = <<<'END_OF_INPUT'
-# Format: range|alt|image_id|href|product_id
-name of the range|this is the alt text|11|linky/|19
-
-END_OF_INPUT;
-    $output = JewelleryGridShortcode(
-      array('description' => 'DESCRIPTION'), $input, '');
-    $expected = <<<'END_OF_EXPECTED'
-        <div class="jewellery-grid">
-          <div>
-            <p class="grey large-text text-centered">DESCRIPTION</p>
-          </div>
-          <div class="flexboxrow jewellery-grid-inner">
-            <div class="aligncenter jewellery-block">
-              <div class="jewellery-picture-container">
-                <a href="linky/">
-                  <img src="URL" alt="this is the alt text"
-                    width="23" height="59"
-                    class="aligncenter block" id="item-0-image"/>
-                </a>
-              </div>
-              <div class="larger-text text-centered left-right-margin grey">
-                <a href="linky/">name of the range</a>
-              </div>
-              <div class="text-centered left-right-margin top-bottom-margin grey
-                jewellery-text-container">
-                <div class="larger-text">
-                  Price on request.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-END_OF_EXPECTED;
-    $output = $this->add_numbers($output);
-    $expected = $this->add_numbers($expected);
-    $this->assertEquals($expected, $output);
   }
 
   public function add_numbers(string $content): string {

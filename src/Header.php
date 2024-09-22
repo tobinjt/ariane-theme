@@ -129,11 +129,6 @@ function pick_url_to_highlight(array $groups, string $default_url): string {
       if ($pattern === $current_url) {
         return $url;
       }
-      if (is_store_page() and strpos($url, '/store') === 0) {
-        // There are several pages under the store that should all have
-        // 'basket' highlighted as the current link.
-        return $url;
-      }
       // This assumes that if the URLs overlap the most specific will be last.
       // We look for matches at the start of the string.
       // Using === rather than == is essential, otherwise the comparison fails.
@@ -202,9 +197,7 @@ function make_full_menu_bar(): string {
     '/'               => 'home',
     '/jewellery/'     => 'jewellery',
     '/care/'          => 'care',
-    // '/news/'          => 'news',
     '/about/'         => 'about',
-    '/store/cart/'    => 'basket',
   );
   $icon_links = array(
     'https://www.facebook.com/ArianeTobinJewellery'
@@ -286,110 +279,4 @@ BANNER_MESSAGE;
 function set_banner_message(string $banner_message): void {
   global $BANNER_MESSAGE;
   $BANNER_MESSAGE = $banner_message;
-}
-
-// Get the message for the top of jewellery pages.
-function get_jewellery_page_message(): string {
-  if (! show_store_closing_message()) {
-    return '';
-  }
-
-  if (is_store_closed()) {
-    $store_opening_time_human = store_opening_time_human();
-    return <<<JEWELLERY_MESSAGE
-      <p class="text-centered larger-text grey">
-        The store is now closed, and Ariane will return to the workshop
-        $store_opening_time_human.  <br />Wishing everyone a Merry Christmas
-        and a Happy New Year!
-      </p>
-
-JEWELLERY_MESSAGE;
-  }
-
-  if (!is_time_between(store_closing_message_display_date(),
-      store_closing_time())) {
-    return '';
-  }
-
-  $last = last_day_for_delivery_outside_ireland_human();
-  $store_closing_time_human = store_closing_time_human();
-  $store_opening_time_human = store_opening_time_human();
-  return <<<JEWELLERY_MESSAGE
-    <p class="text-centered larger-text grey">
-      <!-- Delivery outside Ireland before December 25th cannot be guaranteed for
-      orders placed after $last. -->
-      The store will be closing on $store_closing_time_human to ensure delivery
-      of all orders before Christmas.
-      <!-- Ariane will return to the workshop on $store_opening_time_human. -->
-    </p>
-JEWELLERY_MESSAGE;
-}
-
-// Get the message for the top of store pages.
-function get_store_page_message(): string {
-  $checkout_message = '';
-  if (is_current_url('/store/cart/')) {
-    $checkout_message = <<<'CHECKOUT_MESSAGE'
-      To continue, press the <em>Checkout</em> button at the bottom right of the
-      page.
-CHECKOUT_MESSAGE;
-  }
-  if (is_current_url('/store/checkout/')) {
-    $checkout_message = <<<'CHECKOUT_MESSAGE'
-      To continue, press the <em>PayPal</em> button at the bottom right of the
-      page.
-CHECKOUT_MESSAGE;
-  }
-  if (is_current_url('/store/express/')) {
-    $checkout_message = <<<'CHECKOUT_MESSAGE'
-      To complete your order you <em>must</em> press the <em>Complete Order</em>
-      button at the bottom left of the page.
-CHECKOUT_MESSAGE;
-  }
-  if ($checkout_message !== '') {
-    $checkout_message = ltrim($checkout_message);
-    $checkout_message = <<<CHECKOUT_MESSAGE
-    <strong class="largest-text highlight top-bottom-margin">
-      $checkout_message
-    </strong>
-
-CHECKOUT_MESSAGE;
-  }
-
-  $checkout_message .= <<<'CHECKOUT_MESSAGE'
-    <div class="store_message">
-      <ul class="grey">
-        <li>Each piece of jewellery is handmade by Ariane in her studio in
-            Carlow, as a result there is normally a two week lead time on all
-            orders.</li>
-        <li>Free registered shipping on all orders.</li>
-        <li>Given the difficulties of international shipping during the Covid-19
-            pandemic we are not shipping outside Ireland at this time.</li>
-        <!-- <li>Free registered shipping to Ireland, EU, and USA on all orders over -->
-            <!-- €50.</li> -->
-        <!-- <li>Free unregistered shipping to Ireland on all orders under €50.</li> -->
-        <!-- <li>All taxes and duties are the responsibility of the buyer.</li> -->
-      </ul>
-    </div>
-
-CHECKOUT_MESSAGE;
-
-  return $checkout_message;
-}
-
-/* get_messages_for_top_of_page: returns the messages to display at the top of
- * the page.  Not actually used in header.php, but maybe should be.
- * Returns:
- *  string.
- */
-function get_messages_for_top_of_page(): string {
-  /*. array[int]string .*/ $messages = array();
-  $messages[] = get_banner_message();
-  if (is_store_page()) {
-    $messages[] = get_jewellery_page_message();
-    $messages[] = get_store_page_message();
-  } elseif (is_jewellery_page()) {
-    $messages[] = get_jewellery_page_message();
-  }
-  return implode("\n", $messages);
 }

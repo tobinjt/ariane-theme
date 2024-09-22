@@ -6,7 +6,6 @@ declare(strict_types=1);
 // Extras needed by PHPLint.
 /*. require_module 'array'; .*/
 /*. require_module 'core'; .*/
-/*. require_module 'fakecart66'; .*/
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/DataStructures.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
@@ -15,7 +14,7 @@ require_once(__DIR__ . '/Urls.php');
 /*. array[string]string .*/ $SLIDER_IMAGES = array();
 
 // Return the original string if an error occurs.  Unlikely to happen in
-// practice, but PHPStan warns about it.  I cannot find any way to for
+// practice, but PHPStan warns about it.  I cannot find any way to force
 // preg_replace to return null, so that branch is untested :(
 function safe_preg_replace(
   string $pattern, string $replacement, string $subject): string {
@@ -75,76 +74,6 @@ function ParseJewelleryGridContents(string $page_contents): array {
   return $ranges;
 }
 
-/* MakeBuyButtonForJewelleryGrid: make a buy button or a message or whatever
- * is appropriate for the product in the jewellery grid.
- * Args:
- *  $product_id: id of the product in Cart66.
- * Returns:
- *  string, HTML to insert in page.
- */
-function MakeBuyButtonForJewelleryGrid(int $product_id): string {
-  // -1 means there isn't a product to sell, and that happens on the main
-  // jewellery page.
-  // Skip showing cart buttons for everything that's been archived.
-  if ($product_id === -1 || is_archive_page()) {
-    return <<<'END_OF_NO_PRODUCT_OR_ARCHIVE'
-    <!-- This creates some space underneath. -->
-
-END_OF_NO_PRODUCT_OR_ARCHIVE;
-  }
-
-  $product = new Cart66Product($product_id);
-  $quantity = intval(Cart66Product::checkInventoryLevelForProduct($product_id));
-  if ($quantity === 0) {
-    if ($product->max_quantity === 1) {
-      return <<<'END_OF_SOLD'
-    Sold
-
-END_OF_SOLD;
-    }
-
-    return <<<'END_OF_OUT_OF_STOCK'
-    This piece is out of stock.  <!--, please contact Ariane as it's possible
-    this item could be made to order.-->
-
-END_OF_OUT_OF_STOCK;
-  }
-
-  $price = $product->price;
-  $content = <<<END_OF_DIV_TAG
-                <div class="larger-text">
-
-END_OF_DIV_TAG;
-  if ($price > 0) {
-    $content .= <<<END_OF_PRICE
-                  €$price
-
-END_OF_PRICE;
-    if (!is_store_closed()) {
-      $content .= <<<END_OF_BUY
-                  [add_to_cart item="$product_id" showprice="no" ajax="yes"
-                     text="Add to basket" style="display: inline;"]
-
-END_OF_BUY;
-    } else {
-      $content .= <<<'END_OF_CLOSED'
-                  (store closed)
-
-END_OF_CLOSED;
-    }
-  } else {
-    $content .= <<<END_OF_PRICE
-                  Price on request.
-
-END_OF_PRICE;
-  }
-  $content .= <<<'END_OF_DIV'
-                </div>
-
-END_OF_DIV;
-  return $content;
-}
-
 /* JewelleryGridShortcode: create a table from CSV content.
  * This *must* be used in the enclosing form.
  * Args (names are ugly but Wordpress-standard):
@@ -189,7 +118,7 @@ function JewelleryGridShortcode(array $atts, string $content,
     $width = $entry->images[0]->width_str;
     $height = $entry->images[0]->height_str;
     $range = $entry->range;
-    $div = <<<END_OF_IMAGE_AND_RANGE
+    $div = <<<END_OF_DIV
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="$href">
@@ -200,16 +129,6 @@ function JewelleryGridShortcode(array $atts, string $content,
               </div>
               <div class="larger-text text-centered left-right-margin grey">
                 <a href="$href">$range</a>
-              </div>
-
-END_OF_IMAGE_AND_RANGE;
-    $div .= <<<'END_OF_OPEN_BUY_DIV'
-              <div class="text-centered left-right-margin top-bottom-margin grey
-                jewellery-text-container">
-
-END_OF_OPEN_BUY_DIV;
-    $div .= MakeBuyButtonForJewelleryGrid($entry->product_id);
-    $div .= <<<'END_OF_DIV'
               </div>
             </div>
 END_OF_DIV;
