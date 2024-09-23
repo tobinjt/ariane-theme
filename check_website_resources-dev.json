@@ -2,8 +2,6 @@
   {
     "url": "https://dev.arianetobin.ie/",
     "resources": [
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/cart66_enhanced.css",
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/images/cart66_admin_button.png",
       "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-gdpr.css",
       "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-public.css",
       "https://dev.arianetobin.ie/wp-content/plugins/cookie-law-info/legacy/public/js/cookie-law-info-public.js",
@@ -17,9 +15,6 @@
     ],
     "comment": "No cookies",
     "optional_resources": [
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js",
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js+jquery.selectBox.js",
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/js/jquery.selectBox.js",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/facebook.png",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon-16x16.png",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon-32x32.png",
@@ -30,24 +25,18 @@
   {
     "url": "https://dev.arianetobin.ie/",
     "resources": [
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/cart66_enhanced.css",
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/images/cart66_admin_button.png",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon.ico",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/new-logo.jpg",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/slider.js",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/style.css",
       "https://dev.arianetobin.ie/wp-content/uploads/2015/11/rsz_%C2%A9sylvaindeleu_ariane_tobin_rose_and_yellow_gold_sentinel-1024x645.jpg",
-      "https://dev.arianetobin.ie/wp-content/uploads/2015/11/rsz_%C2%A9sylvaindeleu_ariane_tobin_rose_and_yellow_gold_sentinel-512x322.jpg",
-      "https://dev.arianetobin.ie/wp-includes/js/jquery/jquery.min.js"
+      "https://dev.arianetobin.ie/wp-content/uploads/2015/11/rsz_%C2%A9sylvaindeleu_ariane_tobin_rose_and_yellow_gold_sentinel-512x322.jpg"
     ],
     "cookies": {
       "viewed_cookie_policy": "yes"
     },
     "comment": "With cookie-law cookie",
     "optional_resources": [
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js",
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/js/cart66-library.js+jquery.selectBox.js",
-      "https://dev.arianetobin.ie/wp-content/plugins/cart66/js/jquery.selectBox.js",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/facebook.png",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon-16x16.png",
       "https://dev.arianetobin.ie/wp-content/themes/ariane-theme/images/favicons/favicon-32x32.png",
