@@ -62,13 +62,17 @@ function SliderImages(): array {
   return $images;
 }
 
-/* SliderSetupGeneric: output the Javascript needed to set up the slider,
+/* SliderSetupGeneric: output the JavaScript needed to set up the slider,
  * including the images.  Should be called indirectly by Wordpress, by
  * registering it with:
  * add_action('wp_footer', 'SliderSetupGeneric');
  */
 function SliderSetupGeneric(): void {
-  $output = <<<'END_OF_JAVASCRIPT'
+  $template_directory = get_bloginfo('template_directory');
+  $output = <<<END_OF_JAVASCRIPT
+<!-- Include necessary Javascript. -->
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="$template_directory/slider.js"></script>
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -85,12 +89,9 @@ END_OF_JAVASCRIPT;
 
 END_OF_JAVASCRIPT;
   }
-  $template_directory = get_bloginfo('template_directory');
   $output .= <<<END_OF_JAVASCRIPT
 });
 </script>
-<!-- Include the rest of the Javascript. -->
-<script type="text/javascript" src="$template_directory/slider.js"></script>
 <!-- End of SliderSetup. -->
 
 END_OF_JAVASCRIPT;

@@ -81,6 +81,9 @@ END_OF_OUTPUT;
     $SLIDER_IMAGES['#bar'] = json_encode(array('pinky', 'brain'));
     $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
     $expected = <<<'END_OF_OUTPUT'
+<!-- Include necessary Javascript. -->
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="DIR/slider.js"></script>
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -92,8 +95,6 @@ jQuery(document).ready(function() {
                     ["pinky","brain"]);
 });
 </script>
-<!-- Include the rest of the Javascript. -->
-<script type="text/javascript" src="DIR/slider.js"></script>
 <!-- End of SliderSetup. -->
 
 END_OF_OUTPUT;
