@@ -53,6 +53,8 @@ class MultipleImageSupportTest extends TestCase {
     $CHANGE_IMAGES['foo'] = array(1, 2);
     $CHANGE_IMAGES['bar'] = array('asdf', 'qwerty');
     $expected = <<<'END_OF_OUTPUT'
+<!-- Include necessary Javascript. -->
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {

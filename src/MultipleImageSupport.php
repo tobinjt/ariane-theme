@@ -141,6 +141,8 @@ function ChangeImagesSetupGeneric(): void {
   global $CHANGE_IMAGES;
   $images = json_encode_wrapper($CHANGE_IMAGES);
   $output = <<<END_OF_JAVASCRIPT
+<!-- Include necessary Javascript. -->
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
