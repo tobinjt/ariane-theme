@@ -10,7 +10,6 @@ declare(strict_types=1);
 require_once(__DIR__ . '/DataStructures.php');
 require_once(__DIR__ . '/StoreClosingTimes.php');
 require_once(__DIR__ . '/Urls.php');
-/*. array[int][string]string .*/ $CHANGE_IMAGES = array();
 /*. array[string]string .*/ $SLIDER_IMAGES = array();
 
 // Return the original string if an error occurs.  Unlikely to happen in

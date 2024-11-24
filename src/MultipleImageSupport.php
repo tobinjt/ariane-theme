@@ -8,17 +8,15 @@ declare(strict_types=1);
 /*. require_module 'pcre'; .*/
 require_once(__DIR__ . '/DataStructures.php');
 require_once(__DIR__ . '/Urls.php');
-/*. array[int][string]string .*/ $CHANGE_IMAGES = array();
-/*. array[string]string .*/ $SLIDER_IMAGES = array();
 
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.
  */
-$SLIDER_IMAGES = array();
+/*. array[string]string .*/ $SLIDER_IMAGES = array();
 /* Used to collect change images configs and set them up.  Maps ID => raw
  * image info.
  */
-$CHANGE_IMAGES = array();
+/*. array[string][int][string]string .*/ $CHANGE_IMAGES = array();
 
 /* SliderImages: Dynamically build the Javascript array of images when
  * displaying the slider.
