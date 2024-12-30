@@ -168,24 +168,8 @@ add_editor_style('style.css');
 
 set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
 set_stop_displaying_banner_message('');
-$rds_banner = <<<RDS_BANNER
-        Ariane will be at <a class="external-link"
-        href="http://www.giftedfair.ie/">Gifted - The Contemporary Craft &amp;
-        Design Fair</a> from XXX to XXX.
-        Please visit us at stand XXX, we'd love to see you!
-RDS_BANNER;
-$non_rds_banner = <<<NON_RDS_BANNER
-        Ariane will <i>not</i> be at Gifted in the RDS this year, she's taking a
-        break.  Her work is still available to purchase from this website, and
-        she can be contacted at ariane @ arianetobin.ie.
-NON_RDS_BANNER;
 $maternity_leave_banner = <<<MATERNITY_LEAVE_BANNER
         Ariane is on sabbatical and is not accepting commissions or selling from
         the website.  Thanks!
-MATERNITY_LEAVE_BANNER;
-$maternity_leave_banner3 = <<<MATERNITY_LEAVE_BANNER
-        The store is now closed for Christmas.  I want to thank all of my
-        customers for all of your support this year and I wish you and your
-        families a Happy Christmas and hopefully a better 2022.
 MATERNITY_LEAVE_BANNER;
 set_banner_message($maternity_leave_banner);
