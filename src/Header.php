@@ -225,8 +225,8 @@ function make_full_menu_bar(): string
         [
             make_link_group(
                 ['largest-text left-page-links' => $main_links,
-                'float-right' => $icon_links,
-            ],
+                    'float-right' => $icon_links,
+                ],
                 '/news/'
             ),
         ],
