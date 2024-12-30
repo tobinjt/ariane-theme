@@ -47,13 +47,13 @@ class WP_Query
     }
 
     // Helper functions for populating $QUERY_RESULTS.
-    public static function ClearQueryResults(): void
+    public static function clearQueryResults(): void
     {
         global $QUERY_RESULTS;
         $QUERY_RESULTS = [];
     }
 
-    public static function AddQueryResult(WP_Post $result): void
+    public static function addQueryResult(WP_Post $result): void
     {
         global $QUERY_RESULTS;
         $QUERY_RESULTS[] = $result;
@@ -249,7 +249,7 @@ function add_image_info(int $image_id, string $size, array $info): void
 // phplint: /*. void .*/ function clear_wordpress_testing_state() {}
 function clear_wordpress_testing_state(): void
 {
-    WP_Query::ClearQueryResults();
+    WP_Query::clearQueryResults();
     clear_image_info();
     clear_add_action();
     clear_page_state();

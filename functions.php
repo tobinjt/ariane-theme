@@ -29,6 +29,9 @@ if (is_dev_website()) {
  *  string, the HTML to insert in the page (Wordpress does that
  *    automatically).
  */
+/**
+ * @param array<string, string> $atts
+ */
 function FrontPageSliderSetupShortcode(
     array $atts,
     string $content,

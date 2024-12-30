@@ -122,7 +122,7 @@ function JewelleryGridShortcode(
         if (count($entry->images) > 1) {
             global $SLIDER_IMAGES;
             $SLIDER_IMAGES["#{$id}"] = json_encode_wrapper(
-                $entry->ImagesToData()
+                $entry->imagesToData()
             );
             $slider_needed = true;
         }

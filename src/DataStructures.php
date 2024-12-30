@@ -29,7 +29,7 @@ class WPImageInfo
     /**
      * @return array{'src': string, 'width': int, 'height': int}
      */
-    public function ImageToData(): array
+    public function imageToData(): array
     {
         # This needs to stay compatible with slider.js.
         return [
@@ -46,12 +46,12 @@ class WPImageInfo
  *
  * @return array<int, array{'src': string, 'width': int, 'height': int}>
  */
-function ImagesToData(array $images): array
+function imagesToData(array $images): array
 {
     # This needs to stay compatible with slider.js.
     /*. array[int]mixed .*/ $data = [];
     foreach ($images as $image) {
-        $data[] = $image->ImageToData();
+        $data[] = $image->imageToData();
     }
     return $data;
 }
@@ -99,9 +99,9 @@ class JewelleryGridEntry
     /**
      * @return array<int, array{'src': string, 'width': int, 'height': int}>
      */
-    public function ImagesToData(): array
+    public function imagesToData(): array
     {
-        return ImagesToData($this->images);
+        return imagesToData($this->images);
     }
 }
 
@@ -168,9 +168,9 @@ class JewelleryPage
     /**
      * @return array<int, array{'src': string, 'width': int, 'height': int}>
      */
-    public function ImagesToData(): array
+    public function imagesToData(): array
     {
-        return ImagesToData($this->images);
+        return imagesToData($this->images);
     }
 }
 
