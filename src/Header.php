@@ -220,16 +220,16 @@ function make_full_menu_bar(): string
         '/care/' => 'care',
         '/about/' => 'about',
     ];
-    $icon_links = [
-        'https://www.facebook.com/ArianeTobinJewellery'
-          => make_icon_link('facebook.png', 'Facebook icon', 20, 20),
-        'https://www.instagram.com/arianetobin/'
-          => make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20),
-    ];
+    $icon_links = [];
+    $icon_links['https://www.facebook.com/ArianeTobinJewellery']
+      = make_icon_link('facebook.png', 'Facebook icon', 20, 20);
+    $icon_links['https://www.instagram.com/arianetobin/']
+      = make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20);
     $output .= make_menu_bar(
         [
             make_link_group(
-                ['largest-text left-page-links' => $main_links,
+                [
+                    'largest-text left-page-links' => $main_links,
                     'float-right' => $icon_links,
                 ],
                 '/news/'

@@ -40,8 +40,11 @@ function SliderImages(): array
     /*. array[int][string]string .*/ $images = [];
     foreach ($media_query->posts as $post) {
         /*. array[int]mixed .*/ $matches = [];
-    if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/',
-                   $post->post_content, $matches) === 1) {
+        if (preg_match(
+            '/^\\s*slider\\s+([^ ]+)\\s*$/',
+            $post->post_content,
+            $matches
+        ) === 1) {
             $image_large = new WPImageInfo($post->ID, 'slider_large');
             $image_small = new WPImageInfo($post->ID, 'slider_small');
             // All the intermediate variables are due to PHPLint parsing
