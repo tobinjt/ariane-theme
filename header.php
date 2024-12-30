@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php declare(strict_types=1); ?><!DOCTYPE html>
 
 <html <?php language_attributes(); ?>>
 
@@ -31,9 +31,9 @@
 
 <?php
   wp_head();
-  if (ShouldRemoveCookieLawInfo()) {
+if (ShouldRemoveCookieLawInfo()) {
     echo HideCookieLawInfoInFooter();
-  }
+}
 ?>
 </head>
 

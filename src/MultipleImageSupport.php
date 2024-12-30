@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // Support for multiple images in a page: sliders and manually changed.
@@ -6,17 +7,17 @@ declare(strict_types=1);
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
 /*. require_module 'pcre'; .*/
-require_once(__DIR__ . '/DataStructures.php');
-require_once(__DIR__ . '/Urls.php');
+require_once __DIR__ . '/DataStructures.php';
+require_once __DIR__ . '/Urls.php';
 
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.
  */
-/*. array[string]string .*/ $SLIDER_IMAGES = array();
+/*. array[string]string .*/ $SLIDER_IMAGES = [];
 /* Used to collect change images configs and set them up.  Maps ID => raw
  * image info.
  */
-/*. array[string][int][string]string .*/ $CHANGE_IMAGES = array();
+/*. array[string][int][string]string .*/ $CHANGE_IMAGES = [];
 
 /* SliderImages: Dynamically build the Javascript array of images when
  * displaying the slider.
@@ -26,38 +27,39 @@ require_once(__DIR__ . '/Urls.php');
 /**
  * @return array<array<string, string>>
  */
-function SliderImages(): array {
-  $media_query = new WP_Query(
-    array(
-      'post_type'      => 'attachment',
-      'post_status'    => 'any',
-      'posts_per_page' => '-1',
-      's'              => 'slider',
-    )
-  );
-  /*. array[int][string]string .*/ $images = array();
-  foreach ($media_query->posts as $post) {
-    /*. array[int]mixed .*/ $matches = array();
-    if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches) === 1) {
-      $image_large = new WPImageInfo($post->ID, 'slider_large');
-      $image_small = new WPImageInfo($post->ID, 'slider_small');
-      // All the intermediate variables are due to PHPLint parsing restrictions,
-      // particularly it's impossible to use {$width}px or similar.
-      $l_url = $image_large->url;
-      $l_w_w = $image_large->width_str . 'w';
-      $l_w_px = $image_large->width_str . 'px';
-      $s_url = $image_small->url;
-      $s_w_w = $image_small->width_str . 'w';
-      $s_w_px = $image_small->width_str . 'px';
-      $images[] = array(
-        'src' => $image_large->url,
-        'href' => strval($matches[1]),
-        'srcset' => "$l_url $l_w_w, $s_url $s_w_w",
-        'sizes' => "(max-width: 799px) $s_w_px, $l_w_px",
-      );
+function SliderImages(): array
+{
+    $media_query = new WP_Query(
+        [
+          'post_type' => 'attachment',
+          'post_status' => 'any',
+          'posts_per_page' => '-1',
+          's' => 'slider',
+    ]
+    );
+    /*. array[int][string]string .*/ $images = [];
+    foreach ($media_query->posts as $post) {
+        /*. array[int]mixed .*/ $matches = [];
+        if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches) === 1) {
+            $image_large = new WPImageInfo($post->ID, 'slider_large');
+            $image_small = new WPImageInfo($post->ID, 'slider_small');
+            // All the intermediate variables are due to PHPLint parsing restrictions,
+            // particularly it's impossible to use {$width}px or similar.
+            $l_url = $image_large->url;
+            $l_w_w = $image_large->width_str . 'w';
+            $l_w_px = $image_large->width_str . 'px';
+            $s_url = $image_small->url;
+            $s_w_w = $image_small->width_str . 'w';
+            $s_w_px = $image_small->width_str . 'px';
+            $images[] = [
+                'src' => $image_large->url,
+                'href' => strval($matches[1]),
+                'srcset' => "{$l_url} {$l_w_w}, {$s_url} {$s_w_w}",
+                'sizes' => "(max-width: 799px) {$s_w_px}, {$l_w_px}",
+            ];
+        }
     }
-  }
-  return $images;
+    return $images;
 }
 
 /* SliderSetupGeneric: output the JavaScript needed to set up the slider,
@@ -65,35 +67,36 @@ function SliderImages(): array {
  * registering it with:
  * add_action('wp_footer', 'SliderSetupGeneric');
  */
-function SliderSetupGeneric(): void {
-  $template_directory = get_bloginfo('template_directory');
-  $output = <<<END_OF_JAVASCRIPT
+function SliderSetupGeneric(): void
+{
+    $template_directory = get_bloginfo('template_directory');
+    $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
-<script type="text/javascript" src="$template_directory/slider.js"></script>
+<script type="text/javascript" src="{$template_directory}/slider.js"></script>
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
 
 END_OF_JAVASCRIPT;
-  $is_dev_website = is_dev_website() ? 'true' : 'false';
-  global $SLIDER_IMAGES;
-  foreach ($SLIDER_IMAGES as $id_prefix => $images) {
-    $images = trim($images);
-    $output .= <<<END_OF_JAVASCRIPT
-  Slider.initialise({'id_prefix': '$id_prefix',
-                     'log_to_console': $is_dev_website},
-                    $images);
+    $is_dev_website = is_dev_website() ? 'true' : 'false';
+    global $SLIDER_IMAGES;
+    foreach ($SLIDER_IMAGES as $id_prefix => $images) {
+        $images = trim($images);
+        $output .= <<<END_OF_JAVASCRIPT
+  Slider.initialise({'id_prefix': '{$id_prefix}',
+                     'log_to_console': {$is_dev_website}},
+                    {$images});
 
 END_OF_JAVASCRIPT;
-  }
-  $output .= <<<END_OF_JAVASCRIPT
+    }
+    $output .= <<<END_OF_JAVASCRIPT
 });
 </script>
 <!-- End of SliderSetup. -->
 
 END_OF_JAVASCRIPT;
-  echo $output;
+    echo $output;
 }
 
 /* FrontPageSliderSetup: wrap SliderSetupGeneric to set up the front page image
@@ -107,29 +110,29 @@ END_OF_JAVASCRIPT;
 /**
  * @param array<array<string, string>> $images
  */
-function FrontPageSliderSetup(array $images): string {
-  add_action('wp_footer', 'SliderSetupGeneric');
-  global $SLIDER_IMAGES;
-  $SLIDER_IMAGES['#slider'] = json_encode_wrapper($images);
-  $image = $images[0];
-  $href = $image['href'];
-  $src = $image['src'];
-  $srcset = $image['srcset'];
-  $sizes = $image['sizes'];
-  $html = <<<END_OF_HTML
+function FrontPageSliderSetup(array $images): string
+{
+    add_action('wp_footer', 'SliderSetupGeneric');
+    global $SLIDER_IMAGES;
+    $SLIDER_IMAGES['#slider'] = json_encode_wrapper($images);
+    $image = $images[0];
+    $href = $image['href'];
+    $src = $image['src'];
+    $srcset = $image['srcset'];
+    $sizes = $image['sizes'];
+    return <<<END_OF_HTML
 <div id="slider-div" class="aligncenter">
-  <a href="$href" id="slider-link"
+  <a href="{$href}" id="slider-link"
     alt="Selection of Ariane's best work">
-    <img id="slider-image" src="$src"
+    <img id="slider-image" src="{$src}"
       class="block aligncenter"
       alt="Selection of Ariane's best work"
-      srcset="$srcset"
-      sizes="$sizes" />
+      srcset="{$srcset}"
+      sizes="{$sizes}" />
   </a>
 </div>
 
 END_OF_HTML;
-  return $html;
 }
 
 /* ChangeImagesSetupGeneric: output the Javascript needed to set up changing
@@ -137,16 +140,17 @@ END_OF_HTML;
  * called indirectly by Wordpress, by registering it with:
  * add_action('wp_footer', 'ChangeImagesSetupGeneric');
  */
-function ChangeImagesSetupGeneric(): void {
-  global $CHANGE_IMAGES;
-  $images = json_encode_wrapper($CHANGE_IMAGES);
-  $output = <<<END_OF_JAVASCRIPT
+function ChangeImagesSetupGeneric(): void
+{
+    global $CHANGE_IMAGES;
+    $images = json_encode_wrapper($CHANGE_IMAGES);
+    $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
-  var images = $images;
+  var images = {$images};
   // Construct a new image and swap it in, otherwise it flashes awkwardly - the
   // old image resizes and then the new image is displayed.
   var img = jQuery(id);
@@ -160,5 +164,5 @@ function change_image(i, id) {
 <!-- End of ChangeImages. -->
 
 END_OF_JAVASCRIPT;
-  echo $output;
+    echo $output;
 }
