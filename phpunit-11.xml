@@ -2,12 +2,19 @@
 <phpunit
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
-bootstrap=""
 backupGlobals="false"
+beStrictAboutCoverageMetadata="true"
 beStrictAboutOutputDuringTests="true"
 beStrictAboutTestsThatDoNotTestAnything="true"
+bootstrap=""
 cacheDirectory=".phpunit.cache"
-beStrictAboutCoverageMetadata="true">
+displayDetailsOnIncompleteTests="true"
+displayDetailsOnSkippedTests="true"
+displayDetailsOnTestsThatTriggerDeprecations="true"
+displayDetailsOnTestsThatTriggerErrors="true"
+displayDetailsOnTestsThatTriggerNotices="true"
+displayDetailsOnTestsThatTriggerWarnings="true"
+  >
   <coverage>
     <report>
       <html outputDirectory="coverage" lowUpperBound="90" highLowerBound="91"/>
