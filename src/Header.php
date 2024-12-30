@@ -203,10 +203,10 @@ function make_icon_link(
     int $width,
     int $height
 ): string {
-    return "<img class=\"greyscale\"" .
+    return '<img class="greyscale"' .
       " width=\"{$width}\"" .
       " height=\"{$height}\"" .
-      " src=\"" . get_theme_image_path($file) . "\"" .
+      ' src="' . get_theme_image_path($file) . '"' .
       " alt=\"{$alt}\" />";
 }
 
