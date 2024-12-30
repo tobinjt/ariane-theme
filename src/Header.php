@@ -41,7 +41,8 @@ function get_google_analytics_code(): string
     }
     return <<<'END_OF_JAVASCRIPT'
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5GXZQT5D22"></script>
+<script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-5GXZQT5D22"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -139,9 +140,11 @@ function pick_url_to_highlight(array $groups, string $default_url): string
             if ($pattern === $current_url) {
                 return $url;
             }
-            // This assumes that if the URLs overlap the most specific will be last.
+            // This assumes that if the URLs overlap the most specific will be
+            // last.
             // We look for matches at the start of the string.
-            // Using === rather than == is essential, otherwise the comparison fails.
+            // Using === rather than == is essential, otherwise the comparison
+            // fails.
             if ($pattern !== '' and strpos($current_url, $pattern) === 0) {
                 $url_to_highlight = $url;
             }
@@ -218,8 +221,10 @@ function make_full_menu_bar(): string
         '/about/' => 'about',
     ];
     $icon_links = [
-        'https://www.facebook.com/ArianeTobinJewellery' => make_icon_link('facebook.png', 'Facebook icon', 20, 20),
-        'https://www.instagram.com/arianetobin/' => make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20),
+        'https://www.facebook.com/ArianeTobinJewellery'
+          => make_icon_link('facebook.png', 'Facebook icon', 20, 20),
+        'https://www.instagram.com/arianetobin/'
+          => make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20),
     ];
     $output .= make_menu_bar(
         [

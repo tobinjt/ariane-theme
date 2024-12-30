@@ -40,11 +40,13 @@ function SliderImages(): array
     /*. array[int][string]string .*/ $images = [];
     foreach ($media_query->posts as $post) {
         /*. array[int]mixed .*/ $matches = [];
-        if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/', $post->post_content, $matches) === 1) {
+    if (preg_match('/^\\s*slider\\s+([^ ]+)\\s*$/',
+                   $post->post_content, $matches) === 1) {
             $image_large = new WPImageInfo($post->ID, 'slider_large');
             $image_small = new WPImageInfo($post->ID, 'slider_small');
-            // All the intermediate variables are due to PHPLint parsing restrictions,
-            // particularly it's impossible to use {$width}px or similar.
+            // All the intermediate variables are due to PHPLint parsing
+            // restrictions, particularly it's impossible to use {$width}px or
+            // similar.
             $l_url = $image_large->url;
             $l_w_w = $image_large->width_str . 'w';
             $l_w_px = $image_large->width_str . 'px';
@@ -72,7 +74,8 @@ function SliderSetupGeneric(): void
     $template_directory = get_bloginfo('template_directory');
     $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
-<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
+  id="jquery-core-js"></script>
 <script type="text/javascript" src="{$template_directory}/slider.js"></script>
 <!-- Start of SliderSetup. -->
 <script type="text/javascript">
@@ -146,7 +149,8 @@ function ChangeImagesSetupGeneric(): void
     $images = json_encode_wrapper($CHANGE_IMAGES);
     $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
-<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
+  id="jquery-core-js"></script>
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {

@@ -54,8 +54,9 @@ function ParseJewelleryGridContents(string $page_contents): array
         if (strpos($line, '#') === 0) {
             continue;
         }
-        // Awful hack to work around wordpress turning 276x300 into 276!300, where
-        // ! is actually some weird unicode x - this breaks image urls. ARGH.
+        // Awful hack to work around wordpress turning 276x300 into 276!300,
+        // where ! is actually some weird unicode x - this breaks image urls.
+        // ARGH.
         $line = safe_preg_replace('/&#215;/', 'x', $line);
         $csv_data = str_getcsv($line, '|');
         // Skip blank lines.  The CSV parser will return an array with a single
@@ -65,9 +66,9 @@ function ParseJewelleryGridContents(string $page_contents): array
         }
         // Line format:
         // * Range name|Image description|Image ID(s)|Link to page|Product ID
-        // * The top-level jewellery page links to ranges rather than products, so
-        //   we can't include purchasing.  We use -1 to indicate that there isn't a
-        //   product to offer, and that's checked for later.
+        // * The top-level jewellery page links to ranges rather than products,
+        //   so we can't include purchasing.  We use -1 to indicate that there
+        //   isn't a product to offer, and that's checked for later.
         if (count($csv_data) < 5) {
             $csv_data[] = '-1';
         }
@@ -120,7 +121,8 @@ function JewelleryGridShortcode(
         $id = 'item-' . $i;
         if (count($entry->images) > 1) {
             global $SLIDER_IMAGES;
-            $SLIDER_IMAGES['#' . $id] = json_encode_wrapper($entry->images_to_data());
+            $SLIDER_IMAGES["#{$id}"] = json_encode_wrapper(
+              $entry->images_to_data());
             $slider_needed = true;
         }
 

@@ -17,15 +17,22 @@ declare(strict_types=1);
   <meta name="dcterms.creator" content="Ariane Tobin">
   <meta name="dcterms.rightsHolder" content="Ariane Tobin Jewellery">
   <meta name="dcterms.rights"
-    content="Copyright Ariane Tobin Jewellery 2011-<?php echo date('Y');?>. All Rights Reserved.">
+    content="Copyright Ariane Tobin Jewellery 2011-<?php echo date('Y');?>.
+    All Rights Reserved.">
   <meta name="dcterms.dateCopyrighted" content="2011-<?php echo date('Y');?>">
 
-  <link rel="shortcut icon" href="<?php echo get_theme_image_path('favicons/favicon.ico'); ?>">
-  <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_theme_image_path('favicons/apple-touch-icon.png'); ?>">
-  <link rel="icon" type="image/png" href="<?php echo get_theme_image_path('favicons/favicon-32x32.png'); ?>" sizes="32x32">
-  <link rel="icon" type="image/png" href="<?php echo get_theme_image_path('favicons/favicon-16x16.png'); ?>" sizes="16x16">
-  <link rel="manifest" href="<?php echo get_theme_image_path('favicons/manifest.json'); ?>">
-  <link rel="mask-icon" href="<?php echo get_theme_image_path('favicons/safari-pinned-tab.svg'); ?>">
+  <link rel="shortcut icon" href="<?php
+    echo get_theme_image_path('favicons/favicon.ico'); ?>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?php
+    echo get_theme_image_path('favicons/apple-touch-icon.png'); ?>">
+  <link rel="icon" type="image/png" href="<?php
+    echo get_theme_image_path('favicons/favicon-32x32.png'); ?>" sizes="32x32">
+  <link rel="icon" type="image/png" href="<?php
+    echo get_theme_image_path('favicons/favicon-16x16.png'); ?>" sizes="16x16">
+  <link rel="manifest" href="<?php
+    echo get_theme_image_path('favicons/manifest.json'); ?>">
+  <link rel="mask-icon" href="<?php
+    echo get_theme_image_path('favicons/safari-pinned-tab.svg'); ?>">
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">

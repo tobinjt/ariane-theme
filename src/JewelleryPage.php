@@ -134,7 +134,8 @@ END_OF_HTML;
     $type = $jewellery_page->type;
     $html .= <<<END_OF_HTML
 
-    <p>See other items in this range: <a href="/jewellery/{$range}/">{$range}</a></p>
+    <p>See other items in this range: <a href="/jewellery/{$range}/">
+      {$range}</a></p>
     <p>See other: <a href="/jewellery/{$type}/">{$type}</a></p>
   </div>
 </div>

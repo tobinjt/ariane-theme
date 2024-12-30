@@ -57,7 +57,8 @@ class JewelleryPageTest extends TestCase {
     <p class="highlight larger-text">range should be set name should be set</p>
     <p>description of piece</p>
 
-    <p>See other items in this range: <a href="/jewellery/range should be set/">range should be set</a></p>
+    <p>See other items in this range: <a href="/jewellery/range should be set/">
+      range should be set</a></p>
     <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
   </div>
 </div>
@@ -92,7 +93,8 @@ EXPECTED;
     <p class="highlight larger-text">range should be set name should be set</p>
     <p>description of piece</p>
 
-    <p>See other items in this range: <a href="/jewellery/range should be set/">range should be set</a></p>
+    <p>See other items in this range: <a href="/jewellery/range should be set/">
+      range should be set</a></p>
     <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
   </div>
 </div>
@@ -156,7 +158,8 @@ EXPECTED;
     <p class="highlight larger-text">name should be set</p>
     <p> asdf</p>
 
-    <p>See other items in this range: <a href="/jewellery/singles/">singles</a></p>
+    <p>See other items in this range: <a href="/jewellery/singles/">
+      singles</a></p>
     <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
   </div>
 </div>

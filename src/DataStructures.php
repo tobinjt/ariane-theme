@@ -186,8 +186,8 @@ function json_encode_wrapper(array $data): string
     // TODO(johntobin): How do I test this?  Maybe I can create a recursive data
     // structure that cannot be encoded?
     if (is_bool($result)) {
-        // Return an empty string rather than false on failure; this should never
-        // arise in real use, but PHPStan warns about it.
+        // Return an empty string rather than false on failure; this should
+        // never arise in real use, but PHPStan warns about it.
         return 'JSON_ENCODE FAILED!';
     }
     return $result;

@@ -59,8 +59,8 @@ function removeHeadLinks(): void
     // Disable comment feeds on pages.
     remove_action('wp_head', 'feed_links_extra', 3);
     remove_action('wp_head', 'feed_links', 2);
-    // Remove shortlink from HTTP headers, I only want the long version used, and
-    // linkchecker complains about the redirects.
+    // Remove shortlink from HTTP headers, I only want the long version used,
+    // and linkchecker complains about the redirects.
     remove_action('template_redirect', 'wp_shortlink_header', 11);
 }
 add_action('init', 'removeHeadLinks');
@@ -103,8 +103,9 @@ function MaybeRemoveCookieLawInfoFromHead(): void
     if (! ShouldRemoveCookieLawInfo()) {
         return;
     }
-    // Remove the Javascript and CSS.  There will still be some Javascript output
-    // directly in the page with the plugin settings, don't worry about that.
+    // Remove the Javascript and CSS.  There will still be some Javascript
+    // output directly in the page with the plugin settings, don't worry about
+    // that.
     // To figure out the correct strings in future, add this at the end of
     // header.php:
     // <pre>

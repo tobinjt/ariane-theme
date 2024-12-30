@@ -211,7 +211,7 @@ function verify_add_action(): void
         assert(
             $should_be_zero === 0,
             new Exception(
-                'Non-zero remaining calls (' . $should_be_zero . ') for ' . $func
+                "Non-zero remaining calls ({$should_be_zero}) for {$func}"
             )
         );
     }
