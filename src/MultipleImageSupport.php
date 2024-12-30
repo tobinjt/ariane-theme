@@ -13,11 +13,11 @@ require_once __DIR__ . '/Urls.php';
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.
  */
-/*. array[string]string .*/ $SLIDER_IMAGES = [];
+/*. array[string]string .*/ $GLOBALS['SLIDER_IMAGES'] = [];
 /* Used to collect change images configs and set them up.  Maps ID => raw
  * image info.
  */
-/*. array[string][int][string]string .*/ $CHANGE_IMAGES = [];
+/*. array[string][int][string]string .*/ $GLOBALS['CHANGE_IMAGES'] = [];
 
 /* SliderImages: Dynamically build the Javascript array of images when
  * displaying the slider.
@@ -86,8 +86,7 @@ jQuery(document).ready(function() {
 
 END_OF_JAVASCRIPT;
     $is_dev_website = is_dev_website() ? 'true' : 'false';
-    global $SLIDER_IMAGES;
-    foreach ($SLIDER_IMAGES as $id_prefix => $images) {
+    foreach ($GLOBALS['SLIDER_IMAGES'] as $id_prefix => $images) {
         $images = trim($images);
         $output .= <<<END_OF_JAVASCRIPT
   Slider.initialise({'id_prefix': '{$id_prefix}',
@@ -119,8 +118,7 @@ END_OF_JAVASCRIPT;
 function FrontPageSliderSetup(array $images): string
 {
     add_action('wp_footer', 'SliderSetupGeneric');
-    global $SLIDER_IMAGES;
-    $SLIDER_IMAGES['#slider'] = json_encode_wrapper($images);
+    $GLOBALS['SLIDER_IMAGES']['#slider'] = json_encode_wrapper($images);
     $image = $images[0];
     $href = $image['href'];
     $src = $image['src'];
@@ -148,8 +146,7 @@ END_OF_HTML;
  */
 function ChangeImagesSetupGeneric(): void
 {
-    global $CHANGE_IMAGES;
-    $images = json_encode_wrapper($CHANGE_IMAGES);
+    $images = json_encode_wrapper($GLOBALS['CHANGE_IMAGES']);
     $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"

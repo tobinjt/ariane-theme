@@ -6,11 +6,11 @@ declare(strict_types=1);
 /*. require_module 'array'; .*/
 /*. require_module 'core'; .*/
 /*. require_module 'phpinfo'; .*/
-// $QUERY_RESULTS is declared after class WP_Post.
-/*. array[string]int .*/ $EXPECTED_ADD_ACTION = [];
-/*. array[int][string][int]int .*/ $IMAGE_INFO = [];
-/*. array[string]bool .*/ $PAGE_STATE_BOOL = [];
-/*. array[string]string .*/ $PAGE_STATE_STRING = [];
+// $GLOBALS['QUERY_RESULTS'] is declared after class WP_Post.
+/*. array[string]int .*/ $GLOBALS['EXPECTED_ADD_ACTION'] = [];
+/*. array[int][string][int]int .*/ $GLOBALS['IMAGE_INFO'] = [];
+/*. array[string]bool .*/ $GLOBALS['PAGE_STATE_BOOL'] = [];
+/*. array[string]string .*/ $GLOBALS['PAGE_STATE_STRING'] = [];
 
 // BEGIN PHPLINT
 
@@ -27,7 +27,7 @@ class WP_Post
 }
 
 // Needs to be declared after class WP_Post.
-/*. array[int]WP_Post .*/ $QUERY_RESULTS = [];
+/*. array[int]WP_Post .*/ $GLOBALS['QUERY_RESULTS'] = [];
 
 // Fake WP_Query.
 class WP_Query
@@ -42,21 +42,18 @@ class WP_Query
     {
         // $query is unused.
         $query[] = 'make the linter happy.';
-        global $QUERY_RESULTS;
-        $this->posts = $QUERY_RESULTS;
+        $this->posts = $GLOBALS['QUERY_RESULTS'];
     }
 
-    // Helper functions for populating $QUERY_RESULTS.
+    // Helper functions for populating $GLOBALS['QUERY_RESULTS'].
     public static function clearQueryResults(): void
     {
-        global $QUERY_RESULTS;
-        $QUERY_RESULTS = [];
+        $GLOBALS['QUERY_RESULTS'] = [];
     }
 
     public static function addQueryResult(WP_Post $result): void
     {
-        global $QUERY_RESULTS;
-        $QUERY_RESULTS[] = $result;
+        $GLOBALS['QUERY_RESULTS'][] = $result;
     }
 }
 
@@ -85,16 +82,14 @@ function do_shortcode(string $content): string
 // phplint: /*. void .*/ function clear_page_state() {}
 function clear_page_state(): void
 {
-    global $PAGE_STATE_BOOL;
-    $PAGE_STATE_BOOL = [];
+    $GLOBALS['PAGE_STATE_BOOL'] = [];
 }
 
 // phplint: /*. bool .*/ function is_404() {}
 function is_404(): bool
 {
-    global $PAGE_STATE_BOOL;
-    if (isset($PAGE_STATE_BOOL['is_404'])) {
-        return $PAGE_STATE_BOOL['is_404'];
+    if (isset($GLOBALS['PAGE_STATE_BOOL']['is_404'])) {
+        return $GLOBALS['PAGE_STATE_BOOL']['is_404'];
     }
     return false;
 }
@@ -102,16 +97,14 @@ function is_404(): bool
 // phplint: /*. bool .*/ function set_is_404(/*. bool .*/ $is) {}
 function set_is_404(bool $is): void
 {
-    global $PAGE_STATE_BOOL;
-    $PAGE_STATE_BOOL['is_404'] = $is;
+    $GLOBALS['PAGE_STATE_BOOL']['is_404'] = $is;
 }
 
 // phplint: /*. bool .*/ function is_single() {}
 function is_single(): bool
 {
-    global $PAGE_STATE_BOOL;
-    if (isset($PAGE_STATE_BOOL['is_single'])) {
-        return $PAGE_STATE_BOOL['is_single'];
+    if (isset($GLOBALS['PAGE_STATE_BOOL']['is_single'])) {
+        return $GLOBALS['PAGE_STATE_BOOL']['is_single'];
     }
     return false;
 }
@@ -119,16 +112,14 @@ function is_single(): bool
 // phplint: /*. void .*/ function set_is_single(/*. bool .*/ $is) {}
 function set_is_single(bool $is): void
 {
-    global $PAGE_STATE_BOOL;
-    $PAGE_STATE_BOOL['is_single'] = $is;
+    $GLOBALS['PAGE_STATE_BOOL']['is_single'] = $is;
 }
 
 // phplint: /*. bool .*/ function is_page() {}
 function is_page(): bool
 {
-    global $PAGE_STATE_BOOL;
-    if (isset($PAGE_STATE_BOOL['is_page'])) {
-        return $PAGE_STATE_BOOL['is_page'];
+    if (isset($GLOBALS['PAGE_STATE_BOOL']['is_page'])) {
+        return $GLOBALS['PAGE_STATE_BOOL']['is_page'];
     }
     return false;
 }
@@ -136,8 +127,7 @@ function is_page(): bool
 // phplint: /*. void .*/ function set_is_page(/*. bool .*/ $is) {}
 function set_is_page(bool $is): void
 {
-    global $PAGE_STATE_BOOL;
-    $PAGE_STATE_BOOL['is_page'] = $is;
+    $GLOBALS['PAGE_STATE_BOOL']['is_page'] = $is;
 }
 
 // phplint: /*. string .*/ function wp_title(/*. string .*/ $sep, /*. bool .*/ $display) {}
@@ -148,9 +138,8 @@ function wp_title(string $sep, bool $display): string
     if (! $display) {
         $display = false;
     }
-    global $PAGE_STATE_STRING;
-    if (isset($PAGE_STATE_STRING['wp_title'])) {
-        return $PAGE_STATE_STRING['wp_title'];
+    if (isset($GLOBALS['PAGE_STATE_STRING']['wp_title'])) {
+        return $GLOBALS['PAGE_STATE_STRING']['wp_title'];
     }
     return '';
 }
@@ -158,8 +147,7 @@ function wp_title(string $sep, bool $display): string
 // phplint: /*. void .*/ function set_wp_title(/*. string .*/ $title) {}
 function set_wp_title(string $title): void
 {
-    global $PAGE_STATE_STRING;
-    $PAGE_STATE_STRING['wp_title'] = $title;
+    $GLOBALS['PAGE_STATE_STRING']['wp_title'] = $title;
 }
 
 // phplint: /*. string .*/ function get_bloginfo(/*. string .*/ $param) {}
@@ -177,8 +165,7 @@ function get_bloginfo(string $param): string
 // phplint: /*. void .*/ function clear_add_action() {}
 function clear_add_action(): void
 {
-    global $EXPECTED_ADD_ACTION;
-    $EXPECTED_ADD_ACTION = [];
+    $GLOBALS['EXPECTED_ADD_ACTION'] = [];
 }
 
 // phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $func, /*. int .*/ $num_calls) {}
@@ -186,8 +173,7 @@ function expect_add_action(string $section, string $func, int $num_calls): void
 {
     // $section is unused.
     $section .= 'make the linter happy.';
-    global $EXPECTED_ADD_ACTION;
-    $EXPECTED_ADD_ACTION[$func] = $num_calls;
+    $GLOBALS['EXPECTED_ADD_ACTION'][$func] = $num_calls;
 }
 
 // phplint: /*. void .*/ function add_action(/*. string .*/ $section, /*. string .*/ $func) {}
@@ -195,19 +181,17 @@ function add_action(string $section, string $func): void
 {
     assert($section === 'wp_footer');
     assert(function_exists($func), new Exception($func . ' is not a function'));
-    global $EXPECTED_ADD_ACTION;
     assert(
-        array_key_exists($func, $EXPECTED_ADD_ACTION),
+        array_key_exists($func, $GLOBALS['EXPECTED_ADD_ACTION']),
         new Exception($func . ' was not registered with expect_add_action')
     );
-    $EXPECTED_ADD_ACTION[$func] -= 1;
+    $GLOBALS['EXPECTED_ADD_ACTION'][$func] -= 1;
 }
 
 // phplint: /*. void .*/ function verify_add_action() {}
 function verify_add_action(): void
 {
-    global $EXPECTED_ADD_ACTION;
-    foreach ($EXPECTED_ADD_ACTION as $func => $should_be_zero) {
+    foreach ($GLOBALS['EXPECTED_ADD_ACTION'] as $func => $should_be_zero) {
         assert(
             $should_be_zero === 0,
             new Exception(
@@ -224,15 +208,13 @@ function verify_add_action(): void
  */
 function wp_get_attachment_image_src(int $image_id, string $size): array
 {
-    global $IMAGE_INFO;
-    return $IMAGE_INFO[$image_id][$size];
+    return $GLOBALS['IMAGE_INFO'][$image_id][$size];
 }
 
 // phplint: /*. void .*/ function clear_image_info() {}
 function clear_image_info(): void
 {
-    global $IMAGE_INFO;
-    $IMAGE_INFO = [];
+    $GLOBALS['IMAGE_INFO'] = [];
 }
 
 // phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
@@ -241,8 +223,7 @@ function clear_image_info(): void
  */
 function add_image_info(int $image_id, string $size, array $info): void
 {
-    global $IMAGE_INFO;
-    $IMAGE_INFO[$image_id][$size] = $info;
+    $GLOBALS['IMAGE_INFO'][$image_id][$size] = $info;
 }
 
 // Clean up all state set up by tests.

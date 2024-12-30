@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 // Extras needed by PHPLint.
 /*. require_module 'core'; .*/
-/*. array[int]string .*/ $TIMES = [];
+/*. array[int]string .*/ $GLOBALS['TIMES'] = [];
 
 define('START_DISPLAYING_BANNER_MESSAGE', 0);
 define('STOP_DISPLAYING_BANNER_MESSAGE', 1);
@@ -18,8 +18,7 @@ define('NOW_FOR_TESTING', 100);
  */
 function set_start_displaying_banner_message(string $timestring): void
 {
-    global $TIMES;
-    $TIMES[START_DISPLAYING_BANNER_MESSAGE] = $timestring;
+    $GLOBALS['TIMES'][START_DISPLAYING_BANNER_MESSAGE] = $timestring;
 }
 
 /* Set the time to stop displaying the BANNER message.
@@ -28,8 +27,7 @@ function set_start_displaying_banner_message(string $timestring): void
  */
 function set_stop_displaying_banner_message(string $timestring): void
 {
-    global $TIMES;
-    $TIMES[STOP_DISPLAYING_BANNER_MESSAGE] = $timestring;
+    $GLOBALS['TIMES'][STOP_DISPLAYING_BANNER_MESSAGE] = $timestring;
 }
 
 /* Set the time returned by now() for testing purposes.
@@ -38,8 +36,7 @@ function set_stop_displaying_banner_message(string $timestring): void
  */
 function set_now_for_testing(string $timestring): void
 {
-    global $TIMES;
-    $TIMES[NOW_FOR_TESTING] = $timestring;
+    $GLOBALS['TIMES'][NOW_FOR_TESTING] = $timestring;
 }
 
 /* timestring_to_human: converts a timestring parsable by strtotime() to a human
@@ -59,15 +56,13 @@ function timestring_to_human(string $timestring): string
 // start_displaying_banner_message: when to start displaying the BANNER message.
 function start_displaying_banner_message(): string
 {
-    global $TIMES;
-    return $TIMES[START_DISPLAYING_BANNER_MESSAGE];
+    return $GLOBALS['TIMES'][START_DISPLAYING_BANNER_MESSAGE];
 }
 
 // stop_displaying_banner_message: when to stop displaying the BANNER message.
 function stop_displaying_banner_message(): string
 {
-    global $TIMES;
-    return $TIMES[STOP_DISPLAYING_BANNER_MESSAGE];
+    return $GLOBALS['TIMES'][STOP_DISPLAYING_BANNER_MESSAGE];
 }
 
 /* now: returns current time or fake time for testing.
@@ -76,9 +71,8 @@ function stop_displaying_banner_message(): string
  */
 function now(): int
 {
-    global $TIMES;
-    if (isset($TIMES[NOW_FOR_TESTING])) {
-        return strtotime($TIMES[NOW_FOR_TESTING]);
+    if (isset($GLOBALS['TIMES'][NOW_FOR_TESTING])) {
+        return strtotime($GLOBALS['TIMES'][NOW_FOR_TESTING]);
     }
     return time();
 }
@@ -123,6 +117,5 @@ function is_time_between(
 // clear_all_times: clear all the times for predictable tests.
 function clear_all_times(): void
 {
-    global $TIMES;
-    $TIMES = [];
+    $GLOBALS['TIMES'] = [];
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 /*. require_module 'wordpress'; .*/
 require_once __DIR__ . '/StoreClosingTimes.php';
 require_once __DIR__ . '/Urls.php';
-$BANNER_MESSAGE = '';
+$GLOBALS['BANNER_MESSAGE'] = '';
 
 // get_title(): return the appropriate title.
 function get_title(): string
@@ -305,10 +305,9 @@ function get_banner_message(): string
         start_displaying_banner_message(),
         stop_displaying_banner_message()
     )) {
-        global $BANNER_MESSAGE;
         return <<<BANNER_MESSAGE
       <p class="text-centered larger-text grey">
-        {$BANNER_MESSAGE}
+        {$GLOBALS['BANNER_MESSAGE']}
       </p>
 
 BANNER_MESSAGE;
@@ -318,6 +317,5 @@ BANNER_MESSAGE;
 
 function set_banner_message(string $banner_message): void
 {
-    global $BANNER_MESSAGE;
-    $BANNER_MESSAGE = $banner_message;
+    $GLOBALS['BANNER_MESSAGE'] = $banner_message;
 }
