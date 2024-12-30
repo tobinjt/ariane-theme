@@ -14,7 +14,7 @@ class MultipleImageSupportTest extends TestCase {
 
   public function test_no_images(): void {
     $non_slider_post = new WP_Post(3, 'qwerty');
-    WP_Query::add_query_result($non_slider_post);
+    WP_Query::AddQueryResult($non_slider_post);
     $images = SliderImages();
     $this->assertEmpty($images);
   }
@@ -22,8 +22,8 @@ class MultipleImageSupportTest extends TestCase {
   public function test_two_images(): void {
     $p1 = new WP_Post(5, ' slider URL_FOR_PAGE ');
     $p2 = new WP_Post(7, 'slider URL_FOR_PAGE2');
-    WP_Query::add_query_result($p1);
-    WP_Query::add_query_result($p2);
+    WP_Query::AddQueryResult($p1);
+    WP_Query::AddQueryResult($p2);
     add_image_info(5, 'slider_large', array('URL_FOR_5_LARGE', 50, 70));
     add_image_info(5, 'slider_small', array('URL_FOR_5_SMALL', 25, 105));
     add_image_info(7, 'slider_large', array('URL_FOR_7_LARGE', 70, 90));

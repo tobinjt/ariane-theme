@@ -78,7 +78,7 @@ END_OF_HTML;
     if (count($jewellery_page->images) > 1) {
         global $CHANGE_IMAGES;
         $CHANGE_IMAGES['#individual-jewellery-image'] =
-          $jewellery_page->images_to_data();
+          $jewellery_page->ImagesToData();
         add_action('wp_footer', 'ChangeImagesSetupGeneric');
         $html .= <<<'END_OF_HTML'
 
