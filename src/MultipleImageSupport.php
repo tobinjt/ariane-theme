@@ -31,11 +31,11 @@ function SliderImages(): array
 {
     $media_query = new WP_Query(
         [
-          'post_type' => 'attachment',
-          'post_status' => 'any',
-          'posts_per_page' => '-1',
-          's' => 'slider',
-    ]
+            'post_type' => 'attachment',
+            'post_status' => 'any',
+            'posts_per_page' => '-1',
+            's' => 'slider',
+        ]
     );
     /*. array[int][string]string .*/ $images = [];
     foreach ($media_query->posts as $post) {

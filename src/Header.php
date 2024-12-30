@@ -223,13 +223,13 @@ function make_full_menu_bar(): string
     ];
     $output .= make_menu_bar(
         [
-        make_link_group(
-            ['largest-text left-page-links' => $main_links,
-            'float-right' => $icon_links,
-      ],
-            '/news/'
-        ),
-  ],
+            make_link_group(
+                ['largest-text left-page-links' => $main_links,
+                'float-right' => $icon_links,
+            ],
+                '/news/'
+            ),
+        ],
         ''
     );
 
@@ -244,17 +244,17 @@ function make_full_menu_bar(): string
         ];
         $output .= make_menu_bar(
             [
-            make_link_group(
-                ['left-page-links' => $jewellery_types_links],
-                '/jewellery/'
-            ),
-            ltrim(wrap_with_tag(
-                'span',
-                'float-right grey',
-                'Free delivery on all orders to Ireland',
-                6
-            )),
-    ],
+                make_link_group(
+                    ['left-page-links' => $jewellery_types_links],
+                    '/jewellery/'
+                ),
+                ltrim(wrap_with_tag(
+                    'span',
+                    'float-right grey',
+                    'Free delivery on all orders to Ireland',
+                    6
+                )),
+            ],
             'larger-text'
         );
         $output .= "\n";
@@ -277,11 +277,11 @@ function make_full_menu_bar(): string
         ];
         $output .= make_menu_bar(
             [
-            make_link_group(
-                ['left-page-links' => $jewellery_ranges_links],
-                '/jewellery/'
-            ),
-    ],
+                make_link_group(
+                    ['left-page-links' => $jewellery_ranges_links],
+                    '/jewellery/'
+                ),
+            ],
             'larger-text'
         );
     }

@@ -105,8 +105,8 @@ function JewelleryGridShortcode(
     $tag .= 'make the linter happy.';
     $attrs = shortcode_atts(
         [
-          'description' => '',
-    ],
+            'description' => '',
+        ],
         $atts
     );
 

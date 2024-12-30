@@ -69,12 +69,12 @@ class JewelleryGridEntry
     /*. array[int]WPImageInfo .*/ public array $images = [];
 
     public function __construct(
-      string $range,
-      string $alt,
-      string $image_ids,
-      string $page_url,
-      int $product_id
-  ) {
+        string $range,
+        string $alt,
+        string $image_ids,
+        string $page_url,
+        int $product_id
+    ) {
         $this->range = $range;
         $this->alt = $alt;
         $this->page_url = $page_url;
@@ -124,13 +124,13 @@ class JewelleryPage
     public string $width_str = '';
 
     public function __construct(
-      string $name,
-      int $product_id,
-      string $range,
-      string $type,
-      string $image_ids,
-      bool $archived
-  ) {
+        string $name,
+        int $product_id,
+        string $range,
+        string $type,
+        string $image_ids,
+        bool $archived
+    ) {
         $this->name = $name;
         $this->product_id = $product_id;
         $this->range = $range;

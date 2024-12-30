@@ -34,13 +34,13 @@ function JewelleryPageShortcode(
     $tag .= 'make the linter happy.';
     $attrs = shortcode_atts(
         [
-          'archived' => 'false',
-          'image_id' => '',
-          'name' => '',
-          'product_id' => '',
-          'range' => '',
-          'type' => '',
-    ],
+            'archived' => 'false',
+            'image_id' => '',
+            'name' => '',
+            'product_id' => '',
+            'range' => '',
+            'type' => '',
+        ],
         $atts
     );
     foreach ($attrs as $key => $value) {

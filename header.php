@@ -1,4 +1,8 @@
-<?php declare(strict_types=1); ?><!DOCTYPE html>
+<?php
+
+declare(strict_types=1);
+
+?><!DOCTYPE html>
 
 <html <?php language_attributes(); ?>>
 
