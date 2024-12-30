@@ -1,5 +1,4 @@
 <?php
-// Requires PHP 7.0 or greater.
 
 declare(strict_types=1);
 

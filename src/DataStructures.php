@@ -65,7 +65,7 @@ class JewelleryGridEntry
     public array $image_ids = [0];
     public string $page_url = '';
     public int $product_id = 0;
-/** @var array<int, WPImageInfo> */
+    /** @var array<int, WPImageInfo> */
     /*. array[int]WPImageInfo .*/ public array $images = [];
 
     public function __construct(
@@ -116,7 +116,7 @@ class JewelleryPage
 
     /** @var array<int> */
     public array $image_ids = [0];
-/** @var array<int, WPImageInfo> */
+    /** @var array<int, WPImageInfo> */
     /*. array[int]WPImageInfo .*/ public array $images = [];
     public int $height_int = 0;
     public string $height_str = '';
@@ -183,8 +183,6 @@ class JewelleryPage
 function json_encode_wrapper(array $data): string
 {
     $result = json_encode($data);
-    // TODO(johntobin): How do I test this?  Maybe I can create a recursive data
-    // structure that cannot be encoded?
     if (is_bool($result)) {
         // Return an empty string rather than false on failure; this should
         // never arise in real use, but PHPStan warns about it.
