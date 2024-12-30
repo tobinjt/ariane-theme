@@ -42,7 +42,7 @@ function safe_preg_replace(
  */
 function ParseJewelleryGridContents(string $page_contents): array
 {
-    $lines = str_getcsv($page_contents, "\n");
+    $lines = str_getcsv($page_contents, "\n", '"', '\\');
     /*. array[int]JewelleryGridEntry .*/ $ranges = [];
     foreach ($lines as $line) {
         $line = trim(strval($line));
@@ -58,7 +58,7 @@ function ParseJewelleryGridContents(string $page_contents): array
         // where ! is actually some weird unicode x - this breaks image urls.
         // ARGH.
         $line = safe_preg_replace('/&#215;/', 'x', $line);
-        $csv_data = str_getcsv($line, '|');
+        $csv_data = str_getcsv($line, '|', '"', '\\');
         // Skip blank lines.  The CSV parser will return an array with a single
         // element when given a blank line.
         if (count($csv_data) === 1) {
