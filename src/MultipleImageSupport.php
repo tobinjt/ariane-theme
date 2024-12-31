@@ -11,13 +11,30 @@ require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/Urls.php';
 
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
- * image info.
+ * image info.  $GLOBALS['SLIDER_IMAGES'] = [];
  */
-/*. array[string]string .*/ $GLOBALS['SLIDER_IMAGES'] = [];
 /* Used to collect change images configs and set them up.  Maps ID => raw
  * image info.
  */
 /*. array[string][int][string]string .*/ $GLOBALS['CHANGE_IMAGES'] = [];
+
+/**
+ * @return array<string, string>
+ */
+function get_slider_images(): array
+{
+  return $GLOBALS['SLIDER_IMAGES'];
+}
+
+function clear_slider_images(): void
+{
+  $GLOBALS['SLIDER_IMAGES'] = [];
+}
+
+function add_slider_image(string $id, string $json): void
+{
+    $GLOBALS['SLIDER_IMAGES'][$id] = $json;
+}
 
 /* SliderImages: Dynamically build the Javascript array of images when
  * displaying the slider.
@@ -86,7 +103,7 @@ jQuery(document).ready(function() {
 
 END_OF_JAVASCRIPT;
     $is_dev_website = is_dev_website() ? 'true' : 'false';
-    foreach ($GLOBALS['SLIDER_IMAGES'] as $id_prefix => $images) {
+    foreach (get_slider_images() as $id_prefix => $images) {
         $images = trim($images);
         $output .= <<<END_OF_JAVASCRIPT
   Slider.initialise({'id_prefix': '{$id_prefix}',
@@ -118,7 +135,7 @@ END_OF_JAVASCRIPT;
 function FrontPageSliderSetup(array $images): string
 {
     add_action('wp_footer', 'SliderSetupGeneric');
-    $GLOBALS['SLIDER_IMAGES']['#slider'] = json_encode_wrapper($images);
+    add_slider_image('#slider', json_encode_wrapper($images));
     $image = $images[0];
     $href = $image['href'];
     $src = $image['src'];

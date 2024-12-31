@@ -78,10 +78,9 @@ END_OF_OUTPUT;
   }
 
   public function test_SliderSetupGeneric(): void {
-    global $SLIDER_IMAGES;
-    $SLIDER_IMAGES = array();
-    $SLIDER_IMAGES['#foo'] = json_encode(array(11, 23));
-    $SLIDER_IMAGES['#bar'] = json_encode(array('pinky', 'brain'));
+    clear_slider_images();
+    add_slider_image('#foo', json_encode_wrapper(array(11, 23)));
+    add_slider_image('#bar', json_encode_wrapper(array('pinky', 'brain')));
     $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
     $expected = <<<'END_OF_OUTPUT'
 <!-- Include necessary Javascript. -->
@@ -107,8 +106,6 @@ END_OF_OUTPUT;
   }
 
   public function test_FrontPageSliderSetup(): void {
-    global $SLIDER_IMAGES;
-    $SLIDER_IMAGES = array('#slider' => 'appease the linter');
     $images = array(
       array('href' => 'linky', 'src' => 'jpg', 'srcset' => 'foo',
         'sizes' => 'bar'),
@@ -129,6 +126,6 @@ END_OF_OUTPUT;
 
 END_OF_OUTPUT;
     $this->assertEquals($expected, $content);
-    $this->assertEquals(json_encode($images), $SLIDER_IMAGES['#slider']);
+    $this->assertEquals(json_encode_wrapper($images), get_slider_images()['#slider']);
   }
 }

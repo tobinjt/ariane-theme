@@ -147,8 +147,7 @@ END_OF_EXPECTED;
                     . '{"src":"URLY","width":29,"height":61},'
                     . '{"src":"URLZ","width":31,"height":67}]'),
     );
-    global $SLIDER_IMAGES;
-    $this->assertEquals($expected_slider, $SLIDER_IMAGES);
+    $this->assertEquals($expected_slider, get_slider_images());
   }
 
   public function add_numbers(string $content): string {

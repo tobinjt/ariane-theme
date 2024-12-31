@@ -11,7 +11,6 @@ declare(strict_types=1);
 require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/StoreClosingTimes.php';
 require_once __DIR__ . '/Urls.php';
-/*. array[string]string .*/ $GLOBALS['SLIDER_IMAGES'] = [];
 
 // Return the original string if an error occurs.  Unlikely to happen in
 // practice, but PHPStan warns about it.  I cannot find any way to force
@@ -120,9 +119,7 @@ function JewelleryGridShortcode(
     foreach ($ranges as $i => $entry) {
         $id = 'item-' . $i;
         if (count($entry->images) > 1) {
-            $GLOBALS['SLIDER_IMAGES']["#{$id}"] = json_encode_wrapper(
-                $entry->imagesToData()
-            );
+            add_slider_image("#{$id}", json_encode_wrapper( $entry->imagesToData()));
             $slider_needed = true;
         }
 
