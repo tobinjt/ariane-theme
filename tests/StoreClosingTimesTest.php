@@ -8,13 +8,11 @@ class StoreClosingTimesTest extends TestCase {
   }
 
   public function test_setting_and_getting_times(): void {
-    global $TIMES;
-
     set_start_displaying_banner_message('pinky');
-    $this->assertEquals('pinky', $TIMES[START_DISPLAYING_BANNER_MESSAGE]);
+    $this->assertEquals('pinky', get_store_closing_time_state()->start_displaying_banner_message);
     $this->assertEquals('pinky', start_displaying_banner_message());
     set_stop_displaying_banner_message('the brain');
-    $this->assertEquals('the brain', $TIMES[STOP_DISPLAYING_BANNER_MESSAGE]);
+    $this->assertEquals('the brain', get_store_closing_time_state()->stop_displaying_banner_message);
     $this->assertEquals('the brain', stop_displaying_banner_message());
   }
 
@@ -27,11 +25,10 @@ class StoreClosingTimesTest extends TestCase {
   }
 
   public function test_time_comparisons(): void {
-    global $TIMES;
     $this->assertGreaterThan(12345, now());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
     $this->assertEquals('2018-12-25 00:00:00 Europe/Dublin',
-      $TIMES[NOW_FOR_TESTING]);
+      get_store_closing_time_state()->now_for_testing);
     $this->assertEquals(1545696000, now());
 
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
