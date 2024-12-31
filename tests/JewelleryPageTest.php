@@ -30,18 +30,19 @@ class JewelleryPageTest extends TestCase {
 
   public function test_missing_attr(): void {
     $content = JewelleryPageShortcode([], '', '');
-    $this->assertMatchesRegularExpression('/jewellery_page: empty attribute/', $content);
+    $this->assertMatchesRegularExpression(
+      '/jewellery_page: empty attribute/', $content);
   }
 
   public function test_single_image(): void {
-    global $CHANGE_IMAGES;
-    $CHANGE_IMAGES['#individual-jewellery-image'] = null;
+    clear_change_images();
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3';
     $attrs['product_id'] = '7';
-    add_image_info(intval($attrs['image_id']), 'product_size', array('URL', 23, 59));
+    add_image_info(
+      intval($attrs['image_id']), 'product_size', array('URL', 23, 59));
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
-    $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
+    $this->assertEquals([], get_change_images());
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div class="individual-jewellery-div">
@@ -70,14 +71,14 @@ EXPECTED;
   public function test_no_price(): void {
     // This tests that "Price on request" is displayed and the add to cart
     // button is not displayed.
-    global $CHANGE_IMAGES;
-    $CHANGE_IMAGES['#individual-jewellery-image'] = null;
+    clear_change_images();
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3';
     $attrs['product_id'] = '7';
-    add_image_info(intval($attrs['image_id']), 'product_size', array('URL', 23, 59));
+    add_image_info(
+      intval($attrs['image_id']), 'product_size', array('URL', 23, 59));
     $content = JewelleryPageShortcode($attrs, 'description of piece', '');
-    $this->assertNull($CHANGE_IMAGES['#individual-jewellery-image']);
+    $this->assertEquals([], get_change_images());
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div class="individual-jewellery-div">
@@ -104,8 +105,7 @@ EXPECTED;
   }
 
   public function test_multiple_images(): void {
-    global $CHANGE_IMAGES;
-    $CHANGE_IMAGES['#individual-jewellery-image'] = null;
+    clear_change_images();
     $attrs = $this->get_attrs();
     $attrs['image_id'] = '3,79,37';
     $attrs['product_id'] = '7';
@@ -118,13 +118,14 @@ EXPECTED;
     add_image_info(79, 'thumbnail', array('thumb2', 44, 80));
     add_image_info(37, 'thumbnail', array('thumb3', 51, 93));
     $content = JewelleryPageShortcode($attrs, '<br /> asdf', '');
-    $expected_array = array(
-      array('src' => 'URL', 'width' => 23, 'height' => 59),
-      array('src' => 'URL2', 'width' => 41, 'height' => 83),
-      array('src' => 'URL3', 'width' => 47, 'height' => 97),
-    );
-    $this->assertEquals($expected_array,
-      $CHANGE_IMAGES['#individual-jewellery-image']);
+    $expected_array = [
+      '#individual-jewellery-image' => json_encode_wrapper([
+          ['src' => 'URL', 'width' => 23, 'height' => 59],
+          ['src' => 'URL2', 'width' => 41, 'height' => 83],
+          ['src' => 'URL3', 'width' => 47, 'height' => 97],
+      ]),
+    ];
+    $this->assertEquals($expected_array, get_change_images());
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div class="individual-jewellery-div">

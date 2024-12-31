@@ -10,7 +10,6 @@ declare(strict_types=1);
 /*. require_module 'wordpress'; .*/
 require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/StoreClosingTimes.php';
-/*. array[string][int][string]string .*/ $GLOBALS['CHANGE_IMAGES'] = [];
 
 /* JewelleryPageShortcode: create a jewellery page.
  * Args (names are ugly but Wordpress-standard):
@@ -76,8 +75,10 @@ function JewelleryPageShortcode(
 
 END_OF_HTML;
     if (count($jewellery_page->images) > 1) {
-        $GLOBALS['CHANGE_IMAGES']['#individual-jewellery-image'] =
-          $jewellery_page->imagesToData();
+        add_change_image(
+            '#individual-jewellery-image',
+            json_encode_wrapper($jewellery_page->imagesToData())
+        );
         add_action('wp_footer', 'ChangeImagesSetupGeneric');
         $html .= <<<'END_OF_HTML'
 

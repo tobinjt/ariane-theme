@@ -14,26 +14,43 @@ require_once __DIR__ . '/Urls.php';
  * image info.  $GLOBALS['SLIDER_IMAGES'] = [];
  */
 /* Used to collect change images configs and set them up.  Maps ID => raw
- * image info.
+ * image info.  $GLOBALS['CHANGE_IMAGES'] = [];
  */
-/*. array[string][int][string]string .*/ $GLOBALS['CHANGE_IMAGES'] = [];
 
 /**
  * @return array<string, string>
  */
 function get_slider_images(): array
 {
-  return $GLOBALS['SLIDER_IMAGES'];
+    return $GLOBALS['SLIDER_IMAGES'];
 }
 
 function clear_slider_images(): void
 {
-  $GLOBALS['SLIDER_IMAGES'] = [];
+    $GLOBALS['SLIDER_IMAGES'] = [];
 }
 
 function add_slider_image(string $id, string $json): void
 {
     $GLOBALS['SLIDER_IMAGES'][$id] = $json;
+}
+
+/**
+ * @return array<string, string>
+ */
+function get_change_images(): array
+{
+    return $GLOBALS['CHANGE_IMAGES'];
+}
+
+function clear_change_images(): void
+{
+    $GLOBALS['CHANGE_IMAGES'] = [];
+}
+
+function add_change_image(string $id, string $json): void
+{
+    $GLOBALS['CHANGE_IMAGES'][$id] = $json;
 }
 
 /* SliderImages: Dynamically build the Javascript array of images when
@@ -163,7 +180,7 @@ END_OF_HTML;
  */
 function ChangeImagesSetupGeneric(): void
 {
-    $images = json_encode_wrapper($GLOBALS['CHANGE_IMAGES']);
+    $images = json_encode_wrapper(get_change_images());
     $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"

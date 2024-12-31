@@ -48,10 +48,9 @@ class MultipleImageSupportTest extends TestCase {
   }
 
   public function test_ChangeImagesSetupGeneric(): void {
-    global $CHANGE_IMAGES;
-    $CHANGE_IMAGES = array();
-    $CHANGE_IMAGES['foo'] = array(1, 2);
-    $CHANGE_IMAGES['bar'] = array('asdf', 'qwerty');
+    clear_change_images();
+    add_change_image('foo', json_encode_wrapper([1, 2]));
+    add_change_image('bar', json_encode_wrapper(['asdf', 'qwerty']));
     $expected = <<<'END_OF_OUTPUT'
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
@@ -59,7 +58,7 @@ class MultipleImageSupportTest extends TestCase {
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
-  var images = {"foo":[1,2],"bar":["asdf","qwerty"]};
+  var images = {"foo":"[1,2]","bar":"[\"asdf\",\"qwerty\"]"};
   // Construct a new image and swap it in, otherwise it flashes awkwardly - the
   // old image resizes and then the new image is displayed.
   var img = jQuery(id);
@@ -126,6 +125,8 @@ END_OF_OUTPUT;
 
 END_OF_OUTPUT;
     $this->assertEquals($expected, $content);
-    $this->assertEquals(json_encode_wrapper($images), get_slider_images()['#slider']);
+    $this->assertEquals(
+      json_encode_wrapper($images),
+      get_slider_images()['#slider']);
   }
 }

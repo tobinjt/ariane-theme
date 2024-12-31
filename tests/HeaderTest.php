@@ -238,6 +238,7 @@ END_OF_EXPECTED;
 
     $this->assertEquals('', get_banner_message());
     set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $this->assertMatchesRegularExpression('/BANNER MESSAGE/', get_banner_message());
+    $this->assertMatchesRegularExpression(
+      '/BANNER MESSAGE/', get_banner_message());
   }
 }

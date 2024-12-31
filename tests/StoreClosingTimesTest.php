@@ -9,10 +9,12 @@ class StoreClosingTimesTest extends TestCase {
 
   public function test_setting_and_getting_times(): void {
     set_start_displaying_banner_message('pinky');
-    $this->assertEquals('pinky', get_store_closing_time_state()->start_displaying_banner_message);
+    $this->assertEquals('pinky',
+      get_store_closing_time_state()->start_displaying_banner_message);
     $this->assertEquals('pinky', start_displaying_banner_message());
     set_stop_displaying_banner_message('the brain');
-    $this->assertEquals('the brain', get_store_closing_time_state()->stop_displaying_banner_message);
+    $this->assertEquals('the brain',
+      get_store_closing_time_state()->stop_displaying_banner_message);
     $this->assertEquals('the brain', stop_displaying_banner_message());
   }
 

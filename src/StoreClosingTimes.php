@@ -27,7 +27,8 @@ function get_store_closing_time_state(): StoreClosingTimesState
  */
 function set_start_displaying_banner_message(string $timestring): void
 {
-    get_store_closing_time_state()->start_displaying_banner_message = $timestring;
+    get_store_closing_time_state()->start_displaying_banner_message
+        = $timestring;
 }
 
 /* Set the time to stop displaying the BANNER message.
@@ -36,7 +37,8 @@ function set_start_displaying_banner_message(string $timestring): void
  */
 function set_stop_displaying_banner_message(string $timestring): void
 {
-    get_store_closing_time_state()->stop_displaying_banner_message = $timestring;
+    get_store_closing_time_state()->stop_displaying_banner_message
+        = $timestring;
 }
 
 /* Set the time returned by now() for testing purposes.
@@ -82,7 +84,7 @@ function now(): int
 {
     $time = strtotime(get_store_closing_time_state()->now_for_testing);
     if ($time) {
-      return $time;
+        return $time;
     }
     return time();
 }
