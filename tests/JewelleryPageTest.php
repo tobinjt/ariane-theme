@@ -110,7 +110,7 @@ EXPECTED;
     $attrs['image_id'] = '3,79,37';
     $attrs['product_id'] = '7';
     $attrs['range'] = 'singles';  // Test that range isn't included for singles.
-    expect_add_action('wp_footer', 'ChangeImagesSetupGeneric', 1);
+    expect_add_action('wp_footer', 'ChangeImagesSetupGeneric');
     add_image_info(3, 'product_size', array('URL', 23, 59));
     add_image_info(79, 'product_size', array('URL2', 41, 83));
     add_image_info(37, 'product_size', array('URL3', 47, 97));

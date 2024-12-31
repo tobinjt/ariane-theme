@@ -113,7 +113,7 @@ END_OF_OUTPUT;
       array('href' => 'linky', 'src' => 'jpg', 'srcset' => 'foo',
         'sizes' => 'bar'),
     );
-    expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
+    expect_add_action('wp_footer', 'SliderSetupGeneric');
     $content = FrontPageSliderSetup($images);
     $expected = <<<'END_OF_OUTPUT'
 <div id="slider-div" class="aligncenter">

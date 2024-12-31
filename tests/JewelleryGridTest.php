@@ -90,7 +90,7 @@ END_OF_EXPECTED;
   }
 
   public function test_multiple_images_and_pieces(): void {
-    expect_add_action('wp_footer', 'SliderSetupGeneric', 1);
+    expect_add_action('wp_footer', 'SliderSetupGeneric');
     // First range.
     add_image_info(11, 'grid_size', array('URL', 23, 59));
     // Second range.

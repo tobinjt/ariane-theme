@@ -7,12 +7,18 @@ declare(strict_types=1);
 /*. require_module 'core'; .*/
 /*. require_module 'phpinfo'; .*/
 // $GLOBALS['QUERY_RESULTS'] is declared after class WP_Post.
-/*. array[string]int .*/ $GLOBALS['EXPECTED_ADD_ACTION'] = [];
 /*. array[int][string][int]int .*/ $GLOBALS['IMAGE_INFO'] = [];
-/*. array[string]bool .*/ $GLOBALS['PAGE_STATE_BOOL'] = [];
-/*. array[string]string .*/ $GLOBALS['PAGE_STATE_STRING'] = [];
 
 // BEGIN PHPLINT
+
+class FakeWordpressState
+{
+    public string $expected_action = '';
+    public string $wp_title = '';
+    public bool $is_404 = false;
+    public bool $is_page = false;
+    public bool $is_single = false;
+}
 
 // Fake WP_Post.
 class WP_Post
@@ -25,9 +31,6 @@ class WP_Post
         $this->post_content = $post_content;
     }
 }
-
-// Needs to be declared after class WP_Post.
-/*. array[int]WP_Post .*/ $GLOBALS['QUERY_RESULTS'] = [];
 
 // Fake WP_Query.
 class WP_Query
@@ -57,7 +60,15 @@ class WP_Query
     }
 }
 
+/*. array[int]WP_Post .*/ $GLOBALS['QUERY_RESULTS'] = [];
+$GLOBALS['FAKE_WORDPRESS_STATE'] = new FakeWordpressState();
+
 // END PHPLINT
+
+function get_fake_wordpress_state(): FakeWordpressState
+{
+    return $GLOBALS['FAKE_WORDPRESS_STATE'];
+}
 
 // Wordpress functions we need to fake.
 // phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}
@@ -82,52 +93,45 @@ function do_shortcode(string $content): string
 // phplint: /*. void .*/ function clear_page_state() {}
 function clear_page_state(): void
 {
-    $GLOBALS['PAGE_STATE_BOOL'] = [];
+    get_fake_wordpress_state()->is_404 = false;
+    get_fake_wordpress_state()->is_page = false;
+    get_fake_wordpress_state()->is_single = false;
 }
 
 // phplint: /*. bool .*/ function is_404() {}
 function is_404(): bool
 {
-    if (isset($GLOBALS['PAGE_STATE_BOOL']['is_404'])) {
-        return $GLOBALS['PAGE_STATE_BOOL']['is_404'];
-    }
-    return false;
+    return get_fake_wordpress_state()->is_404;
 }
 
 // phplint: /*. bool .*/ function set_is_404(/*. bool .*/ $is) {}
 function set_is_404(bool $is): void
 {
-    $GLOBALS['PAGE_STATE_BOOL']['is_404'] = $is;
+    get_fake_wordpress_state()->is_404 = $is;
 }
 
 // phplint: /*. bool .*/ function is_single() {}
 function is_single(): bool
 {
-    if (isset($GLOBALS['PAGE_STATE_BOOL']['is_single'])) {
-        return $GLOBALS['PAGE_STATE_BOOL']['is_single'];
-    }
-    return false;
+    return get_fake_wordpress_state()->is_single;
 }
 
 // phplint: /*. void .*/ function set_is_single(/*. bool .*/ $is) {}
 function set_is_single(bool $is): void
 {
-    $GLOBALS['PAGE_STATE_BOOL']['is_single'] = $is;
+    get_fake_wordpress_state()->is_single = $is;
 }
 
 // phplint: /*. bool .*/ function is_page() {}
 function is_page(): bool
 {
-    if (isset($GLOBALS['PAGE_STATE_BOOL']['is_page'])) {
-        return $GLOBALS['PAGE_STATE_BOOL']['is_page'];
-    }
-    return false;
+    return get_fake_wordpress_state()->is_page;
 }
 
-// phplint: /*. void .*/ function set_is_page(/*. bool .*/ $is) {}
+// phplint: /*. bool .*/ function set_is_page(/*. bool .*/ $is) {}
 function set_is_page(bool $is): void
 {
-    $GLOBALS['PAGE_STATE_BOOL']['is_page'] = $is;
+    get_fake_wordpress_state()->is_page = $is;
 }
 
 // phplint: /*. string .*/ function wp_title(/*. string .*/ $sep, /*. bool .*/ $display) {}
@@ -138,16 +142,13 @@ function wp_title(string $sep, bool $display): string
     if (! $display) {
         $display = false;
     }
-    if (isset($GLOBALS['PAGE_STATE_STRING']['wp_title'])) {
-        return $GLOBALS['PAGE_STATE_STRING']['wp_title'];
-    }
-    return '';
+    return get_fake_wordpress_state()->wp_title;
 }
 
 // phplint: /*. void .*/ function set_wp_title(/*. string .*/ $title) {}
 function set_wp_title(string $title): void
 {
-    $GLOBALS['PAGE_STATE_STRING']['wp_title'] = $title;
+    get_fake_wordpress_state()->wp_title = $title;
 }
 
 // phplint: /*. string .*/ function get_bloginfo(/*. string .*/ $param) {}
@@ -165,15 +166,15 @@ function get_bloginfo(string $param): string
 // phplint: /*. void .*/ function clear_add_action() {}
 function clear_add_action(): void
 {
-    $GLOBALS['EXPECTED_ADD_ACTION'] = [];
+    get_fake_wordpress_state()->expected_action = '';
 }
 
 // phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $func, /*. int .*/ $num_calls) {}
-function expect_add_action(string $section, string $func, int $num_calls): void
+function expect_add_action(string $section, string $func): void
 {
     // $section is unused.
     $section .= 'make the linter happy.';
-    $GLOBALS['EXPECTED_ADD_ACTION'][$func] = $num_calls;
+    get_fake_wordpress_state()->expected_action = $func;
 }
 
 // phplint: /*. void .*/ function add_action(/*. string .*/ $section, /*. string .*/ $func) {}
@@ -182,23 +183,20 @@ function add_action(string $section, string $func): void
     assert($section === 'wp_footer');
     assert(function_exists($func), new Exception($func . ' is not a function'));
     assert(
-        array_key_exists($func, $GLOBALS['EXPECTED_ADD_ACTION']),
+        get_fake_wordpress_state()->expected_action === $func,
         new Exception($func . ' was not registered with expect_add_action')
     );
-    $GLOBALS['EXPECTED_ADD_ACTION'][$func] -= 1;
+    get_fake_wordpress_state()->expected_action = '';
 }
 
 // phplint: /*. void .*/ function verify_add_action() {}
 function verify_add_action(): void
 {
-    foreach ($GLOBALS['EXPECTED_ADD_ACTION'] as $func => $should_be_zero) {
-        assert(
-            $should_be_zero === 0,
-            new Exception(
-                "Non-zero remaining calls ({$should_be_zero}) for {$func}"
-            )
-        );
-    }
+    $expected_action = get_fake_wordpress_state()->expected_action;
+    assert(
+        $expected_action === '',
+        new Exception("{$expected_action} wasn't called")
+    );
 }
 
 // Functions for wp_get_attachment_image_src.
