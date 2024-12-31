@@ -58,7 +58,7 @@ class MultipleImageSupportTest extends TestCase {
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
-  var images = {"foo":"[1,2]","bar":"[\"asdf\",\"qwerty\"]"};
+  var images = {"foo":[1,2],"bar":["asdf","qwerty"]};
   // Construct a new image and swap it in, otherwise it flashes awkwardly - the
   // old image resizes and then the new image is displayed.
   var img = jQuery(id);

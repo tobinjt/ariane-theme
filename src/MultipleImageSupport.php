@@ -13,8 +13,9 @@ require_once __DIR__ . '/Urls.php';
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.  $GLOBALS['SLIDER_IMAGES'] = [];
  */
-/* Used to collect change images configs and set them up.  Maps ID => raw
- * image info.  $GLOBALS['CHANGE_IMAGES'] = [];
+/* Used to collect change images configs and set them up.
+ * Maps ID => json_encoded(array(raw image info)).
+ * $GLOBALS['CHANGE_IMAGES'] = [];
  */
 
 /**
@@ -180,7 +181,12 @@ END_OF_HTML;
  */
 function ChangeImagesSetupGeneric(): void
 {
-    $images = json_encode_wrapper(get_change_images());
+    $images = [];
+    foreach (get_change_images() as $key => $value) {
+        $images[$key] = json_decode($value, true);
+    }
+    $images_json = json_encode_wrapper($images);
+
     $output = <<<END_OF_JAVASCRIPT
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
@@ -188,7 +194,7 @@ function ChangeImagesSetupGeneric(): void
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
-  var images = {$images};
+  var images = {$images_json};
   // Construct a new image and swap it in, otherwise it flashes awkwardly - the
   // old image resizes and then the new image is displayed.
   var img = jQuery(id);
