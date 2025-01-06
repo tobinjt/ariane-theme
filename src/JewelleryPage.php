@@ -89,10 +89,10 @@ END_OF_HTML;
 
         foreach ($jewellery_page->image_ids as $i => $image_id) {
             $image = new WPImageInfo($image_id, 'thumbnail');
-            $src = $image->url;
+            $src = $image->getUrl();
             $name = $jewellery_page->name;
-            $width = $image->width_str;
-            $height = $image->height_str;
+            $width = $image->getWidthStr();
+            $height = $image->getHeightStr();
             $html .= <<<END_OF_HTML
         <li><img src="{$src}"
                  alt="{$range_in_piece_name}{$name}"
@@ -112,9 +112,9 @@ END_OF_HTML;
     $div_width = $jewellery_page->width_str;
     $div_height = $jewellery_page->height_str;
     $name = $jewellery_page->name;
-    $src = $jewellery_page->images[0]->url;
-    $width = $jewellery_page->images[0]->width_str;
-    $height = $jewellery_page->images[0]->height_str;
+    $src = $jewellery_page->images[0]->getUrl();
+    $width = $jewellery_page->images[0]->getWidthStr();
+    $height = $jewellery_page->images[0]->getHeightStr();
     $html .= <<<END_OF_HTML
     <div width="{$div_width}" height="{$div_height}">
       <img id="individual-jewellery-image"

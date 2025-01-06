@@ -85,14 +85,14 @@ function SliderImages(): array
             // All the intermediate variables are due to PHPLint parsing
             // restrictions, particularly it's impossible to use {$width}px or
             // similar.
-            $l_url = $image_large->url;
-            $l_w_w = $image_large->width_str . 'w';
-            $l_w_px = $image_large->width_str . 'px';
-            $s_url = $image_small->url;
-            $s_w_w = $image_small->width_str . 'w';
-            $s_w_px = $image_small->width_str . 'px';
+            $l_url = $image_large->getUrl();
+            $l_w_w = $image_large->getWidthStr() . 'w';
+            $l_w_px = $image_large->getWidthStr() . 'px';
+            $s_url = $image_small->getUrl();
+            $s_w_w = $image_small->getWidthStr() . 'w';
+            $s_w_px = $image_small->getWidthStr() . 'px';
             $images[] = [
-                'src' => $image_large->url,
+                'src' => $image_large->getUrl(),
                 'href' => strval($matches[1]),
                 'srcset' => "{$l_url} {$l_w_w}, {$s_url} {$s_w_w}",
                 'sizes' => "(max-width: 799px) {$s_w_px}, {$l_w_px}",

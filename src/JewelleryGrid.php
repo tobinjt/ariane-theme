@@ -127,10 +127,10 @@ function JewelleryGridShortcode(
         }
 
         $href = $entry->page_url;
-        $src = $entry->images[0]->url;
+        $src = $entry->images[0]->getUrl();
         $alt = $entry->alt;
-        $width = $entry->images[0]->width_str;
-        $height = $entry->images[0]->height_str;
+        $width = $entry->images[0]->getWidthStr();
+        $height = $entry->images[0]->getHeightStr();
         $range = $entry->range;
         $div = <<<END_OF_DIV
             <div class="aligncenter jewellery-block">

@@ -9,11 +9,11 @@ declare(strict_types=1);
 /* Wrap wp_get_attachment_image_src() to return an object. */
 class WPImageInfo
 {
-    public string $url = '';
-    public int $height_int = 0;
-    public string $height_str = '';
-    public int $width_int = 0;
-    public string $width_str = '';
+    private string $url = '';
+    private int $height_int = 0;
+    private string $height_str = '';
+    private int $width_int = 0;
+    private string $width_str = '';
 
     public function __construct(int $attachment_id, string $size)
     {
@@ -37,6 +37,32 @@ class WPImageInfo
             'width' => $this->width_int,
             'height' => $this->height_int,
         ];
+    }
+
+    // Getter methods
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    public function getHeightInt(): int
+    {
+        return $this->height_int;
+    }
+
+    public function getHeightStr(): string
+    {
+        return $this->height_str;
+    }
+
+    public function getWidthInt(): int
+    {
+        return $this->width_int;
+    }
+
+    public function getWidthStr(): string
+    {
+        return $this->width_str;
     }
 }
 
@@ -154,11 +180,11 @@ class JewelleryPage
             $this->image_ids[] = $id_int;
             $image = new WPImageInfo($id_int, 'product_size');
             $this->images[] = $image;
-            if ($image->width_int > $this->width_int) {
-                $this->width_int = $image->width_int;
+            if ($image->getWidthInt() > $this->width_int) {
+                $this->width_int = $image->getWidthInt();
             }
-            if ($image->height_int > $this->height_int) {
-                $this->height_int = $image->height_int;
+            if ($image->getHeightInt() > $this->height_int) {
+                $this->height_int = $image->getHeightInt();
             }
         }
         $this->width_str = strval($this->width_int);
