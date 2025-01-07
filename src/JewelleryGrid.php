@@ -48,12 +48,18 @@ class JewelleryGridEntry
         }
     }
 
+    /* Convert an array of WPImageInfo to an array compatible with slider.js. */
     /**
      * @return array<int, array{'src': string, 'width': int, 'height': int}>
      */
     public function imagesToData(): array
     {
-        return imagesToData($this->images);
+        // This needs to stay compatible with slider.js.
+        /*. array[int]mixed .*/ $data = [];
+        foreach ($this->images as $image) {
+            $data[] = $image->imageToData();
+        }
+        return $data;
     }
 }
 

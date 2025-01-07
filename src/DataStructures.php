@@ -73,22 +73,6 @@ class WPImageInfo
     }
 }
 
-/* Convert an array of WPImageInfo to an array compatible with slider.js. */
-/**
- * @param array<int, WPImageInfo> $images
- *
- * @return array<int, array{'src': string, 'width': int, 'height': int}>
- */
-function imagesToData(array $images): array
-{
-    # This needs to stay compatible with slider.js.
-    /*. array[int]mixed .*/ $data = [];
-    foreach ($images as $image) {
-        $data[] = $image->imageToData();
-    }
-    return $data;
-}
-
 /* Wrap json_encode so that I can more easily ignore PHPLint warnings about the
   * exception being thrown, because I cannot find a way to test the exception
   * handling, and I care more about test coverage than lint warnings.
