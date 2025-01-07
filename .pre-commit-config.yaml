@@ -21,7 +21,7 @@ repos:
         language: script
         pass_filenames: false
         types: [php]
-        entry: phpstan-pre-commit
+        entry: run-if-exists phpstan
       - id: phpunit
         name: Run `phpunit`
         language: script
