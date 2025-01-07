@@ -11,6 +11,71 @@ declare(strict_types=1);
 require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/StoreClosingTimes.php';
 
+/* Represents a Jewellery Page. */
+class JewelleryPage
+{
+    public string $name = '';
+    public int $product_id = 0;
+    public string $range = '';
+    public string $type = '';
+    public bool $archived = false;
+
+/** @var array<int, WPImageInfo> */
+    /*. array[int]WPImageInfo .*/ public array $images = [];
+    public int $height_int = 0;
+    public string $height_str = '';
+    public int $width_int = 0;
+    public string $width_str = '';
+
+    public function __construct(
+        string $name,
+        int $product_id,
+        string $range,
+        string $type,
+        string $image_ids,
+        bool $archived
+    ) {
+        $this->name = $name;
+        $this->product_id = $product_id;
+        $this->range = $range;
+        $this->type = $type;
+        $this->archived = $archived;
+        $this->images = [];
+
+        // Change "necklace" to "necklaces".
+        if (substr($this->type, -1) !== 's') {
+            $this->type .= 's';
+        }
+
+        $ids = explode(',', $image_ids);
+        foreach ($ids as $id_str) {
+            $id_int = intval($id_str);
+            if ($id_int === -1) {
+                // Skip this, it's not a real image ID.  Mostly used in testing.
+                continue;
+            }
+            $image = new WPImageInfo($id_int, 'product_size');
+            $this->images[] = $image;
+            if ($image->getWidthInt() > $this->width_int) {
+                $this->width_int = $image->getWidthInt();
+            }
+            if ($image->getHeightInt() > $this->height_int) {
+                $this->height_int = $image->getHeightInt();
+            }
+        }
+        $this->width_str = strval($this->width_int);
+        $this->height_str = strval($this->height_int);
+    }
+
+    /**
+     * @return array<int, array{'src': string, 'width': int, 'height': int}>
+     */
+    public function imagesToData(): array
+    {
+        return imagesToData($this->images);
+    }
+}
+
 /* JewelleryPageShortcode: create a jewellery page.
  * Args (names are ugly but Wordpress-standard):
  *  $atts: an associative array of attributes, or an empty string if no

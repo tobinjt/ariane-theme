@@ -12,6 +12,51 @@ require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/StoreClosingTimes.php';
 require_once __DIR__ . '/Urls.php';
 
+/* Represents a single entry from a Jewellery Grid. */
+class JewelleryGridEntry
+{
+    public string $range = '';
+    public string $alt = '';
+    public string $page_url = '';
+    public int $product_id = 0;
+/** @var array<int, WPImageInfo> */
+    /*. array[int]WPImageInfo .*/ public array $images = [];
+
+    public function __construct(
+        string $range,
+        string $alt,
+        string $image_ids,
+        string $page_url,
+        int $product_id
+    ) {
+        $this->range = $range;
+        $this->alt = $alt;
+        $this->page_url = $page_url;
+        $this->product_id = $product_id;
+        $this->images = [];
+
+        if (substr($this->page_url, -1) !== '/') {
+            $this->page_url .= '/';
+        }
+
+        $ids = explode(',', $image_ids);
+        foreach ($ids as $id_str) {
+            $id_int = intval($id_str);
+            if ($id_int !== -1) {
+                $this->images[] = new WPImageInfo($id_int, 'grid_size');
+            }
+        }
+    }
+
+    /**
+     * @return array<int, array{'src': string, 'width': int, 'height': int}>
+     */
+    public function imagesToData(): array
+    {
+        return imagesToData($this->images);
+    }
+}
+
 // Return the original string if an error occurs.  Unlikely to happen in
 // practice, but PHPStan warns about it.  I cannot find any way to force
 // preg_replace to return null, so that branch is untested :(
