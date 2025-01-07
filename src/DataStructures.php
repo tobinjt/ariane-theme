@@ -9,6 +9,7 @@ declare(strict_types=1);
 /* Wrap wp_get_attachment_image_src() to return an object. */
 class WPImageInfo
 {
+    private int $image_id = 0;
     private string $url = '';
     private int $height_int = 0;
     private string $height_str = '';
@@ -19,6 +20,7 @@ class WPImageInfo
     {
         // $image_info is an array of [url (str), width (int), height (int)].
         $image_info = wp_get_attachment_image_src($attachment_id, $size);
+        $this->image_id = $attachment_id;
         $this->url = strval($image_info[0]);
         $this->width_int = $image_info[1];
         $this->height_int = $image_info[2];
@@ -40,6 +42,11 @@ class WPImageInfo
     }
 
     // Getter methods
+    public function getImageId(): int
+    {
+        return $this->image_id;
+    }
+
     public function getUrl(): string
     {
         return $this->url;
@@ -136,8 +143,6 @@ class JewelleryPage
     public string $type = '';
     public bool $archived = false;
 
-    /** @var array<int> */
-    public array $image_ids = [0];
 /** @var array<int, WPImageInfo> */
     /*. array[int]WPImageInfo .*/ public array $images = [];
     public int $height_int = 0;
@@ -158,7 +163,6 @@ class JewelleryPage
         $this->range = $range;
         $this->type = $type;
         $this->archived = $archived;
-        $this->image_ids = [];
         $this->images = [];
 
         // Change "necklace" to "necklaces".
@@ -173,7 +177,6 @@ class JewelleryPage
                 // Skip this, it's not a real image ID.  Mostly used in testing.
                 continue;
             }
-            $this->image_ids[] = $id_int;
             $image = new WPImageInfo($id_int, 'product_size');
             $this->images[] = $image;
             if ($image->getWidthInt() > $this->width_int) {

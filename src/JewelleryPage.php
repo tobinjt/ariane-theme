@@ -87,8 +87,8 @@ END_OF_HTML;
 
 END_OF_HTML;
 
-        foreach ($jewellery_page->image_ids as $i => $image_id) {
-            $image = new WPImageInfo($image_id, 'thumbnail');
+        foreach ($jewellery_page->images as $i => $full_size_image) {
+            $image = new WPImageInfo($full_size_image->getImageId(), 'thumbnail');
             $src = $image->getUrl();
             $name = $jewellery_page->name;
             $width = $image->getWidthStr();
