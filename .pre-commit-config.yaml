@@ -18,7 +18,7 @@ repos:
         entry: php-l-pre-commit
       - id: phpstan
         name: Run `phpstan`
-        language: script
+        language: system
         pass_filenames: false
         types: [php]
         entry: run-if-exists phpstan
