@@ -1,6 +1,5 @@
 .phpunit.cache
 .phpunit.result.cache
 composer.lock
-phplint-modules
 phpunit.xml
 vendor

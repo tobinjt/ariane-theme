@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 // Functions needed by header.php.
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-/*. require_module 'wordpress'; .*/
 require_once __DIR__ . '/StoreClosingTimes.php';
 require_once __DIR__ . '/Urls.php';
 $GLOBALS['BANNER_MESSAGE'] = '';

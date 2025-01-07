@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 // Support for Jewellery grids showing multiple products.
 
-// Extras needed by PHPLint.
-/*. require_module 'array'; .*/
-/*. require_module 'core'; .*/
-/*. require_module 'pcre'; .*/
 require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/StoreClosingTimes.php';
 require_once __DIR__ . '/Urls.php';

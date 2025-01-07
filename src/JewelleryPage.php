@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 // Support for showing an individual piece of Jewellery.
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-/*. require_module 'fakecart66'; .*/
-/*. require_module 'wordpress'; .*/
 require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/StoreClosingTimes.php';
 

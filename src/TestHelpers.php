@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-
 function clear_server_variables(): void
 {
     // Can't replace $_SERVER entirely because it breaks phpunit.

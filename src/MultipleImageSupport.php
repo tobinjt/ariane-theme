@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 // Support for multiple images in a page: sliders and manually changed.
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-/*. require_module 'pcre'; .*/
 require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/Urls.php';
 
@@ -82,9 +79,6 @@ function SliderImages(): array
         ) === 1) {
             $image_large = new WPImageInfo($post->ID, 'slider_large');
             $image_small = new WPImageInfo($post->ID, 'slider_small');
-            // All the intermediate variables are due to PHPLint parsing
-            // restrictions, particularly it's impossible to use {$width}px or
-            // similar.
             $l_url = $image_large->getUrl();
             $l_w_w = $image_large->getWidthStr() . 'w';
             $l_w_px = $image_large->getWidthStr() . 'px';

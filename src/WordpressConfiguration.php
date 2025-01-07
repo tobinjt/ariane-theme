@@ -6,9 +6,6 @@ declare(strict_types=1);
  * that just call Wordpress functions because they aren't really testable.
  */
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-
 /* Remove the version strings from CSS and Javascript to improve browser
    caching.  Found by searching for "wordpress remove query strings from
    static resources".

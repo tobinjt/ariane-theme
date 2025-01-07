@@ -2,15 +2,6 @@
 
 declare(strict_types=1);
 
-// Extras needed by PHPLint.
-/*. require_module 'array'; .*/
-/*. require_module 'core'; .*/
-/*. require_module 'phpinfo'; .*/
-// $GLOBALS['QUERY_RESULTS'] is declared after class WP_Post.
-/*. array[int][string][int]int .*/ $GLOBALS['IMAGE_INFO'] = [];
-
-// BEGIN PHPLINT
-
 class FakeWordpressState
 {
     public string $expected_action = '';
@@ -60,10 +51,9 @@ class WP_Query
     }
 }
 
-/*. array[int]WP_Post .*/ $GLOBALS['QUERY_RESULTS'] = [];
+$GLOBALS['IMAGE_INFO'] = [];
+$GLOBALS['QUERY_RESULTS'] = [];
 $GLOBALS['FAKE_WORDPRESS_STATE'] = new FakeWordpressState();
-
-// END PHPLINT
 
 function get_fake_wordpress_state(): FakeWordpressState
 {
@@ -71,7 +61,6 @@ function get_fake_wordpress_state(): FakeWordpressState
 }
 
 // Wordpress functions we need to fake.
-// phplint: /*. array .*/ function shortcode_atts(/*. array .*/ $array1, /*. array .*/ $array2) {}
 /**
  * @param array<mixed> $array1
  * @param array<mixed> $array2
@@ -83,14 +72,12 @@ function shortcode_atts(array $array1, array $array2): array
     return array_merge($array1, $array2);
 }
 
-// phplint: /*. string .*/ function do_shortcode(/*. string .*/ $content) {}
 function do_shortcode(string $content): string
 {
     return $content;
 }
 
 // Functions about the page state, type of page, etc.
-// phplint: /*. void .*/ function clear_page_state() {}
 function clear_page_state(): void
 {
     get_fake_wordpress_state()->is_404 = false;
@@ -98,43 +85,36 @@ function clear_page_state(): void
     get_fake_wordpress_state()->is_single = false;
 }
 
-// phplint: /*. bool .*/ function is_404() {}
 function is_404(): bool
 {
     return get_fake_wordpress_state()->is_404;
 }
 
-// phplint: /*. bool .*/ function set_is_404(/*. bool .*/ $is) {}
 function set_is_404(bool $is): void
 {
     get_fake_wordpress_state()->is_404 = $is;
 }
 
-// phplint: /*. bool .*/ function is_single() {}
 function is_single(): bool
 {
     return get_fake_wordpress_state()->is_single;
 }
 
-// phplint: /*. void .*/ function set_is_single(/*. bool .*/ $is) {}
 function set_is_single(bool $is): void
 {
     get_fake_wordpress_state()->is_single = $is;
 }
 
-// phplint: /*. bool .*/ function is_page() {}
 function is_page(): bool
 {
     return get_fake_wordpress_state()->is_page;
 }
 
-// phplint: /*. bool .*/ function set_is_page(/*. bool .*/ $is) {}
 function set_is_page(bool $is): void
 {
     get_fake_wordpress_state()->is_page = $is;
 }
 
-// phplint: /*. string .*/ function wp_title(/*. string .*/ $sep, /*. bool .*/ $display) {}
 function wp_title(string $sep, bool $display): string
 {
     $sep .= 'make the linter happy.';
@@ -145,13 +125,11 @@ function wp_title(string $sep, bool $display): string
     return get_fake_wordpress_state()->wp_title;
 }
 
-// phplint: /*. void .*/ function set_wp_title(/*. string .*/ $title) {}
 function set_wp_title(string $title): void
 {
     get_fake_wordpress_state()->wp_title = $title;
 }
 
-// phplint: /*. string .*/ function get_bloginfo(/*. string .*/ $param) {}
 function get_bloginfo(string $param): string
 {
     $values = [
@@ -163,13 +141,11 @@ function get_bloginfo(string $param): string
 }
 
 // Functions for add_action.
-// phplint: /*. void .*/ function clear_add_action() {}
 function clear_add_action(): void
 {
     get_fake_wordpress_state()->expected_action = '';
 }
 
-// phplint: /*. void .*/ function expect_add_action(/*. string .*/ $section, /*. string .*/ $func, /*. int .*/ $num_calls) {}
 function expect_add_action(string $section, string $func): void
 {
     // $section is unused.
@@ -177,7 +153,6 @@ function expect_add_action(string $section, string $func): void
     get_fake_wordpress_state()->expected_action = $func;
 }
 
-// phplint: /*. void .*/ function add_action(/*. string .*/ $section, /*. string .*/ $func) {}
 function add_action(string $section, string $func): void
 {
     assert($section === 'wp_footer');
@@ -189,7 +164,6 @@ function add_action(string $section, string $func): void
     get_fake_wordpress_state()->expected_action = '';
 }
 
-// phplint: /*. void .*/ function verify_add_action() {}
 function verify_add_action(): void
 {
     $expected_action = get_fake_wordpress_state()->expected_action;
@@ -200,7 +174,6 @@ function verify_add_action(): void
 }
 
 // Functions for wp_get_attachment_image_src.
-// phplint: /*. array[int]int .*/ function wp_get_attachment_image_src(/*. int .*/ $image_id, /*. string .*/ $size) {}
 /**
  * @return array<int, int>
  */
@@ -209,13 +182,11 @@ function wp_get_attachment_image_src(int $image_id, string $size): array
     return $GLOBALS['IMAGE_INFO'][$image_id][$size];
 }
 
-// phplint: /*. void .*/ function clear_image_info() {}
 function clear_image_info(): void
 {
     $GLOBALS['IMAGE_INFO'] = [];
 }
 
-// phplint: /*. void .*/ function add_image_info(/*. int .*/ $image_id, /*. string .*/ $size, /*. array .*/ $info) {}
 /**
  * @param array<int, int|string> $info
  */
@@ -225,7 +196,6 @@ function add_image_info(int $image_id, string $size, array $info): void
 }
 
 // Clean up all state set up by tests.
-// phplint: /*. void .*/ function clear_wordpress_testing_state() {}
 function clear_wordpress_testing_state(): void
 {
     WP_Query::clearQueryResults();
@@ -235,7 +205,6 @@ function clear_wordpress_testing_state(): void
 }
 
 // Verify all state set up by tests.
-// phplint: /*. void .*/ function verify_wordpress_testing_state() {}
 function verify_wordpress_testing_state(): void
 {
     verify_add_action();

@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 // URL-related functions.
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-/*. require_module 'wordpress'; .*/
-
 function get_hostname(): string
 {
     return $_SERVER['SERVER_NAME'];

@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 // Functions related to the store closing and opening.
 
-// Extras needed by PHPLint.
-/*. require_module 'core'; .*/
-
 class StoreClosingTimesState
 {
     public string $start_displaying_banner_message = '';
