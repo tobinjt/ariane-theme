@@ -87,8 +87,6 @@ class JewelleryGridEntry
 {
     public string $range = '';
     public string $alt = '';
-    /** @var array<int> */
-    public array $image_ids = [0];
     public string $page_url = '';
     public int $product_id = 0;
 /** @var array<int, WPImageInfo> */
@@ -105,7 +103,6 @@ class JewelleryGridEntry
         $this->alt = $alt;
         $this->page_url = $page_url;
         $this->product_id = $product_id;
-        $this->image_ids = [];
         $this->images = [];
 
         if (substr($this->page_url, -1) !== '/') {
@@ -116,7 +113,6 @@ class JewelleryGridEntry
         foreach ($ids as $id_str) {
             $id_int = intval($id_str);
             if ($id_int !== -1) {
-                $this->image_ids[] = $id_int;
                 $this->images[] = new WPImageInfo($id_int, 'grid_size');
             }
         }
