@@ -17,6 +17,15 @@ class JewelleryGridTest extends TestCase {
     verify_wordpress_testing_state();
   }
 
+  public function test_safe_preg_replace(): void {
+    // This works by passing an invalid regex to make preg_replace return null.
+    // Prefixing @safe_preg_replace with @ is a hack to suppress the warning
+    // that would otherwise make PHPUnit unhappy.
+    $input = 'aaaaaaa';
+    $actual = @safe_preg_replace('/[a/', 'b', $input);
+    $this->assertEquals($input, $actual);
+  }
+
   public function test_parsing(): void {
     $input = <<<'END_OF_INPUT'
 # This comment will be skipped.
