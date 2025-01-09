@@ -200,11 +200,11 @@ function make_icon_link(
     int $width,
     int $height
 ): string {
-    return '<img class="greyscale"' .
-      " width=\"{$width}\"" .
-      " height=\"{$height}\"" .
-      ' src="' . get_theme_image_path($file) . '"' .
-      " alt=\"{$alt}\" />";
+    $path = get_theme_image_path($file);
+    $html = <<<END_OF_ICON_LINK
+    <img class="greyscale" width="{$width}" height="{$height}" src="{$path}" alt="{$alt}" />
+    END_OF_ICON_LINK;
+    return str_replace("\n", '', $html);
 }
 
 function make_full_menu_bar(): string
