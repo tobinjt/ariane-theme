@@ -131,8 +131,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string
     $current_url = rtrim(get_current_url(), '/');
     $url_to_highlight = $default_url;
     foreach ($groups as $links) {
-        foreach ($links as $url => $text) {
-            $text .= 'make the linter happy.';
+        foreach (array_keys($links) as $url) {
             $pattern = rtrim($url, '/');
             if ($pattern === $current_url) {
                 return $url;
