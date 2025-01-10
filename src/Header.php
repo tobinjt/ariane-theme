@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 // Functions needed by header.php.
 
-require_once __DIR__ . '/StoreClosingTimes.php';
 require_once __DIR__ . '/Urls.php';
-$GLOBALS['BANNER_MESSAGE'] = '';
 
 // get_title(): return the appropriate title.
 function get_title(): string
@@ -288,30 +286,4 @@ function make_full_menu_bar(): string
     }
 
     return $output;
-}
-
-/* get_banner_message: return the message to display about the banner, or an
- * empty string if it's not the right time of year.
- * Returns:
- *  string.
- */
-function get_banner_message(): string
-{
-    if (is_time_between(
-        start_displaying_banner_message(),
-        stop_displaying_banner_message()
-    )) {
-        return <<<BANNER_MESSAGE
-      <p class="text-centered larger-text grey">
-        {$GLOBALS['BANNER_MESSAGE']}
-      </p>
-
-BANNER_MESSAGE;
-    }
-    return '';
-}
-
-function set_banner_message(string $banner_message): void
-{
-    $GLOBALS['BANNER_MESSAGE'] = $banner_message;
 }

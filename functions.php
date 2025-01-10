@@ -6,7 +6,6 @@ require_once 'src/Header.php';
 require_once 'src/JewelleryGrid.php';
 require_once 'src/JewelleryPage.php';
 require_once 'src/MultipleImageSupport.php';
-require_once 'src/StoreClosingTimes.php';
 require_once 'src/Urls.php';
 require_once 'src/WordpressConfiguration.php';
 
@@ -167,11 +166,3 @@ add_filter('jpeg_quality', static function ($arg) {
 add_editor_style('style.css');
 // Add RSS links to <head> section.
 // add_theme_support('automatic-feed-links');
-
-set_start_displaying_banner_message('2021-10-10 00:30:00 Europe/Dublin');
-set_stop_displaying_banner_message('');
-$maternity_leave_banner = <<<MATERNITY_LEAVE_BANNER
-        Ariane is on sabbatical and is not accepting commissions or selling from
-        the website.  Thanks!
-MATERNITY_LEAVE_BANNER;
-set_banner_message($maternity_leave_banner);

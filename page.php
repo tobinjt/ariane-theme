@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 get_header(); ?>
   <main>
+      <p class="text-centered larger-text grey">
+        Ariane is on sabbatical and is not accepting commissions or selling from
+        the website.  Thanks!
+      </p>
 <?php
-  echo get_banner_message();
 if (is_jewellery_page()) {
     echo '      <div id="jewellery-page">', "\n";
     echo '        <br id="add-extra-space-before-description"/>', "\n";

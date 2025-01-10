@@ -11,17 +11,7 @@ composer require --dev phpunit/phpunit ^9
 
 ## How do I set the banner message?
 
-- Edit `functions.php`.
-- Call `set_banner_message()` with the message you want to show.
-- Call `set_start_displaying_banner_message()` and
-  `set_stop_displaying_banner_message()` with banner start and stop dates.
-
-## How do I close the store?
-
-- Edit `functions.php`.
-- Call `set_show_store_closing_message()` with the message you want to show.
-- Call `set_closing_time()` and `set_opening_time()` with banner start and stop
-  dates.
+- Edit `page.php`.
 
 ## How are images included in the slider?
 
@@ -46,9 +36,9 @@ set max quantity to 1.
 
 ## How do I find attachment ids?
 
-- Go to [media view
-  prod](https://www.arianetobin.ie/wp-admin/upload.php?mode=list) or [media
-  view dev](https://dev.arianetobin.ie/wp-admin/upload.php?mode=list)
+- Go to
+  [media view prod](https://www.arianetobin.ie/wp-admin/upload.php?mode=list) or
+  [media view dev](https://dev.arianetobin.ie/wp-admin/upload.php?mode=list)
 - Search for the image you want.
 - Hover over the image name and look for `post=XXX` in the URL; `XXX` is the
   attachment id.
@@ -73,8 +63,8 @@ set max quantity to 1.
 
 - Create a new page for the product. Make it a child of the range _before you
   start typing the title_. Copy the text from another product and modify
-  accordingly. ~~The URL will be wrong when you're creating the page - the
-  range won't be part of it - but it will be corrected when you publish.~~
+  accordingly. ~~The URL will be wrong when you're creating the page - the range
+  won't be part of it - but it will be corrected when you publish.~~
 
 - Update the range page and the type page with rows for the new product.
 
@@ -116,8 +106,8 @@ The internet says it's part of the Wordpress admin theme, ignore it.
 ## Favicon stuff
 
 - Favicons created using <http://realfavicongenerator.net/>
-- `images/favicons/browserconfig.xml` needs to be symlinked from the root of
-  the wordpress installation.
+- `images/favicons/browserconfig.xml` needs to be symlinked from the root of the
+  wordpress installation.
 - `images/favicons/favicon.ico` needs to be symlinked from the root of the
   wordpress installation.
 - Check the setup using <http://realfavicongenerator.net/favicon_checker>

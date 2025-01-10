@@ -1,6 +1,5 @@
 <?php
 use PHPUnit\Framework\TestCase;
-require_once('src/StoreClosingTimes.php');
 require_once('src/FakeWordpress.php');
 require_once('src/JewelleryPage.php');
 

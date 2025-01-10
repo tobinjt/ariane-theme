@@ -1,20 +1,13 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/FakeWordpress.php');
-require_once('src/StoreClosingTimes.php');
 require_once('src/TestHelpers.php');
 require_once('src/Header.php');
 
 class HeaderTest extends TestCase {
   public function setUp(): void {
-    clear_all_times();
     clear_server_variables();
     clear_wordpress_testing_state();
-
-    set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
-    set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
-    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    set_banner_message('BANNER MESSAGE');
   }
 
   public function test_get_google_analytics_code_dev(): void {
@@ -228,17 +221,5 @@ END_OF_EXPECTED;
     set_is_single(true);
     set_wp_title('PAGE TITLE');
     $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
-  }
-
-  public function test_get_banner_message_get_banner_message(): void {
-    set_start_displaying_banner_message('2018-10-23 00:00:00 Europe/Dublin');
-    set_stop_displaying_banner_message('2018-12-27 00:00:00 Europe/Dublin');
-    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
-    set_banner_message('BANNER MESSAGE');
-
-    $this->assertEquals('', get_banner_message());
-    set_now_for_testing('2018-12-25 00:00:00 Europe/Dublin');
-    $this->assertMatchesRegularExpression(
-      '/BANNER MESSAGE/', get_banner_message());
   }
 }

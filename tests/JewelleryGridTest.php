@@ -1,6 +1,5 @@
 <?php
 use PHPUnit\Framework\TestCase;
-require_once('src/StoreClosingTimes.php');
 require_once('src/FakeWordpress.php');
 require_once('src/TestHelpers.php');
 require_once('src/JewelleryGrid.php');
@@ -10,7 +9,6 @@ class JewelleryGridTest extends TestCase {
     clear_server_variables();
     clear_wordpress_testing_state();
     set_url('/jewellery/foo/');
-    set_now_for_testing('2018-12-29 00:00:00 Europe/Dublin');
   }
 
   public function tearDown(): void {
