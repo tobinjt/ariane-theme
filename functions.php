@@ -36,6 +36,7 @@ function FrontPageSliderSetupShortcode(
     string $content,
     string $tag
 ): string {
+    unused($atts, $content, $tag);
     $images = SliderImages();
     return FrontPageSliderSetup($images);
 }
@@ -159,6 +160,7 @@ add_image_size('grid_size', 260, 260);
 
 // Don't compress images, the resulting quality is too poor.
 add_filter('jpeg_quality', static function ($arg) {
+    unused($arg);
     return 100;
 });
 

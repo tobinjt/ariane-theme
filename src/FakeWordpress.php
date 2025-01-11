@@ -117,11 +117,7 @@ function set_is_page(bool $is): void
 
 function wp_title(string $sep, bool $display): string
 {
-    $sep .= 'make the linter happy.';
-    // $display is otherwise unused, so use it to make the linter happy.
-    if (! $display) {
-        $display = false;
-    }
+    unused($sep, $display);
     return get_fake_wordpress_state()->wp_title;
 }
 
@@ -148,8 +144,7 @@ function clear_add_action(): void
 
 function expect_add_action(string $section, string $func): void
 {
-    // $section is unused.
-    $section .= 'make the linter happy.';
+    unused($section);
     get_fake_wordpress_state()->expected_action = $func;
 }
 

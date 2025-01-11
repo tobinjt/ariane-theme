@@ -96,7 +96,7 @@ function JewelleryPageShortcode(
     string $content,
     string $tag
 ): string {
-    $tag .= 'make the linter happy.';
+    unused($tag);
     $attrs = shortcode_atts(
         [
             'archived' => 'false',
@@ -122,7 +122,6 @@ function JewelleryPageShortcode(
         $attrs['image_id'],
         $attrs['archived'] !== 'false'
     );
-    $attrs = ['do not use' => 'dollar_attrs'];
 
     // Wordpress puts <br /> at the start and end of the content.
     $content = strval(str_replace('<br />', '', $content));

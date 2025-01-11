@@ -81,3 +81,13 @@ function json_encode_wrapper(array $data): string
     }
     return $result;
 }
+
+/**
+ * @param array<mixed> $args */
+function unused(...$args): string
+{
+    if (count($args) > 0) {
+        return 'unused, long args';
+    }
+    return 'unused, short args';
+}

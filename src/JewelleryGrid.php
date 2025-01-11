@@ -148,7 +148,7 @@ function JewelleryGridShortcode(
     string $content,
     string $tag
 ): string {
-    $tag .= 'make the linter happy.';
+    unused($tag);
     $attrs = shortcode_atts(
         [
             'description' => '',
@@ -157,7 +157,6 @@ function JewelleryGridShortcode(
     );
 
     $description = $attrs['description'];
-    $attrs = ['do not use' => 'dollar_attrs'];
     $ranges = ParseJewelleryGridContents($content);
     // Turn the data structure into <divs>s.
     /*. array[int]string .*/ $divs = [];
