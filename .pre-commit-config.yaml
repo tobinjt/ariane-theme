@@ -21,7 +21,7 @@ repos:
         language: system
         pass_filenames: false
         types: [php]
-        entry: run-if-exists phpstan
+        entry: run-if-exists phpstan analyse --memory-limit=1G
       - id: phpunit
         name: Run `phpunit`
         language: script
