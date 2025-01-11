@@ -86,7 +86,7 @@ function json_encode_wrapper(array $data): string
  * @param array<mixed> $args */
 function unused(...$args): string
 {
-    if (count($args) > 0) {
+    if (count($args) > 1) {
         return 'unused, long args';
     }
     return 'unused, short args';
