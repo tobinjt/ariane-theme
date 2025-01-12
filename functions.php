@@ -23,25 +23,25 @@ if (is_dev_website()) {
 // page.
 
 // keep-sorted start
+// Clean up the <head>
+add_action('init', 'removeHeadLinks');
+add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
+add_action('wp_enqueue_scripts', 'remove_classic_themes_css', 100);
+add_action('wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
+add_action('wp_footer', 'blockWPEmbed');
+add_filter('emoji_svg_url', '__return_false');
 // Disable comment feeds on blog posts.  __return_false is a Wordpress
 // function that returns false to make filters easier.
 add_filter('feed_links_show_comments_feed', '__return_false');
-// Clean up the <head>
-add_action('init', 'removeHeadLinks');
 add_filter('script_loader_src', 'remove_script_version', 15, 1);
 add_filter('style_loader_src', 'remove_script_version', 15, 1);
-add_action('wp_footer', 'blockWPEmbed');
+remove_action('template_redirect', 'rest_output_link_header');
 // Stop loading emoji stuff.
 remove_action('wp_head', 'print_emoji_detection_script', 7);
-remove_action('wp_print_styles', 'print_emoji_styles');
-add_filter('emoji_svg_url', '__return_false');
 // Stop linking wp-json stuff.
 remove_action('wp_head', 'rest_output_link_wp_head');
 remove_action('wp_head', 'wp_oembed_add_discovery_links');
-remove_action('template_redirect', 'rest_output_link_header');
-add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
-add_action('wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
-add_action('wp_enqueue_scripts', 'remove_classic_themes_css', 100);
+remove_action('wp_print_styles', 'print_emoji_styles');
 // keep-sorted end
 // End removing unnecessary resources.
 
