@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 // Support for Jewellery grids showing multiple products.
 
-require_once __DIR__ . '/DataStructures.php';
-require_once __DIR__ . '/Urls.php';
-
 /* Represents a single entry from a Jewellery Grid. */
 final class JewelleryGridEntry
 {

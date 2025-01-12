@@ -6,6 +6,7 @@ require_once('src/Header.php');
 
 class HeaderTest extends TestCase {
   public function setUp(): void {
+    clear_fake_wordpress_state();
     clear_server_variables();
     clear_wordpress_testing_state();
   }

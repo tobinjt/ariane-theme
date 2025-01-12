@@ -50,13 +50,14 @@ final class WP_Query
     }
 }
 
-$GLOBALS['IMAGE_INFO'] = [];
-$GLOBALS['QUERY_RESULTS'] = [];
-$GLOBALS['FAKE_WORDPRESS_STATE'] = new FakeWordpressState();
-
 function get_fake_wordpress_state(): FakeWordpressState
 {
     return $GLOBALS['FAKE_WORDPRESS_STATE'];
+}
+
+function clear_fake_wordpress_state(): void
+{
+    $GLOBALS['FAKE_WORDPRESS_STATE'] = new FakeWordpressState();
 }
 
 // Wordpress functions we need to fake.

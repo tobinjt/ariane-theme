@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 // Support for multiple images in a page: sliders and manually changed.
 
-require_once __DIR__ . '/DataStructures.php';
-require_once __DIR__ . '/Urls.php';
-
 /* Used to collect slider configs and set them up.  Maps ID => JSON-encoded
  * image info.  $GLOBALS['SLIDER_IMAGES'] = [];
  */

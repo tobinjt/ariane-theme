@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 // Support for showing an individual piece of Jewellery.
 
-require_once __DIR__ . '/DataStructures.php';
-
 /* Represents a Jewellery Page. */
 final class JewelleryPage
 {

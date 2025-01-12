@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 // Functions needed by header.php.
 
-require_once __DIR__ . '/Urls.php';
-
 // get_title(): return the appropriate title.
 function get_title(): string
 {
