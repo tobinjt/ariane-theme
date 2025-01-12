@@ -26,7 +26,9 @@ final class WP_Post
 // Fake WP_Query.
 final class WP_Query
 {
-/** @var array<int, WP_Post> */
+    /**
+     * @var array<int, WP_Post>
+     */
     /*. array[int]WP_Post .*/ public array $posts = [];
 
     /**
@@ -204,4 +206,24 @@ function clear_wordpress_testing_state(): void
 function verify_wordpress_testing_state(): void
 {
     verify_add_action();
+}
+
+function remove_action(string $hook_name, string $callback, int $priority = 10): void
+{
+}
+
+function wp_dequeue_script(string $handle): void
+{
+}
+
+function wp_dequeue_style(string $handle): void
+{
+}
+
+function wp_deregister_script(string $handle): void
+{
+}
+
+function wp_deregister_style(string $handle): void
+{
 }

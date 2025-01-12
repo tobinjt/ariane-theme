@@ -13,7 +13,9 @@ final class JewelleryPage
     public string $type = '';
     public bool $archived = false;
 
-/** @var array<int, WPImageInfo> */
+    /**
+     * @var array<int, WPImageInfo>
+     */
     /*. array[int]WPImageInfo .*/ public array $images = [];
     public int $height_int = 0;
     public string $height_str = '';
