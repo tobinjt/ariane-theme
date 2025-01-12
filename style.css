@@ -316,23 +316,6 @@ h2 {
   width: 260px;
 }
 
-/* Some of the buttons aren't buttons, they're links that look like buttons.
- * All the links are grey, but that looks bad in the button, so we force it to
- * be white.
- */
-.Cart66ButtonPrimary {
-  /* Using !important to override Cart66 CSS. */
-  background-color: #4D4E53 !important;
-}
-.Cart66ButtonSecondary {
-  /* Using !important to override Cart66 CSS. */
-  background-color: #4D4E53 !important;
-}
-.Cart66OutOfStock {
-  /* Using !important to override Cart66 CSS. */
-  color: unset !important;
-}
-
 /**
  * Checkout page.
  */
