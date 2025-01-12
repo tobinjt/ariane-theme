@@ -9,6 +9,7 @@ require_once 'src/JewelleryPage.php';
 require_once 'src/MultipleImageSupport.php';
 require_once 'src/Urls.php';
 require_once 'src/WordpressConfiguration.php';
+require_once('src/WPImageInfo.php');
 
 // Send errors to browser on dev site for easier debugging.
 if (is_dev_website()) {

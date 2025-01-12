@@ -1,6 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/DataStructures.php');
+require_once('src/WPImageInfo.php');
 
 // Most of the DataStructures code is tested indirectly and that is intentional
 // because if there isn't something using a piece of code it should be deleted.
