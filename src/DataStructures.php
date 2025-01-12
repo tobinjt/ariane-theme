@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /* Wrap wp_get_attachment_image_src() to return an object. */
-class WPImageInfo
+final class WPImageInfo
 {
     private int $image_id = 0;
     private string $url = '';

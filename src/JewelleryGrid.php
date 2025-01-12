@@ -8,7 +8,7 @@ require_once __DIR__ . '/DataStructures.php';
 require_once __DIR__ . '/Urls.php';
 
 /* Represents a single entry from a Jewellery Grid. */
-class JewelleryGridEntry
+final class JewelleryGridEntry
 {
     public string $range = '';
     public string $alt = '';

@@ -7,7 +7,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/DataStructures.php';
 
 /* Represents a Jewellery Page. */
-class JewelleryPage
+final class JewelleryPage
 {
     public string $name = '';
     public int $product_id = 0;

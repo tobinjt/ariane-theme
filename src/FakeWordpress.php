@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class FakeWordpressState
+final class FakeWordpressState
 {
     public string $expected_action = '';
     public string $wp_title = '';
@@ -12,7 +12,7 @@ class FakeWordpressState
 }
 
 // Fake WP_Post.
-class WP_Post
+final class WP_Post
 {
     public int $ID = 0;
     public string $post_content = '';
@@ -24,7 +24,7 @@ class WP_Post
 }
 
 // Fake WP_Query.
-class WP_Query
+final class WP_Query
 {
 /** @var array<int, WP_Post> */
     /*. array[int]WP_Post .*/ public array $posts = [];
@@ -34,8 +34,7 @@ class WP_Query
      */
     public function __construct(array $query)
     {
-        // $query is unused.
-        $query[] = 'make the linter happy.';
+        unused($query);
         $this->posts = $GLOBALS['QUERY_RESULTS'];
     }
 
@@ -62,10 +61,10 @@ function get_fake_wordpress_state(): FakeWordpressState
 
 // Wordpress functions we need to fake.
 /**
- * @param array<mixed> $array1
- * @param array<mixed> $array2
+ * @param array<string> $array1
+ * @param array<string> $array2
  *
- * @return array<mixed>
+ * @return array<string>
  */
 function shortcode_atts(array $array1, array $array2): array
 {
