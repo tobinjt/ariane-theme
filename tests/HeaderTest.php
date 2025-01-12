@@ -68,7 +68,7 @@ END_OF_EXPECTED;
   public function test_make_icon_link(): void {
     $output = make_icon_link('icon.png', 'alt text for icon', 7, 11);
     $expected = <<<'END_OF_EXPECTED'
-<img class="greyscale" width="7" height="11" src="DIR/images/icon.png" alt="alt text for icon" />
+<img class="greyscale" width="7" height="11"  src="DIR/images/icon.png" alt="alt text for icon" />
 END_OF_EXPECTED;
     $this->assertEquals($expected, $output);
   }
@@ -137,8 +137,8 @@ END_OF_EXPECTED;
         <a href="/about/">about</a>
       </span>
       <span class="float-right">
-        <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
-        <a href="https://www.instagram.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/instagram-icon.jpg" alt="instagram icon" /></a>
+        <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20"  src="dir/images/facebook.png" alt="facebook icon" /></a>
+        <a href="https://www.instagram.com/arianetobin/"><img class="greyscale" width="20" height="20"  src="dir/images/instagram-icon.jpg" alt="instagram icon" /></a>
       </span>
     </div>
 
@@ -158,8 +158,8 @@ END_OF_EXPECTED;
         <a href="/about/">about</a>
       </span>
       <span class="float-right">
-        <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20" src="dir/images/facebook.png" alt="facebook icon" /></a>
-        <a href="https://www.instagram.com/arianetobin/"><img class="greyscale" width="20" height="20" src="dir/images/instagram-icon.jpg" alt="instagram icon" /></a>
+        <a href="https://www.facebook.com/ArianeTobinJewellery"><img class="greyscale" width="20" height="20"  src="dir/images/facebook.png" alt="facebook icon" /></a>
+        <a href="https://www.instagram.com/arianetobin/"><img class="greyscale" width="20" height="20"  src="dir/images/instagram-icon.jpg" alt="instagram icon" /></a>
       </span>
     </div>
 

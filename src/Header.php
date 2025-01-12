@@ -199,7 +199,8 @@ function make_icon_link(
 ): string {
     $path = get_theme_image_path($file);
     $html = <<<END_OF_ICON_LINK
-    <img class="greyscale" width="{$width}" height="{$height}" src="{$path}" alt="{$alt}" />
+    <img class="greyscale" width="{$width}" height="{$height}"
+      src="{$path}" alt="{$alt}" />
     END_OF_ICON_LINK;
     return str_replace("\n", '', $html);
 }

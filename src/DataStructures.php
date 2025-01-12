@@ -82,12 +82,10 @@ function json_encode_wrapper(array $data): string
     return $result;
 }
 
-/**
- * @param array<mixed> $args */
-function unused(...$args): string
+function unused(string $arg): string
 {
-    if (count($args) > 1) {
-        return 'unused, long args';
+    if (strlen($arg) > 1) {
+        return 'unused, long arg';
     }
-    return 'unused, short args';
+    return 'unused, short arg';
 }

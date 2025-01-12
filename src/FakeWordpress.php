@@ -34,7 +34,7 @@ final class WP_Query
      */
     public function __construct(array $query)
     {
-        unused($query);
+        unused(strval($query['post_type']));
         $this->posts = $GLOBALS['QUERY_RESULTS'];
     }
 
@@ -116,7 +116,8 @@ function set_is_page(bool $is): void
 
 function wp_title(string $sep, bool $display): string
 {
-    unused($sep, $display);
+    unused($sep);
+    unused(strval($display));
     return get_fake_wordpress_state()->wp_title;
 }
 
