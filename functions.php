@@ -22,13 +22,28 @@ if (is_dev_website()) {
 // Remove unnecessary resources that Wordpress or plugins include in every
 // page.
 
-// keep-sorted start
+// keep-sorted start block=true
 // Clean up the <head>
 add_action('init', 'removeHeadLinks');
 add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
-add_action('wp_enqueue_scripts', 'remove_classic_themes_css', 100);
-add_action('wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
-add_action('wp_footer', 'blockWPEmbed');
+add_action('wp_enqueue_scripts',
+    function() {
+        wp_dequeue_style('classic-theme-styles');
+    },
+    100);
+// Remove Gutenberg editor CSS that isn't needed.
+add_action('wp_enqueue_scripts',
+    function() {
+        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('wp-block-library-theme');
+        wp_dequeue_style('global-styles');
+    },
+    100);
+// Stop wp-embed being loaded.  I don't know why this has to be triggered in
+// wp_footer.
+add_action('wp_footer', function() {
+    wp_deregister_script('wp-embed');
+});
 add_filter('emoji_svg_url', '__return_false');
 // Disable comment feeds on blog posts.  __return_false is a Wordpress
 // function that returns false to make filters easier.

@@ -74,27 +74,6 @@ function removeHeadLinks(): void
     remove_action('template_redirect', 'wp_shortlink_header', 11);
 }
 
-// Stop wp-embed being loaded.  I don't know why this has to be triggered in
-// wp_footer.
-function blockWPEmbed(): void
-{
-    wp_deregister_script('wp-embed');
-}
-
-// Remove Gutenberg editor CSS that isn't needed.
-function remove_wp_block_library_css(): void
-{
-    wp_dequeue_style('wp-block-library');
-    wp_dequeue_style('wp-block-library-theme');
-    wp_dequeue_style('global-styles');
-}
-
-// Remove classic theme CSS that isn't needed.
-function remove_classic_themes_css(): void
-{
-    wp_dequeue_style('classic-theme-styles');
-}
-
 /**
  * @param array<mixed> $data */
 function json_encode_wrapper(array $data): string
