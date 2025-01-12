@@ -1,11 +1,15 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once('src/FakeWordpress.php');
-require_once('src/TestHelpers.php');
+require_once('src/Functions.php');
 require_once('src/JewelleryGrid.php');
+require_once('src/MultipleImageSupport.php');
+require_once('src/TestHelpers.php');
+require_once('src/WPImageInfo.php');
 
 class JewelleryGridTest extends TestCase {
   public function setUp(): void {
+    clear_fake_wordpress_state();
     clear_server_variables();
     clear_wordpress_testing_state();
     set_url('/jewellery/foo/');

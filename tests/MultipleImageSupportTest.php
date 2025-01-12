@@ -1,10 +1,14 @@
 <?php
 use PHPUnit\Framework\TestCase;
-require_once('src/MultipleImageSupport.php');
 require_once('src/FakeWordpress.php');
+require_once('src/Functions.php');
+require_once('src/MultipleImageSupport.php');
+require_once('src/Urls.php');
+require_once('src/WPImageInfo.php');
 
 class MultipleImageSupportTest extends TestCase {
   public function setUp(): void {
+    clear_fake_wordpress_state();
     clear_wordpress_testing_state();
   }
 
