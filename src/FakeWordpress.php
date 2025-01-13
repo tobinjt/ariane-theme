@@ -151,14 +151,11 @@ function expect_add_action(string $section, string $func): void
     get_fake_wordpress_state()->expected_action = $func;
 }
 
-function add_action(string $section, string $func): void
+function add_action(string $section, string|callable $func, int $priority = 10): void
 {
     assert($section === 'wp_footer');
-    assert(function_exists($func), new Exception($func . ' is not a function'));
-    assert(
-        get_fake_wordpress_state()->expected_action === $func,
-        new Exception($func . ' was not registered with expect_add_action')
-    );
+    assert(is_callable($func));
+    assert(get_fake_wordpress_state()->expected_action === $func);
     get_fake_wordpress_state()->expected_action = '';
 }
 
