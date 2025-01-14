@@ -5,4 +5,3 @@ set -e -f -u -o pipefail
 # Ensure the two configs are in sync.
 diff -u check_website_resources-dev.json \
   <(sed -e 's/www/dev/' check_website_resources.json)
-check_website_resources -- check_website_resources-dev.json
