@@ -153,6 +153,7 @@ function expect_add_action(string $section, string $func): void
 
 function add_action(string $section, string|callable $func, int $priority = 10): void
 {
+    unused(strval($priority));
     assert($section === 'wp_footer');
     assert(is_callable($func));
     assert(get_fake_wordpress_state()->expected_action === $func);
@@ -212,6 +213,7 @@ function clear_styles_state(): void
 }
 function wp_dequeue_script(string $handle): void
 {
+    unused($handle);
 }
 
 function wp_dequeue_style(string $handle): void
@@ -221,8 +223,10 @@ function wp_dequeue_style(string $handle): void
 
 function wp_deregister_script(string $handle): void
 {
+    unused($handle);
 }
 
 function wp_deregister_style(string $handle): void
 {
+    unused($handle);
 }
