@@ -24,7 +24,21 @@ if (is_dev_website()) {
 
 // keep-sorted start block=true
 // Clean up the <head>
-add_action('init', 'removeHeadLinks');
+add_action('init',
+    function(): void {
+        // Remove some links that are unnecessary.
+        remove_action('wp_head', 'rsd_link');
+        remove_action('wp_head', 'wp_generator');
+        remove_action('wp_head', 'wlwmanifest_link');
+        // Remove automatically generated shortlink.
+        remove_action('wp_head', 'wp_shortlink_wp_head');
+        // Disable comment feeds on pages.
+        remove_action('wp_head', 'feed_links_extra', 3);
+        remove_action('wp_head', 'feed_links', 2);
+        // Remove shortlink from HTTP headers, I only want the long version used,
+        // and linkchecker complains about the redirects.
+        remove_action('template_redirect', 'wp_shortlink_header', 11);
+    });
 add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
 add_action('wp_enqueue_scripts',
     function() {

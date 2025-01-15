@@ -19,22 +19,6 @@ function remove_script_version(string $src): string
     return $parts[0];
 }
 
-function removeHeadLinks(): void
-{
-    // Remove some links that are unnecessary.
-    remove_action('wp_head', 'rsd_link');
-    remove_action('wp_head', 'wp_generator');
-    remove_action('wp_head', 'wlwmanifest_link');
-    // Remove automatically generated shortlink.
-    remove_action('wp_head', 'wp_shortlink_wp_head');
-    // Disable comment feeds on pages.
-    remove_action('wp_head', 'feed_links_extra', 3);
-    remove_action('wp_head', 'feed_links', 2);
-    // Remove shortlink from HTTP headers, I only want the long version used,
-    // and linkchecker complains about the redirects.
-    remove_action('template_redirect', 'wp_shortlink_header', 11);
-}
-
 /* Check if the Cookie Law Info cookie already exists, or if specific user-agent
  * strings from Page Speed Insights were used.
  * Returns: bool, true if the Cookie Law Info content should be removed.
