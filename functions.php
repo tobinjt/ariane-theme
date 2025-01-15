@@ -41,13 +41,13 @@ add_action('init',
     });
 add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
 add_action('wp_enqueue_scripts',
-    function() {
+    function(): void {
         wp_dequeue_style('classic-theme-styles');
     },
     100);
 // Remove Gutenberg editor CSS that isn't needed.
 add_action('wp_enqueue_scripts',
-    function() {
+    function(): void {
         wp_dequeue_style('wp-block-library');
         wp_dequeue_style('wp-block-library-theme');
         wp_dequeue_style('global-styles');
@@ -55,9 +55,10 @@ add_action('wp_enqueue_scripts',
     100);
 // Stop wp-embed being loaded.  I don't know why this has to be triggered in
 // wp_footer.
-add_action('wp_footer', function() {
-    wp_deregister_script('wp-embed');
-});
+add_action('wp_footer',
+    function(): void {
+        wp_deregister_script('wp-embed');
+    });
 add_filter('emoji_svg_url', '__return_false');
 // Disable comment feeds on blog posts.  __return_false is a Wordpress
 // function that returns false to make filters easier.
@@ -93,7 +94,7 @@ add_shortcode('jewellery_page', 'JewelleryPageShortcode');
  * @param array<string, string> $atts
  */
 add_shortcode('front_page_slider',
-    function (
+    function(
         array $atts,
         string $content,
         string $tag
@@ -114,10 +115,12 @@ add_image_size('grid_size', 260, 260);
 // product pages.
 
 // Don't compress images, the resulting quality is too poor.
-add_filter('jpeg_quality', static function ($arg) {
-    unused($arg);
-    return 100;
-});
+add_filter('jpeg_quality',
+    function($arg): int
+    {
+        unused($arg);
+        return 100;
+    });
 
 // Use my style sheet.
 add_editor_style('style.css');
