@@ -197,6 +197,7 @@ function clear_wordpress_testing_state(): void
     clear_image_info();
     clear_add_action();
     clear_page_state();
+    clear_styles_state();
 }
 
 // Verify all state set up by tests.
@@ -205,16 +206,17 @@ function verify_wordpress_testing_state(): void
     verify_add_action();
 }
 
-function remove_action(string $hook_name, string $callback, int $priority = 10): void
+function clear_styles_state(): void
 {
+    $GLOBALS['DEQUEUED_STYLES'] = [];
 }
-
 function wp_dequeue_script(string $handle): void
 {
 }
 
 function wp_dequeue_style(string $handle): void
 {
+    $GLOBALS['DEQUEUED_STYLES'][] = $handle;
 }
 
 function wp_deregister_script(string $handle): void
