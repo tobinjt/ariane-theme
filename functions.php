@@ -63,7 +63,33 @@ remove_action('wp_print_styles', 'print_emoji_styles');
 // Add shortcodes.
 add_shortcode('jewellery_grid', 'JewelleryGridShortcode');
 add_shortcode('jewellery_page', 'JewelleryPageShortcode');
-add_shortcode('front_page_slider', 'FrontPageSliderSetupShortcode');
+/* FrontPageSliderSetupShortcode: wrap FrontPageSliderSetup to provide a
+ * shortcode.  This *must not* be used in the enclosing form.
+ * Args (names are ugly but Wordpress-standard):
+ *  $atts: an associative array of attributes, or an empty string if no
+ *    attributes are given.
+ *  $content: the enclosed content (if the shortcode is used in its enclosing
+ *    form)
+ *  $tag: the shortcode tag, useful for shared callback functions
+ * Returns:
+ *  string, the HTML to insert in the page (Wordpress does that
+ *    automatically).
+ */
+/**
+ * @param array<string, string> $atts
+ */
+add_shortcode('front_page_slider',
+    function (
+        array $atts,
+        string $content,
+        string $tag
+    ): string {
+        $atts['unused'] = 'unused';
+        unused($atts['unused']);
+        unused($content);
+        unused($tag);
+        return FrontPageSliderSetup(SliderImages());
+    });
 
 // Enable extra image sizes.
 add_image_size('slider_large', 1024, 768);
