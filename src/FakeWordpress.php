@@ -151,8 +151,11 @@ function expect_add_action(string $section, string $func): void
     get_fake_wordpress_state()->expected_action = $func;
 }
 
-function add_action(string $section, string|callable $func, int $priority = 10): void
-{
+function add_action(
+    string $section,
+    string|callable $func,
+    int $priority = 10
+): void {
     unused(strval($priority));
     assert($section === 'wp_footer');
     assert(is_callable($func));
