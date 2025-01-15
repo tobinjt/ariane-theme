@@ -29,7 +29,7 @@ function ShouldRemoveCookieLawInfo(): bool
         return true;
     }
     // Page Speed doesn't set the cookie, so fake the typical user experience.
-    if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+    if (! isset($_SERVER['HTTP_USER_AGENT'])) {
         return false;
     }
     $force_hide_UAs = ['Google Page Speed Insights', 'Chrome-Lighthouse'];

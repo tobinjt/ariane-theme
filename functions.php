@@ -9,7 +9,7 @@ require_once 'src/JewelleryPage.php';
 require_once 'src/MultipleImageSupport.php';
 require_once 'src/Urls.php';
 require_once 'src/WordpressConfiguration.php';
-require_once('src/WPImageInfo.php');
+require_once 'src/WPImageInfo.php';
 
 // Send errors to browser on dev site for easier debugging.
 if (is_dev_website()) {
@@ -24,8 +24,9 @@ if (is_dev_website()) {
 
 // keep-sorted start block=true
 // Clean up the <head>
-add_action('init',
-    function(): void {
+add_action(
+    'init',
+    static function (): void {
         // Remove some links that are unnecessary.
         remove_action('wp_head', 'rsd_link');
         remove_action('wp_head', 'wp_generator');
@@ -38,27 +39,34 @@ add_action('init',
         // Remove shortlink from HTTP headers, I only want the long version used,
         // and linkchecker complains about the redirects.
         remove_action('template_redirect', 'wp_shortlink_header', 11);
-    });
+    }
+);
 add_action('wp_enqueue_scripts', 'MaybeRemoveCookieLawInfoFromHead');
-add_action('wp_enqueue_scripts',
-    function(): void {
+add_action(
+    'wp_enqueue_scripts',
+    static function (): void {
         wp_dequeue_style('classic-theme-styles');
     },
-    100);
+    100
+);
 // Remove Gutenberg editor CSS that isn't needed.
-add_action('wp_enqueue_scripts',
-    function(): void {
+add_action(
+    'wp_enqueue_scripts',
+    static function (): void {
         wp_dequeue_style('wp-block-library');
         wp_dequeue_style('wp-block-library-theme');
         wp_dequeue_style('global-styles');
     },
-    100);
+    100
+);
 // Stop wp-embed being loaded.  I don't know why this has to be triggered in
 // wp_footer.
-add_action('wp_footer',
-    function(): void {
+add_action(
+    'wp_footer',
+    static function (): void {
         wp_deregister_script('wp-embed');
-    });
+    }
+);
 add_filter('emoji_svg_url', '__return_false');
 // Disable comment feeds on blog posts.  __return_false is a Wordpress
 // function that returns false to make filters easier.
@@ -93,8 +101,9 @@ add_shortcode('jewellery_page', 'JewelleryPageShortcode');
 /**
  * @param array<string, string> $atts
  */
-add_shortcode('front_page_slider',
-    function(
+add_shortcode(
+    'front_page_slider',
+    static function (
         array $atts,
         string $content,
         string $tag
@@ -104,7 +113,8 @@ add_shortcode('front_page_slider',
         unused($content);
         unused($tag);
         return FrontPageSliderSetup(SliderImages());
-    });
+    }
+);
 
 // Enable extra image sizes.
 add_image_size('slider_large', 1024, 768);
@@ -115,12 +125,13 @@ add_image_size('grid_size', 260, 260);
 // product pages.
 
 // Don't compress images, the resulting quality is too poor.
-add_filter('jpeg_quality',
-    function($arg): int
-    {
+add_filter(
+    'jpeg_quality',
+    static function ($arg): int {
         unused($arg);
         return 100;
-    });
+    }
+);
 
 // Use my style sheet.
 add_editor_style('style.css');

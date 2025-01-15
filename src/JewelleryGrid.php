@@ -11,9 +11,9 @@ final class JewelleryGridEntry
     public string $alt = '';
     public string $page_url = '';
     public int $product_id = 0;
-    /**
-     * @var array<int, WPImageInfo>
-     */
+/**
+ * @var array<int, WPImageInfo>
+ */
     /*. array[int]WPImageInfo .*/ public array $images = [];
 
     public function __construct(

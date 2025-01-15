@@ -26,9 +26,9 @@ final class WP_Post
 // Fake WP_Query.
 final class WP_Query
 {
-    /**
-     * @var array<int, WP_Post>
-     */
+/**
+ * @var array<int, WP_Post>
+ */
     /*. array[int]WP_Post .*/ public array $posts = [];
 
     /**
