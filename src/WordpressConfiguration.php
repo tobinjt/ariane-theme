@@ -25,23 +25,20 @@ function remove_script_version(string $src): string
  */
 function ShouldRemoveCookieLawInfo(): bool
 {
-    $hide = false;
     if (isset($_COOKIE['viewed_cookie_policy'])) {
-        $hide = true;
+        return true;
     }
     // Page Speed doesn't set the cookie, so fake the typical user experience.
-    if (isset($_SERVER['HTTP_USER_AGENT'])) {
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    } else {
-        $user_agent = 'fake user agent';
+    if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+        return false;
     }
     $force_hide_UAs = ['Google Page Speed Insights', 'Chrome-Lighthouse'];
     foreach ($force_hide_UAs as $fhUA) {
-        if (strpos($user_agent, $fhUA) !== false) {
-            $hide = true;
+        if (strpos($_SERVER['HTTP_USER_AGENT'], $fhUA) !== false) {
+            return true;
         }
     }
-    return $hide;
+    return false;
 }
 
 /* Output needs to be inserted in <head> to hide the text added to the footer by
