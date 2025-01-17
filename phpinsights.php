@@ -10,6 +10,7 @@ use NunoMaduro\PhpInsights\Domain\Insights\CyclomaticComplexityIsHigh;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineFunctions;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenGlobals;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\CharacterBeforePHPOpeningTagSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff;
 use SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff;
 use SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff;
 // keep-sorted end
@@ -19,11 +20,14 @@ return [
     'preset' => 'wordpress',
 
     'remove' => [
+        // keep-sorted start
         CharacterBeforePHPOpeningTagSniff::class,
         ForbiddenDefineFunctions::class,
         ForbiddenGlobals::class,
         ForbiddenPublicPropertySniff::class,
+        ValidClassNameSniff::class,
     ],
+    // keep-sorted end
 
     'config' => [
         CyclomaticComplexityIsHigh::class => [
