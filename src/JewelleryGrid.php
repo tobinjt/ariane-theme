@@ -148,12 +148,7 @@ function JewelleryGridShortcode(
     string $tag
 ): string {
     unused($tag);
-    $attrs = shortcode_atts(
-        [
-            'description' => '',
-        ],
-        $atts
-    );
+    $attrs = shortcode_atts(['description' => ''], $atts);
 
     $description = $attrs['description'];
     $ranges = ParseJewelleryGridContents($content);
@@ -176,7 +171,7 @@ function JewelleryGridShortcode(
         $width = $entry->images[0]->getWidthStr();
         $height = $entry->images[0]->getHeightStr();
         $range = $entry->range;
-        $div = <<<END_OF_DIV
+        $divs[] = <<<END_OF_DIV
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="{$href}">
@@ -190,7 +185,9 @@ function JewelleryGridShortcode(
               </div>
             </div>
 END_OF_DIV;
-        $divs[] = $div;
+    }
+    if ($slider_needed) {
+        add_action('wp_footer', 'SliderSetupGeneric');
     }
 
     /*. array[int]string .*/ $html = [];
@@ -211,11 +208,7 @@ END_OF_HTML;
     $html[] = <<<'END_OF_HTML'
           </div>
         </div>
+
 END_OF_HTML;
-    if ($slider_needed) {
-        add_action('wp_footer', 'SliderSetupGeneric');
-    }
-    // Add a newline.
-    $html[] = '';
     return do_shortcode(implode("\n", $html));
 }
