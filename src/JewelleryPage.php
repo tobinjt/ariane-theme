@@ -77,6 +77,55 @@ final class JewelleryPage
     }
 }
 
+/* AddImageNavigation: add the HTML for image navigation.
+ * Args:
+ *  $jewellery_page: the JewelleryPage object.
+ *  $range_in_piece_name: the range name to prepend to the piece name.
+ * Returns:
+ *  string, the HTML to insert in the page.
+ */
+function MakeImageNavigation(
+    JewelleryPage $jewellery_page,
+    string $range_in_piece_name,
+): string {
+    add_change_image(
+        '#individual-jewellery-image',
+        json_encode_wrapper($jewellery_page->imagesToData())
+    );
+    add_action('wp_footer', 'ChangeImagesSetupGeneric');
+    $html = <<<'END_OF_HTML'
+
+    <div>
+      <ul>
+
+END_OF_HTML;
+
+    foreach ($jewellery_page->images as $i => $full_size_image) {
+        $image = new WPImageInfo(
+            $full_size_image->getImageId(),
+            'thumbnail'
+        );
+        $src = $image->getUrl();
+        $name = $jewellery_page->name;
+        $width = $image->getWidthStr();
+        $height = $image->getHeightStr();
+        $html .= <<<END_OF_HTML
+        <li><img src="{$src}"
+                 alt="{$range_in_piece_name}{$name}"
+                 onclick="change_image({$i}, '#individual-jewellery-image')"
+                 width="{$width}" height="{$height}" /> </li>
+
+END_OF_HTML;
+    }
+    $html .= <<<'END_OF_HTML'
+      </ul>
+    </div>
+
+
+END_OF_HTML;
+    return $html;
+}
+
 /* JewelleryPageShortcode: create a jewellery page.
  * Args (names are ugly but Wordpress-standard):
  *  $atts: an associative array of attributes, or an empty string if no
@@ -140,41 +189,7 @@ function JewelleryPageShortcode(
 
 END_OF_HTML;
     if (count($jewellery_page->images) > 1) {
-        add_change_image(
-            '#individual-jewellery-image',
-            json_encode_wrapper($jewellery_page->imagesToData())
-        );
-        add_action('wp_footer', 'ChangeImagesSetupGeneric');
-        $html .= <<<'END_OF_HTML'
-
-    <div>
-      <ul>
-
-END_OF_HTML;
-
-        foreach ($jewellery_page->images as $i => $full_size_image) {
-            $image = new WPImageInfo(
-                $full_size_image->getImageId(),
-                'thumbnail'
-            );
-            $src = $image->getUrl();
-            $name = $jewellery_page->name;
-            $width = $image->getWidthStr();
-            $height = $image->getHeightStr();
-            $html .= <<<END_OF_HTML
-        <li><img src="{$src}"
-                 alt="{$range_in_piece_name}{$name}"
-                 onclick="change_image({$i}, '#individual-jewellery-image')"
-                 width="{$width}" height="{$height}" /> </li>
-
-END_OF_HTML;
-        }
-        $html .= <<<'END_OF_HTML'
-      </ul>
-    </div>
-
-
-END_OF_HTML;
+        $html .= MakeImageNavigation($jewellery_page, $range_in_piece_name);
     }
 
     $div_width = $jewellery_page->width_str;
