@@ -176,8 +176,7 @@ function JewelleryPageShortcode(
     $content = strval(str_replace('<br />', '', $content));
 
     // Don't make the range part of the name for some ranges.
-    $excluded_ranges = ['archive', 'singles'];
-    if (in_array($jewellery_page->range, $excluded_ranges)) {
+    if (in_array($jewellery_page->range, ['archive', 'singles'])) {
         $range_in_piece_name = '';
     } else {
         $range_in_piece_name = $jewellery_page->range . ' ';
@@ -192,34 +191,22 @@ END_OF_HTML;
         $html .= MakeImageNavigation($jewellery_page, $range_in_piece_name);
     }
 
-    $div_width = $jewellery_page->width_str;
-    $div_height = $jewellery_page->height_str;
-    $name = $jewellery_page->name;
-    $src = $jewellery_page->images[0]->getUrl();
-    $width = $jewellery_page->images[0]->getWidthStr();
-    $height = $jewellery_page->images[0]->getHeightStr();
     $html .= <<<END_OF_HTML
-    <div width="{$div_width}" height="{$div_height}">
+    <div width="{$jewellery_page->width_str}" height="{$jewellery_page->height_str}">
       <img id="individual-jewellery-image"
         class="block aligncenter"
-        alt="{$range_in_piece_name}{$name}"
-        src="{$src}"
-        width="{$width}" height="{$height}" />
+        alt="{$range_in_piece_name}{$jewellery_page->name}"
+        src="{$jewellery_page->images[0]->getUrl()}"
+        width="{$jewellery_page->images[0]->getWidthStr()}" height="{$jewellery_page->images[0]->getHeightStr()}" />
     </div>
   </div>
   <div class="individual-jewellery-description">
-    <p class="highlight larger-text">{$range_in_piece_name}{$name}</p>
+    <p class="highlight larger-text">{$range_in_piece_name}{$jewellery_page->name}</p>
     <p>{$content}</p>
 
-END_OF_HTML;
-
-    $range = $jewellery_page->range;
-    $type = $jewellery_page->type;
-    $html .= <<<END_OF_HTML
-
-    <p>See other items in this range: <a href="/jewellery/{$range}/">
-      {$range}</a></p>
-    <p>See other: <a href="/jewellery/{$type}/">{$type}</a></p>
+    <p>See other items in this range: <a href="/jewellery/{$jewellery_page->range}/">
+      {$jewellery_page->range}</a></p>
+    <p>See other: <a href="/jewellery/{$jewellery_page->type}/">{$jewellery_page->type}</a></p>
   </div>
 </div>
 
