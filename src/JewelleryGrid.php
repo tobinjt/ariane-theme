@@ -127,30 +127,15 @@ function ParseJewelleryGridContents(string $page_contents): array
     return $ranges;
 }
 
-/* JewelleryGridShortcode: create a table from CSV content.
- * This *must* be used in the enclosing form.
- * Args (names are ugly but Wordpress-standard):
- *  $atts: associative array of attributes, optionally containing $description:
- *    string, the description to display at the top of the page.  If the string
- *    is empty no description will be added.
+/* MakeJewelleryGridDivs: create he inner divs for a Jewellery Grid.
+ * Args:
  *  $content: string, the contents of the page.  Blank lines will be skipped.
  *    <br /> will be stripped from the end of each line.
- *  $tag: unused.
  * Returns:
- *  string, the HTML to insert in the page (Wordpress does that automatically).
+ *  string, the divs to insert in the page.
  */
-/**
- * @param array<string, string> $atts
- */
-function JewelleryGridShortcode(
-    array $atts,
-    string $content,
-    string $tag
-): string {
-    unused($tag);
-    $attrs = shortcode_atts(['description' => ''], $atts);
-
-    $description = $attrs['description'];
+function MakeJewelleryGridDivs(string $content): string
+{
     $ranges = ParseJewelleryGridContents($content);
     // Turn the data structure into <divs>s.
     /*. array[int]string .*/ $divs = [];
@@ -189,11 +174,36 @@ END_OF_DIV;
     if ($slider_needed) {
         add_action('wp_footer', 'SliderSetupGeneric');
     }
+    return implode("\n", $divs);
+}
 
+/* JewelleryGridShortcode: create a table from CSV content.
+ * This *must* be used in the enclosing form.
+ * Args (names are ugly but Wordpress-standard):
+ *  $atts: associative array of attributes, optionally containing $description:
+ *    string, the description to display at the top of the page.  If the string
+ *    is empty no description will be added.
+ *  $content: string, the contents of the page.  Blank lines will be skipped.
+ *    <br /> will be stripped from the end of each line.
+ *  $tag: unused.
+ * Returns:
+ *  string, the HTML to insert in the page (Wordpress does that automatically).
+ */
+/**
+ * @param array<string, string> $atts
+ */
+function JewelleryGridShortcode(
+    array $atts,
+    string $content,
+    string $tag
+): string {
+    unused($tag);
+    $attrs = shortcode_atts(['description' => ''], $atts);
     /*. array[int]string .*/ $html = [];
     $html[] = <<<'END_OF_HTML'
         <div class="jewellery-grid">
 END_OF_HTML;
+    $description = $attrs['description'];
     if ($description !== '') {
         $html[] = <<<END_OF_DESCRIPTION
           <div>
@@ -204,7 +214,7 @@ END_OF_DESCRIPTION;
     $html[] = <<<'END_OF_HTML'
           <div class="flexboxrow jewellery-grid-inner">
 END_OF_HTML;
-    $html = array_merge($html, $divs);
+    $html[] = MakeJewelleryGridDivs($content);
     $html[] = <<<'END_OF_HTML'
           </div>
         </div>
