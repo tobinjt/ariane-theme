@@ -174,9 +174,6 @@ END_OF_EXPECTED;
         <a href="/jewellery/necklaces/">necklaces</a>
         <a href="/jewellery/rings/">rings</a>
       </span>
-      <span class="float-right grey">
-        Free delivery on all orders to Ireland
-      </span>
     </div>
 
     <div class="menubar larger-text">

@@ -217,12 +217,6 @@ function make_jewellery_menu_bar(): string
                 ['left-page-links' => $jewellery_types_links],
                 '/jewellery/'
             ),
-            ltrim(wrap_with_tag(
-                'span',
-                'float-right grey',
-                'Free delivery on all orders to Ireland',
-                6
-            )),
         ],
         'larger-text'
     ) . "\n";
