@@ -11,18 +11,6 @@ final class FakeWordpressState
     public bool $is_single = false;
 }
 
-// Fake WP_Post.
-final class WP_Post
-{
-    public int $ID = 0;
-    public string $post_content = '';
-    public function __construct(int $ID, string $post_content)
-    {
-        $this->ID = $ID;
-        $this->post_content = $post_content;
-    }
-}
-
 // Fake WP_Query.
 final class WP_Query
 {
@@ -214,6 +202,7 @@ function clear_styles_state(): void
 {
     $GLOBALS['DEQUEUED_STYLES'] = [];
 }
+
 function wp_dequeue_script(string $handle): void
 {
     unused($handle);
