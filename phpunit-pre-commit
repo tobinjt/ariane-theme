@@ -2,4 +2,16 @@
 
 set -e -f -u -o pipefail
 
+list_test_files() {
+  find tests -iname '*Test.php'
+}
+
+# Run quietly when tests pass, otherwise show output.
 phpunit --no-coverage >& /dev/null || phpunit --no-coverage
+
+for file in $(list_test_files); do
+  if ! phpunit --no-coverage "${file}" >& /dev/null; then
+    echo "Tests failed for ${file}"
+    phpunit --no-coverage "${file}"
+  fi
+done

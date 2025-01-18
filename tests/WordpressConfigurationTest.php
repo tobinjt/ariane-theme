@@ -1,5 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
+require_once('src/FakeWordpress.php');
+require_once('src/Functions.php');
 require_once('src/WordpressConfiguration.php');
 
 class WordpressConfigurationTest extends TestCase {
