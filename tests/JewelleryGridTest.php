@@ -84,7 +84,8 @@ END_OF_INPUT;
               <div class="jewellery-picture-container">
                 <a href="linky/">
                   <img src="URL" alt="this is the alt text"
-                    width="23" height="59"
+                    width="23"
+                    height="59"
                     class="aligncenter block" id="item-0-image"/>
                 </a>
               </div>
@@ -127,7 +128,8 @@ END_OF_INPUT;
               <div class="jewellery-picture-container">
                 <a href="linky/">
                   <img src="URL" alt="this is the alt text"
-                    width="23" height="59"
+                    width="23"
+                    height="59"
                     class="aligncenter block" id="item-0-image"/>
                 </a>
               </div>
@@ -139,7 +141,8 @@ END_OF_INPUT;
               <div class="jewellery-picture-container">
                 <a href="linky/">
                   <img src="URLX" alt="alt text for second range"
-                    width="23" height="59"
+                    width="23"
+                    height="59"
                     class="aligncenter block" id="item-1-image"/>
                 </a>
               </div>

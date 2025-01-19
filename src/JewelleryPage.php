@@ -192,21 +192,26 @@ END_OF_HTML;
     }
 
     $html .= <<<END_OF_HTML
-    <div width="{$jewellery_page->width_str}" height="{$jewellery_page->height_str}">
+    <div width="{$jewellery_page->width_str}"
+      height="{$jewellery_page->height_str}">
       <img id="individual-jewellery-image"
         class="block aligncenter"
         alt="{$range_in_piece_name}{$jewellery_page->name}"
         src="{$jewellery_page->images[0]->getUrl()}"
-        width="{$jewellery_page->images[0]->getWidthStr()}" height="{$jewellery_page->images[0]->getHeightStr()}" />
+        width="{$jewellery_page->images[0]->getWidthStr()}"
+        height="{$jewellery_page->images[0]->getHeightStr()}" />
     </div>
   </div>
   <div class="individual-jewellery-description">
-    <p class="highlight larger-text">{$range_in_piece_name}{$jewellery_page->name}</p>
+    <p class="highlight larger-text">
+      {$range_in_piece_name}{$jewellery_page->name}</p>
     <p>{$content}</p>
 
-    <p>See other items in this range: <a href="/jewellery/{$jewellery_page->range}/">
-      {$jewellery_page->range}</a></p>
-    <p>See other: <a href="/jewellery/{$jewellery_page->type}/">{$jewellery_page->type}</a></p>
+    <p>See other items in this range:
+      <a href="/jewellery/{$jewellery_page->range}/">
+        {$jewellery_page->range}</a></p>
+    <p>See other: <a href="/jewellery/{$jewellery_page->type}/">
+      {$jewellery_page->type}</a></p>
   </div>
 </div>
 

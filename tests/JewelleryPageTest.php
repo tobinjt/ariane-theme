@@ -50,21 +50,26 @@ class JewelleryPageTest extends TestCase {
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div class="individual-jewellery-div">
-    <div width="23" height="59">
+    <div width="23"
+      height="59">
       <img id="individual-jewellery-image"
         class="block aligncenter"
         alt="range should be set name should be set"
         src="URL"
-        width="23" height="59" />
+        width="23"
+        height="59" />
     </div>
   </div>
   <div class="individual-jewellery-description">
-    <p class="highlight larger-text">range should be set name should be set</p>
+    <p class="highlight larger-text">
+      range should be set name should be set</p>
     <p>description of piece</p>
 
-    <p>See other items in this range: <a href="/jewellery/range should be set/">
-      range should be set</a></p>
-    <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
+    <p>See other items in this range:
+      <a href="/jewellery/range should be set/">
+        range should be set</a></p>
+    <p>See other: <a href="/jewellery/type should be sets/">
+      type should be sets</a></p>
   </div>
 </div>
 
@@ -86,21 +91,26 @@ EXPECTED;
     $expected = <<<'EXPECTED'
 <div class="flexboxrow">
   <div class="individual-jewellery-div">
-    <div width="23" height="59">
+    <div width="23"
+      height="59">
       <img id="individual-jewellery-image"
         class="block aligncenter"
         alt="range should be set name should be set"
         src="URL"
-        width="23" height="59" />
+        width="23"
+        height="59" />
     </div>
   </div>
   <div class="individual-jewellery-description">
-    <p class="highlight larger-text">range should be set name should be set</p>
+    <p class="highlight larger-text">
+      range should be set name should be set</p>
     <p>description of piece</p>
 
-    <p>See other items in this range: <a href="/jewellery/range should be set/">
-      range should be set</a></p>
-    <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
+    <p>See other items in this range:
+      <a href="/jewellery/range should be set/">
+        range should be set</a></p>
+    <p>See other: <a href="/jewellery/type should be sets/">
+      type should be sets</a></p>
   </div>
 </div>
 
@@ -151,21 +161,26 @@ EXPECTED;
       </ul>
     </div>
 
-    <div width="47" height="97">
+    <div width="47"
+      height="97">
       <img id="individual-jewellery-image"
         class="block aligncenter"
         alt="name should be set"
         src="URL"
-        width="23" height="59" />
+        width="23"
+        height="59" />
     </div>
   </div>
   <div class="individual-jewellery-description">
-    <p class="highlight larger-text">name should be set</p>
+    <p class="highlight larger-text">
+      name should be set</p>
     <p> asdf</p>
 
-    <p>See other items in this range: <a href="/jewellery/singles/">
-      singles</a></p>
-    <p>See other: <a href="/jewellery/type should be sets/">type should be sets</a></p>
+    <p>See other items in this range:
+      <a href="/jewellery/singles/">
+        singles</a></p>
+    <p>See other: <a href="/jewellery/type should be sets/">
+      type should be sets</a></p>
   </div>
 </div>
 

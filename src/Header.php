@@ -196,11 +196,12 @@ function make_icon_link(
     int $height
 ): string {
     $path = get_theme_image_path($file);
-    $html = <<<END_OF_ICON_LINK
-    <img class="greyscale" width="{$width}" height="{$height}"
-      src="{$path}" alt="{$alt}" />
-    END_OF_ICON_LINK;
-    return str_replace("\n", '', $html);
+    // The leading blank line is to make concatenation work properly.
+    return <<<END_OF_ICON_LINK
+
+          <img class="greyscale" width="{$width}" height="{$height}"
+            src="{$path}" alt="{$alt}" />
+END_OF_ICON_LINK;
 }
 
 function make_jewellery_menu_bar(): string

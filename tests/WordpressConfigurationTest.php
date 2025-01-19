@@ -30,7 +30,8 @@ class WordpressConfigurationTest extends TestCase {
     $this->assertMatchesRegularExpression('/#cookie-law-info-bar/', $content);
   }
 
-  public function test_MaybeRemoveCookieLawInfoFromHead_ShouldNotRemove(): void {
+  public function test_MaybeRemoveCookieLawInfoFromHead_ShouldNotRemove(): void
+    {
     clear_styles_state();
     unset($_COOKIE['viewed_cookie_policy']);
     unset($_SERVER['HTTP_USER_AGENT']);
