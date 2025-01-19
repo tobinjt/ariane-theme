@@ -150,23 +150,17 @@ function MakeJewelleryGridDivs(string $content): string
             $slider_needed = true;
         }
 
-        $href = $entry->page_url;
-        $src = $entry->images[0]->getUrl();
-        $alt = $entry->alt;
-        $width = $entry->images[0]->getWidthStr();
-        $height = $entry->images[0]->getHeightStr();
-        $range = $entry->range;
         $divs[] = <<<END_OF_DIV
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
-                <a href="{$href}">
-                  <img src="{$src}" alt="{$alt}"
-                    width="{$width}" height="{$height}"
+                <a href="{$entry->page_url}">
+                  <img src="{$entry->images[0]->getUrl()}" alt="{$entry->alt}"
+                    width="{$entry->images[0]->getWidthStr()}" height="{$entry->images[0]->getHeightStr()}"
                     class="aligncenter block" id="{$id}-image"/>
                 </a>
               </div>
               <div class="larger-text text-centered left-right-margin grey">
-                <a href="{$href}">{$range}</a>
+                <a href="{$entry->page_url}">{$entry->range}</a>
               </div>
             </div>
 END_OF_DIV;
