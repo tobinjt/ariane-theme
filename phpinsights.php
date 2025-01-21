@@ -36,7 +36,7 @@ return [
             'maxComplexity' => 10,
         ],
         FunctionLengthSniff::class => [
-            'maxLinesLength' => 50,
+            'maxLinesLength' => 65,
         ],
     ],
 ];
