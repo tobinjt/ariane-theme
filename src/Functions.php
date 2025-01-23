@@ -5,7 +5,7 @@ declare(strict_types=1);
 // Misc functions, mostly called from functions.php.
 
 /**
- * @param array<mixed> $data */
+ * @param array<int | string, array<string, int|float|string>> $data */
 function json_encode_wrapper(array $data): string
 {
     $result = json_encode($data);

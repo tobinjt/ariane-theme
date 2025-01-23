@@ -13,13 +13,12 @@ class FunctionsTest extends TestCase
 
     public function test_json_encode_wrapper(): void
     {
-        $this->assertEquals('["foo"]', json_encode_wrapper(array('foo')));
-        $input = array(7, array('foo' => 'bar', 'baz' => 'quux'));
+        $input = array(array('qwerty' => 7), array('foo' => 'bar', 'baz' => 'quux'));
         $this->assertEquals(
-            '[7,{"foo":"bar","baz":"quux"}]',
+            '[{"qwerty":7},{"foo":"bar","baz":"quux"}]',
             json_encode_wrapper($input)
         );
-        $input = array(NAN, INF);
+        $input = array(array('NAN' => NAN, 'INF' => INF));
         $this->assertEquals('JSON_ENCODE FAILED!', json_encode_wrapper($input));
     }
 }

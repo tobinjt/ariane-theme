@@ -63,8 +63,8 @@ class MultipleImageSupportTest extends TestCase
     public function test_ChangeImagesSetupGeneric(): void
     {
         clear_change_images();
-        add_change_image('foo', json_encode_wrapper([1, 2]));
-        add_change_image('bar', json_encode_wrapper(['asdf', 'qwerty']));
+        add_change_image('foo', json_encode_wrapper(array(array('src' => 'URL1', 'width' => 50, 'height' => 70))));
+        add_change_image('bar', json_encode_wrapper(array(array('src' => 'URL2', 'width' => 500, 'height' => 700))));
         $expected = <<<'END_OF_OUTPUT'
 <!-- Include necessary Javascript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
@@ -72,7 +72,7 @@ class MultipleImageSupportTest extends TestCase
 <!-- Start of ChangeImages. -->
 <script type="text/javascript">
 function change_image(i, id) {
-  var images = {"foo":[1,2],"bar":["asdf","qwerty"]};
+  var images = {"foo":[{"src":"URL1","width":50,"height":70}],"bar":[{"src":"URL2","width":500,"height":700}]};
   // Construct a new image and swap it in, otherwise it flashes awkwardly - the
   // old image resizes and then the new image is displayed.
   var img = jQuery(id);
@@ -93,8 +93,8 @@ END_OF_OUTPUT;
     public function test_SliderSetupGeneric(): void
     {
         clear_slider_images();
-        add_slider_image('#foo', json_encode_wrapper(array(11, 23)));
-        add_slider_image('#bar', json_encode_wrapper(array('pinky', 'brain')));
+        add_slider_image('#foo', json_encode_wrapper(array(array('src' => 'URL2', 'width' => 50, 'height' => 70))));
+        add_slider_image('#bar', json_encode_wrapper(array(array('src' => 'URL2', 'width' => 500, 'height' => 700))));
         $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
         $expected = <<<'END_OF_OUTPUT'
 <!-- Include necessary Javascript. -->
@@ -106,10 +106,10 @@ END_OF_OUTPUT;
 jQuery(document).ready(function() {
   Slider.initialise({'id_prefix': '#foo',
                      'log_to_console': true},
-                    [11,23]);
+                    [{"src":"URL2","width":50,"height":70}]);
   Slider.initialise({'id_prefix': '#bar',
                      'log_to_console': true},
-                    ["pinky","brain"]);
+                    [{"src":"URL2","width":500,"height":700}]);
 });
 </script>
 <!-- End of SliderSetup. -->

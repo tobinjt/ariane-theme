@@ -11,7 +11,7 @@ final class WP_Query
     /*. array[int]WP_Post .*/ public array $posts = [];
 
     /**
-     * @param array<mixed> $query
+     * @param array<string, string> $query
      */
     public function __construct(array $query)
     {
