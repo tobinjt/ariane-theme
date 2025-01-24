@@ -11,10 +11,10 @@ final class JewelleryGridEntry
     public string $alt = '';
     public string $page_url = '';
     public int $product_id = 0;
-/**
- * @var array<int, WPImageInfo>
- */
-    /*. array[int]WPImageInfo .*/ public array $images = [];
+    /**
+     * @var array<int, WPImageInfo>
+     */
+    public array $images = [];
 
     public function __construct(
         string $range,
@@ -49,7 +49,7 @@ final class JewelleryGridEntry
     public function imagesToData(): array
     {
         // This needs to stay compatible with slider.js.
-        /*. array[int]mixed .*/ $data = [];
+        $data = [];
         foreach ($this->images as $image) {
             $data[] = $image->imageToData();
         }
@@ -87,7 +87,8 @@ function safe_preg_replace(
 function ParseJewelleryGridContents(string $page_contents): array
 {
     $lines = str_getcsv($page_contents, "\n", '"', '\\');
-    /*. array[int]JewelleryGridEntry .*/ $ranges = [];
+    /*. array[int]JewelleryGridEntry .*/
+    $ranges = [];
     foreach ($lines as $line) {
         $line = trim(strval($line));
         // Wordpress puts <br /> and </p> and other shite at the end of some
@@ -138,7 +139,8 @@ function MakeJewelleryGridDivs(string $content): string
 {
     $ranges = ParseJewelleryGridContents($content);
     // Turn the data structure into <divs>s.
-    /*. array[int]string .*/ $divs = [];
+    /*. array[int]string .*/
+    $divs = [];
     $slider_needed = false;
     foreach ($ranges as $i => $entry) {
         $id = 'item-' . $i;
@@ -194,7 +196,8 @@ function JewelleryGridShortcode(
 ): string {
     unused($tag);
     $attrs = shortcode_atts(['description' => ''], $atts);
-    /*. array[int]string .*/ $html = [];
+    /*. array[int]string .*/
+    $html = [];
     $html[] = <<<'END_OF_HTML'
         <div class="jewellery-grid">
 END_OF_HTML;

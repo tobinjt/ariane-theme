@@ -13,10 +13,10 @@ final class JewelleryPage
     public string $type = '';
     public bool $archived = false;
 
-/**
- * @var array<int, WPImageInfo>
- */
-    /*. array[int]WPImageInfo .*/ public array $images = [];
+    /**
+     * @var array<int, WPImageInfo>
+     */
+    public array $images = [];
     public int $height_int = 0;
     public string $height_str = '';
     public int $width_int = 0;
@@ -69,7 +69,8 @@ final class JewelleryPage
     public function imagesToData(): array
     {
         // This needs to stay compatible with slider.js.
-        /*. array[int]mixed .*/ $data = [];
+        /*. array[int]mixed .*/
+        $data = [];
         foreach ($this->images as $image) {
             $data[] = $image->imageToData();
         }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 // Fake WP_Query.
 final class WP_Query
 {
-/**
- * @var array<int, WP_Post>
- */
-    /*. array[int]WP_Post .*/ public array $posts = [];
+    /**
+     * @var array<int, WP_Post>
+     */
+    public array $posts = [];
 
     /**
      * @param array<string, string> $query
