@@ -20,6 +20,10 @@ return [
 
     'preset' => 'wordpress',
 
+    'exclude' => [
+        'phpinsights.php',
+    ],
+
     'remove' => [
         // keep-sorted start
         CharacterBeforePHPOpeningTagSniff::class,
