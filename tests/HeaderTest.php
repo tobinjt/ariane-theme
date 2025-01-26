@@ -118,7 +118,7 @@ END_OF_EXPECTED;
 
     public function test_pick_url_to_highlight_404(): void
     {
-        set_is_404(true);
+        set_fake_wordpress_state(new FakeWordpressState(is_404: true));
         $output = pick_url_to_highlight(array(), 'zxcv');
         $this->assertEquals('/qwertyasdf', $output);
     }
@@ -232,7 +232,7 @@ END_OF_EXPECTED;
 
     public function test_get_title_404(): void
     {
-        set_is_404(true);
+        set_fake_wordpress_state(new FakeWordpressState(is_404: true));
         $this->assertEquals('Not Found - BLOG NAME', get_title());
     }
 
@@ -243,21 +243,19 @@ END_OF_EXPECTED;
 
     public function test_get_title_page_without_title(): void
     {
-        set_is_page(true);
+        set_fake_wordpress_state(new FakeWordpressState(is_page: true));
         $this->assertEquals('BLOG NAME - BLOG NAME', get_title());
     }
 
     public function test_get_title_page_with_title(): void
     {
-        set_is_page(true);
-        set_wp_title('PAGE TITLE');
+        set_fake_wordpress_state(new FakeWordpressState(is_page: true, wp_title: 'PAGE TITLE'));
         $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
     }
 
     public function test_get_title_post_with_title(): void
     {
-        set_is_single(true);
-        set_wp_title('PAGE TITLE');
+        set_fake_wordpress_state(new FakeWordpressState(is_single: true, wp_title: 'PAGE TITLE'));
         $this->assertEquals('PAGE TITLE - BLOG NAME', get_title());
     }
 }

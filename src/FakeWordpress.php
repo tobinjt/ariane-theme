@@ -4,11 +4,60 @@ declare(strict_types=1);
 
 final class FakeWordpressState
 {
-    public string $expected_action = '';
-    public string $wp_title = '';
-    public bool $is_404 = false;
-    public bool $is_page = false;
-    public bool $is_single = false;
+    private string $expected_action = '';
+    private string $wp_title = '';
+    private bool $is_404 = false;
+    private bool $is_page = false;
+    private bool $is_single = false;
+
+    public function __construct(
+        string $expected_action = '',
+        string $wp_title = '',
+        bool $is_404 = false,
+        bool $is_page = false,
+        bool $is_single = false
+    ) {
+        $this->expected_action = $expected_action;
+        $this->wp_title = $wp_title;
+        $this->is_404 = $is_404;
+        $this->is_page = $is_page;
+        $this->is_single = $is_single;
+    }
+
+    public function clearExpectedAction(): void
+    {
+        $this->setExpectedAction('');
+    }
+
+    public function getExpectedAction(): string
+    {
+        return $this->expected_action;
+    }
+
+    public function setExpectedAction(string $action): void
+    {
+        $this->expected_action = $action;
+    }
+
+    public function getWpTitle(): string
+    {
+        return $this->wp_title;
+    }
+
+    public function getIs404(): bool
+    {
+        return $this->is_404;
+    }
+
+    public function getIsPage(): bool
+    {
+        return $this->is_page;
+    }
+
+    public function getIsSingle(): bool
+    {
+        return $this->is_single;
+    }
 }
 
 function get_fake_wordpress_state(): FakeWordpressState
@@ -16,9 +65,14 @@ function get_fake_wordpress_state(): FakeWordpressState
     return $GLOBALS['FAKE_WORDPRESS_STATE'];
 }
 
+function set_fake_wordpress_state(FakeWordpressState $state): void
+{
+    $GLOBALS['FAKE_WORDPRESS_STATE'] = $state;
+}
+
 function clear_fake_wordpress_state(): void
 {
-    $GLOBALS['FAKE_WORDPRESS_STATE'] = new FakeWordpressState();
+    set_fake_wordpress_state(new FakeWordpressState());
 }
 
 // Wordpress functions we need to fake.
@@ -38,54 +92,26 @@ function do_shortcode(string $content): string
     return $content;
 }
 
-// Functions about the page state, type of page, etc.
-function clear_page_state(): void
-{
-    get_fake_wordpress_state()->is_404 = false;
-    get_fake_wordpress_state()->is_page = false;
-    get_fake_wordpress_state()->is_single = false;
-}
-
 function is_404(): bool
 {
-    return get_fake_wordpress_state()->is_404;
-}
-
-function set_is_404(bool $is): void
-{
-    get_fake_wordpress_state()->is_404 = $is;
+    return get_fake_wordpress_state()->getIs404();
 }
 
 function is_single(): bool
 {
-    return get_fake_wordpress_state()->is_single;
-}
-
-function set_is_single(bool $is): void
-{
-    get_fake_wordpress_state()->is_single = $is;
+    return get_fake_wordpress_state()->getIsSingle();
 }
 
 function is_page(): bool
 {
-    return get_fake_wordpress_state()->is_page;
-}
-
-function set_is_page(bool $is): void
-{
-    get_fake_wordpress_state()->is_page = $is;
+    return get_fake_wordpress_state()->getIsPage();
 }
 
 function wp_title(string $sep, bool $display): string
 {
     unused($sep);
     unused(strval($display));
-    return get_fake_wordpress_state()->wp_title;
-}
-
-function set_wp_title(string $title): void
-{
-    get_fake_wordpress_state()->wp_title = $title;
+    return get_fake_wordpress_state()->getWpTitle();
 }
 
 function get_bloginfo(string $param): string
@@ -101,13 +127,13 @@ function get_bloginfo(string $param): string
 // Functions for add_action.
 function clear_add_action(): void
 {
-    get_fake_wordpress_state()->expected_action = '';
+    get_fake_wordpress_state()->clearExpectedAction();
 }
 
 function expect_add_action(string $section, string $func): void
 {
     unused($section);
-    get_fake_wordpress_state()->expected_action = $func;
+    get_fake_wordpress_state()->setExpectedAction($func);
 }
 
 function add_action(
@@ -118,13 +144,13 @@ function add_action(
     unused(strval($priority));
     assert($section === 'wp_footer');
     assert(is_callable($func));
-    assert(get_fake_wordpress_state()->expected_action === $func);
-    get_fake_wordpress_state()->expected_action = '';
+    assert(get_fake_wordpress_state()->getExpectedAction() === $func);
+    get_fake_wordpress_state()->clearExpectedAction();
 }
 
 function verify_add_action(): void
 {
-    $expected_action = get_fake_wordpress_state()->expected_action;
+    $expected_action = get_fake_wordpress_state()->getExpectedAction();
     assert(
         $expected_action === '',
         new Exception("{$expected_action} wasn't called")
@@ -157,9 +183,9 @@ function add_image_info(int $image_id, string $size, array $info): void
 function clear_wordpress_testing_state(): void
 {
     WP_Query::clearQueryResults();
-    clear_image_info();
     clear_add_action();
-    clear_page_state();
+    clear_fake_wordpress_state();
+    clear_image_info();
     clear_styles_state();
 }
 
