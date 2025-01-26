@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-// Fake WP_Query.
+// Fake WP_Query. This must be compatible with the real WP_Query class, in
+// particular I must use public attributes rather than getters.
 final class WP_Query
 {
     /**

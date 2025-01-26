@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-// Fake WP_Post.
+// Fake WP_Post.  This must be compatible with the real WP_Post class, in
+// particular I must use public attributes rather than getters.
 final class WP_Post
 {
     public int $ID = 0;

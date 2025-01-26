@@ -26,11 +26,22 @@ return [
 
     'remove' => [
         // keep-sorted start
+        // This reports every time you interleave code and HTML.
         CharacterBeforePHPOpeningTagSniff::class,
+        // Requires classes to be inside a namespace, which doesn't work for the
+        // fake WordPress classes.
         ClassDeclarationSniff::class,
+        // Complains about top-level functions, which I need some of for
+        // WordPress fakes.
         ForbiddenDefineFunctions::class,
+        // I've reduced globals as much as possible, but I can't see a way to
+        // remove the remaining ones.
         ForbiddenGlobals::class,
+        // The fake Wordpress classes used in testing must use public
+        // properties rather than getters.
         ForbiddenPublicPropertySniff::class,
+        // The fake Wordpress classes used in testing must use the same names as
+        // the real classes.
         ValidClassNameSniff::class,
         // keep-sorted end
     ],
