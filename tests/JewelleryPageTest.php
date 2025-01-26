@@ -29,7 +29,6 @@ class JewelleryPageTest extends TestCase
     public function get_attrs(): array
     {
         return array(
-            'archived' => 'false',
             'image_id' => '-1',
             'name' => 'name should be set',
             'product_id' => '-1',
@@ -218,7 +217,7 @@ EXPECTED;
         add_image_info(37, 'product_size', array('URL3', 47, 97));
         add_image_info(3, 'thumbnail', array('thumb', 25, 57));
         add_image_info(37, 'thumbnail', array('thumb3', 51, 93));
-        $content = JewelleryPageShortcode($attrs, '<br /> asdf', '');
+        JewelleryPageShortcode($attrs, '<br /> asdf', '');
         $expected_array = [
             '#individual-jewellery-image' => json_encode_wrapper([
                 ['src' => 'URL', 'width' => 23, 'height' => 59],

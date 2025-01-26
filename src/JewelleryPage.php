@@ -7,34 +7,26 @@ declare(strict_types=1);
 /* Represents a Jewellery Page. */
 final class JewelleryPage
 {
-    public string $name = '';
-    public int $product_id = 0;
-    public string $range = '';
-    public string $type = '';
-    public bool $archived = false;
+    private string $name = '';
+    private string $range = '';
+    private string $type = '';
 
     /**
      * @var array<int, WPImageInfo>
      */
-    public array $images = [];
-    public int $height_int = 0;
-    public string $height_str = '';
-    public int $width_int = 0;
-    public string $width_str = '';
+    private array $images = [];
+    private int $height_int = 0;
+    private int $width_int = 0;
 
     public function __construct(
         string $name,
-        int $product_id,
         string $range,
         string $type,
         string $image_ids,
-        bool $archived
     ) {
         $this->name = $name;
-        $this->product_id = $product_id;
         $this->range = $range;
         $this->type = $type;
-        $this->archived = $archived;
         $this->images = [];
 
         // Change "necklace" to "necklaces".
@@ -58,8 +50,39 @@ final class JewelleryPage
                 $this->height_int = $image->getHeightInt();
             }
         }
-        $this->width_str = strval($this->width_int);
-        $this->height_str = strval($this->height_int);
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getRange(): string
+    {
+        return $this->range;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return array<int, WPImageInfo>
+     */
+    public function getImages(): array
+    {
+        return $this->images;
+    }
+
+    public function getHeightStr(): string
+    {
+        return strval($this->height_int);
+    }
+
+    public function getWidthStr(): string
+    {
+        return strval($this->width_int);
     }
 
     /* Convert an array of WPImageInfo to an array compatible with slider.js. */
@@ -101,13 +124,13 @@ function MakeImageNavigation(
 
 END_OF_HTML;
 
-    foreach ($jewellery_page->images as $i => $full_size_image) {
+    foreach ($jewellery_page->getImages() as $i => $full_size_image) {
         $image = new WPImageInfo(
             $full_size_image->getImageId(),
             'thumbnail'
         );
         $src = $image->getUrl();
-        $name = $jewellery_page->name;
+        $name = $jewellery_page->getName();
         $width = $image->getWidthStr();
         $height = $image->getHeightStr();
         $html .= <<<END_OF_HTML
@@ -149,9 +172,9 @@ function JewelleryPageShortcode(
     unused($tag);
     $attrs = shortcode_atts(
         [
-            'archived' => 'false',
             'image_id' => '',
             'name' => '',
+            // Must be kept because there are many pages using it.
             'product_id' => '',
             'range' => '',
             'type' => '',
@@ -166,21 +189,19 @@ function JewelleryPageShortcode(
 
     $jewellery_page = new JewelleryPage(
         $attrs['name'],
-        intval($attrs['product_id']),
         $attrs['range'],
         $attrs['type'],
         $attrs['image_id'],
-        $attrs['archived'] !== 'false'
     );
 
     // Wordpress puts <br /> at the start and end of the content.
     $content = strval(str_replace('<br />', '', $content));
 
     // Don't make the range part of the name for some ranges.
-    if (in_array($jewellery_page->range, ['archive', 'singles'])) {
+    if (in_array($jewellery_page->getRange(), ['archive', 'singles'])) {
         $range_in_piece_name = '';
     } else {
-        $range_in_piece_name = $jewellery_page->range . ' ';
+        $range_in_piece_name = $jewellery_page->getRange() . ' ';
     }
 
     $html = <<<'END_OF_HTML'
@@ -188,31 +209,31 @@ function JewelleryPageShortcode(
   <div class="individual-jewellery-div">
 
 END_OF_HTML;
-    if (count($jewellery_page->images) > 1) {
+    if (count($jewellery_page->getImages()) > 1) {
         $html .= MakeImageNavigation($jewellery_page, $range_in_piece_name);
     }
 
     $html .= <<<END_OF_HTML
-    <div width="{$jewellery_page->width_str}"
-      height="{$jewellery_page->height_str}">
+    <div width="{$jewellery_page->getWidthStr()}"
+      height="{$jewellery_page->getHeightStr()}">
       <img id="individual-jewellery-image"
         class="block aligncenter"
-        alt="{$range_in_piece_name}{$jewellery_page->name}"
-        src="{$jewellery_page->images[0]->getUrl()}"
-        width="{$jewellery_page->images[0]->getWidthStr()}"
-        height="{$jewellery_page->images[0]->getHeightStr()}" />
+        alt="{$range_in_piece_name}{$jewellery_page->getName()}"
+        src="{$jewellery_page->getImages()[0]->getUrl()}"
+        width="{$jewellery_page->getImages()[0]->getWidthStr()}"
+        height="{$jewellery_page->getImages()[0]->getHeightStr()}" />
     </div>
   </div>
   <div class="individual-jewellery-description">
     <p class="highlight larger-text">
-      {$range_in_piece_name}{$jewellery_page->name}</p>
+      {$range_in_piece_name}{$jewellery_page->getName()}</p>
     <p>{$content}</p>
 
     <p>See other items in this range:
-      <a href="/jewellery/{$jewellery_page->range}/">
-        {$jewellery_page->range}</a></p>
-    <p>See other: <a href="/jewellery/{$jewellery_page->type}/">
-      {$jewellery_page->type}</a></p>
+      <a href="/jewellery/{$jewellery_page->getRange()}/">
+        {$jewellery_page->getRange()}</a></p>
+    <p>See other: <a href="/jewellery/{$jewellery_page->getType()}/">
+      {$jewellery_page->getType()}</a></p>
   </div>
 </div>
 
