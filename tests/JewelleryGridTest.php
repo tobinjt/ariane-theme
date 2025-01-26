@@ -114,7 +114,8 @@ END_OF_INPUT;
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="linky/">
-                  <img src="URL" alt="this is the alt text"
+                  <img src="URL"
+                    alt="this is the alt text"
                     width="23"
                     height="59"
                     class="aligncenter block" id="item-0-image"/>
@@ -162,7 +163,8 @@ END_OF_INPUT;
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="linky/">
-                  <img src="URL" alt="this is the alt text"
+                  <img src="URL"
+                    alt="this is the alt text"
                     width="23"
                     height="59"
                     class="aligncenter block" id="item-0-image"/>
@@ -175,7 +177,8 @@ END_OF_INPUT;
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="linky/">
-                  <img src="URLX" alt="alt text for second range"
+                  <img src="URLX"
+                    alt="alt text for second range"
                     width="23"
                     height="59"
                     class="aligncenter block" id="item-1-image"/>

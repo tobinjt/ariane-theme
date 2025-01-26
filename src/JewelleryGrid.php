@@ -175,7 +175,8 @@ function MakeJewelleryGridDivs(string $content): string
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
                 <a href="{$entry->getPageUrl()}">
-                  <img src="{$entry->getImages()[0]->getUrl()}" alt="{$entry->getAlt()}"
+                  <img src="{$entry->getImages()[0]->getUrl()}"
+                    alt="{$entry->getAlt()}"
                     width="{$entry->getImages()[0]->getWidthStr()}"
                     height="{$entry->getImages()[0]->getHeightStr()}"
                     class="aligncenter block" id="{$id}-image"/>

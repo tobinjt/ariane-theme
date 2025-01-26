@@ -26,7 +26,7 @@ final class FakeWordpressState
 
     public function clearExpectedAction(): void
     {
-        $this->setExpectedAction('');
+        $this->expected_action = '';
     }
 
     public function getExpectedAction(): string
@@ -34,7 +34,7 @@ final class FakeWordpressState
         return $this->expected_action;
     }
 
-    public function setExpectedAction(string $action): void
+    public function recordExpectedAction(string $action): void
     {
         $this->expected_action = $action;
     }
@@ -133,7 +133,7 @@ function clear_add_action(): void
 function expect_add_action(string $section, string $func): void
 {
     unused($section);
-    get_fake_wordpress_state()->setExpectedAction($func);
+    get_fake_wordpress_state()->recordExpectedAction($func);
 }
 
 function add_action(
