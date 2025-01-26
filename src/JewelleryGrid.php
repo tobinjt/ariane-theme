@@ -7,26 +7,23 @@ declare(strict_types=1);
 /* Represents a single entry from a Jewellery Grid. */
 final class JewelleryGridEntry
 {
-    public string $range = '';
-    public string $alt = '';
-    public string $page_url = '';
-    public int $product_id = 0;
+    private string $range = '';
+    private string $alt = '';
+    private string $page_url = '';
     /**
      * @var array<int, WPImageInfo>
      */
-    public array $images = [];
+    private array $images = [];
 
     public function __construct(
         string $range,
         string $alt,
         string $image_ids,
         string $page_url,
-        int $product_id
     ) {
         $this->range = $range;
         $this->alt = $alt;
         $this->page_url = $page_url;
-        $this->product_id = $product_id;
         $this->images = [];
 
         if (substr($this->page_url, -1) !== '/') {
@@ -40,6 +37,29 @@ final class JewelleryGridEntry
                 $this->images[] = new WPImageInfo($id_int, 'grid_size');
             }
         }
+    }
+
+    public function getRange(): string
+    {
+        return $this->range;
+    }
+
+    public function getAlt(): string
+    {
+        return $this->alt;
+    }
+
+    public function getPageUrl(): string
+    {
+        return $this->page_url;
+    }
+
+    /**
+     * @return array<int, WPImageInfo>
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 
     /* Convert an array of WPImageInfo to an array compatible with slider.js. */
@@ -122,7 +142,6 @@ function ParseJewelleryGridContents(string $page_contents): array
             strval($csv_data[1]),
             strval($csv_data[2]),
             strval($csv_data[3]),
-            intval($csv_data[4])
         );
     }
     return $ranges;
@@ -144,7 +163,7 @@ function MakeJewelleryGridDivs(string $content): string
     $slider_needed = false;
     foreach ($ranges as $i => $entry) {
         $id = 'item-' . $i;
-        if (count($entry->images) > 1) {
+        if (count($entry->getImages()) > 1) {
             add_slider_image(
                 "#{$id}",
                 json_encode_wrapper($entry->imagesToData())
@@ -155,15 +174,15 @@ function MakeJewelleryGridDivs(string $content): string
         $divs[] = <<<END_OF_DIV
             <div class="aligncenter jewellery-block">
               <div class="jewellery-picture-container">
-                <a href="{$entry->page_url}">
-                  <img src="{$entry->images[0]->getUrl()}" alt="{$entry->alt}"
-                    width="{$entry->images[0]->getWidthStr()}"
-                    height="{$entry->images[0]->getHeightStr()}"
+                <a href="{$entry->getPageUrl()}">
+                  <img src="{$entry->getImages()[0]->getUrl()}" alt="{$entry->getAlt()}"
+                    width="{$entry->getImages()[0]->getWidthStr()}"
+                    height="{$entry->getImages()[0]->getHeightStr()}"
                     class="aligncenter block" id="{$id}-image"/>
                 </a>
               </div>
               <div class="larger-text text-centered left-right-margin grey">
-                <a href="{$entry->page_url}">{$entry->range}</a>
+                <a href="{$entry->getPageUrl()}">{$entry->getRange()}</a>
               </div>
             </div>
 END_OF_DIV;

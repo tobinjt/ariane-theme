@@ -62,35 +62,30 @@ END_OF_INPUT;
                 'this is the alt text 1',
                 '11',
                 'linky/',
-                7
             ),
             new JewelleryGridEntry(
                 'name of the range 2',
                 'this is the alt text 2',
                 '11',
                 'linky/',
-                8
             ),
             new JewelleryGridEntry(
                 'name of the range 3',
                 'this is the alt text 3',
                 '11',
                 'linky/',
-                9
             ),
             new JewelleryGridEntry(
                 'name of the range 4',
                 'this is the alt text 4',
                 '11',
                 'linky/',
-                -1
             ),
             new JewelleryGridEntry(
                 'name of the range 5',
                 'this is the alt text 5',
                 '11',
                 'linky/',
-                11
             ),
         );
         $actual = ParseJewelleryGridContents($input);
