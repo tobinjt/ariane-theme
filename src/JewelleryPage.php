@@ -116,15 +116,12 @@ END_OF_HTML;
             $full_size_image->getImageId(),
             'thumbnail'
         );
-        $src = $image->getUrl();
-        $name = $jewellery_page->getName();
-        $width = $image->getWidthStr();
-        $height = $image->getHeightStr();
         $html .= <<<END_OF_HTML
-        <li><img src="{$src}"
-                 alt="{$range_in_piece_name}{$name}"
+        <li><img src="{$image->getUrl()}"
+                 alt="{$range_in_piece_name}{$jewellery_page->getName()}"
                  onclick="change_image({$i}, '#individual-jewellery-image')"
-                 width="{$width}" height="{$height}" /> </li>
+                 width="{$image->getWidthStr()}"
+                 height="{$image->getHeightStr()}" /> </li>
 
 END_OF_HTML;
     }

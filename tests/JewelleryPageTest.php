@@ -166,15 +166,18 @@ EXPECTED;
         <li><img src="thumb"
                  alt="name should be set"
                  onclick="change_image(0, '#individual-jewellery-image')"
-                 width="25" height="57" /> </li>
+                 width="25"
+                 height="57" /> </li>
         <li><img src="thumb2"
                  alt="name should be set"
                  onclick="change_image(1, '#individual-jewellery-image')"
-                 width="44" height="80" /> </li>
+                 width="44"
+                 height="80" /> </li>
         <li><img src="thumb3"
                  alt="name should be set"
                  onclick="change_image(2, '#individual-jewellery-image')"
-                 width="51" height="93" /> </li>
+                 width="51"
+                 height="93" /> </li>
       </ul>
     </div>
 
