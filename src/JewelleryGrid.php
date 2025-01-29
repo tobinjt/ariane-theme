@@ -127,12 +127,7 @@ function ParseJewelleryGridContents(string $page_contents): array
         }
         // Line format:
         // * Range name|Image description|Image ID(s)|Link to page|Product ID
-        // * The top-level jewellery page links to ranges rather than products,
-        //   so we can't include purchasing.  We use -1 to indicate that there
-        //   isn't a product to offer, and that's checked for later.
-        if (count($csv_data) < 5) {
-            $csv_data[] = '-1';
-        }
+        // * Product ID is unused.
         $ranges[] = new JewelleryGridEntry(
             strval($csv_data[0]),
             strval($csv_data[1]),
