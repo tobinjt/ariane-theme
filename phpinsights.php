@@ -9,6 +9,7 @@ declare(strict_types=1);
 use NunoMaduro\PhpInsights\Domain\Insights\CyclomaticComplexityIsHigh;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineFunctions;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenGlobals;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\CharacterBeforePHPOpeningTagSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff;
@@ -19,10 +20,6 @@ use SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff;
 return [
 
     'preset' => 'wordpress',
-
-    'exclude' => [
-        'phpinsights.php',
-    ],
 
     'remove' => [
         // keep-sorted start
@@ -47,6 +44,13 @@ return [
     ],
 
     'config' => [
+        LineLengthSniff::class => [
+            'exclude' => [
+                // The lines in phpinsights.php are too long.
+                'phpinsights.php',
+            ],
+
+        ],
         CyclomaticComplexityIsHigh::class => [
             'maxComplexity' => 10,
         ],
