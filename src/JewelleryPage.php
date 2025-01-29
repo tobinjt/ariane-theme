@@ -39,12 +39,8 @@ final class JewelleryPage
             $id_int = intval($id_str);
             $image = new WPImageInfo($id_int, 'product_size');
             $this->images[] = $image;
-            if ($image->getWidthInt() > $this->width_int) {
-                $this->width_int = $image->getWidthInt();
-            }
-            if ($image->getHeightInt() > $this->height_int) {
-                $this->height_int = $image->getHeightInt();
-            }
+            $this->width_int = max($this->width_int, $image->getWidthInt());
+            $this->height_int = max($image->getHeightInt(), $this->height_int);
         }
     }
 
