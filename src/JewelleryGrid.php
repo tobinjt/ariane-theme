@@ -108,7 +108,7 @@ function ParseJewelleryGridContents(string $page_contents): array
         $line = safe_preg_replace('/^<[^<]+>/', '', $line);
         $line = safe_preg_replace('/<[^<]+>$/', '', $line);
         $line = trim($line);
-        if (strpos($line, '#') === 0) {
+        if (strpos($line, '#') === 0 || $line === '') {
             continue;
         }
         // Awful hack to work around wordpress turning 276x300 into 276!300,
@@ -116,11 +116,6 @@ function ParseJewelleryGridContents(string $page_contents): array
         // ARGH.
         $line = safe_preg_replace('/&#215;/', 'x', $line);
         $csv_data = str_getcsv($line, '|', '"', '\\');
-        // Skip blank lines.  The CSV parser will return an array with a single
-        // element when given a blank line.
-        if (count($csv_data) === 1) {
-            continue;
-        }
         // Line format:
         // * Range name|Image description|Image ID(s)|Link to page|Product ID
         // * Product ID is unused.
