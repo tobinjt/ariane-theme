@@ -11,6 +11,11 @@ repos:
       - id: trailing-whitespace
   - repo: local
     hooks:
+      - id: phpinsights
+        name: Run `phpinsights`
+        language: system
+        types: [php]
+        entry: run-if-exists phpinsights --no-interaction -vv --quiet --min-architecture=100 --min-style=100 --min-complexity=90 --min-quality=100 analyse
       - id: phplint
         name: Run `php -l`
         language: script
