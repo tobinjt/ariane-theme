@@ -80,7 +80,6 @@ final class JewelleryPage
     public function imagesToData(): array
     {
         // This needs to stay compatible with slider.js.
-        /*. array[int]mixed .*/
         $data = [];
         foreach ($this->images as $image) {
             $data[] = $image->imageToData();

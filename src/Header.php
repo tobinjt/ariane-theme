@@ -65,7 +65,7 @@ function links_to_html(
     int $indent
 ): string {
     $spaces = str_repeat(' ', $indent);
-    /*. array[int]string .*/ $output = [];
+    $output = [];
     foreach ($links as $url => $text) {
         if ($url === $url_to_highlight) {
             $extra_class = ' class="' . $highlight_class . '"';
@@ -159,7 +159,7 @@ function pick_url_to_highlight(array $groups, string $default_url): string
 function make_link_group(array $groups, string $default_url): string
 {
     $url_to_highlight = pick_url_to_highlight($groups, $default_url);
-    /*. array[int]string .*/ $output = [];
+    $output = [];
     foreach ($groups as $cls => $links) {
         $html_links = links_to_html($links, $url_to_highlight, 'highlight', 8);
         $output[] = wrap_with_tag('span', $cls, $html_links, 6);
@@ -260,9 +260,9 @@ function make_full_menu_bar(): string
     ];
     $icon_links = [];
     $icon_links['https://www.facebook.com/ArianeTobinJewellery']
-      = make_icon_link('facebook.png', 'Facebook icon', 20, 20);
+        = make_icon_link('facebook.png', 'Facebook icon', 20, 20);
     $icon_links['https://www.instagram.com/arianetobin/']
-      = make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20);
+        = make_icon_link('instagram-icon.jpg', 'Instagram icon', 20, 20);
     $output .= make_menu_bar(
         [
             make_link_group(

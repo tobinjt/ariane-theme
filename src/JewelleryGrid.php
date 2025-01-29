@@ -99,7 +99,6 @@ function safe_preg_replace(
 function ParseJewelleryGridContents(string $page_contents): array
 {
     $lines = str_getcsv($page_contents, "\n", '"', '\\');
-    /*. array[int]JewelleryGridEntry .*/
     $ranges = [];
     foreach ($lines as $line) {
         $line = trim(strval($line));
@@ -145,7 +144,6 @@ function MakeJewelleryGridDivs(string $content): string
 {
     $ranges = ParseJewelleryGridContents($content);
     // Turn the data structure into <divs>s.
-    /*. array[int]string .*/
     $divs = [];
     $slider_needed = false;
     foreach ($ranges as $i => $entry) {
@@ -203,7 +201,6 @@ function JewelleryGridShortcode(
 ): string {
     unused($tag);
     $attrs = shortcode_atts(['description' => ''], $atts);
-    /*. array[int]string .*/
     $html = [];
     $html[] = <<<'END_OF_HTML'
         <div class="jewellery-grid">

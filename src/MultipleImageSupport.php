@@ -66,9 +66,9 @@ function SliderImages(): array
             's' => 'slider',
         ]
     );
-    /*. array[int][string]string .*/ $images = [];
+    $images = [];
     foreach ($media_query->posts as $post) {
-        /*. array[int]mixed .*/ $matches = [];
+        $matches = [];
         if (preg_match(
             '/^\\s*slider\\s+([^ ]+)\\s*$/',
             $post->post_content,
