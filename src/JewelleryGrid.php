@@ -75,8 +75,7 @@ final class JewelleryGridEntry
 }
 
 // Return the original string if an error occurs.  Unlikely to happen in
-// practice, but PHPStan warns about it.  I cannot find any way to force
-// preg_replace to return null, so that branch is untested :(
+// practice, but PHPStan warns about it.
 function safe_preg_replace(
     string $pattern,
     string $replacement,
