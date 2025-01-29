@@ -48,7 +48,7 @@ function add_change_image(string $id, string $json): void
     $GLOBALS['CHANGE_IMAGES'][$id] = $json;
 }
 
-/* SliderImages: Dynamically build the Javascript array of images when
+/* SliderImages: Dynamically build the JavaScript array of images when
  * displaying the slider.
  * Returns:
  *  array of image information, needs to be passed to json_encode().
@@ -104,7 +104,7 @@ function SliderSetupGeneric(): void
 {
     $template_directory = get_bloginfo('template_directory');
     $output = <<<END_OF_JAVASCRIPT
-<!-- Include necessary Javascript. -->
+<!-- Include necessary JavaScript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
   id="jquery-core-js"></script>
 <script type="text/javascript" src="{$template_directory}/slider.js"></script>
@@ -162,7 +162,7 @@ function FrontPageSliderSetup(array $images): string
 END_OF_HTML;
 }
 
-/* ChangeImagesSetupGeneric: output the Javascript needed to set up changing
+/* ChangeImagesSetupGeneric: output the JavaScript needed to set up changing
  * of images by clicking on thumbnails, including the images.  Should be
  * called indirectly by Wordpress, by registering it with:
  * add_action('wp_footer', 'ChangeImagesSetupGeneric');
@@ -176,7 +176,7 @@ function ChangeImagesSetupGeneric(): void
     $images_json = json_encode_wrapper($images);
 
     $output = <<<END_OF_JAVASCRIPT
-<!-- Include necessary Javascript. -->
+<!-- Include necessary JavaScript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
   id="jquery-core-js"></script>
 <!-- Start of ChangeImages. -->

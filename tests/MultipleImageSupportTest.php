@@ -66,7 +66,7 @@ class MultipleImageSupportTest extends TestCase
         add_change_image('foo', json_encode_wrapper(array(array('src' => 'URL1', 'width' => 50, 'height' => 70))));
         add_change_image('bar', json_encode_wrapper(array(array('src' => 'URL2', 'width' => 500, 'height' => 700))));
         $expected = <<<'END_OF_OUTPUT'
-<!-- Include necessary Javascript. -->
+<!-- Include necessary JavaScript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
   id="jquery-core-js"></script>
 <!-- Start of ChangeImages. -->
@@ -97,7 +97,7 @@ END_OF_OUTPUT;
         add_slider_image('#bar', json_encode_wrapper(array(array('src' => 'URL2', 'width' => 500, 'height' => 700))));
         $_SERVER['SERVER_NAME'] = 'dev.arianetobin.ie';
         $expected = <<<'END_OF_OUTPUT'
-<!-- Include necessary Javascript. -->
+<!-- Include necessary JavaScript. -->
 <script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js"
   id="jquery-core-js"></script>
 <script type="text/javascript" src="DIR/slider.js"></script>

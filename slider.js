@@ -1,6 +1,6 @@
 // @flow
 'use strict';
-// Javascript implementing the slider functionality.
+// JavaScript implementing the slider functionality.
 // Flow of control:
 // 1) Slider.initialise(images, id_prefix) is called, which sets up everything,
 //    including displaying the first image and preloading the next image.

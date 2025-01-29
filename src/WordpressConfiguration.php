@@ -6,7 +6,7 @@ declare(strict_types=1);
  * that just call Wordpress functions because they aren't really testable.
  */
 
-/* Remove the version strings from CSS and Javascript to improve browser
+/* Remove the version strings from CSS and JavaScript to improve browser
    caching.  Found by searching for "wordpress remove query strings from
    static resources".
    Args:
@@ -63,7 +63,7 @@ function MaybeRemoveCookieLawInfoFromHead(): void
     if (! ShouldRemoveCookieLawInfo()) {
         return;
     }
-    // Remove the Javascript and CSS.  There will still be some Javascript
+    // Remove the JavaScript and CSS.  There will still be some Javascript
     // output directly in the page with the plugin settings, don't worry about
     // that.
     // To figure out the correct strings in future, add this at the end of

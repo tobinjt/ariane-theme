@@ -24,7 +24,7 @@ function get_title(): string
     return $result . get_bloginfo('name');
 }
 
-/* get_google_analytics_code: returns the Jvascript code for Google Analytics,
+/* get_google_analytics_code: returns the JavaScript code for Google Analytics,
  * depending on the hostname.
  */
 function get_google_analytics_code(): string
