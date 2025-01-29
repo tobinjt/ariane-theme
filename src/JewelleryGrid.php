@@ -32,10 +32,7 @@ final class JewelleryGridEntry
 
         $ids = explode(',', $image_ids);
         foreach ($ids as $id_str) {
-            $id_int = intval($id_str);
-            if ($id_int !== -1) {
-                $this->images[] = new WPImageInfo($id_int, 'grid_size');
-            }
+            $this->images[] = new WPImageInfo(intval($id_str), 'grid_size');
         }
     }
 
