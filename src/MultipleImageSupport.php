@@ -76,6 +76,8 @@ function SliderImages(): array
         ) === 1) {
             $image_large = new WPImageInfo($post->ID, 'slider_large');
             $image_small = new WPImageInfo($post->ID, 'slider_small');
+            // These intermediate variables are used to keep the srcset line
+            // manageable.
             $l_url = $image_large->getUrl();
             $l_w_w = $image_large->getWidthStr() . 'w';
             $l_w_px = $image_large->getWidthStr() . 'px';
@@ -145,20 +147,15 @@ function FrontPageSliderSetup(array $images): string
 {
     add_action('wp_footer', 'SliderSetupGeneric');
     add_slider_image('#slider', json_encode_wrapper($images));
-    $image = $images[0];
-    $href = $image['href'];
-    $src = $image['src'];
-    $srcset = $image['srcset'];
-    $sizes = $image['sizes'];
     return <<<END_OF_HTML
 <div id="slider-div" class="aligncenter">
-  <a href="{$href}" id="slider-link"
+  <a href="{$images[0]['href']}" id="slider-link"
     alt="Selection of Ariane's best work">
-    <img id="slider-image" src="{$src}"
+    <img id="slider-image" src="{$images[0]['src']}"
       class="block aligncenter"
       alt="Selection of Ariane's best work"
-      srcset="{$srcset}"
-      sizes="{$sizes}" />
+      srcset="{$images[0]['srcset']}"
+      sizes="{$images[0]['sizes']}" />
   </a>
 </div>
 
