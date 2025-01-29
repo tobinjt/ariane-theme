@@ -32,8 +32,7 @@ final class JewelleryPage
 
         $ids = explode(',', $image_ids);
         foreach ($ids as $id_str) {
-            $id_int = intval($id_str);
-            $image = new WPImageInfo($id_int, 'product_size');
+            $image = new WPImageInfo(intval($id_str), 'product_size');
             $this->images[] = $image;
             $this->width_int = max($this->width_int, $image->getWidthInt());
             $this->height_int = max($image->getHeightInt(), $this->height_int);
@@ -80,11 +79,12 @@ final class JewelleryPage
     public function imagesToData(): array
     {
         // This needs to stay compatible with slider.js.
-        $data = [];
-        foreach ($this->images as $image) {
-            $data[] = $image->imageToData();
-        }
-        return $data;
+        return array_map(
+            static function (WPImageInfo $image) {
+                return $image->imageToData();
+            },
+            $this->images
+        );
     }
 }
 

@@ -62,11 +62,12 @@ final class JewelleryGridEntry
     public function imagesToData(): array
     {
         // This needs to stay compatible with slider.js.
-        $data = [];
-        foreach ($this->images as $image) {
-            $data[] = $image->imageToData();
-        }
-        return $data;
+        return array_map(
+            static function (WPImageInfo $image) {
+                return $image->imageToData();
+            },
+            $this->images
+        );
     }
 }
 
