@@ -26,13 +26,9 @@ final class JewelleryPage
     ) {
         $this->name = $name;
         $this->range = $range;
-        $this->type = $type;
-        $this->images = [];
-
         // Change "necklace" to "necklaces".
-        if (substr($this->type, -1) !== 's') {
-            $this->type .= 's';
-        }
+        $this->type = maybe_append_char($type, 's');
+        $this->images = [];
 
         $ids = explode(',', $image_ids);
         foreach ($ids as $id_str) {

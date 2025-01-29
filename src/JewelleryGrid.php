@@ -23,12 +23,8 @@ final class JewelleryGridEntry
     ) {
         $this->range = $range;
         $this->alt = $alt;
-        $this->page_url = $page_url;
+        $this->page_url = maybe_append_char($page_url, '/');
         $this->images = [];
-
-        if (substr($this->page_url, -1) !== '/') {
-            $this->page_url .= '/';
-        }
 
         $ids = explode(',', $image_ids);
         foreach ($ids as $id_str) {

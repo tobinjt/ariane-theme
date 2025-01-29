@@ -24,3 +24,11 @@ function unused(string $arg): string
     }
     return 'unused, short arg';
 }
+
+function maybe_append_char(string $str, string $char): string
+{
+    if (substr($str, -1) !== $char) {
+        return $str . $char;
+    }
+    return $str;
+}
