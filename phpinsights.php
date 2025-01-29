@@ -51,7 +51,7 @@ return [
             ],
         ],
         CyclomaticComplexityIsHigh::class => [
-            'maxComplexity' => 6,
+            'maxComplexity' => 2,
         ],
         ForbiddenPublicPropertySniff::class => [
             'exclude' => [

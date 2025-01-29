@@ -3,5 +3,5 @@
 set -e -f -u -o pipefail
 
 run-if-exists ./vendor/bin/phpinsights --no-interaction -vv \
-  --min-architecture=100 --min-style=100 --min-complexity=90 --min-quality=100 \
+  --min-architecture=100 --min-style=100 --min-complexity=96 --min-quality=100 \
   analyse "$@"
