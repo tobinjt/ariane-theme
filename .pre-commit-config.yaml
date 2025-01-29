@@ -13,9 +13,10 @@ repos:
     hooks:
       - id: phpinsights
         name: Run `phpinsights`
-        language: system
+        language: script
+        pass_filenames: false
         types: [php]
-        entry: run-if-exists phpinsights --no-interaction -vv --quiet --min-architecture=100 --min-style=100 --min-complexity=90 --min-quality=100 analyse
+        entry: phpinsights-pre-commit --quiet
       - id: phplint
         name: Run `php -l`
         language: script
