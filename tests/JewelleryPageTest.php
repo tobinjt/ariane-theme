@@ -204,26 +204,4 @@ EXPECTED;
 EXPECTED;
         $this->assertEquals($expected, $content);
     }
-
-    public function test_skipped_images(): void
-    {
-        clear_change_images();
-        $attrs = $this->get_attrs();
-        $attrs['image_id'] = '3,-1,37';
-        $attrs['product_id'] = '7';
-        $attrs['range'] = 'singles';  // Test that range isn't included for singles.
-        expect_add_action('wp_footer', 'ChangeImagesSetupGeneric');
-        add_image_info(3, 'product_size', array('URL', 23, 59));
-        add_image_info(37, 'product_size', array('URL3', 47, 97));
-        add_image_info(3, 'thumbnail', array('thumb', 25, 57));
-        add_image_info(37, 'thumbnail', array('thumb3', 51, 93));
-        JewelleryPageShortcode($attrs, '<br /> asdf', '');
-        $expected_array = [
-            '#individual-jewellery-image' => json_encode_wrapper([
-                ['src' => 'URL', 'width' => 23, 'height' => 59],
-                ['src' => 'URL3', 'width' => 47, 'height' => 97],
-            ]),
-        ];
-        $this->assertEquals($expected_array, get_change_images());
-    }
 }

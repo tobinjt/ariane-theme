@@ -37,10 +37,6 @@ final class JewelleryPage
         $ids = explode(',', $image_ids);
         foreach ($ids as $id_str) {
             $id_int = intval($id_str);
-            if ($id_int === -1) {
-                // Skip this, it's not a real image ID.  Mostly used in testing.
-                continue;
-            }
             $image = new WPImageInfo($id_int, 'product_size');
             $this->images[] = $image;
             if ($image->getWidthInt() > $this->width_int) {
