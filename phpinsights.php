@@ -23,8 +23,6 @@ return [
 
     'remove' => [
         // keep-sorted start
-        // This reports every time you interleave code and HTML.
-        CharacterBeforePHPOpeningTagSniff::class,
         // Requires classes to be inside a namespace, which doesn't work for the
         // fake WordPress classes.
         ClassDeclarationSniff::class,
@@ -34,16 +32,38 @@ return [
         // I've reduced globals as much as possible, but I can't see a way to
         // remove the remaining ones.
         ForbiddenGlobals::class,
-        // The fake Wordpress classes used in testing must use public
-        // properties rather than getters.
-        ForbiddenPublicPropertySniff::class,
-        // The fake Wordpress classes used in testing must use the same names as
-        // the real classes.
-        ValidClassNameSniff::class,
         // keep-sorted end
     ],
 
     'config' => [
+        // keep-sorted start block=yes
+        CharacterBeforePHPOpeningTagSniff::class => [
+            'exclude' => [
+                // This reports every time you interleave code and HTML.
+                // keep-sorted start
+                '404.php',
+                'footer.php',
+                'header.php',
+                'index.php',
+                'nav.php',
+                'page.php',
+                // keep-sorted end
+            ],
+        ],
+        CyclomaticComplexityIsHigh::class => [
+            'maxComplexity' => 10,
+        ],
+        ForbiddenPublicPropertySniff::class => [
+            'exclude' => [
+                // The fake Wordpress classes used in testing must use public
+                // properties rather than getters.
+                'src/FakeWP_Post.php',
+                'src/FakeWP_Query.php',
+            ],
+        ],
+        FunctionLengthSniff::class => [
+            'maxLinesLength' => 65,
+        ],
         LineLengthSniff::class => [
             'exclude' => [
                 // The lines in phpinsights.php are too long.
@@ -51,11 +71,16 @@ return [
             ],
 
         ],
-        CyclomaticComplexityIsHigh::class => [
-            'maxComplexity' => 10,
+        ValidClassNameSniff::class => [
+            'exclude' => [
+                // The fake Wordpress classes used in testing must use the same names as
+                // the real classes.
+                // keep-sorted start
+                'WP_Post',
+                'WP_Query',
+                // keep-sorted end
+            ],
         ],
-        FunctionLengthSniff::class => [
-            'maxLinesLength' => 65,
-        ],
+        // keep-sorted end
     ],
 ];
