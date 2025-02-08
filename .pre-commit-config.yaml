@@ -52,6 +52,6 @@ repos:
         stages: [commit-msg]
         args: [--verbose]
   - repo: https://github.com/google/keep-sorted
-    rev: v0.5.1
+    rev: v0.6.0
     hooks:
       - id: keep-sorted
