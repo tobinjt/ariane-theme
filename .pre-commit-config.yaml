@@ -34,13 +34,6 @@ repos:
         types: [php]
         pass_filenames: false
         entry: phpunit-pre-commit
-      - id: check_website_resources
-        name: Checks for check_website_resources configs.
-        description: Check that dev and www configs are in sync.
-        language: script
-        files: check_website_resources.*.json
-        pass_filenames: false
-        entry: check_website_resources-pre-commit
   - repo: meta
     hooks:
       - id: check-hooks-apply
