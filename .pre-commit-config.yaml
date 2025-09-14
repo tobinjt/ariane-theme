@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -45,6 +45,6 @@ repos:
         stages: [commit-msg]
         args: [--verbose]
   - repo: https://github.com/google/keep-sorted
-    rev: v0.6.1
+    rev: v0.7.1
     hooks:
       - id: keep-sorted
