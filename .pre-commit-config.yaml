@@ -1,12 +1,61 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+  # managed-by-populate-pre-commit start: conventional-pre-commit.yaml
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+    hooks:
+    - id: conventional-pre-commit
+      stages:
+      - commit-msg
+      args:
+      - --verbose
+  # managed-by-populate-pre-commit end: conventional-pre-commit.yaml
+  # managed-by-populate-pre-commit start: keep-sorted.yaml
+  - repo: https://github.com/google/keep-sorted
+    rev: v0.8.0
+    hooks:
+    - id: keep-sorted
+  # managed-by-populate-pre-commit end: keep-sorted.yaml
+  # managed-by-populate-pre-commit start: local-markdownlint.yaml
+  - repo: local
+    hooks:
+    - id: markdownlint
+      name: Run `markdownlint`
+      language: system
+      types:
+      - markdown
+      entry: markdownlint
+  # managed-by-populate-pre-commit end: local-markdownlint.yaml
+  # managed-by-populate-pre-commit start: local-spellcheck.yaml
+  - repo: local
+    hooks:
+    - id: spellcheck
+      stages:
+      - commit-msg
+      name: Check spelling
+      language: system
+      verbose: true
+      entry: spell-check-wrapper
+  # managed-by-populate-pre-commit end: local-spellcheck.yaml
+  # managed-by-populate-pre-commit start: meta.yaml
+  - repo: meta
+    hooks:
+    - id: check-hooks-apply
+    - id: check-useless-excludes
+  # managed-by-populate-pre-commit end: meta.yaml
+  # managed-by-populate-pre-commit start: pre-commit-hooks.yaml
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+    - id: check-case-conflict
+    - id: check-merge-conflict
+    - id: check-vcs-permalinks
+  # managed-by-populate-pre-commit end: pre-commit-hooks.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: check-json
-      - id: check-merge-conflict
-      - id: check-vcs-permalinks
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: local
@@ -34,17 +83,3 @@ repos:
         types: [php]
         pass_filenames: false
         entry: phpunit-pre-commit
-  - repo: meta
-    hooks:
-      - id: check-hooks-apply
-      - id: check-useless-excludes
-  - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.4.0
-    hooks:
-      - id: conventional-pre-commit
-        stages: [commit-msg]
-        args: [--verbose]
-  - repo: https://github.com/google/keep-sorted
-    rev: v0.8.0
-    hooks:
-      - id: keep-sorted
