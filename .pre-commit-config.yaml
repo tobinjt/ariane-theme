@@ -1,3 +1,4 @@
+#!/usr/bin/env -S "populate_pre_commit"
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
@@ -11,13 +12,21 @@ repos:
       args:
       - --verbose
   # managed-by-populate-pre-commit end: conventional-pre-commit.yaml
+  # managed-by-populate-pre-commit start: hooks.yaml
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+    - id: check-case-conflict
+    - id: check-merge-conflict
+    - id: check-vcs-permalinks
+  # managed-by-populate-pre-commit end: hooks.yaml
   # managed-by-populate-pre-commit start: keep-sorted.yaml
   - repo: https://github.com/google/keep-sorted
     rev: v0.8.0
     hooks:
     - id: keep-sorted
   # managed-by-populate-pre-commit end: keep-sorted.yaml
-  # managed-by-populate-pre-commit start: local-markdownlint.yaml
+  # managed-by-populate-pre-commit start: markdownlint.yaml
   - repo: local
     hooks:
     - id: markdownlint
@@ -25,9 +34,15 @@ repos:
       language: system
       types:
       - markdown
+      exclude: CODE_OF_CONDUCT.md
       entry: markdownlint
-  # managed-by-populate-pre-commit end: local-markdownlint.yaml
-  # managed-by-populate-pre-commit start: local-spellcheck.yaml
+  # managed-by-populate-pre-commit end: markdownlint.yaml
+  # managed-by-populate-pre-commit start: meta.yaml
+  - repo: meta
+    hooks:
+    - id: check-hooks-apply
+  # managed-by-populate-pre-commit end: meta.yaml
+  # managed-by-populate-pre-commit start: spellcheck.yaml
   - repo: local
     hooks:
     - id: spellcheck
@@ -37,21 +52,7 @@ repos:
       language: system
       verbose: true
       entry: spell-check-wrapper
-  # managed-by-populate-pre-commit end: local-spellcheck.yaml
-  # managed-by-populate-pre-commit start: meta.yaml
-  - repo: meta
-    hooks:
-    - id: check-hooks-apply
-    - id: check-useless-excludes
-  # managed-by-populate-pre-commit end: meta.yaml
-  # managed-by-populate-pre-commit start: pre-commit-hooks.yaml
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
-    hooks:
-    - id: check-case-conflict
-    - id: check-merge-conflict
-    - id: check-vcs-permalinks
-  # managed-by-populate-pre-commit end: pre-commit-hooks.yaml
+  # managed-by-populate-pre-commit end: spellcheck.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
