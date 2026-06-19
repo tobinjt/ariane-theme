@@ -1,5 +1,21 @@
 # Some documentation for myself
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [How do I update dependencies?](#how-do-i-update-dependencies)
+- [How do I set the banner message?](#how-do-i-set-the-banner-message)
+- [How are images included in the slider?](#how-are-images-included-in-the-slider)
+- [How do I find attachment ids?](#how-do-i-find-attachment-ids)
+- [How do I add a new product?](#how-do-i-add-a-new-product)
+- [How do I add a new range?](#how-do-i-add-a-new-range)
+- [How do I rename a product?](#how-do-i-rename-a-product)
+- [What references fonts.googleapis.com/css?](#what-references-fontsgoogleapiscomcss)
+- [How do I clear the mod_pagespeed cache?](#how-do-i-clear-the-mod_pagespeed-cache)
+- [Favicon stuff](#favicon-stuff)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## How do I update dependencies?
 
 This is untested.

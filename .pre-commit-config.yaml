@@ -59,6 +59,18 @@ repos:
     hooks:
     - id: check-hooks-apply
   # managed-by-populate-pre-commit end: meta.yaml
+  # managed-by-populate-pre-commit start: readme-toc.yaml
+  - repo: https://github.com/thlorenz/doctoc
+    rev: v2.5.0
+    hooks:
+    - id: doctoc
+      files: README.md
+      args:
+      - --notitle
+      - --minlevel=2
+      - --mintocitems=3
+      - --github
+  # managed-by-populate-pre-commit end: readme-toc.yaml
   # managed-by-populate-pre-commit start: shellcheck.yaml
   - repo: local
     hooks:
