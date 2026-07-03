@@ -17,12 +17,11 @@ function json_encode_wrapper(array $data): string
     return $result;
 }
 
-function unused(string $arg): string
+function unused(string $arg): void
 {
     if (strlen($arg) > 1) {
-        return 'unused, long arg';
+        $arg = maybe_append_char($arg, 'a');
     }
-    return 'unused, short arg';
 }
 
 function maybe_append_char(string $str, string $char): string
