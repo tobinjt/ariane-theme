@@ -54,23 +54,22 @@ repos:
       exclude: CODE_OF_CONDUCT.md
       entry: markdownlint
   # managed-by-populate-pre-commit end: markdownlint.yaml
+  # managed-by-populate-pre-commit start: mdformat.yaml
+  - repo: local
+    hooks:
+    - id: mdformat
+      name: Run `mdformat`
+      language: system
+      types:
+      - markdown
+      exclude: CODE_OF_CONDUCT.md
+      entry: mdformat
+  # managed-by-populate-pre-commit end: mdformat.yaml
   # managed-by-populate-pre-commit start: meta.yaml
   - repo: meta
     hooks:
     - id: check-hooks-apply
   # managed-by-populate-pre-commit end: meta.yaml
-  # managed-by-populate-pre-commit start: readme-toc.yaml
-  - repo: https://github.com/thlorenz/doctoc
-    rev: v2.5.0
-    hooks:
-    - id: doctoc
-      files: README.md
-      args:
-      - --notitle
-      - --minlevel=2
-      - --mintocitems=3
-      - --github
-  # managed-by-populate-pre-commit end: readme-toc.yaml
   # managed-by-populate-pre-commit start: shellcheck.yaml
   - repo: local
     hooks:
