@@ -1,0 +1,38 @@
+#!/usr/bin/env -S "make_github_workflows"
+version: 2
+updates:
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    exclude-paths:
+      - .github/workflows/release.yml
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: pre-commit
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      pre-commit:
+        patterns:
+          - '*'
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      php-dependencies:
+        patterns:
+          - '*'
+    cooldown:
+      default-days: 7

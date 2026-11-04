@@ -1,95 +1,143 @@
 #!/usr/bin/env -S "populate_pre_commit"
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+
+# managed-by-populate-pre-commit start: header
+# Install all the hook types I use rather than just pre-commit.
+default_install_hook_types: [pre-commit, pre-push, commit-msg]
+
+# https://prek.j178.dev/benchmark/?h=priority#3-priority
+priorities:
+    generator: 10
+    formatter: 20
+    formatter-late: 25
+    linter: 30
+    tests: 40
+    coverage: 50
+# managed-by-populate-pre-commit end: header
+
 repos:
-  # managed-by-populate-pre-commit start: conventional-pre-commit.yaml
+  # managed-by-populate-pre-commit start: actionlint.yaml
+  - repo: local
+    hooks:
+    - id: actionlint
+      name: Run `actionlint`
+      priority: linter
+      language: system
+      types:
+      - yaml
+      exclude: dependabot.yml|.*.yaml$
+      entry: actionlint
+  # managed-by-populate-pre-commit end: actionlint.yaml
+  # managed-by-populate-pre-commit start: always_enabled.yaml
+  - repo: meta
+    hooks:
+    - id: check-hooks-apply
+      priority: linter
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:
     - id: conventional-pre-commit
+      priority: linter
       stages:
       - commit-msg
       args:
       - --verbose
-  # managed-by-populate-pre-commit end: conventional-pre-commit.yaml
-  # managed-by-populate-pre-commit start: hooks.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
     - id: check-case-conflict
+      priority: linter
     - id: check-executables-have-shebangs
+      priority: linter
     - id: check-illegal-windows-names
+      priority: linter
     - id: check-merge-conflict
+      priority: linter
     - id: check-vcs-permalinks
+      priority: linter
     - id: check-yaml
+      priority: linter
     - id: destroyed-symlinks
+      priority: linter
     - id: fix-byte-order-marker
+      priority: linter
     - id: mixed-line-ending
-  # managed-by-populate-pre-commit end: hooks.yaml
-  # managed-by-populate-pre-commit start: json.yaml
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
-    hooks:
-    - id: check-json
-      exclude: ^\.vscode/settings\.json|package-lock\.json$
-    - id: pretty-format-json
-      exclude: ^\.vscode/settings\.json|package-lock\.json$
-      args:
-      - --autofix
-  # managed-by-populate-pre-commit end: json.yaml
-  # managed-by-populate-pre-commit start: keep-sorted.yaml
-  - repo: https://github.com/google/keep-sorted
-    rev: v0.10.0
-    hooks:
-    - id: keep-sorted
-  # managed-by-populate-pre-commit end: keep-sorted.yaml
-  # managed-by-populate-pre-commit start: markdownlint.yaml
+      priority: linter
   - repo: local
     hooks:
-    - id: markdownlint
-      name: Run `markdownlint`
+    - id: make_github_workflows
+      name: Run `make_github_workflows`
+      priority: generator
       language: system
-      types:
-      - markdown
-      exclude: CODE_OF_CONDUCT.md
-      entry: markdownlint
-  # managed-by-populate-pre-commit end: markdownlint.yaml
-  # managed-by-populate-pre-commit start: mermaid.yaml
+      always_run: true
+      pass_filenames: false
+      entry: env ./.github/dependabot.yml
   - repo: local
     hooks:
-    - id: mermaid-pre-commit
-      name: Run `mermaid-pre-commit`
+    - id: populate_pre_commit
+      name: Run `populate_pre_commit`
+      priority: generator
       language: system
-      types:
-      - markdown
-      entry: mermaid-pre-commit
-  # managed-by-populate-pre-commit end: mermaid.yaml
-  # managed-by-populate-pre-commit start: meta.yaml
-  - repo: meta
-    hooks:
-    - id: check-hooks-apply
-  # managed-by-populate-pre-commit end: meta.yaml
-  # managed-by-populate-pre-commit start: shellcheck.yaml
-  - repo: local
-    hooks:
-    - id: shellcheck
-      name: Run `shellcheck`
-      language: system
-      types:
-      - shell
-      entry: shellcheck -e SC1090 -e SC1091
-  # managed-by-populate-pre-commit end: shellcheck.yaml
-  # managed-by-populate-pre-commit start: spellcheck.yaml
+      always_run: true
+      pass_filenames: false
+      entry: env ./.pre-commit-config.yaml
   - repo: local
     hooks:
     - id: spellcheck
       stages:
       - commit-msg
       name: Check spelling
+      priority: linter
       language: system
       verbose: true
       entry: spell-check-wrapper
-  # managed-by-populate-pre-commit end: spellcheck.yaml
+  # managed-by-populate-pre-commit end: always_enabled.yaml
+  # managed-by-populate-pre-commit start: json.yaml
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+    - id: check-json
+      priority: linter
+      exclude: ^\.vscode/settings\.json|package-lock\.json$
+    - id: pretty-format-json
+      priority: formatter
+      exclude: ^\.vscode/settings\.json|package-lock\.json$
+      args:
+      - --autofix
+  # managed-by-populate-pre-commit end: json.yaml
+  # managed-by-populate-pre-commit start: markdown.yaml
+  - repo: local
+    hooks:
+    - id: markdownlint
+      name: Run `markdownlint`
+      priority: linter
+      language: system
+      types:
+      - markdown
+      exclude: CODE_OF_CONDUCT.md
+      entry: markdownlint
+  - repo: local
+    hooks:
+    - id: mermaid-pre-commit
+      name: Run `mermaid-pre-commit`
+      priority: linter
+      language: system
+      types:
+      - markdown
+      entry: mermaid-pre-commit
+  # managed-by-populate-pre-commit end: markdown.yaml
+  # managed-by-populate-pre-commit start: shellcheck.yaml
+  - repo: local
+    hooks:
+    - id: shellcheck
+      name: Run `shellcheck`
+      priority: linter
+      language: system
+      types:
+      - shell
+      entry: shellcheck -e SC1090 -e SC1091
+  # managed-by-populate-pre-commit end: shellcheck.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
